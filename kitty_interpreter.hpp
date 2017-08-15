@@ -7,7 +7,7 @@
 
 #include <cctype>
 #include <map>
-#include <queue>
+#include <deque>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -24,7 +24,7 @@ namespace kitty {
 
 using std::istringstream;
 using std::map;
-using std::queue;
+using std::deque;
 using std::string;
 using std::vector;
 
@@ -34,10 +34,9 @@ public:
     kitty_interpreter() {}
 
     void execute(string const & input) {
-        actionQueue_.push(make_pair_(input, false));
-        while (!actionQueue_.empty()) {
+        actionDeque_.push_back(make_pair_(input, false));
+        while (!actionDeque_.empty()) {
             parse_and_execute_single_action_();
-            actionQueue_.pop();
         }
     }
 
@@ -56,13 +55,14 @@ private:
     map<string, kitty_variable> variables_;
     map<string, vector<string>> actionGroups_;
     map<string, pair_<string, vector<string>>> actionIfGroups_;
-    queue<pair_<string, bool>> actionQueue_;
+    deque<pair_<string, bool>> actionDeque_;
 
     void parse_and_execute_single_action_() {
-        string action = actionQueue_.front().first;
-        if (actionQueue_.front().second) {
+        string action = actionDeque_.front().first;
+        if (actionDeque_.front().second) {
             //Serial.println((string("") + "Running >>>" + action + "<<<").c_str());
         }
+        actionDeque_.pop_front();        
         MatchState matchState;
         char result;
         matchState.Target(action.c_str());
@@ -258,7 +258,7 @@ private:
             return make_pair_(true, variables_[varName].get_value());
         }
         // Single digit subexpression
-        else if (matchState.Match("^%(*(%d+)%)*$")) {
+        else if (matchState.Match("^%(*(%-?%d+)%)*$")) {
             //Serial.println("Single digit subexpression");
             return make_pair_(true, to_int_(string(matchState.capture[0].init, matchState.capture[0].len)));
         }
@@ -571,13 +571,13 @@ private:
     void run_group_(MatchState const & matchState) {
         auto groupName = string(matchState.capture[0].init, matchState.capture[0].len);
         if (find_action_group_(groupName)) {
-            for (auto const & action : actionGroups_[groupName]) {
-                actionQueue_.push(make_pair_(action, true));
+            for (auto it = actionGroups_[groupName].rbegin(); it != actionGroups_[groupName].rend(); ++it) {
+                actionDeque_.push_front(make_pair_(*it, true));
             }
         } else if (find_action_if_group_(groupName)) {
             if (evaluate_if_condition_(actionIfGroups_[groupName].first)) {
-                for (auto const & action : actionIfGroups_[groupName].second) {
-                    actionQueue_.push(make_pair_(action, true));
+                for (auto it = actionIfGroups_[groupName].second.rbegin(); it != actionIfGroups_[groupName].second.rend(); ++it) {
+                    actionDeque_.push_front(make_pair_(*it, true));
                 }
             }
         } else {
