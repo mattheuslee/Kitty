@@ -5,6 +5,7 @@
 
 #define KITTY_VARIABLE_TYPE_INT_ 0
 #define KITTY_VARIABLE_TYPE_DEVICE_SERVO_ 10
+#define KITTY_VARIABLE_TYPE_DEVICE_LED_ 11
 #define KITTY_VARIABLE_TYPE_DEVICE_SONAR_ 20
 
 #include <StandardCplusplus.h>
@@ -12,6 +13,7 @@
 #include <string>
 
 #include <kitty_int.hpp>
+#include <kitty_led.hpp>
 #include <kitty_servo.hpp>
 #include <kitty_sonar.hpp>
 
@@ -39,6 +41,11 @@ public:
         varType_ = KITTY_VARIABLE_TYPE_DEVICE_SERVO_;
     }
 
+    void set(kitty_led const & led) {
+        led_ = led;
+        varType_ = KITTY_VARIABLE_TYPE_DEVICE_LED_;
+    }
+
     void set(kitty_sonar const & sonar) {
         sonar_ = sonar;
         varType_ = KITTY_VARIABLE_TYPE_DEVICE_SONAR_;
@@ -50,6 +57,8 @@ public:
             return intVar_.str();
         case KITTY_VARIABLE_TYPE_DEVICE_SERVO_:
             return servo_.str();
+        case KITTY_VARIABLE_TYPE_DEVICE_LED_:
+            return led_.str();
         case KITTY_VARIABLE_TYPE_DEVICE_SONAR_:
             return sonar_.str();
         default:
@@ -69,6 +78,8 @@ public:
     bool is_mover() {
         switch (varType_) {
         case KITTY_VARIABLE_TYPE_DEVICE_SERVO_:
+            return true;
+        case KITTY_VARIABLE_TYPE_DEVICE_LED_:
             return true;
         default:
             return false;
@@ -107,6 +118,9 @@ public:
         case KITTY_VARIABLE_TYPE_DEVICE_SERVO_:
             servo_.move_by(value);
             break;
+        case KITTY_VARIABLE_TYPE_DEVICE_LED_:
+            led_.move_by(value);
+            break;
         }
     }
 
@@ -115,6 +129,9 @@ public:
         case KITTY_VARIABLE_TYPE_DEVICE_SERVO_:
             servo_.move_to(value);
             break;
+        case KITTY_VARIABLE_TYPE_DEVICE_LED_:
+            led_.move_to(value);
+            break;
         }
     }
 
@@ -122,6 +139,7 @@ private:
     uint8_t varType_;
     kitty_int intVar_;
     kitty_servo servo_;
+    kitty_led led_;
     kitty_sonar sonar_;
 
 protected:

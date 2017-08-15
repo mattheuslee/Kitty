@@ -28,8 +28,7 @@ public:
 
     string str() {
         ostringstream oss;
-        oss << (isActive_ ? "active" : "inactive") << " sonar using trigger pin " << triggerPin_
-                                                 << " and echo pin " << echoPin_;
+        oss << " sonar using trigger pin " << triggerPin_ << " and echo pin " << echoPin_;
         return oss.str();
     }
 

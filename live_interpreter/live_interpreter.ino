@@ -18,19 +18,25 @@ void setup() {
 }
 
 void loop() {
+    input = get_line_();
+    if (!input.empty()) {
+        Serial.println(input.c_str()); // echo back to the user
+        interpreter.execute(input);
+        input = "";
+        Serial.print(F(">>>"));
+    }
+}
+
+string get_line_() {
+    string line;
     while (1) {
         if (Serial.available()) {
             char c = Serial.read();
             if (c == '\n') {
                 break;
             }
-            input += c;
+            line += c;
         }
     }
-    if (!input.empty()) {
-        Serial.println(input.c_str()); // echo back to the user
-        interpreter.parse_and_execute_input(input);
-        input = "";
-        Serial.print(F(">>>"));
-    }
+    return line;
 }

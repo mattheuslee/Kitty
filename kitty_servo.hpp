@@ -22,15 +22,14 @@ public:
             : isActive_(false), pin_(0), value_(90) {}
 
     kitty_servo(int const & pin)
-            : pin_(pin), value_(90) {
-        isActive_ = true;
+            : isActive_(true), pin_(pin), value_(90) {
         servo_.attach(pin_);
         servo_.write(value_);
     }
 
     string str() {
         ostringstream oss;
-        oss << (isActive_ ? "active" : "inactive") << " servo using pin " << pin_ << " at value " << value_;
+        oss << " servo using pin " << pin_ << " at value " << value_ << " degrees";
         return oss.str();
     }
 

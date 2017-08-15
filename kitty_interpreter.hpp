@@ -7,6 +7,7 @@
 
 #include <cctype>
 #include <map>
+#include <queue>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -15,13 +16,15 @@
 
 #include <kitty_variable.hpp>
 #include <kitty_int.hpp>
+#include <kitty_led.hpp>
 #include <kitty_servo.hpp>
 #include <kitty_sonar.hpp>
 
 namespace kitty {
 
-using std::map;
 using std::istringstream;
+using std::map;
+using std::queue;
 using std::string;
 using std::vector;
 
@@ -30,10 +33,24 @@ class kitty_interpreter {
 public:
     kitty_interpreter() {}
 
-    void parse_and_execute_input(string const & input) {
+    void execute(string const & input) {
+        actionQueue_.push(input);
+        actionToPrintQueue_.push(false);
+        while (!actionQueue_.empty()) {
+            parse_and_execute_single_action();
+            actionQueue_.pop();
+            actionToPrintQueue_.pop();
+        }
+    }
+
+    void parse_and_execute_single_action() {
+        string action = actionQueue_.front();
+        if (actionToPrintQueue_.front()) {
+            Serial.println((string("") + "Running >>>" + action + "<<<").c_str());
+        }
         MatchState matchState;
         char result;
-        matchState.Target(input.c_str());
+        matchState.Target(action.c_str());
         // Device variable
         if (matchState.Match("([%a_]+) is ([%a_]+) using ([%d%a_, ]+)") > 0) {
             device_variable_(matchState);
@@ -52,6 +69,24 @@ public:
         // Viewing variable
         else if (matchState.Match(" ") < 1 && matchState.Match("([%a_]+)") > 0) {
             viewing_variable_(matchState);
+            return;
+        }
+        // Increment number by value or variable
+        else if (matchState.Match("increment ([%a_]+) by ([%d%a_]+)") > 0) {
+            increment_by_(matchState);
+        }
+        // Increment number
+        else if (matchState.Match("increment ([%a_]+)")) {
+            increment_by_(matchState, 1);
+            return;
+        }
+        // Decrement number by value or variable
+        else if (matchState.Match("decrement ([%a_]+) by ([%d%a_]+)") > 0) {
+            decrement_by_(matchState);
+        }
+        // Decrement number
+        else if (matchState.Match("decrement ([%a_]+)")) {
+            decrement_by_(matchState, 1);
             return;
         }
         // Sense from device
@@ -102,6 +137,8 @@ public:
 private:
     map<string, kitty_variable> variables_;
     map<string, vector<string>> actionGroups_;
+    queue<string> actionQueue_;
+    queue<bool> actionToPrintQueue_;
 
     bool find_(string const & varName) {
         if (variables_.find(varName) == variables_.end()) {
@@ -127,7 +164,10 @@ private:
         if (!variables_[devName].is_sensor()) {
             Serial.print(F("ERROR: "));
             Serial.print(devName.c_str());
-            Serial.println(F(" is not a sensor"));
+            Serial.println(F(" is not a sensor -"));
+            Serial.print(devName.c_str());
+            Serial.print(F(": "));
+            Serial.print(variables_[devName].str().c_str());
             return false;
         }
         return true;
@@ -137,7 +177,10 @@ private:
         if (!variables_[devName].is_mover()) {
             Serial.print(F("ERROR: "));
             Serial.print(devName.c_str());
-            Serial.println(F(" cannot be moved"));
+            Serial.println(F(" cannot be moved -"));
+            Serial.print(devName.c_str());
+            Serial.print(F(": "));
+            Serial.print(variables_[devName].str().c_str());
             return false;
         }
         return true;
@@ -147,7 +190,10 @@ private:
         if (!variables_[varName].is_value()) {
             Serial.print(F("ERROR: "));
             Serial.print(varName.c_str());
-            Serial.println(F(" is not a value"));
+            Serial.println(F(" is not a value -"));
+            Serial.print(varName.c_str());
+            Serial.print(F(": "));
+            Serial.print(variables_[varName].str().c_str());
             return false;
         }
         return true;
@@ -190,6 +236,12 @@ private:
             } else {
                 variables_[varName].set(kitty_servo(arguments[0]));
             }
+        } else if (deviceName == "led") {
+            if (numArgs != 1) {
+                Serial.println(F("ERROR: wrong number of inputs for LED"));
+            } else {
+                variables_[varName].set(kitty_led(arguments[0]));
+            }
         } else if (deviceName == "sonar") {
             if (numArgs != 2) {
                 Serial.println(F("ERROR: wrong number of inputs for sonar"));
@@ -214,8 +266,54 @@ private:
     void viewing_variable_(MatchState const & matchState) {
         auto varName = string(matchState.capture[0].init, matchState.capture[0].len);
         if (find_(varName)) {
-            Serial.print((varName + ": " + variables_[varName].str()).c_str());
+            Serial.println((varName + ": " + variables_[varName].str()).c_str());
         }
+    }
+
+    void increment_by_(MatchState const & matchState) {
+        auto arg = string(matchState.capture[1].init, matchState.capture[1].len);
+        auto increment = 0;
+        if (isdigit(arg[0])) {
+            increment = to_int_(arg);
+        } else {
+            if (!find_(arg) || !check_is_value_(arg)) {
+                return;
+            }
+            increment = variables_[arg].get_value();
+        }
+        increment_by_(matchState, increment);
+    }
+
+    void increment_by_(MatchState const & matchState, int const & increment) {
+        auto varName = string(matchState.capture[0].init, matchState.capture[0].len);
+        if (!find_(varName) || !check_is_value_(varName)) {
+            return;
+        }        
+        auto value = variables_[varName].get_value();
+        variables_[varName].set(kitty_int(value + increment));
+    }
+
+    void decrement_by_(MatchState const & matchState) {
+        auto arg = string(matchState.capture[1].init, matchState.capture[1].len);
+        auto decrement = 0;
+        if (isdigit(arg[0])) {
+            decrement = to_int_(arg);
+        } else {
+            if (!find_(arg) || !check_is_value_(arg)) {
+                return;
+            }
+            decrement = variables_[arg].get_value();
+        }
+        decrement_by_(matchState, decrement);
+    }
+
+    void decrement_by_(MatchState const & matchState, int const & decrement) {
+        auto varName = string(matchState.capture[0].init, matchState.capture[0].len);
+        if (!find_(varName) || !check_is_value_(varName)) {
+            return;
+        }        
+        auto value = variables_[varName].get_value();
+        variables_[varName].set(kitty_int(value - decrement));
     }
 
     void sense_from_device_(MatchState const & matchState) {
@@ -281,8 +379,8 @@ private:
             return;
         }
         for (auto const & action : actionGroups_[groupName]) {
-            Serial.println((string("") + "Running >>>" + action + "<<<").c_str());
-            parse_and_execute_input(action);
+            actionQueue_.push(action);
+            actionToPrintQueue_.push(true);
         }
     }
 
