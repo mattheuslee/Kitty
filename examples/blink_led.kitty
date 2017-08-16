@@ -1,0 +1,10 @@
+light is led using 13
+
+create blink repeating
+move light to 100
+wait 1s
+move light to 0
+wait 1s
+done
+
+run blink

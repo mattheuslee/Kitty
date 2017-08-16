@@ -31,13 +31,52 @@ using std::vector;
 class kitty_interpreter {
 
 public:
-    kitty_interpreter() {}
+    kitty_interpreter() 
+            : isPreloadedMode(false) {}
+
+    void print_welcome_screen() {
+        Serial.begin(115200);            
+        Serial.println(F(R"(
+            _                        
+            \`*-.                    
+             )  _`-.                 
+            .  : \  .                
+            : ^   '  \               
+            ; *  _.   `*-._          
+            `-.-'          `-.       
+              ;       `       `.     
+              :.       .        \    
+             ,  \   ;  :   .-'   .   
+            .  , `..;  ;  '      :   _.--.
+ ,-.       '  .     |  , ;       ;.-'_.-'`
+:       .*'  .      : :`-:     _.`-'`
+`      `*-*      .*' ; .*`- +' 
+ '.(bug)          `*-*  `*-*'        
+        )"));
+        Serial.println(F("Welcome to Kitty 0.0.1 (by Mattheus Lee, mattheus.lee@gmail.com, 2017-)"));
+    }
+
+    void print_prompt() {
+        Serial.print(F(">>>"));        
+    }
 
     void execute(string const & input) {
-        actionDeque_.push_back(make_pair_(input, false));
+        actionDeque_.push_back(input);
         while (!actionDeque_.empty()) {
             parse_and_execute_single_action_();
         }
+    }
+
+    void execute_preloaded_commands(vector<string> const & commands) {
+        Serial.println(F("Kitty interpreter is in preloaded commands mode"));
+        isPreloadedMode = true;
+        for (auto const & command : commands) {
+            actionDeque_.push_back(command);
+        }
+        while (!actionDeque_.empty()) {
+            parse_and_execute_single_action_();
+        }
+        Serial.println(F("Program done"));
     }
 
 private:
@@ -52,16 +91,13 @@ private:
         return pair_<T1, T2>{t1, t2};
     }
 
+    bool isPreloadedMode;
     map<string, kitty_variable> variables_;
-    map<string, vector<string>> actionGroups_;
-    map<string, pair_<string, vector<string>>> actionIfGroups_;
-    deque<pair_<string, bool>> actionDeque_;
+    map<string, pair_<string, vector<string>>> actionGroups_;
+    deque<string> actionDeque_;
 
     void parse_and_execute_single_action_() {
-        string action = actionDeque_.front().first;
-        if (actionDeque_.front().second) {
-            //Serial.println((string("") + "Running >>>" + action + "<<<").c_str());
-        }
+        string action = actionDeque_.front();
         actionDeque_.pop_front();        
         MatchState matchState;
         char result;
@@ -76,27 +112,22 @@ private:
             numeric_variable_(matchState);
             return;
         }
-        // Viewing variable
-        else if (matchState.Match("^([%a_]+)$") > 0) {
-            viewing_variable_(matchState);
+        // Increase number by value or variable
+        else if (matchState.Match("^increase ([%a_]+) by ([%d%a_]+)$") > 0) {
+            increase_by(matchState);
+        }
+        // Increase number
+        else if (matchState.Match("^increase ([%a_]+)$")) {
+            increase_by(matchState, 1);
             return;
         }
-        // Increment number by value or variable
-        else if (matchState.Match("^increment ([%a_]+) by ([%d%a_]+)$") > 0) {
-            increment_by_(matchState);
+        // Decrease number by value or variable
+        else if (matchState.Match("^decrease ([%a_]+) by ([%d%a_]+)$") > 0) {
+            decrease_by_(matchState);
         }
-        // Increment number
-        else if (matchState.Match("^increment ([%a_]+)$")) {
-            increment_by_(matchState, 1);
-            return;
-        }
-        // Decrement number by value or variable
-        else if (matchState.Match("^decrement ([%a_]+) by ([%d%a_]+)$") > 0) {
-            decrement_by_(matchState);
-        }
-        // Decrement number
-        else if (matchState.Match("^decrement ([%a_]+)$")) {
-            decrement_by_(matchState, 1);
+        // Decrease number
+        else if (matchState.Match("^decrease ([%a_]+)$")) {
+            decrease_by_(matchState, 1);
             return;
         }
         // Sense from device
@@ -125,17 +156,27 @@ private:
             return;
         }
         // Create group of actions with if condition
-        else if (matchState.Match("^create group ([%a_]+) if ([%a%d%+%-%(%)_ ]+)$") > 0) {
+        else if (matchState.Match("^create ([%a_]+) if ([%a%d%+%-%(%)_ ]+)$") > 0) {
             create_if_group_(matchState);
             return;
         }
+        // Create group of actions with while condition
+        else if (matchState.Match("^create ([%a_]+) while ([%a%d%+%-%(%)_ ]+)$") > 0) {
+            create_while_group_(matchState);
+            return;
+        }
+        // Create group of actions that automatically repeats
+        else if (matchState.Match("^create ([%a_]+) repeating$") > 0) {
+            create_repeating_group_(matchState);
+            return;
+        }
         // Create group of actions
-        else if (matchState.Match("^create group ([%a_]+)$") > 0) {
+        else if (matchState.Match("^create ([%a_]+)$") > 0) {
             create_group_(matchState);
             return;
         }
         // Run group of actions
-        else if (matchState.Match("^run group ([%a_]+)$") > 0) {
+        else if (matchState.Match("^run ([%a_]+)$") > 0) {
             run_group_(matchState);
             return;
         }
@@ -144,16 +185,21 @@ private:
             wait_(matchState);
             return;
         }
+        // Printing information
+        else if (matchState.Match("^([%a_]+)$") > 0) {
+            print_information_(matchState);
+            return;
+        }
         else {
             Serial.println(F("ERROR: unable to parse line"));
         }
     }
 
-    bool evaluate_if_condition_(string const & ifCondition) {
+    bool evaluate_condition_(string const & ifCondition) {
         if (!match_brackets_(ifCondition)) {
             return false;
         }
-        if (evaluate_condition_(ifCondition)) {
+        if (evaluate_condition_helper_(ifCondition)) {
             //Serial.print(F("Evaluated >>>"));
             //Serial.print(ifCondition.c_str());
             //Serial.println(F("<<<to true"));        
@@ -166,12 +212,20 @@ private:
         }
     }
 
-    bool evaluate_condition_(string const & condition) {
+    bool evaluate_condition_helper_(string const & condition) {
         MatchState matchState;
         // Don't trim brackets for now, settle unmatched brackets at the bottom levels
         matchState.Target(condition.c_str());
+        // True literal
+        if (matchState.Match("^%(*true%(*$") > 0) {
+            return true;
+        }
+        // False literal
+        else if (matchState.Match("^%(*false%(*$") > 0) {
+            return false;
+        }
         // Less than check
-        if (matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) less than ([%a%d%+%-%(%)_ ]+)%)*$") > 0) {
+        else if (matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) less than ([%a%d%+%-%(%)_ ]+)%)*$") > 0) {
             //Serial.println(F("less check"));
             auto lhs = string(matchState.capture[0].init, matchState.capture[0].len);
             auto rhs = string(matchState.capture[1].init, matchState.capture[1].len);
@@ -317,11 +371,14 @@ private:
                 line += c;
             }
         }
+        if (line[line.size() - 1] == ' ') {
+            line.erase(line.size() - 1);
+        }
         return line;
     }
 
     bool find_variable_(string const & varName) {
-        if (variables_.find(varName) == variables_.end()) {
+        if (!check_find_variable_(varName)) {
             Serial.print(F("ERROR: "));
             Serial.print(varName.c_str());
             Serial.println(F(" does not exist"));
@@ -330,12 +387,22 @@ private:
         return true;
     }
 
-    bool find_action_group_(string const & groupName) {
-        return actionGroups_.find(groupName) != actionGroups_.end();
+    bool check_find_variable_(string const & varName) {
+        return variables_.find(varName) != variables_.end();
     }
 
-    bool find_action_if_group_(string const & groupName) {
-        return actionIfGroups_.find(groupName) != actionIfGroups_.end();
+    bool find_action_group_(string const & groupName) {
+        if (!check_find_action_group_(groupName)) {
+            Serial.print(F("ERROR: "));
+            Serial.print(groupName.c_str());
+            Serial.println(F(" does not exist"));
+            return false;
+        }
+        return true;
+    }
+
+    bool check_find_action_group_(string const & groupName) {
+        return actionGroups_.find(groupName) != actionGroups_.end();
     }
 
     bool check_sensor_(string const & devName) {
@@ -439,14 +506,7 @@ private:
         variables_[varName].set(kitty_int(evaluatedArgs.second));
     }
 
-    void viewing_variable_(MatchState const & matchState) {
-        auto varName = string(matchState.capture[0].init, matchState.capture[0].len);
-        if (find_variable_(varName)) {
-            Serial.println((varName + ": " + variables_[varName].str()).c_str());
-        }
-    }
-
-    void increment_by_(MatchState const & matchState) {
+    void increase_by(MatchState const & matchState) {
         auto arg = string(matchState.capture[1].init, matchState.capture[1].len);
         auto increment = 0;
         if (isdigit(arg[0])) {
@@ -457,10 +517,10 @@ private:
             }
             increment = variables_[arg].get_value();
         }
-        increment_by_(matchState, increment);
+        increase_by(matchState, increment);
     }
 
-    void increment_by_(MatchState const & matchState, int const & increment) {
+    void increase_by(MatchState const & matchState, int const & increment) {
         auto varName = string(matchState.capture[0].init, matchState.capture[0].len);
         if (!find_variable_(varName) || !check_is_value_(varName)) {
             return;
@@ -469,7 +529,7 @@ private:
         variables_[varName].set(kitty_int(value + increment));
     }
 
-    void decrement_by_(MatchState const & matchState) {
+    void decrease_by_(MatchState const & matchState) {
         auto arg = string(matchState.capture[1].init, matchState.capture[1].len);
         auto decrement = 0;
         if (isdigit(arg[0])) {
@@ -480,10 +540,10 @@ private:
             }
             decrement = variables_[arg].get_value();
         }
-        decrement_by_(matchState, decrement);
+        decrease_by_(matchState, decrement);
     }
 
-    void decrement_by_(MatchState const & matchState, int const & decrement) {
+    void decrease_by_(MatchState const & matchState, int const & decrement) {
         auto varName = string(matchState.capture[0].init, matchState.capture[0].len);
         if (!find_variable_(varName) || !check_is_value_(varName)) {
             return;
@@ -536,54 +596,72 @@ private:
         }
     }
 
+    vector<string> get_group_actions_(string const & groupName) {
+        auto groupActions = vector<string>();
+        if (isPreloadedMode) {
+            while(actionDeque_.front() != "done") {
+                groupActions.push_back(actionDeque_.front());
+                actionDeque_.pop_front();
+            }
+            actionDeque_.pop_front();
+        } else {
+            Serial.print(groupName.c_str());
+            Serial.print(F(">>>"));
+            auto inputLine = get_line_();
+            while (inputLine != "done") {
+                groupActions.push_back(inputLine);
+                Serial.print(inputLine.c_str());
+                Serial.println(F(" added to the group"));
+                Serial.print(groupName.c_str());
+                Serial.print(F(">>>"));
+                inputLine = get_line_();
+            }
+            Serial.println(F("group complete"));
+        }
+        return groupActions;
+    }
+
     void create_if_group_(MatchState const & matchState) {
         auto groupName = string(matchState.capture[0].init, matchState.capture[0].len);
         auto ifCondition = string(matchState.capture[1].init, matchState.capture[1].len);
-        auto groupActions = vector<string>();
         if (!match_brackets_(ifCondition)) {
             return;
         }
-        actionGroups_.erase(groupName);
-        Serial.println((string("") + "Adding actions to group " + groupName + " with condition " + ifCondition).c_str());
-        auto inputLine = get_line_();
-        while (inputLine != "done") {
-            Serial.println((string("") + "Added >>>" + inputLine + "<<< to the group").c_str());
-            groupActions.push_back(inputLine);
-            inputLine = get_line_();
+        auto groupActions = get_group_actions_(groupName);
+        actionGroups_[groupName] = make_pair_(ifCondition, groupActions);
+    }
+
+    void create_while_group_(MatchState const & matchState) {
+        auto groupName = string(matchState.capture[0].init, matchState.capture[0].len);
+        auto whileCondition = string(matchState.capture[1].init, matchState.capture[1].len);
+        if (!match_brackets_(whileCondition)) {
+            return;
         }
-        actionIfGroups_[groupName] = make_pair_(ifCondition, groupActions);
+        auto groupActions = get_group_actions_(groupName);
+        groupActions.push_back("run " + groupName);
+        actionGroups_[groupName] = make_pair_(whileCondition, groupActions);
+    }
+
+    void create_repeating_group_(MatchState const & matchState) {
+        auto groupName = string(matchState.capture[0].init, matchState.capture[0].len);
+        auto groupActions = get_group_actions_(groupName);
+        groupActions.push_back("run " + groupName);
+        actionGroups_[groupName] = make_pair_(string("true"), groupActions);        
     }
 
     void create_group_(MatchState const & matchState) {
         auto groupName = string(matchState.capture[0].init, matchState.capture[0].len);
-        auto groupActions = vector<string>();
-        actionIfGroups_.erase(groupName);
-        Serial.println((string("") + "Adding actions to group " + groupName + ":").c_str());
-        auto inputLine = get_line_();
-        while (inputLine != "done") {
-            Serial.println((string("") + "Added >>>" + inputLine + "<<< to the group").c_str());
-            groupActions.push_back(inputLine);
-            inputLine = get_line_();
-        }
-        actionGroups_[groupName] = groupActions;
+        auto groupActions = get_group_actions_(groupName);
+        actionGroups_[groupName] = make_pair_(string("true"), groupActions);
     }
 
     void run_group_(MatchState const & matchState) {
         auto groupName = string(matchState.capture[0].init, matchState.capture[0].len);
-        if (find_action_group_(groupName)) {
-            for (auto it = actionGroups_[groupName].rbegin(); it != actionGroups_[groupName].rend(); ++it) {
-                actionDeque_.push_front(make_pair_(*it, true));
-            }
-        } else if (find_action_if_group_(groupName)) {
-            if (evaluate_if_condition_(actionIfGroups_[groupName].first)) {
-                for (auto it = actionIfGroups_[groupName].second.rbegin(); it != actionIfGroups_[groupName].second.rend(); ++it) {
-                    actionDeque_.push_front(make_pair_(*it, true));
-                }
-            }
-        } else {
-            Serial.print(F("ERROR: "));
-            Serial.print(groupName.c_str());
-            Serial.println(F(" does not exist"));
+        if (!find_action_group_(groupName) || !evaluate_condition_(actionGroups_[groupName].first)) {
+            return;
+        }
+        for (auto it = actionGroups_[groupName].second.rbegin(); it != actionGroups_[groupName].second.rend(); ++it) {
+            actionDeque_.push_front(*it);
         }
     }
 
@@ -593,6 +671,22 @@ private:
             delay(timeToWait);
         } else {
             delay(timeToWait * 1000);
+        }
+    }
+
+    void print_information_(MatchState const & matchState) {
+        auto name = string(matchState.capture[0].init, matchState.capture[0].len);
+        if (check_find_variable_(name)) {
+            Serial.println((name + ": " + variables_[name].str()).c_str());            
+        } else if (check_find_action_group_(name)) {
+            print_action_group_info_(name);
+        }
+    }
+
+    void print_action_group_info_(string const & groupName) {
+        Serial.println((groupName + ": group with condition " + actionGroups_[groupName].first + " and actions").c_str());
+        for (auto const & action : actionGroups_[groupName].second) {
+            Serial.println(action.c_str());
         }
     }
 

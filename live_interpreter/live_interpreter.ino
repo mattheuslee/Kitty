@@ -12,22 +12,19 @@ string input;
 kitty_interpreter interpreter;
 
 void setup() {
-    Serial.begin(115200);
-    Serial.println(F("Kitty 0.0.1"));
-    Serial.print(F(">>>"));
+    interpreter.print_welcome_screen();
+    interpreter.print_prompt();
 }
 
 void loop() {
-    input = get_line_();
-    if (!input.empty()) {
-        Serial.println(input.c_str()); // echo back to the user
-        interpreter.execute(input);
-        input = "";
-        Serial.print(F(">>>"));
-    }
+    input = get_input_line();
+    echo_input_line(input);
+    interpreter.execute(input);
+    input = "";
+    interpreter.print_prompt();
 }
 
-string get_line_() {
+string get_input_line() {
     string line;
     while (1) {
         if (Serial.available()) {
@@ -38,5 +35,12 @@ string get_line_() {
             line += c;
         }
     }
+    if (line[line.size() - 1] == ' ') {
+        line.erase(line.size() - 1);
+    }
     return line;
+}
+
+void echo_input_line(string const & input) {
+    Serial.println(input.c_str());
 }

@@ -1,0 +1,30 @@
+light is led using 13
+
+create long_blink
+move light to 100
+wait 500ms
+move light to 0
+wait 500ms
+done
+
+create short_blink
+move light to 100
+wait 200ms
+move light to 0
+wait 200ms
+done
+
+create sos repeating
+run short_blink
+run short_blink
+run short_blink
+run long_blink
+run long_blink
+run long_blink
+run short_blink
+run short_blink
+run short_blink
+wait 1s
+done
+
+run sos
