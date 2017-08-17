@@ -19,7 +19,7 @@ public:
     kitty_led()
             : isActive_(false), pin_(0), level_(0) {}
 
-    kitty_led(int const & pin)
+    explicit kitty_led(int const & pin)
             : isActive_(true), pin_(pin), level_(50) {
         isActive_ = true;
         pinMode(pin_, OUTPUT);

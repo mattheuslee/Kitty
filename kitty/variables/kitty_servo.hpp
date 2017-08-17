@@ -21,7 +21,7 @@ public:
     kitty_servo()
             : isActive_(false), pin_(0), value_(90) {}
 
-    kitty_servo(int const & pin)
+    explicit kitty_servo(int const & pin)
             : isActive_(true), pin_(pin), value_(90) {
         servo_.attach(pin_);
         servo_.write(value_);

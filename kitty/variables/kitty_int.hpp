@@ -17,7 +17,7 @@ public:
     kitty_int()
             :val_(0) {}
 
-    kitty_int(int const & i)
+    explicit kitty_int(int const & i)
             : val_(i) {}
 
     string str() const {
