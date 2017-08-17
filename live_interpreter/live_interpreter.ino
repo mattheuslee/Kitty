@@ -2,7 +2,8 @@
 
 #include <string>
 
-#include <kitty_interpreter.hpp>
+#include <kitty.hpp>
+#include <kitty/kitty_interpreter.hpp>
 
 using namespace std;
 using namespace kitty;

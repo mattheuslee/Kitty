@@ -12,10 +12,10 @@
 
 #include <string>
 
-#include <kitty_int.hpp>
-#include <kitty_led.hpp>
-#include <kitty_servo.hpp>
-#include <kitty_sonar.hpp>
+#include <kitty/variables/kitty_int.hpp>
+#include <kitty/variables/kitty_led.hpp>
+#include <kitty/variables/kitty_servo.hpp>
+#include <kitty/variables/kitty_sonar.hpp>
 
 namespace kitty {
 
@@ -51,7 +51,7 @@ public:
         varType_ = KITTY_VARIABLE_TYPE_DEVICE_SONAR_;
     }
 
-    string str() {
+    string str() const {
         switch (varType_) {
         case KITTY_VARIABLE_TYPE_INT_:
             return intVar_.str();
@@ -66,7 +66,7 @@ public:
         }
     }
 
-    bool is_sensor() {
+    bool is_sensor() const {
         switch (varType_) {
         case KITTY_VARIABLE_TYPE_DEVICE_SONAR_:
             return true;
@@ -75,7 +75,7 @@ public:
         }
     }
 
-    bool is_mover() {
+    bool is_mover() const {
         switch (varType_) {
         case KITTY_VARIABLE_TYPE_DEVICE_SERVO_:
             return true;
@@ -86,7 +86,7 @@ public:
         }
     }
 
-    bool is_value() {
+    bool is_value() const {
         switch(varType_) {
         case KITTY_VARIABLE_TYPE_INT_:
             return true;
@@ -95,7 +95,7 @@ public:
         }
     }
 
-    int get_value() {
+    int get_value() const {
         switch(varType_) {
         case KITTY_VARIABLE_TYPE_INT_:
             return intVar_.val();
@@ -104,7 +104,7 @@ public:
         }
     }
 
-    int sense(string const & type) {
+    int sense(string const & type) const {
         switch (varType_) {
         case KITTY_VARIABLE_TYPE_DEVICE_SONAR_:
             return sonar_.sense(type);

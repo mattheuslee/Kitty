@@ -27,7 +27,7 @@ public:
         servo_.write(value_);
     }
 
-    string str() {
+    string str() const {
         ostringstream oss;
         oss << " servo using pin " << pin_ << " at value " << value_ << " degrees";
         return oss.str();

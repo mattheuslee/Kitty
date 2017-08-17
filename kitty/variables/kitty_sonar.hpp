@@ -26,13 +26,13 @@ public:
         sonar_ = NewPing(triggerPin_, echoPin_);
     }
 
-    string str() {
+    string str() const {
         ostringstream oss;
         oss << " sonar using trigger pin " << triggerPin_ << " and echo pin " << echoPin_;
         return oss.str();
     }
 
-    int sense(string const & type) {
+    int sense(string const & type) const {
         if (!isActive_) {
             return 0;
         }

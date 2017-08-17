@@ -26,7 +26,7 @@ public:
         analogWrite(pin_, (int)((level_ / 100.0) * 255));
     }
 
-    string str() {
+    string str() const {
         ostringstream oss;
         oss << " led using pin " << pin_ << " at level " << level_ << "%";
         return oss.str();
