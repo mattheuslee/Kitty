@@ -135,6 +135,28 @@ public:
         }
     }
 
+    void move_by_for(int const & value, int const & duration) {
+        switch (varType_) {
+        case KITTY_VARIABLE_TYPE_DEVICE_SERVO_:
+            servo_.move_by_for(value, duration);
+            break;
+        case KITTY_VARIABLE_TYPE_DEVICE_LED_:
+            led_.move_by_for(value, duration);
+            break;
+        }
+    }
+
+    void move_to_for(int const & value, int const & duration) {
+        switch (varType_) {
+        case KITTY_VARIABLE_TYPE_DEVICE_SERVO_:
+            servo_.move_to_for(value, duration);
+            break;
+        case KITTY_VARIABLE_TYPE_DEVICE_LED_:
+            led_.move_to_for(value, duration);
+            break;
+        }
+    }
+
 private:
     uint8_t varType_;
     kitty_int intVar_;

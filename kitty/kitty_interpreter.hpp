@@ -28,8 +28,7 @@ using std::vector;
 
 class kitty_interpreter {
 public:
-    kitty_interpreter() 
-            : isPreloadedMode(false) {}
+    kitty_interpreter() {}
 
     void print_welcome_screen() {
         Serial.begin(115200);            
@@ -50,132 +49,103 @@ public:
 `      `*-*      .*' ; .*`- +' 
  '.(bug)          `*-*  `*-*'        
         )"));
-        Serial.println(F("Welcome to Kitty 0.0.1 (by Mattheus Lee, mattheus.lee@gmail.com, 2017-)"));
+        Serial.println(F("Welcome to Kitty 0.0.1\nby Mattheus Lee, mattheus.lee@gmail.com, 2017"));
     }
 
     void print_prompt() {
         Serial.print(F(">>>"));        
     }
 
-    void execute(string const & input) {
-        commandDeque_.push_back(input);
-        while (!commandDeque_.empty()) {
+    void execute(string const & command) {
+        storage_.add_command_to_back(command);
+        while (storage_.has_more_commands()) {
             parse_and_execute_single_command_();
         }
     }
 
     void execute_preloaded_commands(vector<string> const & commands) {
         Serial.println(F("Kitty interpreter is in preloaded commands mode"));
-        isPreloadedMode = true;
+        storage_.is_live_mode(false);
         for (auto const & command : commands) {
-            commandDeque_.push_back(command);
+            storage_.add_command_to_back(command);
         }
-        while (!commandDeque_.empty()) {
+        while (storage_.has_more_commands()) {
             parse_and_execute_single_command_();
         }
         Serial.println(F("Program done"));
     }
 
 private:
-    template <class T1, class T2>
-    struct pair_ {
-        T1 first;
-        T2 second;
-    };
-
-    template <class T1, class T2>
-    pair_<T1, T2> make_pair_(T1 const & t1, T2 const & t2) {
-        return pair_<T1, T2>{t1, t2};
-    }
-
-    bool isPreloadedMode;
-    map<string, kitty_variable> variables_;
-    map<string, pair_<string, vector<string>>> commandGroups_;
-    deque<string> commandDeque_;
     kitty_storage storage_;
 
     void parse_and_execute_single_command_() {
-        string command = commandDeque_.front();
-        commandDeque_.pop_front();        
+        auto command = storage_.pop_next_command();
         MatchState matchState;
         matchState.Target(command.c_str());
         if (kitty_device_variable_command::matches(matchState)) {
             kitty_device_variable_command::execute(matchState, storage_);
-        } else if (kitty_numeric_variable_command::matches(matchState)) {
+        } 
+        else if (kitty_numeric_variable_command::matches(matchState)) {
             kitty_numeric_variable_command::execute(matchState, storage_);
+        } 
+        else if (kitty_modify_number_command::matches_increase_by(matchState)) {
+            kitty_modify_number_command::execute_increase_by(matchState, storage_);
+        } 
+        else if (kitty_modify_number_command::matches_increase(matchState)) {
+            kitty_modify_number_command::execute_increase(matchState, storage_);
+        } 
+        else if (kitty_modify_number_command::matches_decrease_by(matchState)) {
+            kitty_modify_number_command::execute_decrease_by(matchState, storage_);
+        } 
+        else if (kitty_modify_number_command::matches_decrease(matchState)) {
+            kitty_modify_number_command::execute_decrease(matchState, storage_);
         }
-        // Increase number by value or variable
-        else if (matchState.Match("^increase ([%a_]+) by ([%d%a_]+)$") > 0) {
-            increase_by(matchState);
-        }
-        // Increase number
-        else if (matchState.Match("^increase ([%a_]+)$")) {
-            increase_by(matchState, 1);
-            return;
-        }
-        // Decrease number by value or variable
-        else if (matchState.Match("^decrease ([%a_]+) by ([%d%a_]+)$") > 0) {
-            decrease_by_(matchState);
-        }
-        // Decrease number
-        else if (matchState.Match("^decrease ([%a_]+)$")) {
-            decrease_by_(matchState, 1);
-            return;
-        }
-        // Sense from device
+        /*// Sense from device
         else if (matchState.Match("^sense ([%a_]+) from ([%a_]+)$") > 0) {
             sense_from_device_(matchState);
             return;
+        }*/
+        else if (kitty_modify_device_command::matches_move_by_for(matchState)) {
+            kitty_modify_device_command::execute_move_by_for(matchState, storage_);
         }
-        // Move device by value
-        else if (matchState.Match("^move ([%a_]+) by ([%d-]+)$") > 0) {
-            move_device_value_(matchState, "by");
-            return;
+        else if (kitty_modify_device_command::matches_move_to_for(matchState)) {
+            kitty_modify_device_command::execute_move_to_for(matchState, storage_);
         }
-        // Move device by variable
-        else if (matchState.Match("^move ([%a_]+) by ([%a_]+)$") > 0) {
-            move_device_variable_(matchState, "by");
-            return;
+        else if (kitty_modify_device_command::matches_set_for(matchState)) {
+            kitty_modify_device_command::execute_set_for(matchState, storage_);
         }
-        // Move device to value
-        else if (matchState.Match("^move ([%a_]+) to ([%d-]+)$") > 0) {
-            move_device_value_(matchState, "to");
-            return;
+        else if (kitty_modify_device_command::matches_move_by(matchState)) {
+            kitty_modify_device_command::execute_move_by(matchState, storage_);
         }
-        // Move device to variable
-        else if (matchState.Match("^move ([%a_]+) to ([%a_]+)$") > 0) {
-            move_device_variable_(matchState, "to");
-            return;
+        else if (kitty_modify_device_command::matches_move_to(matchState)) {
+            kitty_modify_device_command::execute_move_to(matchState, storage_);
         }
-        // Create group of commands with if condition
-        else if (matchState.Match("^create ([%a_]+) if ([%a%d%+%-%(%)_ ]+)$") > 0) {
-            create_if_group_(matchState);
-            return;
+        else if (kitty_modify_device_command::matches_set(matchState)) {
+            kitty_modify_device_command::execute_set(matchState, storage_);
         }
-        // Create group of commands with while condition
-        else if (matchState.Match("^create ([%a_]+) while ([%a%d%+%-%(%)_ ]+)$") > 0) {
-            create_while_group_(matchState);
-            return;
+        else if (kitty_group_command::matches_create(matchState)) {
+            kitty_group_command::execute_create(matchState, storage_);
         }
-        // Create group of commands that automatically repeats
-        else if (matchState.Match("^create ([%a_]+) repeating$") > 0) {
-            create_repeating_group_(matchState);
-            return;
+        else if (kitty_group_command::matches_run(matchState)) {
+            kitty_group_command::execute_run(matchState, storage_);            
         }
-        // Create group of commands
-        else if (matchState.Match("^create ([%a_]+)$") > 0) {
-            create_group_(matchState);
-            return;
+        else if (kitty_group_command::matches_run_if(matchState)) {
+            kitty_group_command::execute_run_if(matchState, storage_);            
         }
-        // Run group of commands
-        else if (matchState.Match("^run ([%a_]+)$") > 0) {
-            run_group_(matchState);
-            return;
+        else if (kitty_group_command::matches_run_while(matchState)) {
+            kitty_group_command::execute_run_while(matchState, storage_);            
         }
-        // Wait amount of time
-        else if (matchState.Match("^wait ([%d]+)m?s$") > 0) {
-            wait_(matchState);
-            return;
+        else if (kitty_group_command::matches_run_until(matchState)) {
+            kitty_group_command::execute_run_until(matchState, storage_);            
+        }
+        else if (kitty_group_command::matches_run_forever(matchState)) {
+            kitty_group_command::execute_run_forever(matchState, storage_);            
+        }
+        else if (kitty_group_command::matches_run_times(matchState)) {
+            kitty_group_command::execute_run_times(matchState, storage_);            
+        }
+        else if (kitty_wait_command::matches(matchState)) {
+            kitty_wait_command::execute(matchState, storage_);            
         }
         else if (kitty_print_information_command::matches(matchState)) {
             kitty_print_information_command::execute(matchState, storage_);
@@ -185,302 +155,7 @@ private:
         }
     }
 
-    bool evaluate_condition_(string const & ifCondition) {
-        if (!match_brackets_(ifCondition)) {
-            return false;
-        }
-        if (evaluate_condition_helper_(ifCondition)) {
-            //Serial.print(F("Evaluated >>>"));
-            //Serial.print(ifCondition.c_str());
-            //Serial.println(F("<<<to true"));        
-            return true;
-        } else {
-            //Serial.print(F("Evaluated >>>"));
-            //Serial.print(ifCondition.c_str());
-            //Serial.println(F("<<< to false")); 
-            return false;
-        }
-    }
-
-    bool evaluate_condition_helper_(string const & condition) {
-        MatchState matchState;
-        // Don't trim brackets for now, settle unmatched brackets at the bottom levels
-        matchState.Target(condition.c_str());
-        // True literal
-        if (matchState.Match("^%(*true%(*$") > 0) {
-            return true;
-        }
-        // False literal
-        else if (matchState.Match("^%(*false%(*$") > 0) {
-            return false;
-        }
-        // Less than check
-        else if (matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) less than ([%a%d%+%-%(%)_ ]+)%)*$") > 0) {
-            //Serial.println(F("less check"));
-            auto lhs = string(matchState.capture[0].init, matchState.capture[0].len);
-            auto rhs = string(matchState.capture[1].init, matchState.capture[1].len);
-            //Serial.println((string("") + "lhs " + lhs).c_str());
-            //Serial.println((string("") + "rhs " + rhs).c_str());
-            auto evaluatedLhs = evaluate_value_(lhs);
-            auto evaluatedRhs = evaluate_value_(rhs);
-            if (!evaluatedLhs.first || !evaluatedRhs.first) {
-                return false;
-            }
-            return evaluatedLhs.second < evaluatedRhs.second;
-        }
-        // Greater than check
-        else if (matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) greater than ([%a%d%+%-%(%)_ ]+)%)*$") > 0) {
-            //Serial.println(F("greater check"));
-            auto lhs = string(matchState.capture[0].init, matchState.capture[0].len);
-            auto rhs = string(matchState.capture[1].init, matchState.capture[1].len);
-            //Serial.println((string("") + "lhs " + lhs).c_str());
-            //Serial.println((string("") + "rhs " + rhs).c_str());
-            auto evaluatedLhs = evaluate_value_(lhs);
-            auto evaluatedRhs = evaluate_value_(rhs);
-            if (!evaluatedLhs.first || !evaluatedRhs.first) {
-                return false;
-            }
-            return evaluatedLhs.second > evaluatedRhs.second;
-        }
-        // Equals check
-        else if (matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) equals ([%a%d%+%-%(%)_ ]+)%)*$") > 0) {
-            //Serial.println(F("equals check"));
-            auto lhs = string(matchState.capture[0].init, matchState.capture[0].len);
-            auto rhs = string(matchState.capture[1].init, matchState.capture[1].len);
-            //Serial.println((string("") + "lhs " + lhs).c_str());
-            //Serial.println((string("") + "rhs " + rhs).c_str());
-            auto evaluatedLhs = evaluate_value_(lhs);
-            auto evaluatedRhs = evaluate_value_(rhs);
-            if (!evaluatedLhs.first || !evaluatedRhs.first) {
-                return false;
-            }
-            return evaluatedLhs.second == evaluatedRhs.second;
-        }
-        Serial.print(F("ERROR: unable to evaluate condition "));
-        Serial.println(condition.c_str());
-        return false;
-    }
-
-    pair_<bool, int> evaluate_value_(string const & arg) {
-        MatchState matchState;
-        matchState.Target(arg.c_str());
-        // Addition subexpression
-        if (matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) %+ ([%a%d%+%-%(%)_ ]+)%)*$")) {
-            //Serial.println("Addition subexpression");
-            auto lhs = string(matchState.capture[0].init, matchState.capture[0].len);
-            auto rhs = string(matchState.capture[1].init, matchState.capture[1].len);
-            //Serial.println((string("") + "lhs " + lhs).c_str());
-            //Serial.println((string("") + "rhs " + rhs).c_str());
-            auto evaluatedLhs = evaluate_value_(lhs);
-            auto evaluatedRhs = evaluate_value_(rhs);
-            if (!evaluatedLhs.first || !evaluatedRhs.first) {
-                return make_pair_(false, 0);
-            }
-            return make_pair_(true, evaluatedLhs.second + evaluatedRhs.second);
-        }
-        // Subtraction subexpression
-        else if (matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) %- ([%a%d%+%-%(%)_ ]+)%)*$")) {
-            //Serial.println("Subtraction subexpression");
-            auto lhs = string(matchState.capture[0].init, matchState.capture[0].len);
-            auto rhs = string(matchState.capture[1].init, matchState.capture[1].len);
-            //Serial.println((string("") + "lhs " + lhs).c_str());
-            //Serial.println((string("") + "rhs " + rhs).c_str());
-            auto evaluatedLhs = evaluate_value_(lhs);
-            auto evaluatedRhs = evaluate_value_(rhs);
-            if (!evaluatedLhs.first || !evaluatedRhs.first) {
-                return make_pair_(false, 0);
-            }
-            return make_pair_(true, evaluatedLhs.second - evaluatedRhs.second);
-        }
-        // Single variable subexpression
-        else if (matchState.Match("^%(*([%a_]+)%)*$")) {
-            //Serial.println("Single variable subexpression");
-            auto varName = string(matchState.capture[0].init, matchState.capture[0].len);
-            if (!find_variable_(varName) || !check_is_value_(varName)) {
-                return make_pair_(false, 0);
-            }
-            return make_pair_(true, variables_[varName].get_value());
-        }
-        // Single digit subexpression
-        else if (matchState.Match("^%(*(%-?%d+)%)*$")) {
-            //Serial.println("Single digit subexpression");
-            return make_pair_(true, to_int_(string(matchState.capture[0].init, matchState.capture[0].len)));
-        }
-        return make_pair_(false, 0);
-    }
-
-    int to_int_(string const & str) {
-        istringstream iss(str);
-        auto isNegativeValue = false;
-        if (iss.str()[0] == '-') {
-            isNegativeValue = true;
-            char c;
-            iss >> c;
-        }
-        auto value = 0;
-        iss >> value;
-        if (isNegativeValue) {
-            value *= -1;
-        }
-        return value;
-    }
-
-    bool match_brackets_(string const & statement) {
-        int bracketCount = 0;
-        for (auto const & c : statement) {
-            if (c == '(') {
-                ++bracketCount;
-            } else if (c == ')') {
-                --bracketCount;
-            }
-        }
-        if (bracketCount != 0) {
-            Serial.print(F("ERROR: "));
-            Serial.print(statement.c_str());
-            Serial.println(F(" has mismatched brackets"));
-            return false;
-        }
-        return true;
-    }
-
-    string trim_outer_brackets_(string const & statement) {
-        if (statement[0] == '(') {
-            return statement.substr(1, statement.size() - 1);
-        }
-        return statement;
-    }
-
-    string get_line_() {
-        string line;
-        while (1) {
-            if (Serial.available()) {
-                char c = Serial.read();
-                if (c == '\n') {
-                    break;
-                }
-                line += c;
-            }
-        }
-        if (line[line.size() - 1] == ' ') {
-            line.erase(line.size() - 1);
-        }
-        return line;
-    }
-
-    bool find_variable_(string const & varName) {
-        if (!check_find_variable_(varName)) {
-            Serial.print(F("ERROR: "));
-            Serial.print(varName.c_str());
-            Serial.println(F(" does not exist"));
-            return false;
-        }
-        return true;
-    }
-
-    bool check_find_variable_(string const & varName) {
-        return variables_.find(varName) != variables_.end();
-    }
-
-    bool find_command_group_(string const & groupName) {
-        if (!check_find_command_group_(groupName)) {
-            Serial.print(F("ERROR: "));
-            Serial.print(groupName.c_str());
-            Serial.println(F(" does not exist"));
-            return false;
-        }
-        return true;
-    }
-
-    bool check_find_command_group_(string const & groupName) {
-        return commandGroups_.find(groupName) != commandGroups_.end();
-    }
-
-    bool check_sensor_(string const & devName) {
-        if (!variables_[devName].is_sensor()) {
-            Serial.print(F("ERROR: "));
-            Serial.print(devName.c_str());
-            Serial.println(F(" is not a sensor -"));
-            Serial.print(devName.c_str());
-            Serial.print(F(": "));
-            Serial.print(variables_[devName].str().c_str());
-            return false;
-        }
-        return true;
-    }
-
-    bool check_mover_(string const & devName) {
-        if (!variables_[devName].is_mover()) {
-            Serial.print(F("ERROR: "));
-            Serial.print(devName.c_str());
-            Serial.println(F(" cannot be moved -"));
-            Serial.print(devName.c_str());
-            Serial.print(F(": "));
-            Serial.print(variables_[devName].str().c_str());
-            return false;
-        }
-        return true;
-    }
-
-    bool check_is_value_(string const & varName) {
-        if (!variables_[varName].is_value()) {
-            Serial.print(F("ERROR: "));
-            Serial.print(varName.c_str());
-            Serial.println(F(" is not a value -"));
-            Serial.print(varName.c_str());
-            Serial.print(F(": "));
-            Serial.print(variables_[varName].str().c_str());
-            return false;
-        }
-        return true;
-    }
-
-    void increase_by(MatchState const & matchState) {
-        auto arg = string(matchState.capture[1].init, matchState.capture[1].len);
-        auto increment = 0;
-        if (isdigit(arg[0])) {
-            increment = to_int_(arg);
-        } else {
-            if (!find_variable_(arg) || !check_is_value_(arg)) {
-                return;
-            }
-            increment = variables_[arg].get_value();
-        }
-        increase_by(matchState, increment);
-    }
-
-    void increase_by(MatchState const & matchState, int const & increment) {
-        auto varName = string(matchState.capture[0].init, matchState.capture[0].len);
-        if (!find_variable_(varName) || !check_is_value_(varName)) {
-            return;
-        }        
-        auto value = variables_[varName].get_value();
-        variables_[varName].set(kitty_int(value + increment));
-    }
-
-    void decrease_by_(MatchState const & matchState) {
-        auto arg = string(matchState.capture[1].init, matchState.capture[1].len);
-        auto decrement = 0;
-        if (isdigit(arg[0])) {
-            decrement = to_int_(arg);
-        } else {
-            if (!find_variable_(arg) || !check_is_value_(arg)) {
-                return;
-            }
-            decrement = variables_[arg].get_value();
-        }
-        decrease_by_(matchState, decrement);
-    }
-
-    void decrease_by_(MatchState const & matchState, int const & decrement) {
-        auto varName = string(matchState.capture[0].init, matchState.capture[0].len);
-        if (!find_variable_(varName) || !check_is_value_(varName)) {
-            return;
-        }        
-        auto value = variables_[varName].get_value();
-        variables_[varName].set(kitty_int(value - decrement));
-    }
-
-    void sense_from_device_(MatchState const & matchState) {
+    /*void sense_from_device_(MatchState const & matchState) {
         auto varName = string(matchState.capture[0].init, matchState.capture[0].len);
         auto args = string(matchState.capture[1].init, matchState.capture[1].len);
         auto devName = string();
@@ -496,111 +171,7 @@ private:
         }
         auto val = variables_[devName].sense(type);
         variables_[varName].set(kitty_int(val));
-    }
-
-    void move_device_value_(MatchState const & matchState, string const & type) {
-        auto devName = string(matchState.capture[0].init, matchState.capture[0].len);
-        auto value = to_int_(string(matchState.capture[1].init, matchState.capture[1].len));
-        if (!find_variable_(devName) || !check_mover_(devName)) {
-            return;
-        }
-        if (type == "by") {
-            variables_[devName].move_by(value);
-        } else {
-            variables_[devName].move_to(value);
-        }
-    }
-
-    void move_device_variable_(MatchState const & matchState, string const & type) {
-        auto devName = string(matchState.capture[0].init, matchState.capture[0].len);
-        auto varName = string(matchState.capture[1].init, matchState.capture[1].len);
-        if (!find_variable_(devName) || !check_mover_(devName) || !find_variable_(varName) || !check_is_value_(varName)) {
-            return;
-        }
-        if (type == "by") {
-            variables_[devName].move_by(variables_[varName].get_value());
-        } else {
-            variables_[devName].move_to(variables_[varName].get_value());
-        }
-    }
-
-    vector<string> get_group_commands_(string const & groupName) {
-        auto groupCommands = vector<string>();
-        if (isPreloadedMode) {
-            while(commandDeque_.front() != "done") {
-                groupCommands.push_back(commandDeque_.front());
-                commandDeque_.pop_front();
-            }
-            commandDeque_.pop_front();
-        } else {
-            Serial.print(groupName.c_str());
-            Serial.print(F(">>>"));
-            auto inputLine = get_line_();
-            while (inputLine != "done") {
-                groupCommands.push_back(inputLine);
-                Serial.print(inputLine.c_str());
-                Serial.println(F(" added to the group"));
-                Serial.print(groupName.c_str());
-                Serial.print(F(">>>"));
-                inputLine = get_line_();
-            }
-            Serial.println(F("group complete"));
-        }
-        return groupCommands;
-    }
-
-    void create_if_group_(MatchState const & matchState) {
-        auto groupName = string(matchState.capture[0].init, matchState.capture[0].len);
-        auto ifCondition = string(matchState.capture[1].init, matchState.capture[1].len);
-        if (!match_brackets_(ifCondition)) {
-            return;
-        }
-        auto groupCommands = get_group_commands_(groupName);
-        commandGroups_[groupName] = make_pair_(ifCondition, groupCommands);
-    }
-
-    void create_while_group_(MatchState const & matchState) {
-        auto groupName = string(matchState.capture[0].init, matchState.capture[0].len);
-        auto whileCondition = string(matchState.capture[1].init, matchState.capture[1].len);
-        if (!match_brackets_(whileCondition)) {
-            return;
-        }
-        auto groupCommands = get_group_commands_(groupName);
-        groupCommands.push_back("run " + groupName);
-        commandGroups_[groupName] = make_pair_(whileCondition, groupCommands);
-    }
-
-    void create_repeating_group_(MatchState const & matchState) {
-        auto groupName = string(matchState.capture[0].init, matchState.capture[0].len);
-        auto groupCommands = get_group_commands_(groupName);
-        groupCommands.push_back("run " + groupName);
-        commandGroups_[groupName] = make_pair_(string("true"), groupCommands);        
-    }
-
-    void create_group_(MatchState const & matchState) {
-        auto groupName = string(matchState.capture[0].init, matchState.capture[0].len);
-        auto groupCommands = get_group_commands_(groupName);
-        commandGroups_[groupName] = make_pair_(string("true"), groupCommands);
-    }
-
-    void run_group_(MatchState const & matchState) {
-        auto groupName = string(matchState.capture[0].init, matchState.capture[0].len);
-        if (!find_command_group_(groupName) || !evaluate_condition_(commandGroups_[groupName].first)) {
-            return;
-        }
-        for (auto it = commandGroups_[groupName].second.rbegin(); it != commandGroups_[groupName].second.rend(); ++it) {
-            commandDeque_.push_front(*it);
-        }
-    }
-
-    void wait_(MatchState const & matchState) {
-        auto timeToWait = to_int_(string(matchState.capture[0].init, matchState.capture[0].len));
-        if (matchState.Match("[%d]+ms")) {
-            delay(timeToWait);
-        } else {
-            delay(timeToWait * 1000);
-        }
-    }
+    }*/
 
 protected:
 

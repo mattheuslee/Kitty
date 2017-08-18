@@ -35,6 +35,23 @@ public:
         return value;
     }
 
+    static string get_line() {
+        string line;
+        while (1) {
+            if (Serial.available()) {
+                char c = Serial.read();
+                if (c == '\n') {
+                    break;
+                }
+                line += c;
+            }
+        }
+        if (line[line.size() - 1] == ' ') {
+            line.erase(line.size() - 1);
+        }
+        return line;
+    }
+
 private:
 
 protected:

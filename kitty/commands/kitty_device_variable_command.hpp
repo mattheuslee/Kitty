@@ -4,6 +4,7 @@
 #define KITTY_DEVICE_VARIABLE_COMMAND_HPP_
 
 #include <StandardCplusplus.h>
+
 #include <sstream>
 #include <string>
 
@@ -33,25 +34,7 @@ public:
 
         auto arguments = split_arg_list_(argList, numArgs, storage);
 
-        if (deviceName == "servo") {
-            if (numArgs != 1) {
-                Serial.println(F("ERROR: wrong number of inputs for servo"));
-            } else {
-                storage.variable(varName).set(kitty_servo(arguments[0]));
-            }
-        } else if (deviceName == "led") {
-            if (numArgs != 1) {
-                Serial.println(F("ERROR: wrong number of inputs for LED"));
-            } else {
-                storage.variable(varName).set(kitty_led(arguments[0]));
-            }
-        } else if (deviceName == "sonar") {
-            if (numArgs != 2) {
-                Serial.println(F("ERROR: wrong number of inputs for sonar"));
-            } else {
-                storage.variable(varName).set(kitty_sonar(arguments[0], arguments[1]));
-            }
-        }
+        add_device_(deviceName, varName, numArgs, arguments, storage);
     }
 
 private:
@@ -80,6 +63,28 @@ private:
             }
         }
         return arguments;
+    }
+
+    static void add_device_(string const & deviceName, string const & varName, int const & numArgs, vector<int> const & arguments, kitty_storage & storage) {
+        if (deviceName == "servo") {
+            if (numArgs != 1) {
+                Serial.println(F("ERROR: wrong number of inputs for servo"));
+            } else {
+                storage.variable(varName).set(kitty_servo(arguments[0]));
+            }
+        } else if (deviceName == "led") {
+            if (numArgs != 1) {
+                Serial.println(F("ERROR: wrong number of inputs for LED"));
+            } else {
+                storage.variable(varName).set(kitty_led(arguments[0]));
+            }
+        } else if (deviceName == "sonar") {
+            if (numArgs != 2) {
+                Serial.println(F("ERROR: wrong number of inputs for sonar"));
+            } else {
+                storage.variable(varName).set(kitty_sonar(arguments[0], arguments[1]));
+            }
+        }
     }
 
 protected:

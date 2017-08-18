@@ -49,6 +49,24 @@ public:
         }
     }
 
+    void move_by_for(int const & value, int const & duration) {
+        if (isActive_) {
+            auto origValue = value_;
+            move_by(value);
+            delay(duration);
+            move_to(origValue);
+        }
+    }
+
+    void move_to_for(int const & value, int const & duration) {
+        if (isActive_) {
+            auto origValue = value_;
+            move_to(value);
+            delay(duration);
+            move_to(origValue);
+        }
+    }
+
 private:
     bool isActive_;
     int pin_;

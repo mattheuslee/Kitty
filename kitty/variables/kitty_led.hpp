@@ -48,6 +48,24 @@ public:
         }
     }
 
+    void move_by_for(int const & value, int const & duration) {
+        if (isActive_) {
+            auto origLevel = level_;
+            move_by(value);
+            delay(duration);
+            move_to(origLevel);
+        }
+    }
+
+    void move_to_for(int const & value, int const & duration) {
+        if (isActive_) {
+            auto origLevel = level_;
+            move_to(value);
+            delay(duration);
+            move_to(origLevel);
+        }
+    }
+
 private:
     bool isActive_;
     int pin_;

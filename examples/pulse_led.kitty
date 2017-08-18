@@ -1,20 +1,20 @@
 level is 0
-change is 2
+change is 5
 light is led using 13
 
-create reverse_down if level equals 100
-change is -2
+create reverse_down
+change is -5
 done
 
-create reverse_up if level equals 0
-change is 2
+create reverse_up
+change is 5
 done
 
-create pulse repeating
-move light to level
-level is level + change
-run reverse_down
-run reverse_up
+create pulse
+set light to level
+increase level by change
+run reverse_down if level equals 100
+run reverse_up if level equals 0
 done
 
-run pulse
+run pulse forever

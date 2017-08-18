@@ -1,0 +1,20 @@
+degree is 0
+change is 1
+ser is servo using 9
+
+create reverse_down
+change is -1
+done
+
+create reverse_up
+change is 1
+done
+
+create sweep
+move ser to degree
+increase degree by change
+run reverse_down if level equals 180
+run reverse_up if level equals 0
+done
+
+run sweep forever
