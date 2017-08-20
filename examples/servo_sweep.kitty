@@ -13,8 +13,8 @@ done
 create sweep
 move ser to degree
 increase degree by change
-run reverse_down if level equals 180
-run reverse_up if level equals 0
+run reverse_down if degree equals 180
+run reverse_up if degree equals 0
 done
 
 run sweep forever

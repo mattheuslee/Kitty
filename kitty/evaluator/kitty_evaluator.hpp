@@ -35,6 +35,10 @@ public:
             return evaluate_addition_expression_(matchState, storage);
         } else if (is_subtraction_expression_(matchState)) {
             return evaluate_subtraction_expression_(matchState, storage);
+        } else if (is_multiplication_expression_(matchState)) {
+            return evaluate_multiplication_expression_(matchState, storage);
+        } else if (is_division_expression_(matchState)) {
+            return evaluate_division_expression_(matchState, storage);
         } else if (is_single_variable_expression_(matchState)) {
             return evaluate_single_variable_expression_(matchState, storage);            
         } else if (is_numerical_expression_(matchState)) {
@@ -109,6 +113,14 @@ private:
         return matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) %- ([%a%d%+%-%(%)_ ]+)%)*$") > 0;
     }
 
+    static bool is_multiplication_expression_(MatchState & matchState) {
+        return matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) %* ([%a%d%+%-%(%)_ ]+)%)*$") > 0;
+    }
+
+    static bool is_division_expression_(MatchState & matchState) {
+        return matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) %/ ([%a%d%+%-%(%)_ ]+)%)*$") > 0;
+    }
+
     static bool is_single_variable_expression_(MatchState & matchState) {
         return matchState.Match("^%(*([%a_]+)%)*$") > 0;
     }
@@ -163,6 +175,22 @@ private:
             return invalid_val_result_();
         }
         return make_kitty_pair(true, evaluatedSides.first.second - evaluatedSides.second.second);
+    }
+
+    static val_result_t evaluate_multiplication_expression_(MatchState const & matchState, kitty_storage const & storage) {
+        auto evaluatedSides = evaluate_both_sides_as_values_(matchState, storage);
+        if (!verify_both_sides_valid_(evaluatedSides)) {
+            return invalid_val_result_();
+        }
+        return make_kitty_pair(true, evaluatedSides.first.second * evaluatedSides.second.second);
+    }
+
+    static val_result_t evaluate_division_expression_(MatchState const & matchState, kitty_storage const & storage) {
+        auto evaluatedSides = evaluate_both_sides_as_values_(matchState, storage);
+        if (!verify_both_sides_valid_(evaluatedSides)) {
+            return invalid_val_result_();
+        }
+        return make_kitty_pair(true, evaluatedSides.first.second / evaluatedSides.second.second);
     }
 
     static val_result_t evaluate_single_variable_expression_(MatchState const & matchState, kitty_storage const & storage) {

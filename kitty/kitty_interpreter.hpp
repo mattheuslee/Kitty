@@ -50,7 +50,8 @@ public:
         `*-*      .*' ; .*`- +' 
      (bug)        `*-*  `*-*'        
         )"));
-        Serial.println(F("Welcome to Kitty 0.0.1\nby Mattheus Lee, mattheus.lee@gmail.com, 2017"));
+        Serial.println(F("Welcome to Kitty 0.0.1"));
+        Serial.println(F("by Mattheus Lee, mattheus.lee@gmail.com, 2017"));
     }
 
     void print_prompt() {
@@ -64,10 +65,11 @@ public:
         }
     }
 
-    void execute_preloaded_commands(vector<string> const & commands) {
+    void execute_preloaded_commands(string const & commands) {
         Serial.println(F("Kitty interpreter is in preloaded commands mode"));
         storage_.is_live_mode(false);
-        for (auto const & command : commands) {
+        auto commandLines = split_commands_into_lines_(commands);
+        for (auto const & command : commandLines) {
             storage_.add_command_to_back(command);
         }
         while (storage_.has_more_commands()) {
@@ -78,6 +80,24 @@ public:
 
 private:
     kitty_storage storage_;
+
+    vector<string> split_commands_into_lines_(string const & commands) {
+        auto commandVector = vector<string>();
+        auto curr = string();
+        for (auto const & c : commands) {
+            if (isblank(c) && curr.empty()) {
+                continue;
+            } else if (c == '\n') {
+                if (!curr.empty()) {
+                    commandVector.push_back(curr);
+                }
+                curr = string();
+            } else {
+                curr += c;
+            }
+        }
+        return commandVector;
+    }
 
     void parse_and_execute_single_command_() {
         auto command = storage_.pop_next_command();

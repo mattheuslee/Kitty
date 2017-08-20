@@ -7,28 +7,74 @@ The command examples given here are prefixed with `>>>`.
 The expected output from the commands are displayed after the commands without a prefix.
 
 ## 1. Names
-Names in Kitty can only contain the characters `a-z`, `A-Z`, and underscores `_`
+Names in Kitty can only contain the characters `a-z`, `A-Z`, and `_` (underscores), in any order.
 
-## 2. Creating and storing numbers and devices
-Creation and storing is done using the `is` keyword.
-### 2.1 Creating and storing numbers
+## 2. Numbers
+__Creating Numbers__  
 To store `42` in `answer`:
-> `>>>answer is 42`  
+> `>>>answer is 42`
 
-To display information about any stored number or device, type in just it's name:
+To display the value stored in a number, just type in its name:
 > `>>>answer`  
-> `answer: 42`
+> `>>>answer: 42`
 
 To store `-1` in `negative`:
 > `>>>negative is -1`  
 > `>>>negative`  
 > `negative: -1`
 
-Copies of numbers can also be made.  
-To make a copy of `answer` from earlier into `other_answer`:
-> `>>>other_answer is answer`  
-> `>>>other_answer`  
-> `other_answer: 42`
+You can also use basic math expressions with numbers.  
+To store a value that's `5` greater than `answer` inside `bigger_answer`:
+> `>>>bigger_answer is answer + 5`  
+> `>>>bigger_answer`  
+> `bigger_answer: 47`
+
+Match expressions you can use are:
+* Addition `+`
+* Subtraction `-`
+* Multiplication `*`
+* Division `/`
+
+__Increasing and Decreasing Numbers__  
+To increase `answer` by `5`:
+> `>>>increase answer by 5`  
+> `>>>answer`  
+> `>>>answer: 47`
+
+To decrease `answer` by `5`:
+> `>>>decrease answer by 5`  
+> `>>>answer`  
+> `>>>answer: 42`
+
+To store `5` in `difference`, and to increase `answer` by `difference`:
+> `>>>difference is 5`  
+> `>>>increase answer by difference`  
+> `>>>answer`  
+> `>>>answer: 47`
+
+## 3. Output Devices
+__Creating Output Devices__  
+LEDs require two connections to the Arduino: the shorter pin to ground, and the longer pin to one of the Arduino's pins. The Arduino has a built-in LED using pin 13, which means we don't have to physically attach an LED for this example.  
+To store an LED named `light` that uses Arduino pin `13`:
+> `>>>light is led using 13`  
+> `>>>light`  
+> `light: led using pin 13 at level 50%`  
+You should see that the LED on the Arduino turns on.
+
+__Changing the Output__  
+The output level for LEDs is a percentage value which ranges from 0 - 100%.  
+To set the output level as 100%:
+> `>>>set light as 100`  
+> `>>>light`  
+> `light: led using pin 13 at level 100%`  
+You should see that the LED on the Arduino turns fully on.
+
+To set the output level as 0%:
+> `>>>set light as 0`  
+> `>>>light`  
+> `light: led using pin 13 at level 0%`  
+You should see that the LED on the Arduino turns off.
+
 
 ### 2.2 Creating and storing devices
 

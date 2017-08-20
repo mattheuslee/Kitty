@@ -3,12 +3,12 @@
 #ifndef KITTY_SONAR_HPP_
 #define KITTY_SONAR_HPP_
 
-#include <NewPing.h>
-
 #include <StandardCplusplus.h>
 
 #include <sstream>
 #include <string>
+
+#include <kitty/variables/NewPing/NewPing.h>
 
 namespace kitty {
 
