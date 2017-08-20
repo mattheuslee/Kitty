@@ -15,6 +15,7 @@
 #include <Regexp.h>
 
 #include <kitty/commands/kitty_commands.hpp>
+#include <kitty/language/kitty_symbols.hpp>
 #include <kitty/storage/kitty_storage.hpp>
 #include <kitty/variables/kitty_variables.hpp>
 
@@ -44,10 +45,10 @@ public:
               :.       .        \    
              ,  \   ;  :   .-'   .   
             .  , `..;  ;  '      :   _.--.
- ,-.       '  .     |  , ;       ;.-'_.-'`
-:       .*'  .      : :`-:     _.`-'`
-`      `*-*      .*' ; .*`- +' 
- '.(bug)          `*-*  `*-*'        
+           '  .     |  , ;       ;.-'_.-'`
+        .*'  .      : :`-:     _.`-'`
+        `*-*      .*' ; .*`- +' 
+     (bug)        `*-*  `*-*'        
         )"));
         Serial.println(F("Welcome to Kitty 0.0.1\nby Mattheus Lee, mattheus.lee@gmail.com, 2017"));
     }
@@ -80,6 +81,9 @@ private:
 
     void parse_and_execute_single_command_() {
         auto command = storage_.pop_next_command();
+        if (kitty_symbols::command_contains_invalid_character(command)) {
+            return;
+        }
         MatchState matchState;
         matchState.Target(command.c_str());
         if (kitty_device_variable_command::matches(matchState)) {
