@@ -25,6 +25,10 @@ public:
         return string(val.c_str());
     }
 
+    void print() const {
+        Serial.println(str().c_str());
+    }
+
     int val() const {
         return val_;
     }

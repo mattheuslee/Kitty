@@ -1,40 +1,66 @@
 #pragma once
 
-#ifndef KITTY_DEVICE_VARIABLE_COMMAND_HPP_
-#define KITTY_DEVICE_VARIABLE_COMMAND_HPP_
+#ifndef KITTY_CREATE_VARIABLE_COMMAND_HPP_
+#define KITTY_CREATE_VARIABLE_COMMAND_HPP_
 
 #include <StandardCplusplus.h>
 
 #include <sstream>
 #include <string>
+#include <vector>
 
 #include <Regexp.h>
 
+#include <kitty/evaluator/kitty_evaluator.hpp>
 #include <kitty/storage/kitty_storage.hpp>
+#include <kitty/variables/kitty_variables.hpp>
 
 namespace kitty {
 
-using std::istringstream;
+using std::istringstream;    
 using std::string;
-
-class kitty_device_variable_command {
+using std::vector;
+    
+class kitty_create_variable_command {
 
 public:
-    static bool matches(MatchState & matchState) {
+    static bool matches_device_variable(MatchState & matchState) {
         return matchState.Match("^([%a_]+) is ([%a_]+) using ([%d%a_, ]+)$") > 0;
     }
 
-    static void execute(MatchState const & matchState, kitty_storage & storage) {
+    static bool matches_numeric_variable(MatchState & matchState) {
+        return matchState.Match("^([%a_]+) is ([%a%d%+%-%*%/%(%)_ ]+)$") > 0;        
+    }
+
+    static bool matches_string_variable(MatchState & matchState) {
+        return matchState.Match("^([%a_]+) is \"(.+)\"$") > 0;                
+    }
+
+    static void execute_device_variable(MatchState const & matchState, kitty_storage & storage) {
         auto varName = string(matchState.capture[0].init, matchState.capture[0].len);
         auto deviceName = string(matchState.capture[1].init, matchState.capture[1].len);
         auto argList = string(matchState.capture[2].init, matchState.capture[2].len);
         MatchState argMatchState;
         argMatchState.Target(argList.c_str());
         auto numArgs = argMatchState.MatchCount("([%d%a_]+)");
-
         auto arguments = split_arg_list_(argList, numArgs, storage);
-
         add_device_(deviceName, varName, numArgs, arguments, storage);
+    }
+
+    static void execute_numeric_variable(MatchState const & matchState, kitty_storage & storage) {
+        auto varName = string(matchState.capture[0].init, matchState.capture[0].len);
+        auto expression = string(matchState.capture[1].init, matchState.capture[1].len);
+        auto evaluatedExpression = kitty_evaluator::evaluate(expression, storage);
+        if (evaluatedExpression.valueType != ValueType::NUMBER) {
+            return;
+        }
+        storage.variable(varName).set(kitty_int(evaluatedExpression.numberVal));
+    }
+
+    static void execute_string_variable(MatchState const & matchState, kitty_storage & storage) {
+        auto varName = string(matchState.capture[0].init, matchState.capture[0].len);
+        auto expression = string(matchState.capture[1].init, matchState.capture[1].len);
+        storage.variable(varName).set(kitty_string(expression));
     }
 
 private:
@@ -93,4 +119,4 @@ protected:
 
 } // kitty
 
-#endif // KITTY_DEVICE_VARIABLE_COMMAND_HPP_
+#endif // KITTY_CREATE_VARIABLE_COMMAND_HPP_

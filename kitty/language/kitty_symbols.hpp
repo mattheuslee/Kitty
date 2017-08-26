@@ -19,7 +19,7 @@ public:
     static bool command_contains_invalid_character(string const & command) {
         MatchState matchState;
         matchState.Target(command.c_str());
-        if (matchState.Match("([^%a%d%+%-%(%)_ ]+)") > 0) {
+        if (matchState.Match("([^%a%d%+%-%*%/%(%)\"\'!@#$%%^&_ ]+)") > 0) {
             Serial.print(F("ERROR: invalid character"));
             if (matchState.MatchCount("[^%a%d%+%-%(%)_ ]") > 0) {
                 Serial.print(F("s"));

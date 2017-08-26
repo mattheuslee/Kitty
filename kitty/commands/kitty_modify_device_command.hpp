@@ -124,7 +124,11 @@ private:
 
     static kitty_pair<bool, int> extract_evaluated_expression_(MatchState const & matchState, kitty_storage & storage) {
         auto expression = string(matchState.capture[1].init, matchState.capture[1].len);
-        return kitty_evaluator::evaluate_to_value(expression, storage);
+        auto evaluatedExpression = kitty_evaluator::evaluate(expression, storage);
+        if (evaluatedExpression.valueType == ValueType::NUMBER) {
+            return make_kitty_pair(true, evaluatedExpression.numberVal);
+        }
+        return make_kitty_pair(false, 0);
     }
 
     static int get_time_multiplier_(MatchState const & matchState) {

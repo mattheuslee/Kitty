@@ -18,13 +18,22 @@ using std::string;
 class kitty_print_information_command {
 
 public:
-    static bool matches(MatchState & matchState) {
+    static bool matches_information(MatchState & matchState) {
         return matchState.Match("^([%a_]+)$") > 0;
     }
 
-    static void execute(MatchState const & matchState, kitty_storage const & storage) {
+    static bool matches_print(MatchState & matchState) {
+        return matchState.Match("^print ([%a_]+)$") > 0;
+    }
+
+    static void execute_information(MatchState const & matchState, kitty_storage const & storage) {
         auto name = string(matchState.capture[0].init, matchState.capture[0].len);
         storage.print_info(name);
+    }
+
+    static bool execute_print(MatchState & matchState, kitty_storage const & storage) {
+        auto name = string(matchState.capture[0].init, matchState.capture[0].len);
+        storage.print(name);
     }
 
 private:

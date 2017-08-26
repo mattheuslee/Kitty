@@ -8,7 +8,7 @@
 #include <sstream>
 #include <string>
 
-#include <kitty/variables/NewPing/NewPing.h>
+#include <NewPing.h>
 
 namespace kitty {
 
@@ -30,6 +30,14 @@ public:
         ostringstream oss;
         oss << " sonar using trigger pin " << triggerPin_ << " and echo pin " << echoPin_;
         return oss.str();
+    }
+
+    void print() const {
+        Serial.println(str().c_str());
+    }
+
+    int val() const {
+        return sense("cm");
     }
 
     int sense(string const & type) const {

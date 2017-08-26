@@ -61,7 +61,7 @@ public:
         if (!storage.assert_command_group_exists(groupName)) {
             return;
         }
-        add_command_group_to_deque(groupName, storage);
+        add_command_group_to_deque_(groupName, storage);
     }
 
     static void execute_run_if(MatchState const & matchState, kitty_storage & storage) {
@@ -70,9 +70,9 @@ public:
             return;
         }
         auto condition = string(matchState.capture[1].init, matchState.capture[1].len);
-        auto evaluatedCondition = kitty_evaluator::evaluate_to_boolean(condition, storage);
-        if (evaluatedCondition.first && evaluatedCondition.second) {
-            add_command_group_to_deque(groupName, storage);
+        auto evaluatedCondition = kitty_evaluator::evaluate(condition, storage);
+        if (evaluatedCondition.valueType == ValueType::BOOLEAN && evaluatedCondition.booleanVal) {
+            add_command_group_to_deque_(groupName, storage);            
         }
     }
 
@@ -82,10 +82,10 @@ public:
             return;
         }
         auto condition = string(matchState.capture[1].init, matchState.capture[1].len);
-        auto evaluatedCondition = kitty_evaluator::evaluate_to_boolean(condition, storage);
-        if (evaluatedCondition.first && evaluatedCondition.second) {
+        auto evaluatedCondition = kitty_evaluator::evaluate(condition, storage);
+        if (evaluatedCondition.valueType == ValueType::BOOLEAN && evaluatedCondition.booleanVal) {
             storage.add_command_to_front("run " + groupName + " while " + condition);
-            add_command_group_to_deque(groupName, storage);
+            add_command_group_to_deque_(groupName, storage);
         }
     }
 
@@ -95,10 +95,10 @@ public:
             return;
         }
         auto condition = string(matchState.capture[1].init, matchState.capture[1].len);
-        auto evaluatedCondition = kitty_evaluator::evaluate_to_boolean(condition, storage);
-        if (!evaluatedCondition.first || !evaluatedCondition.second) {
+        auto evaluatedCondition = kitty_evaluator::evaluate(condition, storage);
+        if (evaluatedCondition.valueType == ValueType::BOOLEAN && !evaluatedCondition.booleanVal) {
             storage.add_command_to_front("run " + groupName + " until " + condition);
-            add_command_group_to_deque(groupName, storage);
+            add_command_group_to_deque_(groupName, storage);
         }
     }
 
@@ -108,7 +108,7 @@ public:
             return;
         }
         storage.add_command_to_front("run " + groupName + " forever");
-        add_command_group_to_deque(groupName, storage);
+        add_command_group_to_deque_(groupName, storage);
     }
 
     static void execute_run_times(MatchState const & matchState, kitty_storage & storage) {
@@ -123,7 +123,7 @@ public:
     }
 
 private:
-    static void add_command_group_to_deque(string const & groupName, kitty_storage & storage) {
+    static void add_command_group_to_deque_(string const & groupName, kitty_storage & storage) {
         auto groupCommands = storage.command_group(groupName);
         for (auto it = groupCommands.rbegin(); it != groupCommands.rend(); ++it) {
             storage.add_command_to_front(*it);

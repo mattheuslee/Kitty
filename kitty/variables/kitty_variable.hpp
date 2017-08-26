@@ -4,6 +4,7 @@
 #define KITTY_VARIABLE_HPP_
 
 #define KITTY_VARIABLE_TYPE_INT_ 0
+#define KITTY_VARIABLE_TYPE_STRING_ 1
 #define KITTY_VARIABLE_TYPE_DEVICE_SERVO_ 10
 #define KITTY_VARIABLE_TYPE_DEVICE_LED_ 11
 #define KITTY_VARIABLE_TYPE_DEVICE_SONAR_ 20
@@ -12,10 +13,7 @@
 
 #include <string>
 
-#include <kitty/variables/kitty_int.hpp>
-#include <kitty/variables/kitty_led.hpp>
-#include <kitty/variables/kitty_servo.hpp>
-#include <kitty/variables/kitty_sonar.hpp>
+#include <kitty/variables/kitty_variables.hpp>
 
 namespace kitty {
 
@@ -26,14 +24,14 @@ class kitty_variable {
 public:
     kitty_variable() {}
 
-    void set(kitty_variable const & kittyVar) {
-        varType_ = kittyVar.varType_;
-        intVar_ = kittyVar.intVar_;
-    }
-
     void set(kitty_int const & intVar) {
         intVar_ = intVar;
         varType_ = KITTY_VARIABLE_TYPE_INT_;
+    }
+
+    void set(kitty_string const & strVar) {
+        strVar_ = strVar;
+        varType_ = KITTY_VARIABLE_TYPE_STRING_;
     }
 
     void set(kitty_servo const & servo) {
@@ -55,6 +53,8 @@ public:
         switch (varType_) {
         case KITTY_VARIABLE_TYPE_INT_:
             return intVar_.str();
+        case KITTY_VARIABLE_TYPE_STRING_:
+            return strVar_.str();
         case KITTY_VARIABLE_TYPE_DEVICE_SERVO_:
             return servo_.str();
         case KITTY_VARIABLE_TYPE_DEVICE_LED_:
@@ -63,6 +63,26 @@ public:
             return sonar_.str();
         default:
             return "";
+        }
+    }
+
+    void print() const {
+        switch (varType_) {
+        case KITTY_VARIABLE_TYPE_INT_:
+            intVar_.print();
+            break;
+        case KITTY_VARIABLE_TYPE_STRING_:
+            strVar_.print();
+            break;
+        case KITTY_VARIABLE_TYPE_DEVICE_SERVO_:
+            servo_.print();
+            break;
+        case KITTY_VARIABLE_TYPE_DEVICE_LED_:
+            led_.print();
+            break;
+        case KITTY_VARIABLE_TYPE_DEVICE_SONAR_:
+            sonar_.print();
+            break;
         }
     }
 
@@ -90,6 +110,12 @@ public:
         switch(varType_) {
         case KITTY_VARIABLE_TYPE_INT_:
             return true;
+        case KITTY_VARIABLE_TYPE_DEVICE_SERVO_:
+            return true;
+        case KITTY_VARIABLE_TYPE_DEVICE_LED_:
+            return true;
+            case KITTY_VARIABLE_TYPE_DEVICE_SONAR_:
+            return true;
         default:
             return false;
         }
@@ -99,6 +125,12 @@ public:
         switch(varType_) {
         case KITTY_VARIABLE_TYPE_INT_:
             return intVar_.val();
+        case KITTY_VARIABLE_TYPE_DEVICE_SERVO_:
+            return servo_.val();
+        case KITTY_VARIABLE_TYPE_DEVICE_LED_:
+            return led_.val();
+        case KITTY_VARIABLE_TYPE_DEVICE_SONAR_:
+            return sonar_.val();
         default:
             return 0;
         }
@@ -160,6 +192,7 @@ public:
 private:
     uint8_t varType_;
     kitty_int intVar_;
+    kitty_string strVar_;
     kitty_servo servo_;
     kitty_led led_;
     kitty_sonar sonar_;

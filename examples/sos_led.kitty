@@ -1,5 +1,4 @@
 light is led using 13
-set light to 0
 
 create long_blink
 set light to 100 for 500ms

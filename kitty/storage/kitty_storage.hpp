@@ -46,6 +46,12 @@ public:
         }
     }
 
+    void print(string const & name) const {
+        if (assert_variable_exists(name)) {
+            variables_[name].print();
+        }
+    }
+
     bool assert_variable_exists(string const & varName) const {
         if (!check_variable_exists(varName)) {
             print_does_not_exist_(varName);

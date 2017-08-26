@@ -33,6 +33,14 @@ public:
         return oss.str();
     }
 
+    void print() const {
+        Serial.println(str().c_str());
+    }
+
+    int val() const {
+        return value_;
+    }
+
     void move_by(int const & value) {
         if (isActive_) {
             value_ += value;

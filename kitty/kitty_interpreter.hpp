@@ -50,7 +50,7 @@ public:
         `*-*      .*' ; .*`- +' 
      (bug)        `*-*  `*-*'        
         )"));
-        Serial.println(F("Welcome to Kitty 0.0.1"));
+        Serial.println(F("Welcome to Kitty 0.1.0"));
         Serial.println(F("by Mattheus Lee, mattheus.lee@gmail.com, 2017"));
     }
 
@@ -74,12 +74,23 @@ public:
         }
         while (storage_.has_more_commands()) {
             parse_and_execute_single_command_();
+            check_for_stop_();
         }
         Serial.println(F("Program done"));
     }
 
 private:
     kitty_storage storage_;
+
+    void check_for_stop_() {
+        if (Serial.available()) {
+            if (kitty_utility::get_line() == "stop") {
+                while(storage_.has_more_commands()) {
+                    storage_.pop_next_command();
+                }
+            }
+        }
+    }
 
     vector<string> split_commands_into_lines_(string const & commands) {
         auto commandVector = vector<string>();
@@ -106,21 +117,24 @@ private:
         }
         MatchState matchState;
         matchState.Target(command.c_str());
-        if (kitty_device_variable_command::matches(matchState)) {
-            kitty_device_variable_command::execute(matchState, storage_);
-        } 
-        else if (kitty_numeric_variable_command::matches(matchState)) {
-            kitty_numeric_variable_command::execute(matchState, storage_);
-        } 
+        if (kitty_create_variable_command::matches_device_variable(matchState)) {
+            kitty_create_variable_command::execute_device_variable(matchState, storage_);
+        }
+        else if (kitty_create_variable_command::matches_numeric_variable(matchState)) {
+            kitty_create_variable_command::execute_numeric_variable(matchState, storage_);
+        }
+        else if (kitty_create_variable_command::matches_string_variable(matchState)) {
+            kitty_create_variable_command::execute_string_variable(matchState, storage_);
+        }
         else if (kitty_modify_number_command::matches_increase_by(matchState)) {
             kitty_modify_number_command::execute_increase_by(matchState, storage_);
-        } 
+        }
         else if (kitty_modify_number_command::matches_increase(matchState)) {
             kitty_modify_number_command::execute_increase(matchState, storage_);
-        } 
+        }
         else if (kitty_modify_number_command::matches_decrease_by(matchState)) {
             kitty_modify_number_command::execute_decrease_by(matchState, storage_);
-        } 
+        }
         else if (kitty_modify_number_command::matches_decrease(matchState)) {
             kitty_modify_number_command::execute_decrease(matchState, storage_);
         }
@@ -171,8 +185,11 @@ private:
         else if (kitty_wait_command::matches(matchState)) {
             kitty_wait_command::execute(matchState, storage_);            
         }
-        else if (kitty_print_information_command::matches(matchState)) {
-            kitty_print_information_command::execute(matchState, storage_);
+        else if (kitty_print_information_command::matches_information(matchState)) {
+            kitty_print_information_command::execute_information(matchState, storage_);
+        }
+        else if (kitty_print_information_command::matches_print(matchState)) {
+            kitty_print_information_command::execute_print(matchState, storage_);
         }
         else {
             Serial.println(F("ERROR: unable to parse line"));

@@ -1,4 +1,3 @@
-degree is 0
 change is 1
 ser is servo using 9
 
@@ -11,10 +10,9 @@ change is 1
 done
 
 create sweep
-move ser to degree
-increase degree by change
-run reverse_down if degree equals 180
-run reverse_up if degree equals 0
+move ser by change
+run reverse_down if ser equals 180
+run reverse_up if ser equals 0
 done
 
 run sweep forever

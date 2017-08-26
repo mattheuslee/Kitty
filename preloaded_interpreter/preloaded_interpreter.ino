@@ -44,7 +44,6 @@ void setup() {
 
     // pulse_led
     string commands(R"(
-        level is 0
         change is 2
         light is led using 13
 
@@ -57,10 +56,9 @@ void setup() {
         done
 
         create pulse
-        set light to level
-        increase level by change
-        run reverse_down if level equals 100
-        run reverse_up if level equals 0
+        move light by change
+        run reverse_down if light equals 100
+        run reverse_up if light equals 0
         done
 
         run pulse forever
@@ -93,7 +91,6 @@ void setup() {
 
     // servo_sweep
     /*string commands(R"(
-        degree is 0
         change is 1
         ser is servo using 9
 
@@ -106,10 +103,9 @@ void setup() {
         done
 
         create sweep
-        move ser to degree
-        increase degree by change
-        run reverse_down if degree equals 180
-        run reverse_up if degree equals 0
+        move ser by change
+        run reverse_down if ser equals 180
+        run reverse_up if ser equals 0
         done
 
         run sweep forever

@@ -20,7 +20,7 @@ public:
             : isActive_(false), pin_(0), level_(0) {}
 
     explicit kitty_led(int const & pin)
-            : isActive_(true), pin_(pin), level_(50) {
+            : isActive_(true), pin_(pin), level_(0) {
         isActive_ = true;
         pinMode(pin_, OUTPUT);
         analogWrite(pin_, (int)((level_ / 100.0) * 255));
@@ -30,6 +30,14 @@ public:
         ostringstream oss;
         oss << " led using pin " << pin_ << " at level " << level_ << "%";
         return oss.str();
+    }
+
+    void print() const {
+        Serial.println(str().c_str());
+    }
+
+    int val() const {
+        return level_;
     }
 
     void move_by(int const & value) {

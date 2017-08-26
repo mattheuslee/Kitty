@@ -42,11 +42,11 @@ public:
             return;
         }
         auto expression = string(matchState.capture[1].init, matchState.capture[1].len);
-        auto evaluatedExpression = kitty_evaluator::evaluate_to_value(expression, storage);
-        if (!evaluatedExpression.first) {
+        auto evaluatedExpression = kitty_evaluator::evaluate(expression, storage);
+        if (evaluatedExpression.valueType != ValueType::NUMBER) {
             return;
         }
-        increase_(varName, evaluatedExpression.second, storage);
+        increase_(varName, evaluatedExpression.numberVal, storage);
     }
 
     static void execute_increase(MatchState const & matchState, kitty_storage & storage) {
@@ -63,11 +63,11 @@ public:
             return;
         }
         auto expression = string(matchState.capture[1].init, matchState.capture[1].len);
-        auto evaluatedExpression = kitty_evaluator::evaluate_to_value(expression, storage);
-        if (!evaluatedExpression.first) {
+        auto evaluatedExpression = kitty_evaluator::evaluate(expression, storage);
+        if (evaluatedExpression.valueType != ValueType::NUMBER) {
             return;
         }
-        decrease_(varName, evaluatedExpression.second, storage);
+        decrease_(varName, evaluatedExpression.numberVal, storage);
     }
 
     static void execute_decrease(MatchState const & matchState, kitty_storage & storage) {
