@@ -3,7 +3,7 @@
 #ifndef KITTY_INTERPRETER_HPP_
 #define KITTY_INTERPRETER_HPP_
 
-#include <StandardCplusplus.h>
+#include <kitty/kitty_stl_impl.hpp>
 
 #include <cctype>
 #include <map>

@@ -3,7 +3,7 @@
 #ifndef KITTY_EVALUATOR_HPP_
 #define KITTY_EVALUATOR_HPP_
 
-#include <StandardCplusplus.h>
+#include <kitty/kitty_stl_impl.hpp>
 
 #include <cctype>
 #include <stack>

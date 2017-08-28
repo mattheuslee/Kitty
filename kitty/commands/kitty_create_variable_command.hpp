@@ -3,7 +3,7 @@
 #ifndef KITTY_CREATE_VARIABLE_COMMAND_HPP_
 #define KITTY_CREATE_VARIABLE_COMMAND_HPP_
 
-#include <StandardCplusplus.h>
+#include <kitty/kitty_stl_impl.hpp>
 
 #include <sstream>
 #include <string>

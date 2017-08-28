@@ -3,7 +3,7 @@
 #ifndef KITTY_GROUP_COMMAND_HPP_
 #define KITTY_GROUP_COMMAND_HPP_
 
-#include <StandardCplusplus.h>
+#include <kitty/kitty_stl_impl.hpp>
 
 #include <string>
 #include <vector>

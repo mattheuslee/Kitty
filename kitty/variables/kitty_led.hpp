@@ -3,7 +3,7 @@
 #ifndef KITTY_LED_HPP_
 #define KITTY_LED_HPP_
 
-#include <StandardCplusplus.h>
+#include <kitty/kitty_stl_impl.hpp>
 
 #include <sstream>
 #include <string>

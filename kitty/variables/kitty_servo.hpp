@@ -5,7 +5,7 @@
 
 #include <Servo.h>
 
-#include <StandardCplusplus.h>
+#include <kitty/kitty_stl_impl.hpp>
 
 #include <sstream>
 #include <string>

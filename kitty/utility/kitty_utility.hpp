@@ -3,7 +3,7 @@
 #ifndef KITTY_UTILITY_HPP
 #define KITTY_UTILITY_HPP
 
-#include <StandardCplusplus.h>
+#include <kitty/kitty_stl_impl.hpp>
 
 #include <sstream>
 #include <string>

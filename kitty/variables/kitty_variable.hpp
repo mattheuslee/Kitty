@@ -9,7 +9,7 @@
 #define KITTY_VARIABLE_TYPE_DEVICE_LED_ 11
 #define KITTY_VARIABLE_TYPE_DEVICE_SONAR_ 20
 
-#include <StandardCplusplus.h>
+#include <kitty/kitty_stl_impl.hpp>
 
 #include <string>
 
