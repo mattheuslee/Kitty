@@ -22,8 +22,12 @@ public:
         return matchState.Match("^([%a_]+)$") > 0;
     }
 
-    static bool matches_print(MatchState & matchState) {
+    static bool matches_print_variable(MatchState & matchState) {
         return matchState.Match("^print ([%a_]+)$") > 0;
+    }
+
+    static bool matches_print_string(MatchState & matchState) {
+        return matchState.Match("^print \"(.+)\"$") > 0;        
     }
 
     static void execute_information(MatchState const & matchState, kitty_storage const & storage) {
@@ -31,9 +35,13 @@ public:
         storage.print_info(name);
     }
 
-    static bool execute_print(MatchState & matchState, kitty_storage const & storage) {
+    static bool execute_print_variable(MatchState & matchState, kitty_storage const & storage) {
         auto name = string(matchState.capture[0].init, matchState.capture[0].len);
         storage.print(name);
+    }
+
+    static bool execute_print_string(MatchState & matchState, kitty_storage const & storage) {
+        Serial.println(string(matchState.capture[0].init, matchState.capture[0].len).c_str());
     }
 
 private:

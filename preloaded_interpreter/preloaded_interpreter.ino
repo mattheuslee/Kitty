@@ -47,18 +47,13 @@ void setup() {
         change is 2
         light is led using 13
 
-        create reverse_down
-        change is -2
-        done
-
-        create reverse_up
-        change is 2
+        create reverse_direction
+        change is change * -1
         done
 
         create pulse
         move light by change
-        run reverse_down if light equals 100
-        run reverse_up if light equals 0
+        run reverse_direction if (light equals 0) or (light equals 100)
         done
 
         run pulse forever
@@ -109,6 +104,18 @@ void setup() {
         done
 
         run sweep forever
+    )");*/
+
+    /*string commands(R"(
+        create group
+        true_result is "true!"
+        print true_result
+        done
+
+        i is 5
+        j is 5
+
+        run group if ((i + 6) equals 10) or (j equals 5)
     )");*/
 
     interpreter.print_welcome_screen();

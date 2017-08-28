@@ -5,13 +5,14 @@
 
 #include <StandardCplusplus.h>
 
+#include <cctype>
 #include <stack>
 #include <string>
 
 #include <Regexp.h>
 
+#include <kitty/containers/kitty_containers.hpp>
 #include <kitty/storage/kitty_storage.hpp>
-#include <kitty/utility/kitty_pair.hpp>
 #include <kitty/utility/kitty_utility.hpp>
 
 namespace kitty {
@@ -66,60 +67,76 @@ public:
     typedef kitty_pair<bool, bool> bool_result_t;
 
     static EvaluatorResult evaluate(string expression, kitty_storage const & storage) {
+        expression = remove_outer_brackets_(expression);
         if (!match_brackets_(expression) || !match_quotations_(expression)) {
             return invalid_evaluator_result_();
         }
-        MatchState matchState;
-        matchState.Target(expression.c_str());
-        if (is_addition_expression_(matchState)) {
-            return evaluate_addition_expression_(matchState, storage);
+        auto splitExpression = split_expression_(expression);
+        if (splitExpression.first) { // Successfully split
+            return evaluate_split_expression_(splitExpression, storage);
         }
-        else if (is_subtraction_expression_(matchState)) {
-            return evaluate_subtraction_expression_(matchState, storage);
-        }
-        else if (is_multiplication_expression_(matchState)) {
-            return evaluate_multiplication_expression_(matchState, storage);
-        }
-        else if (is_division_expression_(matchState)) {
-            return evaluate_division_expression_(matchState, storage);
-        }
-        else if (is_less_than_comparison_(matchState)) {
-            return evaluate_less_than_comparison_(matchState, storage);
-        }
-        else if (is_greater_than_comparison_(matchState)) {
-            return evaluate_greater_than_comparison_(matchState, storage);
-        }
-        else if (is_equals_comparison_(matchState)) {
-            return evaluate_equal_comparison_(matchState, storage);
-        }
-        else if (is_and_operation_(matchState)) {
-            return evaluate_and_operation_(matchState, storage);
-        }
-        else if (is_or_operation_(matchState)) {
-            return evaluate_or_operation_(matchState, storage);
-        }
-        else if (is_single_variable_expression_(matchState)) {
-            return evaluate_single_variable_expression_(matchState, storage);            
-        }
-        else if (is_numerical_expression_(matchState)) {
-            return evaluate_numerical_expression_(matchState, storage);            
-        }
-        else if (is_not_operation_(matchState)) {
-            return evaluate_not_operation_(matchState, storage);
-        }
-        else if (is_true_literal_(matchState)) {
-            return EvaluatorResult(expression, true);
-        }
-        else if (is_false_literal_(matchState)) {
-            return EvaluatorResult(expression, false);
-        }
-        print_unable_to_evaluate_(expression);
-        return invalid_evaluator_result_();
+        // Cannot split, is only in one part
+        return evaluate_single_part_expression_(expression, storage);
     }
 
 private:
     static string get_expression_(MatchState const & matchState) {
         return string(matchState.src, matchState.src_len);
+    }
+
+    static kitty_quad<bool, string, string, string> split_expression_(string const & expression) {
+        if (expression[0] == '(') {
+            return split_expression_using_bracket_matching_(expression);
+        }
+        return split_expression_using_regex_(expression);
+    }
+
+    static kitty_quad<bool, string, string, string> split_expression_using_bracket_matching_(string const & expression) {
+        auto result = make_kitty_quad(true, string(), string(), string());
+        auto bracketStack = stack<kitty_pair<char, int>>();
+        auto lhs = string();
+        auto op = string();
+        auto rhs = string();
+        auto idx = 0;
+        for ( ; idx < expression.size(); ++idx) {
+            if (expression[idx] == '(') {
+                bracketStack.push(make_kitty_pair(expression[idx], idx));
+                if (idx != 0) {
+                    lhs += expression[idx];
+                }
+            } else if (expression[idx] == ')') {
+                if (bracketStack.size() == 1) { // Matches the first open bracket
+                    break;
+                } else {
+                    bracketStack.pop();
+                    lhs += expression[idx];
+                }
+            } else {
+                lhs += expression[idx];
+            }
+        }
+        result.second = lhs;
+        idx += 2; // skip ')' and ' '
+        while (!isspace(expression[idx])) {
+            op += expression[idx++];
+        }
+        idx += 1; // skip ' '
+        result.third = op;
+        for ( ; idx < expression.size(); ++idx) {
+            rhs += expression[idx];
+        }
+        result.fourth = rhs;
+        return result;
+    }
+
+    static kitty_quad<bool, string, string, string> split_expression_using_regex_(string const & expression) {
+        MatchState matchState;
+        matchState.Target(expression.c_str());
+        auto identity = identify_split_expression_(matchState);
+        if (identity.first) {
+            return make_kitty_quad(true, string(matchState.capture[0].init, matchState.capture[0].len), identity.second, string(matchState.capture[1].init, matchState.capture[1].len));
+        }
+        return make_kitty_quad(false, string(), string(), string());
     }
 
     static bool match_brackets_(string const & expression) {
@@ -138,6 +155,27 @@ private:
             return false;       
         }
         return true;
+    }
+
+    static string remove_outer_brackets_(string expression) {
+        auto wereBracketsRemoved = true;
+        while (wereBracketsRemoved) {
+            wereBracketsRemoved = false;
+            auto bracketStack = stack<kitty_pair<char, int>>();
+            for (int i = 0; i < expression.size(); ++i) {
+                if (expression[i] == '(') {
+                    bracketStack.push(make_kitty_pair(expression[i], i));
+                } else if (expression[i] == ')') {
+                    if (i != expression.size() - 1) {
+                        bracketStack.pop();
+                    } else if (bracketStack.top().second == 0) { // Matching brackets are opening and closing bracket
+                        expression = expression.substr(1, expression.size() - 2); // Remove first and last char;
+                        wereBracketsRemoved = true;
+                    }
+                }
+            }
+        }
+        return expression;
     }
 
     static bool match_quotations_(string const & expression) {
@@ -192,132 +230,109 @@ private:
         Serial.println(expression.c_str());
     }
 
-    static bool is_addition_expression_(MatchState & matchState) {
-        return matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) %+ ([%a%d%+%-%(%)_ ]+)%)*$") > 0;
-    }
-
-    static bool is_subtraction_expression_(MatchState & matchState) {
-        return matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) %- ([%a%d%+%-%(%)_ ]+)%)*$") > 0;
-    }
-
-    static bool is_multiplication_expression_(MatchState & matchState) {
-        return matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) %* ([%a%d%+%-%(%)_ ]+)%)*$") > 0;
-    }
-
-    static bool is_division_expression_(MatchState & matchState) {
-        return matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) %/ ([%a%d%+%-%(%)_ ]+)%)*$") > 0;
+    static kitty_pair<bool, string> identify_split_expression_(MatchState & matchState) {
+        if (matchState.Match("^([%a%d%+%-%(%)_ ]+) %+ ([%a%d%+%-%(%)_ ]+)$") > 0) {
+            return make_kitty_pair(true, string("+"));
+        }
+        else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) %- ([%a%d%+%-%(%)_ ]+)$") > 0) {
+            return make_kitty_pair(true, string("-"));
+        }
+        else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) %* ([%a%d%+%-%(%)_ ]+)$") > 0) {
+            return make_kitty_pair(true, string("*"));
+        }
+        else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) %/ ([%a%d%+%-%(%)_ ]+)$") > 0) {
+            return make_kitty_pair(true, string("/"));
+        }
+        else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) equals ([%a%d%+%-%(%)_ ]+)$") > 0) {
+            return make_kitty_pair(true, string("equals"));
+        }
+        else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) less than ([%a%d%+%-%(%)_ ]+)$") > 0) {
+            return make_kitty_pair(true, string("less than"));
+        }
+        else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) greater than ([%a%d%+%-%(%)_ ]+)$") > 0) {
+            return make_kitty_pair(true, string("greater than"));
+        }
+        else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) and ([%a%d%+%-%(%)_ ]+)$") > 0) {
+            return make_kitty_pair(true, string("and"));
+        }
+        else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) or ([%a%d%+%-%(%)_ ]+)$") > 0) {
+            return make_kitty_pair(true, string("or"));
+        }
+        return make_kitty_pair(false, string());
     }
 
     static bool is_single_variable_expression_(MatchState & matchState) {
-        return matchState.Match("^%(*([%a_]+)%)*$") > 0;
+        return matchState.Match("^([%a_]+)$") > 0;
     }
 
     static bool is_numerical_expression_(MatchState & matchState) {
-        return matchState.Match("^%(*(%-?%d+)%)*$") > 0;
-    }
-
-    static bool is_true_literal_(MatchState & matchState) {
-        return matchState.Match("^%(*true%(*$") > 0;
-    }
-
-    static bool is_false_literal_(MatchState & matchState) {
-        return matchState.Match("^%(*false%(*$") > 0;
-    }
-
-    static bool is_less_than_comparison_(MatchState & matchState) {
-        return matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) less than ([%a%d%+%-%(%)_ ]+)%)*$") > 0;
-    }
-
-    static bool is_greater_than_comparison_(MatchState & matchState) {
-        return matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) greater than ([%a%d%+%-%(%)_ ]+)%)*$") > 0;
-    }
-
-    static bool is_equals_comparison_(MatchState & matchState) {
-        return matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) equals ([%a%d%+%-%(%)_ ]+)%)*$") > 0;
-    }
-
-    static bool is_and_operation_(MatchState & matchState) {
-        return matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) and ([%a%d%+%-%(%)_ ]+)%)*$") > 0;
-    }
-
-    static bool is_or_operation_(MatchState & matchState) {
-        return matchState.Match("^%(*([%a%d%+%-%(%)_ ]+) or ([%a%d%+%-%(%)_ ]+)%)*$") > 0;
+        return matchState.Match("^(%-?%d+)$") > 0;
     }
 
     static bool is_not_operation_(MatchState & matchState) {
-        return matchState.Match("^%(*not ([%a%d%+%-%(%)_ ]+)%)*$") > 0;
+        return matchState.Match("^not ([%a%d%+%-%(%)_ ]+)$") > 0;
     }
 
-    static EvaluatorResult evaluate_addition_expression_(MatchState const & matchState, kitty_storage const & storage) {
-        auto evaluatedSides = evaluate_both_sides_(matchState, storage);
-        if (!verify_sides_for_numeric_arithmetic_expression_(evaluatedSides)) {
-            return invalid_evaluator_result_();
-        }
-        return EvaluatorResult(get_expression_(matchState), evaluatedSides.first.numberVal + evaluatedSides.second.numberVal);
+    static bool is_true_literal_(MatchState & matchState) {
+        return matchState.Match("^true$") > 0;
     }
 
-    static EvaluatorResult evaluate_subtraction_expression_(MatchState const & matchState, kitty_storage const & storage) {
-        auto evaluatedSides = evaluate_both_sides_(matchState, storage);
-        if (!verify_sides_for_numeric_arithmetic_expression_(evaluatedSides)) {
-            return invalid_evaluator_result_();
-        }
-        return EvaluatorResult(get_expression_(matchState), evaluatedSides.first.numberVal - evaluatedSides.second.numberVal);
+    static bool is_false_literal_(MatchState & matchState) {
+        return matchState.Match("^false$") > 0;
     }
 
-    static EvaluatorResult evaluate_multiplication_expression_(MatchState const & matchState, kitty_storage const & storage) {
-        auto evaluatedSides = evaluate_both_sides_(matchState, storage);
-        if (!verify_sides_for_numeric_arithmetic_expression_(evaluatedSides)) {
-            return invalid_evaluator_result_();
+    static EvaluatorResult evaluate_split_expression_(kitty_quad<bool, string, string, string> const & splitExpression, kitty_storage const & storage) {
+        auto evaluatedLhs = evaluate(splitExpression.second, storage);
+        auto evaluatedRhs = evaluate(splitExpression.fourth, storage);
+        if (splitExpression.third == "+" && verify_sides_for_numeric_arithmetic_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.numberVal + evaluatedRhs.numberVal);            
         }
-        return EvaluatorResult(get_expression_(matchState), evaluatedSides.first.numberVal * evaluatedSides.second.numberVal);
+        else if (splitExpression.third == "-" && verify_sides_for_numeric_arithmetic_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.numberVal - evaluatedRhs.numberVal);            
+        }
+        else if (splitExpression.third == "*" && verify_sides_for_numeric_arithmetic_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.numberVal * evaluatedRhs.numberVal);            
+        }
+        else if (splitExpression.third == "/" && verify_sides_for_numeric_arithmetic_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.numberVal / evaluatedRhs.numberVal);            
+        }
+        else if (splitExpression.third == "less than" && verify_sides_for_numeric_arithmetic_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.numberVal < evaluatedRhs.numberVal);            
+        }
+        else if (splitExpression.third == "equals" && verify_sides_for_numeric_arithmetic_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.numberVal == evaluatedRhs.numberVal);
+        }
+        else if (splitExpression.third == "greater than" && verify_sides_for_numeric_arithmetic_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.numberVal > evaluatedRhs.numberVal);            
+        }
+        else if (splitExpression.third == "and" && verify_sides_for_boolean_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.booleanVal && evaluatedRhs.booleanVal);            
+        }
+        else if (splitExpression.third == "or" && verify_sides_for_boolean_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.booleanVal || evaluatedRhs.booleanVal);            
+        }
+        return invalid_evaluator_result_();
     }
 
-    static EvaluatorResult evaluate_division_expression_(MatchState const & matchState, kitty_storage const & storage) {
-        auto evaluatedSides = evaluate_both_sides_(matchState, storage);
-        if (!verify_sides_for_numeric_arithmetic_expression_(evaluatedSides)) {
-            return invalid_evaluator_result_();
+    static EvaluatorResult evaluate_single_part_expression_(string expression, kitty_storage const & storage) {
+        MatchState matchState;
+        matchState.Target(expression.c_str());
+        if (is_single_variable_expression_(matchState)) {
+            return evaluate_single_variable_expression_(matchState, storage);            
         }
-        return EvaluatorResult(get_expression_(matchState), evaluatedSides.first.numberVal / evaluatedSides.second.numberVal);
-    }
-
-    static EvaluatorResult evaluate_less_than_comparison_(MatchState const & matchState, kitty_storage const & storage) {
-        auto evaluatedSides = evaluate_both_sides_(matchState, storage);
-        if (!verify_sides_for_numeric_arithmetic_expression_(evaluatedSides)) {
-            return invalid_evaluator_result_();
+        else if (is_numerical_expression_(matchState)) {
+            return evaluate_numerical_expression_(matchState, storage);            
         }
-        return EvaluatorResult(get_expression_(matchState), evaluatedSides.first.numberVal < evaluatedSides.second.numberVal);
-    }
-
-    static EvaluatorResult evaluate_greater_than_comparison_(MatchState const & matchState, kitty_storage const & storage) {
-        auto evaluatedSides = evaluate_both_sides_(matchState, storage);
-        if (!verify_sides_for_numeric_arithmetic_expression_(evaluatedSides)) {
-            return invalid_evaluator_result_();
+        else if (is_not_operation_(matchState)) {
+            return evaluate_not_operation_(matchState, storage);
         }
-        return EvaluatorResult(get_expression_(matchState), evaluatedSides.first.numberVal > evaluatedSides.second.numberVal);
-    }
-
-    static EvaluatorResult evaluate_equal_comparison_(MatchState const & matchState, kitty_storage const & storage) {
-        auto evaluatedSides = evaluate_both_sides_(matchState, storage);
-        if (!verify_sides_for_numeric_arithmetic_expression_(evaluatedSides)) {
-            return invalid_evaluator_result_();
+        else if (is_true_literal_(matchState)) {
+            return EvaluatorResult(expression, true);
         }
-        return EvaluatorResult(get_expression_(matchState), evaluatedSides.first.numberVal == evaluatedSides.second.numberVal);
-    }
-
-    static EvaluatorResult evaluate_and_operation_(MatchState const & matchState, kitty_storage const & storage) {
-        auto evaluatedSides = evaluate_both_sides_(matchState, storage);
-        if (!verify_sides_for_boolean_expression_(evaluatedSides)) {
-            return invalid_evaluator_result_();
+        else if (is_false_literal_(matchState)) {
+            return EvaluatorResult(expression, false);
         }
-        return EvaluatorResult(get_expression_(matchState), evaluatedSides.first.booleanVal && evaluatedSides.second.booleanVal);
-    }
-
-    static EvaluatorResult evaluate_or_operation_(MatchState const & matchState, kitty_storage const & storage) {
-        auto evaluatedSides = evaluate_both_sides_(matchState, storage);
-        if (!verify_sides_for_boolean_expression_(evaluatedSides)) {
-            return invalid_evaluator_result_();
-        }
-        return EvaluatorResult(get_expression_(matchState), evaluatedSides.first.booleanVal || evaluatedSides.second.booleanVal);
+        return invalid_evaluator_result_();        
     }
 
     static EvaluatorResult evaluate_single_variable_expression_(MatchState const & matchState, kitty_storage const & storage) {
@@ -339,14 +354,6 @@ private:
             return invalid_evaluator_result_();
         }
         return EvaluatorResult(get_expression_(matchState), !evaluatedExpression.booleanVal);
-    }
-
-    static kitty_pair<EvaluatorResult, EvaluatorResult> evaluate_both_sides_(MatchState const & matchState, kitty_storage const & storage) {
-        auto lhs = string(matchState.capture[0].init, matchState.capture[0].len);
-        auto rhs = string(matchState.capture[1].init, matchState.capture[1].len);
-        auto evaluatedLhs = evaluate(lhs, storage);
-        auto evaluatedRhs = evaluate(rhs, storage);
-        return make_kitty_pair(evaluatedLhs, evaluatedRhs);
     }
 
     static bool verify_sides_for_boolean_expression_(kitty_pair<EvaluatorResult, EvaluatorResult> const & sides) {

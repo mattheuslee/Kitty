@@ -188,8 +188,11 @@ private:
         else if (kitty_print_information_command::matches_information(matchState)) {
             kitty_print_information_command::execute_information(matchState, storage_);
         }
-        else if (kitty_print_information_command::matches_print(matchState)) {
-            kitty_print_information_command::execute_print(matchState, storage_);
+        else if (kitty_print_information_command::matches_print_variable(matchState)) {
+            kitty_print_information_command::execute_print_variable(matchState, storage_);
+        }
+        else if (kitty_print_information_command::matches_print_string(matchState)) {
+            kitty_print_information_command::execute_print_string(matchState, storage_);            
         }
         else {
             Serial.println(F("ERROR: unable to parse line"));
