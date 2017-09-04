@@ -57,7 +57,7 @@ public:
         if (!check_evaluated_expression_(evaluatedExpression)) {
             return;
         }
-        move_by_(devName, evaluatedExpression.second, storage);
+        move_by_(devName, get<1>(evaluatedExpression), storage);
     }
 
     static void execute_move_to(MatchState const & matchState, kitty_storage & storage) {
@@ -69,7 +69,7 @@ public:
         if (!check_evaluated_expression_(evaluatedExpression)) {
             return;
         }
-        move_to_(devName, evaluatedExpression.second, storage);
+        move_to_(devName, get<1>(evaluatedExpression), storage);
     }
 
     static execute_set(MatchState const & matchState, kitty_storage & storage) {
@@ -87,7 +87,7 @@ public:
         }
         auto timeExpression = string(matchState.capture[2].init, matchState.capture[2].len);
         auto duration = kitty_utility::string_to_int(timeExpression) * get_time_multiplier_(matchState);
-        move_by_for_(devName, evaluatedExpression.second, duration, storage);
+        move_by_for_(devName, get<1>(evaluatedExpression), duration, storage);
     }
 
     static void execute_move_to_for(MatchState const & matchState, kitty_storage & storage) {
@@ -105,7 +105,7 @@ public:
         if (origCommand[origCommand.size() - 2] != 'm') {
             duration *= 1000;
         }
-        move_to_for_(devName, evaluatedExpression.second, duration, storage);
+        move_to_for_(devName, get<1>(evaluatedExpression), duration, storage);
     }
 
     static void execute_set_for(MatchState const & matchState, kitty_storage & storage) {
@@ -118,17 +118,17 @@ private:
     }
 
     template <class T>
-    static bool check_evaluated_expression_(kitty_pair<bool, T> expression) {
-        return expression.first;
+    static bool check_evaluated_expression_(kitty_tuple<bool, T> expression) {
+        return get<0>(expression);
     }
 
-    static kitty_pair<bool, int> extract_evaluated_expression_(MatchState const & matchState, kitty_storage & storage) {
+    static kitty_tuple<bool, int> extract_evaluated_expression_(MatchState const & matchState, kitty_storage & storage) {
         auto expression = string(matchState.capture[1].init, matchState.capture[1].len);
         auto evaluatedExpression = kitty_evaluator::evaluate(expression, storage);
         if (evaluatedExpression.valueType == ValueType::NUMBER) {
-            return make_kitty_pair(true, evaluatedExpression.numberVal);
+            return kitty_tuple<bool, int>(true, evaluatedExpression.numberVal);
         }
-        return make_kitty_pair(false, 0);
+        return kitty_tuple<bool, int>(false, 0);
     }
 
     static int get_time_multiplier_(MatchState const & matchState) {

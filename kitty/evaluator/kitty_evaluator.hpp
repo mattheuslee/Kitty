@@ -63,16 +63,13 @@ struct EvaluatorResult {
 class kitty_evaluator {
 
 public:
-    typedef kitty_pair<bool, int> val_result_t;
-    typedef kitty_pair<bool, bool> bool_result_t;
-
     static EvaluatorResult evaluate(string expression, kitty_storage const & storage) {
         expression = remove_outer_brackets_(expression);
         if (!match_brackets_(expression) || !match_quotations_(expression)) {
             return invalid_evaluator_result_();
         }
         auto splitExpression = split_expression_(expression);
-        if (splitExpression.first) { // Successfully split
+        if (get<0>(splitExpression)) { // Successfully split
             return evaluate_split_expression_(splitExpression, storage);
         }
         // Cannot split, is only in one part
@@ -84,23 +81,23 @@ private:
         return string(matchState.src, matchState.src_len);
     }
 
-    static kitty_quad<bool, string, string, string> split_expression_(string const & expression) {
+    static kitty_tuple<bool, string, string, string> split_expression_(string const & expression) {
         if (expression[0] == '(') {
             return split_expression_using_bracket_matching_(expression);
         }
         return split_expression_using_regex_(expression);
     }
 
-    static kitty_quad<bool, string, string, string> split_expression_using_bracket_matching_(string const & expression) {
-        auto result = make_kitty_quad(true, string(), string(), string());
-        auto bracketStack = stack<kitty_pair<char, int>>();
+    static kitty_tuple<bool, string, string, string> split_expression_using_bracket_matching_(string const & expression) {
+        auto result = kitty_tuple<bool, string, string, string>(true, "", "", "");
+        auto bracketStack = stack<kitty_tuple<char, int>>();
         auto lhs = string();
         auto op = string();
         auto rhs = string();
         auto idx = 0;
         for ( ; idx < expression.size(); ++idx) {
             if (expression[idx] == '(') {
-                bracketStack.push(make_kitty_pair(expression[idx], idx));
+                bracketStack.push(kitty_tuple<char, int>(expression[idx], idx));
                 if (idx != 0) {
                     lhs += expression[idx];
                 }
@@ -115,28 +112,28 @@ private:
                 lhs += expression[idx];
             }
         }
-        result.second = lhs;
+        get<1>(result) = lhs;
         idx += 2; // skip ')' and ' '
         while (!isspace(expression[idx])) {
             op += expression[idx++];
         }
         idx += 1; // skip ' '
-        result.third = op;
+        get<2>(result) = op;
         for ( ; idx < expression.size(); ++idx) {
             rhs += expression[idx];
         }
-        result.fourth = rhs;
+        get<3>(result) = rhs;
         return result;
     }
 
-    static kitty_quad<bool, string, string, string> split_expression_using_regex_(string const & expression) {
+    static kitty_tuple<bool, string, string, string> split_expression_using_regex_(string const & expression) {
         MatchState matchState;
         matchState.Target(expression.c_str());
         auto identity = identify_split_expression_(matchState);
-        if (identity.first) {
-            return make_kitty_quad(true, string(matchState.capture[0].init, matchState.capture[0].len), identity.second, string(matchState.capture[1].init, matchState.capture[1].len));
+        if (get<0>(identity)) {
+            return kitty_tuple<bool, string, string, string>(true, string(matchState.capture[0].init, matchState.capture[0].len), get<1>(identity), string(matchState.capture[1].init, matchState.capture[1].len));
         }
-        return make_kitty_quad(false, string(), string(), string());
+        return kitty_tuple<bool, string, string, string>(false, "", "", "");
     }
 
     static bool match_brackets_(string const & expression) {
@@ -161,14 +158,14 @@ private:
         auto wereBracketsRemoved = true;
         while (wereBracketsRemoved) {
             wereBracketsRemoved = false;
-            auto bracketStack = stack<kitty_pair<char, int>>();
+            auto bracketStack = stack<kitty_tuple<char, int>>();
             for (int i = 0; i < expression.size(); ++i) {
                 if (expression[i] == '(') {
-                    bracketStack.push(make_kitty_pair(expression[i], i));
+                    bracketStack.push(kitty_tuple<char, int>(expression[i], i));
                 } else if (expression[i] == ')') {
                     if (i != expression.size() - 1) {
                         bracketStack.pop();
-                    } else if (bracketStack.top().second == 0) { // Matching brackets are opening and closing bracket
+                    } else if (get<1>(bracketStack.top()) == 0) { // Matching brackets are opening and closing bracket
                         expression = expression.substr(1, expression.size() - 2); // Remove first and last char;
                         wereBracketsRemoved = true;
                     }
@@ -230,35 +227,35 @@ private:
         Serial.println(expression.c_str());
     }
 
-    static kitty_pair<bool, string> identify_split_expression_(MatchState & matchState) {
+    static kitty_tuple<bool, string> identify_split_expression_(MatchState & matchState) {
         if (matchState.Match("^([%a%d%+%-%(%)_ ]+) %+ ([%a%d%+%-%(%)_ ]+)$") > 0) {
-            return make_kitty_pair(true, string("+"));
+            return kitty_tuple<bool, string>(true, string("+"));
         }
         else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) %- ([%a%d%+%-%(%)_ ]+)$") > 0) {
-            return make_kitty_pair(true, string("-"));
+            return kitty_tuple<bool, string>(true, string("-"));
         }
         else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) %* ([%a%d%+%-%(%)_ ]+)$") > 0) {
-            return make_kitty_pair(true, string("*"));
+            return kitty_tuple<bool, string>(true, string("*"));
         }
         else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) %/ ([%a%d%+%-%(%)_ ]+)$") > 0) {
-            return make_kitty_pair(true, string("/"));
+            return kitty_tuple<bool, string>(true, string("/"));
         }
         else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) equals ([%a%d%+%-%(%)_ ]+)$") > 0) {
-            return make_kitty_pair(true, string("equals"));
+            return kitty_tuple<bool, string>(true, string("equals"));
         }
         else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) less than ([%a%d%+%-%(%)_ ]+)$") > 0) {
-            return make_kitty_pair(true, string("less than"));
+            return kitty_tuple<bool, string>(true, string("less than"));
         }
         else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) greater than ([%a%d%+%-%(%)_ ]+)$") > 0) {
-            return make_kitty_pair(true, string("greater than"));
+            return kitty_tuple<bool, string>(true, string("greater than"));
         }
         else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) and ([%a%d%+%-%(%)_ ]+)$") > 0) {
-            return make_kitty_pair(true, string("and"));
+            return kitty_tuple<bool, string>(true, string("and"));
         }
         else if (matchState.Match("^([%a%d%+%-%(%)_ ]+) or ([%a%d%+%-%(%)_ ]+)$") > 0) {
-            return make_kitty_pair(true, string("or"));
+            return kitty_tuple<bool, string>(true, string("or"));
         }
-        return make_kitty_pair(false, string());
+        return kitty_tuple<bool, string>(false, string());
     }
 
     static bool is_single_variable_expression_(MatchState & matchState) {
@@ -281,35 +278,35 @@ private:
         return matchState.Match("^false$") > 0;
     }
 
-    static EvaluatorResult evaluate_split_expression_(kitty_quad<bool, string, string, string> const & splitExpression, kitty_storage const & storage) {
-        auto evaluatedLhs = evaluate(splitExpression.second, storage);
-        auto evaluatedRhs = evaluate(splitExpression.fourth, storage);
-        if (splitExpression.third == "+" && verify_sides_for_numeric_arithmetic_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
-            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.numberVal + evaluatedRhs.numberVal);            
+    static EvaluatorResult evaluate_split_expression_(kitty_tuple<bool, string, string, string> const & splitExpression, kitty_storage const & storage) {
+        auto evaluatedLhs = evaluate(get<1>(splitExpression), storage);
+        auto evaluatedRhs = evaluate(get<3>(splitExpression), storage);
+        if (get<2>(splitExpression) == "+" && verify_sides_for_numeric_arithmetic_expression_(kitty_tuple<EvaluatorResult, EvaluatorResult>(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(get<1>(splitExpression) + " " + get<2>(splitExpression) + " " + get<3>(splitExpression), evaluatedLhs.numberVal + evaluatedRhs.numberVal);            
         }
-        else if (splitExpression.third == "-" && verify_sides_for_numeric_arithmetic_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
-            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.numberVal - evaluatedRhs.numberVal);            
+        else if (get<2>(splitExpression) == "-" && verify_sides_for_numeric_arithmetic_expression_(kitty_tuple<EvaluatorResult, EvaluatorResult>(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(get<1>(splitExpression) + " " + get<2>(splitExpression) + " " + get<3>(splitExpression), evaluatedLhs.numberVal - evaluatedRhs.numberVal);            
         }
-        else if (splitExpression.third == "*" && verify_sides_for_numeric_arithmetic_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
-            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.numberVal * evaluatedRhs.numberVal);            
+        else if (get<2>(splitExpression) == "*" && verify_sides_for_numeric_arithmetic_expression_(kitty_tuple<EvaluatorResult, EvaluatorResult>(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(get<1>(splitExpression) + " " + get<2>(splitExpression) + " " + get<3>(splitExpression), evaluatedLhs.numberVal * evaluatedRhs.numberVal);            
         }
-        else if (splitExpression.third == "/" && verify_sides_for_numeric_arithmetic_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
-            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.numberVal / evaluatedRhs.numberVal);            
+        else if (get<2>(splitExpression) == "/" && verify_sides_for_numeric_arithmetic_expression_(kitty_tuple<EvaluatorResult, EvaluatorResult>(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(get<1>(splitExpression) + " " + get<2>(splitExpression) + " " + get<3>(splitExpression), evaluatedLhs.numberVal / evaluatedRhs.numberVal);            
         }
-        else if (splitExpression.third == "less than" && verify_sides_for_numeric_arithmetic_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
-            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.numberVal < evaluatedRhs.numberVal);            
+        else if (get<2>(splitExpression) == "less than" && verify_sides_for_numeric_arithmetic_expression_(kitty_tuple<EvaluatorResult, EvaluatorResult>(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(get<1>(splitExpression) + " " + get<2>(splitExpression) + " " + get<3>(splitExpression), evaluatedLhs.numberVal < evaluatedRhs.numberVal);            
         }
-        else if (splitExpression.third == "equals" && verify_sides_for_numeric_arithmetic_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
-            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.numberVal == evaluatedRhs.numberVal);
+        else if (get<2>(splitExpression) == "equals" && verify_sides_for_numeric_arithmetic_expression_(kitty_tuple<EvaluatorResult, EvaluatorResult>(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(get<1>(splitExpression) + " " + get<2>(splitExpression) + " " + get<3>(splitExpression), evaluatedLhs.numberVal == evaluatedRhs.numberVal);
         }
-        else if (splitExpression.third == "greater than" && verify_sides_for_numeric_arithmetic_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
-            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.numberVal > evaluatedRhs.numberVal);            
+        else if (get<2>(splitExpression) == "greater than" && verify_sides_for_numeric_arithmetic_expression_(kitty_tuple<EvaluatorResult, EvaluatorResult>(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(get<1>(splitExpression) + " " + get<2>(splitExpression) + " " + get<3>(splitExpression), evaluatedLhs.numberVal > evaluatedRhs.numberVal);            
         }
-        else if (splitExpression.third == "and" && verify_sides_for_boolean_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
-            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.booleanVal && evaluatedRhs.booleanVal);            
+        else if (get<2>(splitExpression) == "and" && verify_sides_for_boolean_expression_(kitty_tuple<EvaluatorResult, EvaluatorResult>(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(get<1>(splitExpression) + " " + get<2>(splitExpression) + " " + get<3>(splitExpression), evaluatedLhs.booleanVal && evaluatedRhs.booleanVal);            
         }
-        else if (splitExpression.third == "or" && verify_sides_for_boolean_expression_(make_kitty_pair(evaluatedLhs, evaluatedRhs))) {
-            return EvaluatorResult(splitExpression.second + " " + splitExpression.third + " " + splitExpression.fourth, evaluatedLhs.booleanVal || evaluatedRhs.booleanVal);            
+        else if (get<2>(splitExpression) == "or" && verify_sides_for_boolean_expression_(kitty_tuple<EvaluatorResult, EvaluatorResult>(evaluatedLhs, evaluatedRhs))) {
+            return EvaluatorResult(get<1>(splitExpression) + " " + get<2>(splitExpression) + " " + get<3>(splitExpression), evaluatedLhs.booleanVal || evaluatedRhs.booleanVal);            
         }
         return invalid_evaluator_result_();
     }
@@ -356,34 +353,34 @@ private:
         return EvaluatorResult(get_expression_(matchState), !evaluatedExpression.booleanVal);
     }
 
-    static bool verify_sides_for_boolean_expression_(kitty_pair<EvaluatorResult, EvaluatorResult> const & sides) {
+    static bool verify_sides_for_boolean_expression_(kitty_tuple<EvaluatorResult, EvaluatorResult> const & sides) {
         return verify_both_sides_valid_(sides) && verify_both_sides_same_type_(sides) && verify_both_sides_correct_type_(sides, ValueType::BOOLEAN, ValueType::BOOLEAN);
     }
 
-    static bool verify_sides_for_numeric_arithmetic_expression_(kitty_pair<EvaluatorResult, EvaluatorResult> const & sides) {
+    static bool verify_sides_for_numeric_arithmetic_expression_(kitty_tuple<EvaluatorResult, EvaluatorResult> const & sides) {
         return verify_both_sides_valid_(sides) && verify_both_sides_same_type_(sides) && verify_both_sides_correct_type_(sides, ValueType::NUMBER, ValueType::NUMBER);
     }
 
-    static bool verify_both_sides_valid_(kitty_pair<EvaluatorResult, EvaluatorResult> const & sides) {
-        return sides.first.valueType != ValueType::INVALID && sides.second.valueType != ValueType::INVALID;
+    static bool verify_both_sides_valid_(kitty_tuple<EvaluatorResult, EvaluatorResult> const & sides) {
+        return get<0>(sides).valueType != ValueType::INVALID && get<1>(sides).valueType != ValueType::INVALID;
     }
 
-    static bool verify_both_sides_same_type_(kitty_pair<EvaluatorResult, EvaluatorResult> const & sides) {
-        if (sides.first.valueType != sides.second.valueType) {
-            print_mismatched_types_(sides.first.expression, sides.second.expression, sides.first.valueType, sides.second.valueType);            
+    static bool verify_both_sides_same_type_(kitty_tuple<EvaluatorResult, EvaluatorResult> const & sides) {
+        if (get<0>(sides).valueType != get<1>(sides).valueType) {
+            print_mismatched_types_(get<0>(sides).expression, get<1>(sides).expression, get<0>(sides).valueType, get<1>(sides).valueType);            
             return false;
         }
         return true;
     }
 
-    static bool verify_both_sides_correct_type_(kitty_pair<EvaluatorResult, EvaluatorResult> const & sides, ValueType const & lhsExpectedValueType, ValueType const & rhsExpectedValueType) {
+    static bool verify_both_sides_correct_type_(kitty_tuple<EvaluatorResult, EvaluatorResult> const & sides, ValueType const & lhsExpectedValueType, ValueType const & rhsExpectedValueType) {
         auto isCorrect = true;
-        if (sides.first.valueType != lhsExpectedValueType) {
-            print_is_not_a_type_(sides.first.expression, sides.first.valueType, lhsExpectedValueType);
+        if (get<0>(sides).valueType != lhsExpectedValueType) {
+            print_is_not_a_type_(get<0>(sides).expression, get<0>(sides).valueType, lhsExpectedValueType);
             isCorrect = false;
         }
-        if (sides.second.valueType != lhsExpectedValueType) {
-            print_is_not_a_type_(sides.second.expression, sides.second.valueType, lhsExpectedValueType);
+        if (get<1>(sides).valueType != lhsExpectedValueType) {
+            print_is_not_a_type_(get<1>(sides).expression, get<1>(sides).valueType, lhsExpectedValueType);
             isCorrect = false;
         }
         return isCorrect;
