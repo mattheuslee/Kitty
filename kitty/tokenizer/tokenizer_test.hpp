@@ -65,7 +65,7 @@ test(tokenizer_get_next_token)
                                  TokenType::VAR_NAME, 
                                  TokenType::NUM_VAL, 
                                  TokenType::UNKNOWN, 
-                                 TokenType::UNKNOWN};
+                                 TokenType::CMD_END};
     std::string expectedValues[] = {"", "", "", "answer", "42", "", ""};
     int expectedNumTokens = 7;
 

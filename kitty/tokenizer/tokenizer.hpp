@@ -13,7 +13,8 @@ namespace kitty {
 enum TokenType {
     CREATE_NUM, CREATE_LED, CREATE_SERVO,
     VAR_NAME, NUM_VAL, 
-    UNKNOWN
+    UNKNOWN,
+    CMD_END,
 };
 
 std::string token_type_to_str(TokenType tokenType) {
@@ -28,6 +29,8 @@ std::string token_type_to_str(TokenType tokenType) {
         return "VAR_NAME";
     case TokenType::NUM_VAL:
         return "NUM_VAL";
+    case TokenType::CMD_END:
+        return "CMD_END";
     case UNKNOWN:
     default:
         return "UNKNOWN";
@@ -62,7 +65,7 @@ public:
         std::string word;
         command_stream_ >> word;
         if (word.size() == 0) {
-            return handle_invalid_token_();
+            return Token(TokenType::CMD_END);
         }
         else if (isupper(word[0])) {
             return handle_command_token_(word);
@@ -78,13 +81,13 @@ private:
 
     Token handle_command_token_(std::string word) {
         if (word == "CreateNumber") {
-            return Token(TokenType::CREATE_NUM, "");
+            return Token(TokenType::CREATE_NUM);
         }
         else if (word == "CreateLED") {
-            return Token(TokenType::CREATE_LED, "");
+            return Token(TokenType::CREATE_LED);
         }
         else if (word == "CreateServo") {
-            return Token(TokenType::CREATE_SERVO, "");
+            return Token(TokenType::CREATE_SERVO);
         }
         else {
             return handle_invalid_token_();
@@ -99,7 +102,7 @@ private:
     }
 
     Token handle_invalid_token_() {
-        return Token(TokenType::UNKNOWN, "");
+        return Token(TokenType::UNKNOWN);
     }
 
 };
