@@ -68,23 +68,23 @@ To display information about something, just type in its name, and its informati
 
 You can also display all numbers, LEDs or servos using the `AllNumbers`, `AllLEDs` and `AllServos` commands. You can also display everything using the `All` command.
 
-> `>>> CreateNumber answer 42`  
-> `>>> CreateNumber answer2 43`  
-> `>>> CreateNumber answer3 44`  
+> `>>> CreateNumber answer_a 42`  
+> `>>> CreateNumber answer_b 43`  
+> `>>> CreateNumber answer_c 44`  
 > `>>> AllNumbers`  
-> `answer: Number storing 42`  
-> `answer2: Number storing 43`  
-> `answer3: Number storing 44`  
+> `answer_a: Number storing 42`  
+> `answer_b: Number storing 43`  
+> `answer_c: Number storing 44`  
 
-> `>>> CreateNumber answer 42`  
-> `>>> CreateNumber answer2 43`  
-> `>>> CreateLED light 13`  
-> `>>> CreateLED light2 14`  
+> `>>> CreateNumber answer_a 42`  
+> `>>> CreateNumber answer_b 43`  
+> `>>> CreateLED light_a 13`  
+> `>>> CreateLED light_b 14`  
 > `>>> All`  
-> `answer: Number storing 42`  
-> `answer2: Number storing 43`  
-> `light: LED using pin 13 (50%)`  
-> `light2: LED using pin 14 (50%)`  
+> `answer_a: Number storing 42`  
+> `answer_b: Number storing 43`  
+> `light_a: LED using pin 13 (50%)`  
+> `light_b: LED using pin 14 (50%)`  
 
 ## D. Modification  
 For numbers, LEDs and servos, there are two commands that you can use to modify them:  
