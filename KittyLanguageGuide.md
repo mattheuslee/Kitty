@@ -1,153 +1,209 @@
-# Kitty Language Guide
-Kitty is a basic high-level scripting language that is suitable for total beginners getting into programming.  
-It allows users to easily control Arduino functions through simple commands with immediate results.
+# Kitty Language Guide (v0.2.0)
+Kitty is a basic high-level scripting language that is suitable for beginners getting into programming.  
+It allows users to easily control Arduino functions through simple commands with immediate results, and using the most compact code as possible.
 
-## 0. Preface
-The command examples given here are prefixed with `>>>`.  
-The expected output from the commands are displayed after the commands without a prefix.
+## Introduction
+The prompt `>>>` indicates that the interpreter is ready for you to begin entering commands.  
+If there is output from any of the commands, it is displayed immediately after each of the commands.  
 
-## 1. Names
-Names in Kitty can only contain the characters `a-z`, `A-Z`, and `_` (underscores), in any order.
+## A. Names  
+Names can contain the characters `a-z`, `A-Z`, and `_` (underscores), in any order.  
+The only restriction is that names cannot begin with an uppercase letter, as such names as used specially for commands.  
 
-## 2. Numbers
-__Creating Numbers__  
-To store `42` in `answer`:
-> `>>>answer is 42`
+## B. Creation/Assignment  
+There are various types of things that you can work with in Kitty:  
+* Number
+* LED
+* Servo
 
-To display the value stored in a number, just type in its name:
-> `>>>answer`  
-> `>>>answer: 42`
+Whenever you create anything, you need to give it a name.  
 
-To store `-1` in `negative`:
-> `>>>negative is -1`  
-> `>>>negative`  
-> `negative: -1`
+__Numbers__  
+To create a number called `answer` that stores 42:  
+> `>>> CreateNumber answer 42`
 
-You can also use basic math expressions with numbers.  
-To store a value that's `5` greater than `answer` inside `bigger_answer`:
-> `>>>bigger_answer is answer + 5`  
-> `>>>bigger_answer`  
-> `bigger_answer: 47`
+__LED__  
+To create an LED called `light` using pin 13:  
+> `>>> CreateLED light 13`  
 
-Match expressions you can use are:
-* Addition `+`
-* Subtraction `-`
-* Multiplication `*`
-* Division `/`
+You might notice that after this LED is created, it lights up to 50%. This is the default starting brightness.  
+To create an LED called `light` using pin 13 that starts at 25% brightness instead:
+> `>>> CreateLED light 13 25` 
 
-__Increasing and Decreasing Numbers__  
-To increase `answer` by `5`:
-> `>>>increase answer by 5`  
-> `>>>answer`  
-> `>>>answer: 47`
+__Servo__  
+To create a servo called `sweeper` using pin 10:  
+> `>>> CreateServo sweeper 10`  
 
-To decrease `answer` by `5`:
-> `>>>decrease answer by 5`  
-> `>>>answer`  
-> `>>>answer: 42`
+You might notice that after this Servo is created, it moves to the middle position, or 90 degrees. This is the default starting position.  
+To create a servo called `sweeper` using pin 10 that starts at 45 degrees instead:
+> `>>> CreateServo sweeper 10 45`  
 
-To store `5` in `difference`, and to increase `answer` by `difference`:
-> `>>>difference is 5`  
-> `>>>increase answer by difference`  
-> `>>>answer`  
-> `>>>answer: 47`
+You can only use the same name once. For example, after the following commands are run, `thing` will refer to the servo, and not the LED:  
+> `>>> CreateLED thing 13`  
+> `>>> CreateServo thing 10`  
 
-## 3. Output Devices
-__Creating Output Devices__  
-LEDs require two connections to the Arduino: the shorter pin to ground, and the longer pin to one of the Arduino's pins. The Arduino has a built-in LED using pin 13, which means we don't have to physically attach an LED for this example.  
-To store an LED named `light` that uses Arduino pin `13`:
-> `>>>light is led using 13`  
-> `>>>light`  
-> `light: led using pin 13 at level 50%`  
-You should see that the LED on the Arduino turns on.
+If at this point you still want to work with the LED at pin 13, then you'll need to give it another name, for example:
+> `>>> CreateLED light_thing 13`  
 
-__Changing the Output__  
-The output level for LEDs is a percentage value which ranges from 0 - 100%.  
-To set the output level as 100%:
-> `>>>set light as 100`  
-> `>>>light`  
-> `light: led using pin 13 at level 100%`  
-You should see that the LED on the Arduino turns fully on.
+## C. Displaying  
+To display information about something, just type in its name, and its information will be displayed.  
+> `>>> CreateNumber answer 42`  
+> `>>> answer`  
+> `answer: Number storing 42`  
 
-To set the output level as 0%:
-> `>>>set light as 0`  
-> `>>>light`  
-> `light: led using pin 13 at level 0%`  
-You should see that the LED on the Arduino turns off.
+> `>>> CreateLED light 13`  
+> `>>> light`  
+> `light: LED using pin 13 (50%)`  
 
+> `>>> CreateServo sweeper 10`  
+> `>>> sweeper`  
+> `sweeper: Servo using pin 10 (90 degrees)`
 
-### 2.2 Creating and storing devices
+You can also display all numbers, LEDs or servos using the `AllNumbers`, `AllLEDs` and `AllServos` commands. You can also display everything using the `All` command.
 
-#### 2.2.1 Input devices
+> `>>> CreateNumber answer 42`  
+> `>>> CreateNumber answer2 43`  
+> `>>> CreateNumber answer3 44`  
+> `>>> AllNumbers`  
+> `answer: Number storing 42`  
+> `answer2: Number storing 43`  
+> `answer3: Number storing 44`  
 
-Sonar input devices require a specified trigger pin and an echo pin.  
-To store a sonar named `front_sonar` that uses Arduino pin 11 as the trigger pin and Arduino pin 12 as the echo pin:
-> `>>>front_sonar is sonar using 11, 12`  
-> `>>>front_sonar`  
-> `front_sonar: sonar using trigger pin 11 and echo pin 12`
+> `>>> CreateNumber answer 42`  
+> `>>> CreateNumber answer2 43`  
+> `>>> CreateLED light 13`  
+> `>>> CreateLED light2 14`  
+> `>>> All`  
+> `answer: Number storing 42`  
+> `answer2: Number storing 43`  
+> `light: LED using pin 13 (50%)`  
+> `light2: LED using pin 14 (50%)`  
 
-To store the pin numbers first and then use them later:
-> `>>>trigger_pin is 11`  
-> `>>>echo_pin is 12`  
-> `>>>front_sonar is sonar using trigger_pin, echo_pin`  
-> `>>>front_sonar`  
-> `front_sonar: sonar using trigger pin 11 and echo pin 12`
+## D. Modification  
+For numbers, LEDs and servos, there are two commands that you can use to modify them:  
+* `MoveBy`
+* `SetTo`
 
-#### 2.2.2 Output devices  
-LED output devices require a specified power pin.
-To store an LED named `light` that uses Arduino pin 10 as the pin:
-> `>>>light is led using 10`  
-> `>>>light`  
-> `light: led using pin 10 at level 50%`
+__`MoveBy`__  
+The `MoveBy` command executes a relative movement.  
+To increase a number value called `answer` by 10:  
+> `>>> answer MoveBy 10`
 
-LEDs start out at 50% brightness.  
-To store the pin number first and then use it later:
-> `>>>led_pin is 10`  
-> `>>>light is led using led_pin`  
-> `>>>light`  
-> `light: led using pin 10 at level 50%`
+The modification commands work with negative numbers as well.  
+To decrease a number value called `answer` by 10:  
+> `>>> answer MoveBy -10`
 
-Servo output devices require a specified control pin.
-To store a servo named `control` that uses arduino pin 9 as the control pin:
-> `>>>control is servo using 9`  
-> `>>>control`  
-> `control: servo using pin 9 at value 90 degrees`
+The `MoveBy` command works to increase and decrease an LED brightness as well.  
+To increase the brightness of an LED called `light` by 10%:  
+> `>>> light MoveBy 10`
 
-Servos start out in the 90 degree position.  
-To store the pin number first and then use it later:
-> `>>>control_pin is 9`  
-> `>>>control is servo using control_pin`  
-> `>>>control`  
-> `control: servo using pin 9 at value 90 degrees`
+The `MoveBy` command also works to increase and decrease a servo angle.  
+To decrease the angle of a servo called `sweeper` by 10 degrees:  
+> `>>> sweeper MoveBy -10`
 
-## 3. Modifying numbers  
-To change a currently stored number, you can simply assign a new number to it.  
-To store `32` in `answer`, and later change it to `42`:
-> `>>>answer is 32`  
-> `>>>answer is 42`  
-> `>>>answer`  
-> `answer: 42`
+__`SetTo`__  
+The `SetTo` command executes a movement to an absolute value.  
+To set a number value called `answer` to 101:  
+> `>>> answer SetTo 101`
 
-To increment `answer` by 10 after initially setting it to `32`:
-> `>>>answer is 32`  
-> `>>>increment answer by 10`  
-> `>>>answer`  
-> `answer: 42`
+To set the brightness of an LED called `light` to 75%:
+> `>>> light SetTo 75`
 
-To decrement `answer` by 10 after initially setting it to `52`:
-> `>>>answer is 52`  
-> `>>>decrement answer by 10`  
-> `>>>answer`  
-> `answer: 42`
+To set the angle of a servo called `sweeper` to 45 degrees:
+> `>>> sweeper SetTo 45`
 
-To increment `i` by 1 (default increment):
-> `>>>i is 0`  
-> `>>>increment i`  
-> `>>>i`  
-> `i: 1`
+There are also versions of `MoveBy` and `SetTo` that only last for a specific amount of time, with an additional `For`.  
+To increase the brightness of an LED called `light` by 50% for 1 second, and then back to its original brightness after that:  
+> `>>> light MoveBy 50 For 1s`
 
-To decrement `i` by 1 (default decrement):
-> `>>>i is 5`  
-> `>>>increment i`  
-> `>>>i`  
-> `i: 4`
+To set the angle of a servo called `sweeper` to 135 degrees for 1 second, and then back to its original angle after that:
+> `>>> sweeper SetTo 135 For 1s`
+
+## E. Time Delays
+The `Wait` command allows for time delays.  
+To cause the program to wait for 2 seconds before continuing:  
+> `>>> Wait 2s`  
+
+To cause a program to wait for 0.25 seconds before continuing:
+> `>>> Wait 0.25s`  
+
+To cause a program to wait for 250 milliseconds(0.25 seconds) before continuing:
+> `>>> Wait 250ms`  
+
+## F. Command Groups  
+You can command groups which contain one or more command, which will make it more convenient to work with more commands.  
+To start creating a command group called `blink`:  
+> `>>> CreateGroup blink`  
+> `(blink)>>> `  
+
+You will notice that the prompt changes to `(blink)>>> `, which means that you are currently entering commands that will be part of the `blink` group.  
+Once you're done entering commands for the group, the `EndGroup` command closes up the group and saves it.  
+> `(blink)>>> light SetTo 100 For 1s`  
+> `(blink)>>> EndGroup`  
+> `Command Group blink closed.`  
+> `>>> blink`  
+> `blink: Command Group containing the command(s):`  
+> `light SetTo 100 For 1s`
+
+Once you have created the command group `blink`, you can run its commands using the `RunGroup` command:  
+> `>>> RunGroup blink`  
+
+Running a command group once is exactly the same as if you were to execute all the commands in that group, one by one.  
+We have previously seen the command to run a command group once. If you want to continuously run `blink`, you can do so with an additional `Forever`:  
+> `>>> RunGroup blink Forever`
+
+There are several ways for you to control how to run a command group.  
+If you want to run `blink` once, and only if a certain `<condition>` is true:  
+> `>>> RunGroup blink If <condition>`  
+
+If you want to continuously run `blink` as long as a certain `<condition>` continues to be true:  
+> `>>> RunGroup blink While <condition>`  
+
+If you want to continuously run `blink` until a certain `<condition>` becomes true, and then stop:  
+> `>>> RunGroup blink Until <condition>`  
+
+## G. Conditions  
+We have seen a certain `<condition>` that we can specify for some `RunGroup` commands.  
+All conditions are always evaluated to result in either `True` or `False`.
+
+__Comparing Values__  
+Values can be compared to check if they are:  
+* equal (`=`)
+  * `10 = 10` is `True`
+  * `11 = 10` is `False`
+* less than (`<`)
+  * `5 < 10` is `True`
+  * `10 < 5` is `False`
+* greater than (`>`)
+  * `10 > 5` is `True`
+  * `5 > 10` is `False`
+* less than or equal to (`<=`)
+  * `5 <= 10` is `True`
+  * `10 <= 10` is `True`
+* greater than or equal to (`>=`)
+  * `10 >= 5` is `True`
+  * `10 >= 10` is `True`
+
+Besides using raw numbers, the values in Numbers, LEDs and Servos can also be used in comparisons. For example:  
+`>>> CreateNumber answer 42`  
+`>>> CreateLED light 13 25`  
+* `answer = 42` is `True`
+* `light = 25` is `True`
+* `light = 50` is `False`
+
+__Combining Conditions__  
+There are a few ways to combine conditions together:  
+* `And` - if both conditions are `True`, then the combination is `True`
+  * `True And True` is `True`
+  * `False And False` is `False`
+* `Or` - if either condition, or both conditions are `True`, then the combination is `True`
+  * `True Or False` is `True`
+  * `False Or False` is `False`
+* `Xor` - if only one condition is `True`, then the combination is `True`
+  * `True Xor False` is `True`
+  * `True Xor True` is `False`
+
+When combining multiple conditions together, you should use brackets `( )` to enclose conditions that you want to evaluate together.  
+If no brackets are present, the conditions will be evaluated from left to right, which might produce different results than expected:  
+* `(True Or False) Or (False Xor True)` is `True`
+* `True Or False Or False Xor True` is `False`

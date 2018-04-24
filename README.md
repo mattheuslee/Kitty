@@ -1,33 +1,28 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f23a880e869647f89641f2d6a9e4a9ef)](https://www.codacy.com/app/mattheus.lee/KittyInterpreter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mattheuslee/KittyInterpreter&amp;utm_campaign=Badge_Grade)
-# KittyInterpreter
-An embedded interpreter for a high-level scripting language for Arduino
+# Kitty (v0.2.0 in progress)
+A high-level scripting language that runs entirely on an Arduino Mega.
 
 ## Install and Requirements:
 Copy this entire repository folder to your `Arduino/libraries` folder.  
-This repository has been tested on Arduino IDE 1.8.2.  
-The sketches in this repository will only work on an Arduino Mega - The amount of sketch and flash memory on the Arduino Uno is not enough for this library.
+This library has been tested on Arduino IDE 1.8.2.  
+Kitty will only work on an Arduino Mega as it requires a high amount of sketch and flash memory.  
 
-Additional Arduino libraries required:
+Additional Arduino libraries required:  
 * [StandardCplusplus](https://github.com/maniacbug/StandardCplusplus)
 * [NewPing](https://github.com/PaulStoffregen/NewPing)
-* [Regexp](https://github.com/nickgammon/Regexp)  
-
-These libraries can be found in the `additional_required_libraries` folder.  
-In order to install them just copy the contents of the `additional_required_libraries` folder to your `Arduino/libraries` folder alongside `KittyInterpreter`.
+* [Regexp](https://github.com/nickgammon/Regexp)
 
 ## Running the live interpreter:
 Open `live_interpreter/live_interpreter.ino` using the Arduino IDE.  
 Upload the sketch to the Arduino Mega.  
 Use the Arduino IDE serial monitor to enter commands into the interpreter.  
-The baud rate should be set as `115200 baud`, and newline character as `Newline` in the corner of the serial monitor.
-
-## Running the preloaded interpreter:
-Open `preloaded_interpreter/preloaded_interpreter.ino` using the Arduino IDE.  
-Ensure that the variable `commands` in the `setup` loop contains all the commands that you want to execute, in the correct order.  
-Upload the sketch to the Arduino Mega and it'll automatically begin running the preloaded commands.
+The baud rate should be set as `115200 baud`, and newline character as `Newline` in the corner of the serial monitor.  
 
 ## Learning the language:
-See [`KittyLanguageGuide.md`](https://github.com/mattheuslee/KittyInterpreter/blob/master/KittyLanguageGuide.md) for a guide to the language syntax.
+See [`KittyLanguageGuide.md`](https://github.com/mattheuslee/KittyInterpreter/blob/master/KittyLanguageGuide.md) for a guide to the language syntax and features.
+
+## Releases:
+v0.1.0 - Initial release (26 August 2017)
 
 ## Creator and Maintainer:
 Mattheus Lee [email me](mailto:mattheuslee@gmail.com)
