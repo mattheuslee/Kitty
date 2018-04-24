@@ -19,10 +19,16 @@ There are various types of things that you can work with in Kitty:
 Whenever you create anything, you need to give it a name.  
 
 __Numbers__  
+Numbers store the value 0 by default, if you don't specify a starting value.  
+To create a number called `answer`:  
+> `>>> CreateNumber answer`  
+
 To create a number called `answer` that stores 42:  
-> `>>> CreateNumber answer 42`
+> `>>> CreateNumber answer 42`  
 
 __LED__  
+LEDs have 2 pins: the shorter pin goes to the Arduino GND(ground) pin, and the longer pin goes to an Arduino pin of your choice, through a 220 ohm resistor.  
+Pin 13 on the Arduino already has an inbuilt LED, which we'll use for this example.  
 To create an LED called `light` using pin 13:  
 > `>>> CreateLED light 13`  
 
@@ -31,6 +37,7 @@ To create an LED called `light` using pin 13 that starts at 25% brightness inste
 > `>>> CreateLED light 13 25` 
 
 __Servo__  
+Servos have 3 wires: the red wire goes to the Arduino 5V pin, the black wire goes to the Arduino GND pin, and the orange wire goes to an Arduino pin of your choice.  
 To create a servo called `sweeper` using pin 10:  
 > `>>> CreateServo sweeper 10`  
 
