@@ -1,177 +1,169 @@
 # Kitty Language Guide (v0.2.0)
 Kitty is a basic high-level scripting language that is suitable for beginners getting into programming.  
-It allows users to easily control Arduino functions through simple commands with immediate results, and using the most compact code as possible.
+It allows users to easily control Arduino functions through simple commands with immediate results.
 
 ## Introduction
-The prompt `>>>` indicates that the interpreter is ready for you to begin entering commands.  
+The prompt `>>>` indicates that the interpreter is ready for us to begin entering commands.  
 If there is output from any of the commands, it is displayed immediately after each of the commands.  
 
-## A. Names  
-Names can contain the characters `a-z`, `A-Z`, and `_` (underscores), in any order.  
-The only restriction is that names cannot begin with an uppercase letter, as such names as used specially for commands.  
+## Names  
+Names can contain the characters `a-z`, `A-Z`, `0-9` and `_` (underscores), in any order.  
+The only restriction is that names cannot begin with an uppercase letter or number.  
+Everything created in Kitty must be given its own name.
 
-## B. Creation/Assignment  
-There are various types of things that you can work with in Kitty:  
-* Number
-* LED
-* Servo
+## Numbers  
+The most basic thing we can work with in Kitty is numbers.  
+The `IsNumber` command creates numbers. There are a few versions of this command:  
+To create a number called `answer` that contains the value 0(which is the default), use:
+> `>>> answer IsNumber`  
+or  
+> `>>> answer IsNumber()`
 
-Whenever you create anything, you need to give it a name.  
+To create a number called `answer` that contains the value 42 instead:  
+> `>>> answer IsNumber(42)` 
 
-__Numbers__  
-Numbers store the value 0 by default, if you don't specify a starting value.  
-To create a number called `answer`:  
-> `>>> CreateNumber answer`  
+## External Devices  
+Kitty allows us to use external devices like LEDs and servos.   
+Once we've connected the pins of those external devices to the Arduino, we just need to create their corresponding devices within Kitty in order to control them.  
 
-To create a number called `answer` that stores 42:  
-> `>>> CreateNumber answer 42`  
-
-__LED__  
-LEDs have 2 pins: the shorter pin goes to the Arduino GND(ground) pin, and the longer pin goes to an Arduino pin of your choice, through a 220 ohm resistor.  
+__LEDs__  
+LEDs have 2 pins: the shorter pin goes to the Arduino GND(ground) pin, and the longer pin goes to an Arduino pin of our choice, through a 220 ohm resistor.  
 Pin 13 on the Arduino already has an inbuilt LED, which we'll use for this example.  
-To create an LED called `light` using pin 13:  
-> `>>> CreateLED light 13`  
+The `IsLED` command creates LEDs. There are a few versions of this command:  
+To create an LED called `light` that uses pin 13 and starts at 50% brightness(which is the default:  
+> `>>> light IsLED(13)`  
 
-You might notice that after this LED is created, it lights up to 50%. This is the default starting brightness.  
-To create an LED called `light` using pin 13 that starts at 25% brightness instead:
-> `>>> CreateLED light 13 25` 
+To create an LED called `light` that uses pin 13 and starts at 25% brightness instead:
+> `>>> light IsLED(13, 25)`  
 
-__Servo__  
-Servos have 3 wires: the red wire goes to the Arduino 5V pin, the black wire goes to the Arduino GND pin, and the orange wire goes to an Arduino pin of your choice.  
-To create a servo called `sweeper` using pin 10:  
-> `>>> CreateServo sweeper 10`  
+__Servos__  
+Servos have 3 wires: the red wire goes to the Arduino 5V pin, the black wire goes to the Arduino GND pin, and the orange wire goes to an Arduino pin of our choice. 
+The `IsServo` command creates servos. There are a few versions of this command:  
+To create a servo called `sweeper` that uses pin 10 and starts at 90 degrees(which is the default):  
+> `>>> sweeper IsServo(10)`  
 
-You might notice that after this Servo is created, it moves to the middle position, or 90 degrees. This is the default starting position.  
 To create a servo called `sweeper` using pin 10 that starts at 45 degrees instead:
-> `>>> CreateServo sweeper 10 45`  
+> `>>> sweeper IsServo(10, 45)`  
 
-You can only use the same name once. For example, after the following commands are run, `thing` will refer to the servo, and not the LED:  
-> `>>> CreateLED thing 13`  
-> `>>> CreateServo thing 10`  
+## Name Clashes
 
-If at this point you still want to work with the LED at pin 13, then you'll need to give it another name, for example:
+The same name can only be used once. For example, after the following commands are run, `thing` will refer to the servo, and not the LED:  
+> `>>> thing IsLED(13)`  
+> `>>> thing IsServo(10)`  
+
+If at this point we still want to work with the LED at pin 13, then we'll need to give it another name, for example:  
 > `>>> CreateLED light_thing 13`  
 
-## C. Displaying  
+## Displaying  
 To display information about something, just type in its name, and its information will be displayed.  
-> `>>> CreateNumber answer 42`  
+> `>>> answer IsNumber(42)`  
 > `>>> answer`  
 > `answer: Number storing 42`  
 
-> `>>> CreateLED light 13`  
+> `>>> light IsLED(13)`  
 > `>>> light`  
 > `light: LED using pin 13 (50%)`  
 
-> `>>> CreateServo sweeper 10`  
+> `>>> sweeper IsServo(10)`  
 > `>>> sweeper`  
 > `sweeper: Servo using pin 10 (90 degrees)`
 
-You can also display all numbers, LEDs or servos using the `AllNumbers`, `AllLEDs` and `AllServos` commands. You can also display everything using the `All` command.
+We can also display all numbers, LEDs or servos using the `AllNumbers`, `AllLEDs` and `AllServos` commands. We can also display everything that we've created so far using the `All` command.
 
-> `>>> CreateNumber answer_a 42`  
-> `>>> CreateNumber answer_b 43`  
-> `>>> CreateNumber answer_c 44`  
+> `>>> answer_a IsNumber(42)`  
+> `>>> answer_b IsNumber(43)`  
 > `>>> AllNumbers`  
 > `answer_a: Number storing 42`  
 > `answer_b: Number storing 43`  
-> `answer_c: Number storing 44`  
 
-> `>>> CreateNumber answer_a 42`  
-> `>>> CreateNumber answer_b 43`  
-> `>>> CreateLED light_a 13`  
-> `>>> CreateLED light_b 14`  
+> `>>> answer_a IsNumber(42)`  
+> `>>> answer_b IsNumber(43)`   
+> `>>> light_a IsLED(13)`  
+> `>>> light_b IsLED(14)`  
 > `>>> All`  
 > `answer_a: Number storing 42`  
 > `answer_b: Number storing 43`  
 > `light_a: LED using pin 13 (50%)`  
 > `light_b: LED using pin 14 (50%)`  
 
-## D. Modification  
-For numbers, LEDs and servos, there are two commands that you can use to modify them:  
+## Modification  
+For numbers, LEDs and servos, there are two commands that we can use to modify them:  
 * `MoveBy`
 * `SetTo`
 
 __`MoveBy`__  
 The `MoveBy` command executes a relative movement.  
 To increase a number value called `answer` by 10:  
-> `>>> answer MoveBy 10`
+> `>>> answer MoveBy(10)`
 
 The modification commands work with negative numbers as well.  
 To decrease a number value called `answer` by 10:  
-> `>>> answer MoveBy -10`
+> `>>> answer MoveBy(-10)`
 
 The `MoveBy` command works to increase and decrease an LED brightness as well.  
 To increase the brightness of an LED called `light` by 10%:  
-> `>>> light MoveBy 10`
+> `>>> light MoveBy(10)`
 
 The `MoveBy` command also works to increase and decrease a servo angle.  
 To decrease the angle of a servo called `sweeper` by 10 degrees:  
-> `>>> sweeper MoveBy -10`
+> `>>> sweeper MoveBy(-10)`
 
 __`SetTo`__  
 The `SetTo` command executes a movement to an absolute value.  
 To set a number value called `answer` to 101:  
-> `>>> answer SetTo 101`
+> `>>> answer SetTo(101)`
 
 To set the brightness of an LED called `light` to 75%:
-> `>>> light SetTo 75`
+> `>>> light SetTo(75)`
 
 To set the angle of a servo called `sweeper` to 45 degrees:
-> `>>> sweeper SetTo 45`
+> `>>> sweeper SetTo(45)`
 
-There are also versions of `MoveBy` and `SetTo` that only last for a specific amount of time, with an additional `For`.  
+There are also versions of `MoveBy` and `SetTo` that only last for a specific amount of time, called `MoveByFor` and `SetToFor`.  
 To increase the brightness of an LED called `light` by 50% for 1 second, and then back to its original brightness after that:  
-> `>>> light MoveBy 50 For 1s`
+> `>>> light MoveByFor(50, 1s)`
 
 To set the angle of a servo called `sweeper` to 135 degrees for 1 second, and then back to its original angle after that:
-> `>>> sweeper SetTo 135 For 1s`
+> `>>> sweeper SetToFor(135, 1s)`
 
-## E. Time Delays
+## Time Delays
 The `Wait` command allows for time delays.  
 To cause the program to wait for 2 seconds before continuing:  
-> `>>> Wait 2s`  
+> `>>> Wait(2s)`  
 
 To cause a program to wait for 0.25 seconds before continuing:
-> `>>> Wait 0.25s`  
+> `>>> Wait(0.25s)`  
 
 To cause a program to wait for 250 milliseconds(0.25 seconds) before continuing:
-> `>>> Wait 250ms`  
+> `>>> Wait(250ms)`  
 
-## F. Command Groups  
-You can command groups which contain one or more command, which will make it more convenient to work with more commands.  
+## Command Groups  
+We can create command groups which contain one or more command.  
 To start creating a command group called `blink`:  
-> `>>> CreateGroup blink`  
+> `>>> blink IsGroup(`  
 > `(blink)>>> `  
 
-You will notice that the prompt changes to `(blink)>>> `, which means that you are currently entering commands that will be part of the `blink` group.  
-Once you're done entering commands for the group, the `EndGroup` command closes up the group and saves it.  
+Notice that the prompt changes to `(blink)>>> `, which means that we are currently entering commands that will be part of the `blink` group.  
+Also, notice that we only include `(` after the `IsGroup` command. Once we're done entering commands for the group, entering `)` closes the group and saves it:  
 > `(blink)>>> light SetTo 100 For 1s`  
-> `(blink)>>> EndGroup`  
-> `Command Group blink closed.`  
+> `(blink)>>> )`  
 > `>>> blink`  
 > `blink: Command Group containing the command(s):`  
-> `light SetTo 100 For 1s`
+> `1. light SetTo 100 For 1s`
 
-Once you have created the command group `blink`, you can run its commands using the `RunGroup` command:  
-> `>>> RunGroup blink`  
+When creating a command group, each command within the group must be on its own line.
 
-Running a command group once is exactly the same as if you were to execute all the commands in that group, one by one.  
-We have previously seen the command to run a command group once. If you want to continuously run `blink`, you can do so with an additional `Forever`:  
-> `>>> RunGroup blink Forever`
+Once we have created the command group `blink`, we can run its commands using the `Run` command:  
+> `>>> blink Run`  
 
-There are several ways for you to control how to run a command group.  
-If you want to run `blink` once, and only if a certain `<condition>` is true:  
-> `>>> RunGroup blink If <condition>`  
+Running a command group once is exactly the same as if we were to execute all the commands in that group, one by one.  
 
-If you want to continuously run `blink` as long as a certain `<condition>` continues to be true:  
-> `>>> RunGroup blink While <condition>`  
+## Expressions
++, -, *, /, %, ^, etc...
 
-If you want to continuously run `blink` until a certain `<condition>` becomes true, and then stop:  
-> `>>> RunGroup blink Until <condition>`  
-
-## G. Conditions  
-We have seen a certain `<condition>` that we can specify for some `RunGroup` commands.  
-All conditions are always evaluated to result in either `True` or `False`.
+## Conditions  
+Conditions are what allows us to select between several choices, depending on whether our specified conditions are met or not.  
+The most basic conditions are `True` and `False`, and all other conditions will always be evaluated to result in either `True` or `False`.  
 
 __Comparing Values__  
 Values can be compared to check if they are:  
@@ -192,11 +184,12 @@ Values can be compared to check if they are:
   * `10 >= 10` is `True`
 
 Besides using raw numbers, the values in Numbers, LEDs and Servos can also be used in comparisons. For example:  
-`>>> CreateNumber answer 42`  
-`>>> CreateLED light 13 25`  
+`>>> answer IsNumber(42)`  
+`>>> light IsLED(13, 42)`  
 * `answer = 42` is `True`
-* `light = 25` is `True`
+* `light = 42` is `True`
 * `light = 50` is `False`
+* `answer = light` is `True`
 
 __Combining Conditions__  
 There are a few ways to combine conditions together:  
@@ -206,11 +199,82 @@ There are a few ways to combine conditions together:
 * `Or` - if either condition, or both conditions are `True`, then the combination is `True`
   * `True Or False` is `True`
   * `False Or False` is `False`
-* `Xor` - if only one condition is `True`, then the combination is `True`
+* `Xor` - if either one condition, but not both, is `True`, then the combination is `True`
   * `True Xor False` is `True`
   * `True Xor True` is `False`
+* `Not` - turns `True` into `False` and `False` into `True`  
+  * `Not True` is `False`
+  * `Not False` is `True`
 
-When combining multiple conditions together, you should use brackets `( )` to enclose conditions that you want to evaluate together.  
+When combining multiple conditions together, we should use brackets `( )` to enclose conditions that we want to evaluate together.  
 If no brackets are present, the conditions will be evaluated from left to right, which might produce different results than expected:  
 * `(True Or False) Or (False Xor True)` is `True`
 * `True Or False Or False Xor True` is `False`
+
+__`If` Command__   
+The `If` command runs its commands once, only if the condition is evaluated to be `True`.  
+We want to create an LED called `light` using the pin number stored in `pin`, if that number is 20 or less.
+> `>>> pin IsNumber(15)`  
+> `>>> light IsLED(13)`  
+> `>>> If(pin <= 20) (`  
+> `>>> light IsLED(pin)`  
+> `>>> )`  
+> `>>> light`  
+> `light: LED using pin 15 (50%)`  
+
+When using the `If` command, the condition must be on the same line as the `If`, and each of the commands contained within must be each on their own line.  
+`(` and `)` are used here in a similar way as in command groups, to indicate the start and end of the groups which make up the `If` command.
+
+Here's an example where the condition is `False`:  
+> `>>> pin IsNumber(25)`  
+> `>>> light IsLED(13)`  
+> `>>> If(pin <= 20) (`  
+> `>>> light IsLED(pin)`  
+> `>>> )`  
+> `>>> light`  
+> `light: LED using pin 13 (50%)`  
+
+We can see here that since the condition `pin <= 20` is `False`, none of the commands within the `If` command are run, and so `light` is still referring to the LED using pin 13.
+
+__`Else` Command__   
+Sometimes when we have an `If` command that runs several commands if a condition is `True`, we also want to be able to run some other commands if that condition is `False` instead.  
+
+We want to create an LED called `light` using the pin number stored in `pin`, if that number is 20 or less. If it is more than 20, then we want to create an LED called `light` using pin 13 instead:  
+> `>>> pin IsNumber(15)`  
+> `>>> If(pin <= 20) (`  
+> `>>> light IsLED(pin)`  
+> `>>> )`  
+> `>>> Else(`  
+> `>>> light IsLED(13)`  
+> `>>> )`  
+> `>>> light`  
+> `light: LED using pin 15 (50%)`  
+
+And here's the alternative scenario:  
+> `>>> pin IsNumber(25)`  
+> `>>> If(pin <= 20) (`  
+> `>>> light IsLED(pin)`  
+> `>>> )`  
+> `>>> Else(`  
+> `>>> light IsLED(13)`  
+> `>>> )`
+> `>>> light`  
+> `light: LED using pin 13 (50%)`  
+
+If there is an `Else` command, it must be in the line immediately after the `)` of the `If` command.
+
+__`While` Command__   
+The `While` command keeps running its commands as long as the condition is still evaluated to be `True`.  
+We want to count from 1 to 5, using a number stored in `num`:  
+> `>>> num IsNumber(1)`  
+> `>>> While(num <= 5) (`  
+> `>>> num`  
+> `>>> num MoveBy(1)`  
+> `>>> )`  
+> `num: Number storing 1`  
+> `num: Number storing 2`  
+> `num: Number storing 3`  
+> `num: Number storing 4`  
+> `num: Number storing 5`  
+
+We can see here that the value stored in `num` will keep increasing one step at a time, until it reaches 6. When it is 6, then `num <= 5` is `False`, and the `While` command stops repeating its commands.  
