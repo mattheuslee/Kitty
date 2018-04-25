@@ -1,0 +1,25 @@
+fizzbuzz IsGroup(
+    While(num <= end) (
+        If((num % 3 = 0) And (num % 5 = 0)) (
+            "FizzBuzz"
+        )
+        Else(
+            If(num % 3 = 0) (
+                "Fizz"
+            )
+            Else(
+                If(num % 5 = 0) (
+                    "Buzz"
+                )
+                Else(
+                    num
+                )
+            )
+        )
+        num MoveBy(1)
+    )
+)
+
+val IsNumber(1)
+end IsNumber(20)
+fizzbuz Run
