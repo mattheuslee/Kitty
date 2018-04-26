@@ -4,6 +4,7 @@
 #include <string>
 
 #include <kitty/tokenizer/tokenizer_test.hpp>
+#include <kitty/utils/string_utils_test.hpp>
 
 void setup() {
     Serial.begin(115200);
