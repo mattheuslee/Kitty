@@ -7,17 +7,14 @@ The prompt `>>>` indicates that the interpreter is ready for us to begin enterin
 If there is output from any of the commands, it is displayed immediately after each of the commands.  
 
 ## Names  
-Names can contain the characters `a-z`, `A-Z`, `0-9` and `_` (underscores), in any order.  
-The only restriction is that names cannot begin with an uppercase letter or number.  
+Names can contain the characters `a-z`, and `_` (underscores), in any order.  
 Everything created in Kitty must be given its own name.
 
 ## Numbers  
 The most basic thing we can work with in Kitty is numbers.  
 The `IsNumber` command creates numbers. There are a few versions of this command:  
-To create a number called `answer` that contains the value 0(which is the default), use:
-> `>>> answer IsNumber`  
-or  
-> `>>> answer IsNumber()`
+To create a number called `answer` that contains the value 0(which is the default):
+> `>>> answer IsNumber()`  
 
 To create a number called `answer` that contains the value 42 instead:  
 > `>>> answer IsNumber(42)` 
@@ -52,7 +49,7 @@ The same name can only be used once. For example, after the following commands a
 > `>>> thing IsServo(10)`  
 
 If at this point we still want to work with the LED at pin 13, then we'll need to give it another name, for example:  
-> `>>> CreateLED light_thing 13`  
+> `>>> light_thing IsLED(13)`  
 
 ## Displaying  
 To display information about something, just type in its name, and its information will be displayed.  
@@ -140,7 +137,7 @@ To cause a program to wait for 250 milliseconds(0.25 seconds) before continuing:
 ## Command Groups  
 We can create command groups which contain one or more command.  
 To start creating a command group called `blink`:  
-> `>>> blink IsGroup(`  
+> `>>> blink IsGroup (`  
 > `(blink)>>> `  
 
 Notice that the prompt changes to `(blink)>>> `, which means that we are currently entering commands that will be part of the `blink` group.  
@@ -153,10 +150,14 @@ Also, notice that we only include `(` after the `IsGroup` command. Once we're do
 
 When creating a command group, each command within the group must be on its own line.
 
-Once we have created the command group `blink`, we can run its commands using the `Run` command:  
-> `>>> blink Run`  
+Once we have created the command group `blink`, we can run its commands using the `RunGroup` command:  
+> `>>> blink RunGroup()`  
 
 Running a command group once is exactly the same as if we were to execute all the commands in that group, one by one.  
+
+We can also run a command group multiple times.  
+To run the command group `blink` 10 times:  
+> `>>>blink RunGroup(10)`  
 
 ## Expressions
 +, -, *, /, %, ^, etc...
@@ -244,7 +245,7 @@ We want to create an LED called `light` using the pin number stored in `pin`, if
 > `>>> If(pin <= 20) (`  
 > `>>> light IsLED(pin)`  
 > `>>> )`  
-> `>>> Else(`  
+> `>>> Else (`  
 > `>>> light IsLED(13)`  
 > `>>> )`  
 > `>>> light`  
@@ -255,7 +256,7 @@ And here's the alternative scenario:
 > `>>> If(pin <= 20) (`  
 > `>>> light IsLED(pin)`  
 > `>>> )`  
-> `>>> Else(`  
+> `>>> Else (`  
 > `>>> light IsLED(13)`  
 > `>>> )`
 > `>>> light`  
