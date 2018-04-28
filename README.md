@@ -18,7 +18,7 @@ Use the Arduino IDE serial monitor to enter commands into the interpreter.
 The baud rate should be set as `115200 baud`, and newline character as `Newline` in the corner of the serial monitor.  
 
 ## Learning the language:  
-See the language guide on [github pages](https://mattheuslee.github.io/KittyInterpreter/) for a guide to the language syntax and features.
+See the language guide [here](https://github.com/mattheuslee/KittyInterpreter/blob/gh-pages/KittyLanguageGuide.md) for a guide to the language syntax and features.
 
 ## Releases:
 v0.1.0 - Initial release (26 August 2017)
