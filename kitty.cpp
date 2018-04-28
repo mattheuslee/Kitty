@@ -8,7 +8,7 @@
  * This is the documentation for the Kitty language interpreter for the Arduino platform.
  * It is designed specifically to work with the Arduino Mega 2560.
  *
- * The language guide can be found <a href="https://github.com/mattheuslee/KittyInterpreter/blob/gh-pages/KittyLanguageGuide.md">
+ * The language guide can be found <a href="https://github.com/mattheuslee/KittyInterpreter/blob/master/KittyLanguageGuide.md">
  * here</a>.
  *
  * @section dependencies Dependencies
