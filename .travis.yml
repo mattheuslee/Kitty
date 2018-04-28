@@ -14,7 +14,6 @@ env:
 
 before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/mattheuslee/travis-ci-arduino/master/install.sh)
-#   - source install.sh
 
 install:
    - arduino --install-library "ArduinoSTL","ArduinoUnit"
