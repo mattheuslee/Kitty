@@ -126,7 +126,7 @@ struct Token {
     TokenType type;
     std::string value;
 
-    Token(TokenType _type, std::string _value = "") : type(_type), value(_value) {
+    Token(TokenType _type, std::string const & _value = "") : type(_type), value(_value) {
     }
     Token(TokenType _type, char const * _value) : type(_type), value(_value) {
     }
@@ -167,7 +167,6 @@ bool is_operator(Token const & token) {
            token.type == TokenType::MATH_MUL || 
            token.type == TokenType::MATH_DIV || 
            token.type == TokenType::MATH_MOD || 
-           token.type == TokenType::MATH_POW ||
            token.type == TokenType::MATH_POW ||
            token.type == TokenType::UNARY_NEG ||
            token.type == TokenType::LOGI_AND ||
@@ -307,23 +306,23 @@ public:
         // Compresses '<' + '=' into '<=' and '>' + '=' into '>='
         std::vector<Token>::iterator iter = tokens.begin();
         while (iter != tokens.end()) {
-            if (iter->type == TokenType::LESS) {
-                std::vector<Token>::iterator next = iter;
-                ++next;
-                if (next->type == TokenType::EQUALS) {
-                    iter->type = TokenType::L_EQUALS;
-                    tokens.erase(next);
+            std::vector<Token>::iterator next = iter;
+            ++next;
+            if (next != tokens.end()) {
+                if (iter->type == TokenType::LESS) {
+                    if (next->type == TokenType::EQUALS) {
+                        iter->type = TokenType::L_EQUALS;
+                        next = tokens.erase(next);
+                    }
+                }
+                else if (iter->type == TokenType::GREATER) {
+                    if (next->type == TokenType::EQUALS) {
+                        iter->type = TokenType::G_EQUALS;
+                        next = tokens.erase(next);
+                    }
                 }
             }
-            else if (iter->type == TokenType::GREATER) {
-                std::vector<Token>::iterator next = iter;
-                ++next;
-                if (next->type == TokenType::EQUALS) {
-                    iter->type = TokenType::G_EQUALS;
-                    tokens.erase(next);
-                }
-            }
-            ++iter;
+            iter = next;
         }
 
         // Detects unary '-' tokens

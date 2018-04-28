@@ -45,7 +45,7 @@ struct Device {
 
     std::string debug_str() const {
         std::string str = "Device(" + device_type_to_str(type) + ")";
-        return "Device(" + device_type_to_str(type) + ")";
+        return str;
     }
 
     std::string info_str() const {
