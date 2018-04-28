@@ -11,9 +11,17 @@ namespace kitty {
 
 namespace interface {
 
+/*!
+    @brief  Class that handles interactions between the user(programmer) 
+            and the rest of the program.
+*/
 class Interface {
 
 public:
+    /*!
+        @brief  Prints the welcome screen for the Kitty interpreter,
+                as well as other information.
+    */
     void print_welcome() {
         Serial.begin(115200);
         Serial.println(F(R"(
@@ -38,17 +46,34 @@ public:
         Serial.println(F(""));
     }
 
+    /*!
+        @brief  Prints the basic prompt for the user to enter a command.
+    */
     void print_prompt() {
         Serial.print(F(">>> "));        
     }
 
+    /*!
+        @brief  Prints the basic prompt for the user to enter a command,
+                with a prefix string to be printed before the prompt.
+        
+        @param  prefix
+                An additional string to be printed before the rest of the prompt.
+    */
     void print_prompt(std::string const & prefix) {
         if (prefix.size() > 0) {
             Serial.print(prefix.c_str());
         }
-        Serial.print(F(">>> "));        
+        print_prompt();
     }
 
+    /*!
+        @brief  Reads in a command string from the Serial interface until the
+                newline character is read.
+                Blocks until a complete command string is read.
+        
+        @return The command string read from the Serial interface.
+    */
     std::string get_next_command() {
         std::string line;
         while (true) {
@@ -66,6 +91,12 @@ public:
         return line;
     }
 
+    /*!
+        @brief  Echoes a command back to the user through the Serial interface.
+        
+        @param  command
+                The command string to be echoed to the user.
+    */
     void echo_command(std::string const & command) {
         Serial.println(command.c_str());
     }
