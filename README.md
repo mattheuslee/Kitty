@@ -9,9 +9,7 @@ This library has been tested on Arduino IDE 1.8.2.
 Kitty will only work on an Arduino Mega as it requires a high amount of sketch and flash memory.  
 
 Additional Arduino libraries required:  
-* [StandardCplusplus](https://github.com/maniacbug/StandardCplusplus)
-* [NewPing](https://github.com/PaulStoffregen/NewPing)
-* [Regexp](https://github.com/nickgammon/Regexp)
+* [ArduinoSTL](https://github.com/mike-matera/ArduinoSTL)
 
 ## Running the live interpreter:
 Open `live_interpreter/live_interpreter.ino` using the Arduino IDE.  
@@ -19,8 +17,8 @@ Upload the sketch to the Arduino Mega.
 Use the Arduino IDE serial monitor to enter commands into the interpreter.  
 The baud rate should be set as `115200 baud`, and newline character as `Newline` in the corner of the serial monitor.  
 
-## Learning the language:
-See [`KittyLanguageGuide.md`](https://github.com/mattheuslee/KittyInterpreter/blob/master/KittyLanguageGuide.md) for a guide to the language syntax and features.
+## Learning the language:  
+See the language guide on [github pages](https://mattheuslee.github.io/KittyInterpreter/) for a guide to the language syntax and features.
 
 ## Releases:
 v0.1.0 - Initial release (26 August 2017)
