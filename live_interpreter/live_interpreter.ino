@@ -1,30 +1,38 @@
 #include <kitty.hpp>
-#include <kitty/kitty_stl_impl.hpp>
-
+#include <kitty/stl_impl.hpp>
 #include <string>
+#include <vector>
 
-#include <kitty/kitty_interpreter.hpp>
+#include <kitty/interface/interface.hpp>
+#include <kitty/interpreter/interpreter.hpp>
+#include <kitty/parser/parser.hpp>
+#include <kitty/tokenizer/tokenizer.hpp>
 
 using namespace std;
 using namespace kitty;
+using namespace kitty::interface;
+using namespace kitty::interpreter;
+using namespace kitty::parser;
+using namespace kitty::tokenizer;
 
-string input;
+string command;
+vector<Token> tokens;
 
-kitty_interpreter interpreter;
+Interface kitty_interface;
+Interpreter kitty_interpreter;
+Parser kitty_parser;
+Tokenizer kitty_tokenizer;
 
 void setup() {
-    interpreter.print_welcome_screen();
-    interpreter.print_prompt();
+    kitty_interface.print_welcome();
+    kitty_interface.print_prompt();
 }
 
 void loop() {
-    input = kitty_utility::get_line();
-    echo_input_line(input);
-    interpreter.execute(input);
-    input = "";
-    interpreter.print_prompt();
-}
-
-void echo_input_line(string const & input) {
-    Serial.println(input.c_str());
+    command = kitty_interface.get_next_command();
+    kitty_interface.echo_command(command);
+    tokens = kitty_tokenizer.tokenize(command);
+    tokens = kitty_parser.parse(tokens);
+    kitty_interpreter.execute(tokens);
+    kitty_interface.print_prompt();
 }

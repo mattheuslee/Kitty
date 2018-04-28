@@ -1,4 +1,4 @@
-fizzbuzz IsGroup(
+fizzbuzz IsGroup (
     If (num % 3 = 0 & num % 5 = 0) (
         "FizzBuzz"
     )

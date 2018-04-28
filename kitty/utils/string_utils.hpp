@@ -27,21 +27,10 @@ int str_to_int(std::string const & str) {
     return value;
 }
 
-std::string get_line_from_serial() {
-    std::string line;
-    while (true) {
-        if (Serial.available()) {
-            char c = Serial.read();
-            if (c == '\n') { // Finished reading one complete line of input
-                break;
-            }
-            line += c;
-        }
-    }
-    if (line[line.size() - 1] == ' ') {
-        line.erase(line.size() - 1);
-    }
-    return line;
+std::string int_to_str(int const & i) {
+    std::ostringstream oss;
+    oss << i;
+    return oss.str();
 }
 
 std::string remove_str_whitespace(std::string const & str) {
