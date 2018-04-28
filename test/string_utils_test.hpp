@@ -23,6 +23,20 @@ test(string_utils_str_to_int)
     assertEqual(str_to_int("-12345"), -12345);
 }
 
+test(string_utils_int_to_str)
+{
+    assertTrue(int_to_str(1) == "1");
+    assertTrue(int_to_str(12) == "12");
+    assertTrue(int_to_str(123) == "123");
+    assertTrue(int_to_str(1234) == "1234");
+    assertTrue(int_to_str(12345) == "12345");
+    assertTrue(int_to_str(-1) == "-1");
+    assertTrue(int_to_str(-12) == "-12");
+    assertTrue(int_to_str(-123) == "-123");
+    assertTrue(int_to_str(-1234) == "-1234");
+    assertTrue(int_to_str(-12345) == "-12345");
+}
+
 test(string_utils_remove_str_whitespace)
 {
     assertTrue(remove_str_whitespace(" a") == "a");
