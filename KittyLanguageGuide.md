@@ -146,7 +146,7 @@ Also, notice that we only include `(` after the `IsGroup` command. Once we're do
 > `(blink)>>> )`  
 > `>>> blink`  
 > `blink: Command Group containing the command(s):`  
-> `1. light SetTo 100 For 1s`
+> `light SetTo 100 For 1s`
 
 When creating a command group, each command within the group must be on its own line.
 
