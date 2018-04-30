@@ -13,7 +13,7 @@ using namespace kty;
 
 test(interpreter_is_number)
 {
-    string command = "answer IsNumber(42)";
+    string command = "answer IsNumber(3 + (1 - 5)^2 / 4)";
     Tokenizer tokenizer(command);
     vector<Token> tokens = tokenizer.tokenize();
     Parser parser(tokens);
@@ -23,7 +23,7 @@ test(interpreter_is_number)
     interpreter.execute(tokens);
 
     assertTrue(interpreter.get_device("answer").type == DeviceType::NUM);
-    assertTrue(interpreter.get_device("answer").info[0] == "42");
+    assertTrue(interpreter.get_device("answer").info[0] == "7");
 }
 
 test(interpreter_is_led)

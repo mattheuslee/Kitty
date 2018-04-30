@@ -34,16 +34,14 @@ void print_tokens(vector<Token> const & tokens) {
 
 test(parser_arithmetic_expression)
 {
-    string command = "3 + 4 * 2 / (1 - 5)^2^3";
+    string command = "3 + (1 - 5)^2^3 / 4";
     Tokenizer tokenizer(command);
     vector<Token> tokens = tokenizer.tokenize();
     Parser parser(tokens);
     tokens = parser.parse();
+    //print_tokens(tokens);
     static const vector<Token> expectedTokens = {
         {NUM_VAL, "3"}, 
-        {NUM_VAL, "4"}, 
-        {NUM_VAL, "2"}, 
-        {MATH_MUL}, 
         {NUM_VAL, "1"}, 
         {NUM_VAL, "5"}, 
         {MATH_SUB}, 
@@ -51,6 +49,7 @@ test(parser_arithmetic_expression)
         {NUM_VAL, "3"}, 
         {MATH_POW}, 
         {MATH_POW}, 
+        {NUM_VAL, "4"}, 
         {MATH_DIV}, 
         {MATH_ADD}, 
     };
