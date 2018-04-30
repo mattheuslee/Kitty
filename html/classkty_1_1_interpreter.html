@@ -95,6 +95,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1a2f11cace5a9753a312326f74416913"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_token.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a1a2f11cace5a9753a312326f74416913">evaluate_operation</a> (<a class="el" href="structkty_1_1_token.html">Token</a> const &amp;op, <a class="el" href="structkty_1_1_token.html">Token</a> const &amp;lhs, <a class="el" href="structkty_1_1_token.html">Token</a> const &amp;rhs)</td></tr>
 <tr class="memdesc:a1a2f11cace5a9753a312326f74416913"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates single binary operation.  <a href="#a1a2f11cace5a9753a312326f74416913">More...</a><br /></td></tr>
 <tr class="separator:a1a2f11cace5a9753a312326f74416913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4df0cdd602e563e509a97bbf183fccb2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a4df0cdd602e563e509a97bbf183fccb2">power</a> (int const &amp;a, int const &amp;b)</td></tr>
+<tr class="memdesc:a4df0cdd602e563e509a97bbf183fccb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a to the power of b.  <a href="#a4df0cdd602e563e509a97bbf183fccb2">More...</a><br /></td></tr>
+<tr class="separator:a4df0cdd602e563e509a97bbf183fccb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5966f270420b6d19d5acdce459e0f9f9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a5966f270420b6d19d5acdce459e0f9f9">get_token_value</a> (<a class="el" href="structkty_1_1_token.html">Token</a> const &amp;token)</td></tr>
+<tr class="memdesc:a5966f270420b6d19d5acdce459e0f9f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of a token.  <a href="#a5966f270420b6d19d5acdce459e0f9f9">More...</a><br /></td></tr>
+<tr class="separator:a5966f270420b6d19d5acdce459e0f9f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92072c78fce3aed839e0822559333af9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a92072c78fce3aed839e0822559333af9">create_number</a> (std::string const &amp;name, std::stack&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; &amp;info)</td></tr>
 <tr class="memdesc:a92072c78fce3aed839e0822559333af9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a number using the name and information given.  <a href="#a92072c78fce3aed839e0822559333af9">More...</a><br /></td></tr>
 <tr class="separator:a92072c78fce3aed839e0822559333af9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -327,6 +333,87 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The result of performing the operation. If any of the arguments are invalid, an unknown token is returned. </dd></dl>
+
+</div>
+</div>
+<a id="a4df0cdd602e563e509a97bbf183fccb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4df0cdd602e563e509a97bbf183fccb2">&#9670;&nbsp;</a></span>power()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int kty::Interpreter::power </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Evaluates a to the power of b. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The base.</td></tr>
+    <tr><td class="paramname">b</td><td>The exponent.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a raised to the power of b. </dd></dl>
+
+</div>
+</div>
+<a id="a5966f270420b6d19d5acdce459e0f9f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5966f270420b6d19d5acdce459e0f9f9">&#9670;&nbsp;</a></span>get_token_value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int kty::Interpreter::get_token_value </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structkty_1_1_token.html">Token</a> const &amp;&#160;</td>
+          <td class="paramname"><em>token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the value of a token. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">token</td><td>The token to be evaluated.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The value of the token. If the token is a number, that number is returned. If the token is a device, the status value of the device is returned. Otherwise, 0 is returned. </dd></dl>
 
 </div>
 </div>

@@ -7,5 +7,6 @@ var searchData=
   ['get_5fnext_5fname_5ftoken',['get_next_name_token',['../classkty_1_1_tokenizer.html#a5308ad03d5f10bc9eac757ae922a43cc',1,'kty::Tokenizer']]],
   ['get_5fnext_5fnumber_5ftoken',['get_next_number_token',['../classkty_1_1_tokenizer.html#a98b76a1b046f0f960694aef792dcd6eb',1,'kty::Tokenizer']]],
   ['get_5fnext_5fpunctuation_5ftoken',['get_next_punctuation_token',['../classkty_1_1_tokenizer.html#adf724c747234fc68cd5c42abc1b2580b',1,'kty::Tokenizer']]],
-  ['get_5fnext_5ftoken',['get_next_token',['../classkty_1_1_tokenizer.html#ac60061f3623aa66f87e689f16e41ff29',1,'kty::Tokenizer']]]
+  ['get_5fnext_5ftoken',['get_next_token',['../classkty_1_1_tokenizer.html#ac60061f3623aa66f87e689f16e41ff29',1,'kty::Tokenizer']]],
+  ['get_5ftoken_5fvalue',['get_token_value',['../classkty_1_1_interpreter.html#a5966f270420b6d19d5acdce459e0f9f9',1,'kty::Interpreter']]]
 ];

@@ -87,6 +87,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7da2a518de4b8b5776218d018938aa9b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_device.html#a7da2a518de4b8b5776218d018938aa9b">info_str</a> () const</td></tr>
 <tr class="memdesc:a7da2a518de4b8b5776218d018938aa9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an informational string representation of the device. This string is suitable for display to the user.  <a href="#a7da2a518de4b8b5776218d018938aa9b">More...</a><br /></td></tr>
 <tr class="separator:a7da2a518de4b8b5776218d018938aa9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a598e84eafb37c92655cd93d1635d727d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_device.html#a598e84eafb37c92655cd93d1635d727d">is_number</a> ()</td></tr>
+<tr class="memdesc:a598e84eafb37c92655cd93d1635d727d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if this device is a number.  <a href="#a598e84eafb37c92655cd93d1635d727d">More...</a><br /></td></tr>
+<tr class="separator:a598e84eafb37c92655cd93d1635d727d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a50c8f7695794ad2c29a04d3d387d96"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_device.html#a8a50c8f7695794ad2c29a04d3d387d96">is_led</a> ()</td></tr>
+<tr class="memdesc:a8a50c8f7695794ad2c29a04d3d387d96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if this device is an LED.  <a href="#a8a50c8f7695794ad2c29a04d3d387d96">More...</a><br /></td></tr>
+<tr class="separator:a8a50c8f7695794ad2c29a04d3d387d96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b28708acf7a30eaca801ded2b22c33c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_device.html#a8b28708acf7a30eaca801ded2b22c33c">is_servo</a> ()</td></tr>
+<tr class="memdesc:a8b28708acf7a30eaca801ded2b22c33c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if this device is a servo.  <a href="#a8b28708acf7a30eaca801ded2b22c33c">More...</a><br /></td></tr>
+<tr class="separator:a8b28708acf7a30eaca801ded2b22c33c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf47ae4e66589e54c5387321c0c05a5a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_device.html#abf47ae4e66589e54c5387321c0c05a5a">is_group</a> ()</td></tr>
+<tr class="memdesc:abf47ae4e66589e54c5387321c0c05a5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if this device is a group.  <a href="#abf47ae4e66589e54c5387321c0c05a5a">More...</a><br /></td></tr>
+<tr class="separator:abf47ae4e66589e54c5387321c0c05a5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -190,6 +202,118 @@ Public Attributes</h2></td></tr>
 
 <p>Gets an informational string representation of the device. This string is suitable for display to the user. </p>
 <dl class="section return"><dt>Returns</dt><dd>The informational string representation of the device. </dd></dl>
+
+</div>
+</div>
+<a id="a598e84eafb37c92655cd93d1635d727d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a598e84eafb37c92655cd93d1635d727d">&#9670;&nbsp;</a></span>is_number()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool kty::Device::is_number </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if this device is a number. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if this device is a number, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a8a50c8f7695794ad2c29a04d3d387d96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a50c8f7695794ad2c29a04d3d387d96">&#9670;&nbsp;</a></span>is_led()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool kty::Device::is_led </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if this device is an LED. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if this device is an LED, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a8b28708acf7a30eaca801ded2b22c33c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b28708acf7a30eaca801ded2b22c33c">&#9670;&nbsp;</a></span>is_servo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool kty::Device::is_servo </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if this device is a servo. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if this device is a servo, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="abf47ae4e66589e54c5387321c0c05a5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf47ae4e66589e54c5387321c0c05a5a">&#9670;&nbsp;</a></span>is_group()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool kty::Device::is_group </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if this device is a group. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if this device is a group, false otherwise. </dd></dl>
 
 </div>
 </div>

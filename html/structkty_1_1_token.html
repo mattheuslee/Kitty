@@ -87,6 +87,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a16a729293bdab162b496de5646966a43"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_token.html#a16a729293bdab162b496de5646966a43">str</a> () const</td></tr>
 <tr class="memdesc:a16a729293bdab162b496de5646966a43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the string representation of the token for debugging.  <a href="#a16a729293bdab162b496de5646966a43">More...</a><br /></td></tr>
 <tr class="separator:a16a729293bdab162b496de5646966a43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af502927cdffed63a894c49b433f8eab9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_token.html#af502927cdffed63a894c49b433f8eab9">is_number</a> ()</td></tr>
+<tr class="memdesc:af502927cdffed63a894c49b433f8eab9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if this token is a number.  <a href="#af502927cdffed63a894c49b433f8eab9">More...</a><br /></td></tr>
+<tr class="separator:af502927cdffed63a894c49b433f8eab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60459f5ff074429203a56d399ecbae84"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_token.html#a60459f5ff074429203a56d399ecbae84">is_name</a> ()</td></tr>
+<tr class="memdesc:a60459f5ff074429203a56d399ecbae84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if this token is a name.  <a href="#a60459f5ff074429203a56d399ecbae84">More...</a><br /></td></tr>
+<tr class="separator:a60459f5ff074429203a56d399ecbae84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a560ad82e44ebde22c544cbff4401a97f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_token.html#a560ad82e44ebde22c544cbff4401a97f">is_operand</a> ()</td></tr>
 <tr class="memdesc:a560ad82e44ebde22c544cbff4401a97f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if this token is an operand.  <a href="#a560ad82e44ebde22c544cbff4401a97f">More...</a><br /></td></tr>
 <tr class="separator:a560ad82e44ebde22c544cbff4401a97f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -247,6 +253,62 @@ Public Attributes</h2></td></tr>
 
 <p>Gets the string representation of the token for debugging. </p>
 <dl class="section return"><dt>Returns</dt><dd>The debugging string representation of the token. </dd></dl>
+
+</div>
+</div>
+<a id="af502927cdffed63a894c49b433f8eab9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af502927cdffed63a894c49b433f8eab9">&#9670;&nbsp;</a></span>is_number()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool kty::Token::is_number </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if this token is a number. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if this token is an number, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a60459f5ff074429203a56d399ecbae84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60459f5ff074429203a56d399ecbae84">&#9670;&nbsp;</a></span>is_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool kty::Token::is_name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if this token is a name. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if this token is a name, false otherwise. </dd></dl>
 
 </div>
 </div>
