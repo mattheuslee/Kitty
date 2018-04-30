@@ -1,15 +1,13 @@
 #pragma once
 
-#include <kitty/stl_impl.hpp>
+#include <kty/stl_impl.hpp>
 #include <string>
 
-#include <kitty/interpreter/interpreter.hpp>
-#include <kitty/parser/parser.hpp>
-#include <kitty/tokenizer/tokenizer.hpp>
+#include <kty/interpreter.hpp>
+#include <kty/parser.hpp>
+#include <kty/tokenizer.hpp>
 
-namespace kitty {
-
-namespace interface {
+namespace kty {
 
 /*!
     @brief  Class that handles interactions between the user(programmer) 
@@ -105,7 +103,5 @@ private:
 
 };
 
-} // namespace interface
-
-} // namespace kitty
+} // namespace kty
 
