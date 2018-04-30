@@ -1,13 +1,12 @@
 #pragma once
 
-#include <kitty/stl_impl.hpp>
+#include <kty/stl_impl.hpp>
 #include <string>
 
-#include <kitty/utils/string_utils.hpp>
+#include <kty/string_utils.hpp>
 
 using namespace std;
-using namespace kitty;
-using namespace kitty::utils;
+using namespace kty;
 
 test(string_utils_str_to_int)
 {
