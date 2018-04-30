@@ -5,11 +5,18 @@ A high-level scripting language that runs entirely on an Arduino Mega.
 
 ## Install and Requirements:
 Copy this entire repository folder to your `Arduino/libraries` folder.  
-This library has been tested on Arduino IDE 1.8.2.  
+Arduino IDE versions tested:  
+* 1.8.2  
+* 1.8.5  
+
+Arduino models tested:
+* Mega2560  
+
 Kitty will only work on an Arduino Mega as it requires a high amount of sketch and flash memory.  
 
 Additional Arduino libraries required:  
-* [ArduinoSTL](https://github.com/mike-matera/ArduinoSTL)
+* [ArduinoSTL](https://github.com/mike-matera/ArduinoSTL)  
+* [ArduinoUnit](https://github.com/mmurdoch/arduinounit) (for unit tests)
 
 ## Running the live interpreter:
 Open `live_interpreter/live_interpreter.ino` using the Arduino IDE.  
@@ -17,11 +24,11 @@ Upload the sketch to the Arduino Mega.
 Use the Arduino IDE serial monitor to enter commands into the interpreter.  
 The baud rate should be set as `115200 baud`, and newline character as `Newline` in the corner of the serial monitor.  
 
-## Learning the language:  
+## Learning the Language:  
 See the language guide [here](https://github.com/mattheuslee/KittyInterpreter/blob/master/KittyLanguageGuide.md) for a guide to the language syntax and features.
 
-## Releases:
-v0.1.0 - Initial release (26 August 2017)
+## Library Documentation:
+See the library documentation on [github pages](https://mattheuslee.github.io/KittyInterpreter/).
 
 ## Creator and Maintainer:
 Mattheus Lee [email me](mailto:mattheuslee@gmail.com)
