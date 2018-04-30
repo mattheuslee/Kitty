@@ -1,24 +1,22 @@
 #pragma once
 
-#include <kitty/stl_impl.hpp>
+#include <kty/stl_impl.hpp>
 #include <map>
 #include <queue>
 #include <stack>
 #include <vector>
 #include <Servo.h>
 
-#include <kitty/tokenizer/tokenizer.hpp>
-#include <kitty/parser/parser.hpp>
+#include <kty/tokenizer.hpp>
+#include <kty/parser.hpp>
 
-namespace kitty {
-
-namespace interpreter {
+namespace kty {
 
 /** The various device types possible */
 enum DeviceType {
     NUM,
     LED, SERVO, GROUP,
-    UNKNOWN,
+    UNKNOWN_DEVICE,
 };
 
 /*!
@@ -28,7 +26,7 @@ enum DeviceType {
             The device type to be converted
     
     @return The string version of the given device type.
-            If the device type given is invalid, "UNKNOWN" is returned.
+            If the device type given is invalid, "UNKNOWN_DEVICE" is returned.
 */
 std::string device_type_to_str(DeviceType deviceType) {
     static const std::map<DeviceType, std::string> lookupMap = {
@@ -38,7 +36,7 @@ std::string device_type_to_str(DeviceType deviceType) {
         {GROUP, "GROUP"},
     };
     if (lookupMap.find(deviceType) == lookupMap.end()) {
-        return "UNKNOWN";
+        return "UNKNOWN_DEVICE";
     }
     return lookupMap[deviceType];
 }
@@ -47,12 +45,16 @@ std::string device_type_to_str(DeviceType deviceType) {
     @brief  Class that holds information about a device
 */
 struct Device {
-    
-    DeviceType type;                ///> The type of the device
-    std::string name;               ///> The name of the device
-    std::vector<std::string> info;  ///> A vector containing information about the device. This varies depending on the type of the device.
 
-    Servo servo;                    ///> A servo object to be used if the device is a servo.
+    /** The type of the device */    
+    DeviceType type;
+    /** The name of the device */    
+    std::string name;
+    /** Information about the device. The format of this member varies depending on the type of the device. */    
+    std::vector<std::string> info;
+
+    /** A servo object to be used if the device is a servo. */    
+    Servo servo;
 
     /*!
         @brief  Constructor for device
@@ -60,7 +62,7 @@ struct Device {
         @param  _type
                 The type of the device.
     */
-    explicit Device(DeviceType _type = DeviceType::UNKNOWN) : type(_type) {
+    explicit Device(DeviceType _type = DeviceType::UNKNOWN_DEVICE) : type(_type) {
     }
 
     /*!
@@ -80,8 +82,8 @@ struct Device {
         @return The informational string representation of the device.
     */
     std::string info_str() const {
-        if (type == DeviceType::UNKNOWN) {
-            return "UNKNOWN";
+        if (type == DeviceType::UNKNOWN_DEVICE) {
+            return "UNKNOWN_DEVICE";
         }
         std::string str = name + ": ";
         switch (type) {
@@ -118,20 +120,20 @@ public:
                 The command to execute.
                 Tokens in command are assumed to be in postfix notation.
     */
-    void execute(std::vector<tokenizer::Token> const & command) {
+    void execute(std::vector<Token> const & command) {
         // Nothing to execute
         if (command.empty()) {
             return;
         }
-        if (command[0].type == tokenizer::TokenType::ELSE) {
+        if (command[0].type == TokenType::ELSE) {
             execute_else(command);
         }
-        else if (command[0].type == tokenizer::TokenType::NAME) {
+        else if (command[0].type == TokenType::NAME) {
             // Creation of a device/group
-            if (command.back().type == tokenizer::TokenType::CREATE_NUM || 
-                command.back().type == tokenizer::TokenType::CREATE_LED || 
-                command.back().type == tokenizer::TokenType::CREATE_SERVO || 
-                command.back().type == tokenizer::TokenType::CREATE_GROUP) {
+            if (command.back().type == TokenType::CREATE_NUM || 
+                command.back().type == TokenType::CREATE_LED || 
+                command.back().type == TokenType::CREATE_SERVO || 
+                command.back().type == TokenType::CREATE_GROUP) {
                 execute_create(command);
             }
             // Running group
@@ -147,7 +149,7 @@ public:
         @param  command
                 The command to execute.
     */
-    void execute_else(std::vector<tokenizer::Token> const & command) {
+    void execute_else(std::vector<Token> const & command) {
 
     }
 
@@ -157,21 +159,21 @@ public:
         @param  command
                 The command to execute.
     */
-    void execute_create(std::vector<tokenizer::Token> const & command) {
-        std::queue<tokenizer::Token> tokenQueue;
+    void execute_create(std::vector<Token> const & command) {
+        std::queue<Token> tokenQueue;
         for (int i = 0; i < command.size() - 1; ++i) {
             tokenQueue.push(command[i]);
         }
         std::string name = tokenQueue.front().value;
-        tokenizer::Token createToken = command[command.size() - 1];
+        Token createToken = command[command.size() - 1];
         tokenQueue.pop();
 
-        std::stack<tokenizer::Token> result = evaluate_postfix(tokenQueue);
+        std::stack<Token> result = evaluate_postfix(tokenQueue);
 
-        if (createToken.type == tokenizer::TokenType::CREATE_NUM) {
+        if (createToken.type == TokenType::CREATE_NUM) {
             create_number(name, result);
         }
-        else if (createToken.type == tokenizer::TokenType::CREATE_LED) {
+        else if (createToken.type == TokenType::CREATE_LED) {
             create_led(name, result);
         }
     }
@@ -188,7 +190,7 @@ public:
     */
     Device get_device(std::string const & name) {
         if (devices_.find(name) == devices_.end()) {
-            return Device(DeviceType::UNKNOWN);
+            return Device(DeviceType::UNKNOWN_DEVICE);
         }
         return devices_[name];
     }
@@ -202,24 +204,24 @@ public:
         @return The result stack after evaluation is complete.
                 The stack may contain multiple values, depending on the input expression.
     */
-    std::stack<tokenizer::Token> evaluate_postfix(std::queue<tokenizer::Token> & tokenQueue) {
-        std::stack<tokenizer::Token> tokenStack;
+    std::stack<Token> evaluate_postfix(std::queue<Token> & tokenQueue) {
+        std::stack<Token> tokenStack;
 
         while (!tokenQueue.empty()) {
-            tokenizer::Token token = tokenQueue.front();
+            Token token = tokenQueue.front();
             tokenQueue.pop();
-            if (tokenizer::is_operator(token)) {
-                tokenizer::Token lhs = tokenStack.top();
+            if (token.is_operator()) {
+                Token lhs = tokenStack.top();
                 tokenStack.pop();
-                tokenizer::Token rhs = tokenStack.top();
+                Token rhs = tokenStack.top();
                 tokenStack.pop();
-                tokenizer::Token result = evaluate_operation(token, lhs, rhs);
+                Token result = evaluate_operation(token, lhs, rhs);
                 tokenStack.push(result);
             }
-            else if (tokenizer::is_operand(token)) {
+            else if (token.is_operand()) {
                 tokenStack.push(token);
             }
-            else if (tokenizer::is_function(token)) {
+            else if (token.is_function()) {
                 tokenStack.push(token);
             }
         }
@@ -242,8 +244,8 @@ public:
                 If any of the arguments are invalid, 
                 an unknown token is returned.
     */
-    tokenizer::Token evaluate_operation(tokenizer::Token const & op, tokenizer::Token const & lhs, tokenizer::Token const & rhs) {
-        return tokenizer::Token(tokenizer::TokenType::UNKNOWN);
+    Token evaluate_operation(Token const & op, Token const & lhs, Token const & rhs) {
+        return Token(TokenType::UNKNOWN_TYPE);
     }
 
     /*!
@@ -256,7 +258,7 @@ public:
                 The information about the number.
                 The number value is expected to be the top token of the stack.
     */
-    void create_number(std::string const & name, std::stack<tokenizer::Token> & info) {
+    void create_number(std::string const & name, std::stack<Token> & info) {
         Serial.println("Creating number");
         Device number(DeviceType::NUM);
         number.name = name;
@@ -275,17 +277,17 @@ public:
                 The LED brightness value is expected to be the top token of the stack,
                 and the LED pin number is expected to be the second token from the top.
     */
-    void create_led(std::string const & name, std::stack<tokenizer::Token> & info) {
+    void create_led(std::string const & name, std::stack<Token> & info) {
         Serial.println("Creating LED");
         Device number(DeviceType::LED);
         number.name = name;
-        int brightness = utils::str_to_int(info.top().value);
+        int brightness = str_to_int(info.top().value);
         info.pop();
-        int pinNumber = utils::str_to_int(info.top().value);
+        int pinNumber = str_to_int(info.top().value);
         pinMode(pinNumber, OUTPUT);
         analogWrite(pinNumber, (int)(brightness * 2.55));
-        number.info.push_back(utils::int_to_str(pinNumber));
-        number.info.push_back(utils::int_to_str(brightness));
+        number.info.push_back(int_to_str(pinNumber));
+        number.info.push_back(int_to_str(brightness));
         devices_[name] = number;
     }
 
@@ -295,6 +297,4 @@ private:
 
 };
 
-} // namespace interpreter
-
-} // namespace kitty
+} // namespace kty

@@ -1,18 +1,15 @@
 #pragma once
 
-#include <kitty/stl_impl.hpp>
+#include <kty/stl_impl.hpp>
 #include <string>
 #include <vector>
 
-#include <kitty/interpreter/interpreter.hpp>
-#include <kitty/parser/parser.hpp>
-#include <kitty/tokenizer/tokenizer.hpp>
+#include <kty/interpreter.hpp>
+#include <kty/parser.hpp>
+#include <kty/tokenizer.hpp>
 
 using namespace std;
-using namespace kitty;
-using namespace kitty::interpreter;
-using namespace kitty::tokenizer;
-using namespace kitty::parser;
+using namespace kty;
 
 test(interpreter_is_number)
 {
