@@ -105,6 +105,42 @@ struct Device {
         };
         return str;
     }
+
+    /*!
+        @brief  Checks if this device is a number.
+
+        @return True if this device is a number, false otherwise.
+    */
+    bool is_number() {
+        return type == DeviceType::NUM;
+    }
+
+    /*!
+        @brief  Checks if this device is an LED.
+
+        @return True if this device is an LED, false otherwise.
+    */
+    bool is_led() {
+        return type == DeviceType::LED;
+    }
+
+    /*!
+        @brief  Checks if this device is a servo.
+
+        @return True if this device is a servo, false otherwise.
+    */
+    bool is_servo() {
+        return type == DeviceType::SERVO;
+    }
+
+    /*!
+        @brief  Checks if this device is a group.
+
+        @return True if this device is a group, false otherwise.
+    */
+    bool is_group() {
+        return type == DeviceType::GROUP;
+    }
 };
 
 /*!
@@ -211,11 +247,16 @@ public:
             Token token = tokenQueue.front();
             tokenQueue.pop();
             if (token.is_operator()) {
-                Token lhs = tokenStack.top();
-                tokenStack.pop();
                 Token rhs = tokenStack.top();
                 tokenStack.pop();
+                Token lhs = tokenStack.top();
+                tokenStack.pop();
                 Token result = evaluate_operation(token, lhs, rhs);
+                //Serial.print(lhs.str().c_str());
+                //Serial.print(token.str().c_str());
+                //Serial.print(rhs.str().c_str());
+                //Serial.print(" = ");
+                //Serial.println(result.str().c_str());
                 tokenStack.push(result);
             }
             else if (token.is_operand()) {
@@ -245,7 +286,100 @@ public:
                 an unknown token is returned.
     */
     Token evaluate_operation(Token const & op, Token const & lhs, Token const & rhs) {
-        return Token(TokenType::UNKNOWN_TYPE);
+        int lhsValue = get_token_value(lhs);
+        int rhsValue = get_token_value(rhs);
+        Token result(TokenType::NUM_VAL);
+        result.value = "0";
+
+        if (op.type == TokenType::EQUALS) {
+            result.value = int_to_str(lhsValue == rhsValue);
+        }
+        else if (op.type == TokenType::L_EQUALS) {
+            result.value = int_to_str(lhsValue <= rhsValue);
+        }
+        else if (op.type == TokenType::G_EQUALS) {
+            result.value = int_to_str(lhsValue >= rhsValue);
+        }
+        else if (op.type == TokenType::LESS) {
+            result.value = int_to_str(lhsValue < rhsValue);
+        }
+        else if (op.type == TokenType::GREATER) {
+            result.value = int_to_str(lhsValue > rhsValue);
+        }
+        else if (op.type == TokenType::MATH_ADD) {
+            result.value = int_to_str(lhsValue + rhsValue);
+        }
+        else if (op.type == TokenType::MATH_SUB) {
+            result.value = int_to_str(lhsValue - rhsValue);
+        }
+        else if (op.type == TokenType::MATH_MUL) {
+            result.value = int_to_str(lhsValue * rhsValue);
+        }
+        else if (op.type == TokenType::MATH_DIV) {
+            result.value = int_to_str(lhsValue / rhsValue);
+        }
+        else if (op.type == TokenType::MATH_MOD) {
+            result.value = int_to_str(lhsValue % rhsValue);
+        }
+        else if (op.type == TokenType::MATH_POW) {
+            result.value = int_to_str(power(lhsValue, rhsValue));
+        }
+        else if (op.type == TokenType::LOGI_AND) {
+            result.value = int_to_str(lhsValue && rhsValue);
+        }
+        else if (op.type == TokenType::LOGI_OR) {
+            result.value = int_to_str(lhsValue || rhsValue);
+        }
+        return result;
+    }
+
+    /*!
+        @brief  Evaluates a to the power of b.
+
+        @param  a
+                The base.
+        
+        @param  b
+                The exponent.
+
+        @return a raised to the power of b.
+    */
+    int power(int const & a, int const & b) {
+        int result = a;
+        for (int i = 1; i < b; ++i) {
+            result *= a;
+        }
+        return result;
+    }
+
+    /*!
+        @brief  Returns the value of a token.
+
+        @param  token
+                The token to be evaluated.
+
+        @return The value of the token.
+                If the token is a number, that number is returned.
+                If the token is a device, the status value of the device is returned.
+                Otherwise, 0 is returned.
+    */
+    int get_token_value(Token const & token) {
+        if (token.is_number()) {
+            return str_to_int(token.value);
+        }
+        else if (token.is_name()) {
+            Device device = devices_[token.value];
+            if (device.is_number()) {
+                return str_to_int(device.info[0]);
+            }
+            else if (device.is_led()) {
+                return str_to_int(device.info[1]);
+            }
+            else if (device.is_servo()) {
+                return str_to_int(device.info[2]);
+            }
+        }
+        return 0;
     }
 
     /*!
