@@ -1,38 +1,34 @@
 #include <kitty.hpp>
-#include <kitty/stl_impl.hpp>
+#include <kty/stl_impl.hpp>
 #include <string>
 #include <vector>
 
-#include <kitty/interface/interface.hpp>
-#include <kitty/interpreter/interpreter.hpp>
-#include <kitty/parser/parser.hpp>
-#include <kitty/tokenizer/tokenizer.hpp>
+#include <kty/interface.hpp>
+#include <kty/interpreter.hpp>
+#include <kty/parser.hpp>
+#include <kty/tokenizer.hpp>
 
 using namespace std;
-using namespace kitty;
-using namespace kitty::interface;
-using namespace kitty::interpreter;
-using namespace kitty::parser;
-using namespace kitty::tokenizer;
+using namespace kty;
 
 string command;
 vector<Token> tokens;
 
-Interface kitty_interface;
-Interpreter kitty_interpreter;
-Parser kitty_parser;
-Tokenizer kitty_tokenizer;
+Interface kty_interface;
+Interpreter kty_interpreter;
+Parser kty_parser;
+Tokenizer kty_tokenizer;
 
 void setup() {
-    kitty_interface.print_welcome();
-    kitty_interface.print_prompt();
+    kty_interface.print_welcome();
+    kty_interface.print_prompt();
 }
 
 void loop() {
-    command = kitty_interface.get_next_command();
-    kitty_interface.echo_command(command);
-    tokens = kitty_tokenizer.tokenize(command);
-    tokens = kitty_parser.parse(tokens);
-    kitty_interpreter.execute(tokens);
-    kitty_interface.print_prompt();
+    command = kty_interface.get_next_command();
+    kty_interface.echo_command(command);
+    tokens = kty_tokenizer.tokenize(command);
+    tokens = kty_parser.parse(tokens);
+    kty_interpreter.execute(tokens);
+    kty_interface.print_prompt();
 }
