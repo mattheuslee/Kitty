@@ -9,7 +9,6 @@ branches:
 env:
   global:
      - PRETTYNAME="KittyInterpreter"
-# Optional, will default to "$TRAVIS_BUILD_DIR/Doxyfile"
      - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
 
 before_install:
