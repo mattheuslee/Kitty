@@ -197,6 +197,24 @@ struct Token {
     }
 
     /*!
+        @brief  Checks if this token is a number.
+
+        @return True if this token is an number, false otherwise.
+    */
+    bool is_number() {
+        return type == TokenType::NUM_VAL;
+    }
+
+    /*!
+        @brief  Checks if this token is a name.
+
+        @return True if this token is a name, false otherwise.
+    */
+    bool is_name() {
+        return type == TokenType::NAME;
+    }
+
+    /*!
         @brief  Checks if this token is an operand.
 
         @return True if this token is an operand, false otherwise.
