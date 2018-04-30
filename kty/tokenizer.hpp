@@ -290,12 +290,12 @@ struct Token {
     }
 
     /*!
-        @brief  Checks if this token is a left associative operand.
+        @brief  Checks if this token is a left associative operator.
 
-        @return True if this token is a left associative operand, false otherwise.
+        @return True if this token is a left associative operator, false otherwise.
     */
     bool is_left_associative() {
-        return is_operand() && type != TokenType::MATH_POW;
+        return is_operator() && type != TokenType::MATH_POW;
     }
 
     /*!
@@ -315,7 +315,7 @@ struct Token {
 
         @param  other
                 The other token to compare against.
-                
+
         @return True if this token has an equal precedence to the other token, false otherwise.
     */
     bool has_equal_precedence_to(Token const & other) {
