@@ -1,17 +1,15 @@
 #pragma once
 
-#include <kitty/stl_impl.hpp>
+#include <kty/stl_impl.hpp>
 #include <string>
 #include <utility>
 #include <vector>
 
-#include <kitty/parser/parser.hpp>
-#include <kitty/tokenizer/tokenizer.hpp>
+#include <kty/parser.hpp>
+#include <kty/tokenizer.hpp>
 
 using namespace std;
-using namespace kitty;
-using namespace kitty::tokenizer;
-using namespace kitty::parser;
+using namespace kty;
 
 void parser_check_correct_types_values(vector<Token> const & tokens, vector<TokenType> const & expectedTypes, vector<string> const & expectedValues, string const & comment) {
     for (int i = 0; i < tokens.size(); ++i) {
@@ -34,7 +32,7 @@ void print_tokens(vector<Token> const & tokens) {
         Serial.println(token.str().c_str());
 }
 
-test(parser_run_shunting_yard_arithmetic_expression)
+test(parser_arithmetic_expression)
 {
     string command = "3 + 4 * 2 / (1 - 5)^2^3";
     Tokenizer tokenizer(command);
@@ -59,7 +57,7 @@ test(parser_run_shunting_yard_arithmetic_expression)
     parser_check_correct_tokens(tokens, expectedTokens, command);
 }
 
-test(parser_run_shunting_yard_is_number)
+test(parser_is_number)
 {
     string command = "answer IsNumber(42)";
     Tokenizer tokenizer(command);
@@ -74,7 +72,7 @@ test(parser_run_shunting_yard_is_number)
     parser_check_correct_tokens(tokens, expectedTokens, command);
 }
 
-test(parser_run_shunting_yard_is_led)
+test(parser_is_led)
 {
     string command = "light IsLED(13, 25)";
     Tokenizer tokenizer(command);
@@ -90,7 +88,7 @@ test(parser_run_shunting_yard_is_led)
     parser_check_correct_tokens(tokens, expectedTokens, command);   
 }
 
-test(parser_run_shunting_yard_is_servo)
+test(parser_is_servo)
 {
     string command = "sweeper IsServo(10, 45)";
     Tokenizer tokenizer(command);
@@ -106,7 +104,7 @@ test(parser_run_shunting_yard_is_servo)
     parser_check_correct_tokens(tokens, expectedTokens, command);   
 }
 
-test(parser_run_shunting_yard_is_group)
+test(parser_is_group)
 {
     string command = "blink IsGroup (";
     Tokenizer tokenizer(command);
@@ -120,7 +118,7 @@ test(parser_run_shunting_yard_is_group)
     parser_check_correct_tokens(tokens, expectedTokens, command);   
 }
 
-test(parser_run_shunting_yard_if)
+test(parser_if)
 {
     string command = "If (num % 3 = 0 & num % 5 = 0) (";
     Tokenizer tokenizer(command);
@@ -144,7 +142,7 @@ test(parser_run_shunting_yard_if)
     parser_check_correct_tokens(tokens, expectedTokens, command);   
 }
 
-test(parser_run_shunting_yard_else)
+test(parser_else)
 {
     string command = "Else (";
     Tokenizer tokenizer(command);
@@ -157,7 +155,7 @@ test(parser_run_shunting_yard_else)
     parser_check_correct_tokens(tokens, expectedTokens, command);   
 }
 
-test(parser_run_shunting_yard_while)
+test(parser_while)
 {
     string command = "While (val <= 20) (";
     Tokenizer tokenizer(command);
@@ -173,7 +171,7 @@ test(parser_run_shunting_yard_while)
     parser_check_correct_tokens(tokens, expectedTokens, command);   
 }
 
-test(parser_run_shunting_yard_move_by)
+test(parser_move_by)
 {
     string command = "answer MoveBy(-10)";
     Tokenizer tokenizer(command);
@@ -189,7 +187,7 @@ test(parser_run_shunting_yard_move_by)
     parser_check_correct_tokens(tokens, expectedTokens, command);   
 }
 
-test(parser_run_shunting_yard_set_to)
+test(parser_set_to)
 {
     string command = "light SetTo(75)";
     Tokenizer tokenizer(command);
@@ -204,7 +202,7 @@ test(parser_run_shunting_yard_set_to)
     parser_check_correct_tokens(tokens, expectedTokens, command);   
 }
 
-test(parser_run_shunting_yard_move_by_for)
+test(parser_move_by_for)
 {
     string command = "answer MoveByFor(-10, 1)";
     Tokenizer tokenizer(command);
@@ -221,7 +219,7 @@ test(parser_run_shunting_yard_move_by_for)
     parser_check_correct_tokens(tokens, expectedTokens, command);   
 }
 
-test(parser_run_shunting_yard_set_to_for)
+test(parser_set_to_for)
 {
     string command = "light SetToFor(75, 1)";
     Tokenizer tokenizer(command);
