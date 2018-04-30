@@ -1,5 +1,5 @@
 #include <kitty.hpp>
-#include <kitty/stl_impl.hpp>
+#include <kty/stl_impl.hpp>
 #include <ArduinoUnit.h>
 #include <string>
 
