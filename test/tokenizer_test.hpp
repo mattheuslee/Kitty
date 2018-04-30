@@ -1,14 +1,13 @@
 #pragma once
 
-#include <kitty/stl_impl.hpp>
+#include <kty/stl_impl.hpp>
 #include <string>
 #include <vector>
 
-#include <kitty/tokenizer/tokenizer.hpp>
+#include <kty/tokenizer.hpp>
 
 using namespace std;
-using namespace kitty;
-using namespace kitty::tokenizer;
+using namespace kty;
 
 test(tokenizer_token_constructor)
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <kitty/stl_impl.hpp>
+#include <kty/stl_impl.hpp>
 
 #include <algorithm>
 #include <cctype>
@@ -9,13 +9,12 @@
 #include <map>
 #include <vector>
 
-#include <kitty/utils/string_utils.hpp>
+#include <kty/string_utils.hpp>
 
-namespace kitty {
-
-namespace tokenizer {
+namespace kty {
 
 // Not using enum class due to int conversion requirement for ArduinoUnit
+/** The various types of tokens possible */
 enum TokenType {
     CREATE_NUM, CREATE_LED, CREATE_SERVO, CREATE_GROUP, RUN_GROUP,
     MOVE_BY_FOR, MOVE_BY, SET_TO_FOR, SET_TO,
@@ -30,6 +29,15 @@ enum TokenType {
     CMD_END,
 };
 
+/*!
+    @brief  Converts a token type to its corresponding string representation.
+
+    @param  tokenType
+            The token type to be converted.
+
+    @return The string representation of the token type.
+            If the token type is invalid, "UNKNOWN" is returned.
+*/
 std::string token_type_to_str(TokenType tokenType) {
     static const std::map<TokenType, std::string> lookupMap = {
         {TokenType::CREATE_NUM, "CREATE_NUM"},
@@ -74,6 +82,16 @@ std::string token_type_to_str(TokenType tokenType) {
     return lookupMap[tokenType];
 }
 
+/*!
+    @brief  Converts a command word string to its corresponding token type.
+
+    @param  str
+            The command word.
+
+    @return The corresponding token type for the command word.
+            If the parameter is not a valid command word,
+            the unknown token type is returned.
+*/
 TokenType command_str_to_token_type(std::string const & str) {
     static const std::map<std::string, TokenType> lookupMap = {
         {"IsNumber", TokenType::CREATE_NUM},
@@ -96,6 +114,16 @@ TokenType command_str_to_token_type(std::string const & str) {
     return lookupMap[str];
 }
 
+/*!
+    @brief  Converts a punctuation string to its corresponding token type.
+
+    @param  str
+            The punctuation.
+
+    @return The corresponding token type for the punctuation.
+            If the parameter is not valid punctuation,
+            the unknown token type is returned.
+*/
 TokenType punctuation_str_to_token_type(std::string const & str) {
     static const std::string validPunctuation_ = "(),=<>+-*/%^&|!";
     static const TokenType lookup[] = {
@@ -122,78 +150,229 @@ TokenType punctuation_str_to_token_type(std::string const & str) {
     return lookup[idx];
 }
 
+struct Token;
+
+int get_token_precedence_level(Token const & token);
+
+/*!
+    @brief  Class that holds information about a token
+*/
 struct Token {
+    /** The type of the token */
     TokenType type;
+    /** The value of the token */
     std::string value;
 
+    /*!
+        @brief  The constructor for a token.
+
+        @param  _type
+                The type of the token
+
+        @param  _value
+                The value of the token. Optional parameter.
+    */
     Token(TokenType _type, std::string const & _value = "") : type(_type), value(_value) {
     }
+
+    /*!
+        @brief  The constructor for a token.
+
+        @param  _type
+                The type of the token
+
+        @param  _value
+                The value of the token.
+    */
     Token(TokenType _type, char const * _value) : type(_type), value(_value) {
     }
+
+    /*!
+        @brief  Gets the string representation of the token for debugging
+
+        @return The debugging string representation of the token.
+    */
     std::string str() const {
         return "Token(" + token_type_to_str(type) + ", " + value + ")";
     }
+
+    /*!
+        @brief  Checks if this token is an operand.
+
+        @return True if this token is an operand, false otherwise.
+    */
+    bool is_operand() {
+        return type == TokenType::NAME || 
+               type == TokenType::NUM_VAL;
+    }
+
+    /*!
+        @brief  Checks if this token is a function.
+
+        @return True if this token is a function, false otherwise.
+    */
+    bool is_function() {
+        return type == TokenType::CREATE_NUM ||
+               type == TokenType::CREATE_LED ||
+               type == TokenType::CREATE_SERVO ||
+               type == TokenType::CREATE_GROUP ||
+               type == TokenType::RUN_GROUP ||
+               type == TokenType::MOVE_BY_FOR ||
+               type == TokenType::MOVE_BY ||
+               type == TokenType::SET_TO_FOR ||
+               type == TokenType::SET_TO ||
+               type == TokenType::IF ||
+               type == TokenType::ELSE_IF ||
+               type == TokenType::ELSE ||
+               type == TokenType::WHILE;
+    }
+
+    /*!
+        @brief  Checks if this token is an operator.
+
+        @return True if this token is an operator, false otherwise.
+    */
+    bool is_operator() {
+        return type == TokenType::EQUALS || 
+               type == TokenType::L_EQUALS || 
+               type == TokenType::G_EQUALS || 
+               type == TokenType::LESS || 
+               type == TokenType::GREATER || 
+               type == TokenType::MATH_ADD || 
+               type == TokenType::MATH_SUB || 
+               type == TokenType::MATH_MUL || 
+               type == TokenType::MATH_DIV || 
+               type == TokenType::MATH_MOD || 
+               type == TokenType::MATH_POW ||
+               type == TokenType::UNARY_NEG ||
+               type == TokenType::LOGI_AND ||
+               type == TokenType::LOGI_OR ||
+               type == TokenType::LOGI_XOR;
+    }
+    
+    /*!
+        @brief  Checks if this token is a left bracket.
+
+        @return True if this token is a left bracket, false otherwise.
+    */
+    bool is_left_bracket() {
+        return type == TokenType::OP_PAREN;
+    }
+
+    /*!
+        @brief  Checks if this token is a right bracket.
+
+        @return True if this token is a right bracket, false otherwise.
+    */
+    bool is_right_bracket() {
+        return type == TokenType::CL_PAREN;
+    }
+
+    /*!
+        @brief  Checks if this token is a comma.
+
+        @return True if this token is a comma, false otherwise.
+    */
+    bool is_comma() {
+        return type == TokenType::COMMA;
+    }
+
+    /*!
+        @brief  Checks if this token is a creation command type.
+
+        @return True if this token is a creation command type, false otherwise.
+    */
+    bool is_creation_command() {
+        return type == TokenType::CREATE_NUM || 
+               type == TokenType::CREATE_LED || 
+               type == TokenType::CREATE_SERVO || 
+               type == TokenType::CREATE_GROUP;
+    }
+
+    /*!
+        @brief  Checks if this token is a left associative operand.
+
+        @return True if this token is a left associative operand, false otherwise.
+    */
+    bool is_left_associative() {
+        return is_operand() && type != TokenType::MATH_POW;
+    }
+
+    /*!
+        @brief  Checks if this token's precedence is greater than another token's precedence.
+
+        @param  other
+                The other token to compare against.
+
+        @return True if this token has a higher precedence than the other token, false otherwise.
+    */
+    bool has_greater_precedence_than(Token const & other) {
+        return get_token_precedence_level(*this) > get_token_precedence_level(other);
+    }
+
+    /*!
+        @brief  Checks if this token's precedence equal to another token's precedence.
+
+        @param  other
+                The other token to compare against.
+                
+        @return True if this token has an equal precedence to the other token, false otherwise.
+    */
+    bool has_equal_precedence_to(Token const & other) {
+        return get_token_precedence_level(*this) == get_token_precedence_level(other);
+    }
+
+    /*! 
+        @brief  Returns the number of function arguments this token takes.
+
+        @return The number of function arguments for this token.
+                If this token is not a function, returns 0.
+    */
+    int num_function_arguments() {
+        switch (type) {
+        case TokenType::CREATE_NUM:
+            return 1;
+        case TokenType::CREATE_LED:
+            return 2;
+        case TokenType::CREATE_SERVO:
+            return 2;
+        case TokenType::CREATE_GROUP:
+            return 0;
+        case TokenType::RUN_GROUP:
+            return 1;
+        case TokenType::MOVE_BY_FOR:
+            return 2;
+        case TokenType::MOVE_BY:
+            return 1;
+        case TokenType::SET_TO_FOR:
+            return 2;
+        case TokenType::SET_TO:
+            return 1;
+        case TokenType::IF:
+            return 1;
+        case TokenType::ELSE_IF:
+            return 1;
+        case TokenType::ELSE:
+            return 0;
+        case TokenType::WHILE:
+            return 1;
+        default:
+            return 0;
+        }
+    }
+
 };
 
-bool is_operand(Token const & token) {
-    return token.type == TokenType::NAME || 
-           token.type == TokenType::NUM_VAL;
-}
+/*! 
+    @brief  Returns the precedence level of a token.
 
-bool is_function(Token const & token) {
-    return token.type == TokenType::CREATE_NUM ||
-           token.type == TokenType::CREATE_LED ||
-           token.type == TokenType::CREATE_SERVO ||
-           token.type == TokenType::CREATE_GROUP ||
-           token.type == TokenType::RUN_GROUP ||
-           token.type == TokenType::MOVE_BY_FOR ||
-           token.type == TokenType::MOVE_BY ||
-           token.type == TokenType::SET_TO_FOR ||
-           token.type == TokenType::SET_TO ||
-           token.type == TokenType::IF ||
-           token.type == TokenType::ELSE_IF ||
-           token.type == TokenType::ELSE ||
-           token.type == TokenType::WHILE;
-}
+    @param  token
+            The token to check the precedence level of.
 
-bool is_operator(Token const & token) {
-    return token.type == TokenType::EQUALS || 
-           token.type == TokenType::L_EQUALS || 
-           token.type == TokenType::G_EQUALS || 
-           token.type == TokenType::LESS || 
-           token.type == TokenType::GREATER || 
-           token.type == TokenType::MATH_ADD || 
-           token.type == TokenType::MATH_SUB || 
-           token.type == TokenType::MATH_MUL || 
-           token.type == TokenType::MATH_DIV || 
-           token.type == TokenType::MATH_MOD || 
-           token.type == TokenType::MATH_POW ||
-           token.type == TokenType::UNARY_NEG ||
-           token.type == TokenType::LOGI_AND ||
-           token.type == TokenType::LOGI_OR ||
-           token.type == TokenType::LOGI_XOR;
-}
-
-bool is_left_bracket(Token const & token) {
-    return token.type == TokenType::OP_PAREN;
-}
-
-bool is_right_bracket(Token const & token) {
-    return token.type == TokenType::CL_PAREN;
-}
-
-bool is_comma(Token const & token) {
-    return token.type == TokenType::COMMA;
-}
-
-bool is_creation(Token const & token) {
-    return token.type == TokenType::CREATE_NUM || 
-           token.type == TokenType::CREATE_LED || 
-           token.type == TokenType::CREATE_SERVO || 
-           token.type == TokenType::CREATE_GROUP;
-}
-
-int get_precedence_level(Token const & token) {
+    @return The precedence level of the token.
+            If the token is not an operator, 0 is returned.
+*/
+int get_token_precedence_level(Token const & token) {
     static const std::map<TokenType, int> precedenceLevel = {
         {TokenType::UNARY_NEG, 6},
         {TokenType::MATH_POW, 5},
@@ -217,75 +396,46 @@ int get_precedence_level(Token const & token) {
     return precedenceLevel[token.type];
 }
 
-// Returns whether left >(precedence) right is true
-bool has_greater_precedence(Token const & left, Token const & right) {
-    return get_precedence_level(left) > get_precedence_level(right);
-}
-
-// Returns whether left ==(precedence) right is true
-bool has_equal_precedence(Token const & left, Token const & right) {
-    return get_precedence_level(left) == get_precedence_level(right);
-}
-
-bool is_left_associative(Token const & token) {
-    return token.type != TokenType::MATH_POW;
-}
-
-int num_function_arguments(Token const & token) {
-    // Number of function arguments includes optional arguments
-    // Assume optional arguments are filled in before passing through interpreter
-    switch (token.type) {
-    case TokenType::CREATE_NUM:
-        return 1;
-    case TokenType::CREATE_LED:
-        return 2;
-    case TokenType::CREATE_SERVO:
-        return 2;
-    case TokenType::CREATE_GROUP:
-        return 0;
-    case TokenType::RUN_GROUP:
-        return 1;
-    case TokenType::MOVE_BY_FOR:
-        return 2;
-    case TokenType::MOVE_BY:
-        return 1;
-    case TokenType::SET_TO_FOR:
-        return 2;
-    case TokenType::SET_TO:
-        return 1;
-    case TokenType::IF:
-        return 1;
-    case TokenType::ELSE_IF:
-        return 1;
-    case TokenType::ELSE:
-        return 0;
-    case TokenType::WHILE:
-        return 1;
-    default:
-        return 0;
-    }
-}
-
-int num_function_arguments(TokenType tokenType) {
-    return num_function_arguments(Token(tokenType));
-}
-
+/*!
+    @brief  Class that tokenizes commands.
+*/
 class Tokenizer {
 
 public:
+
+    /*!
+        @brief  Default constructor for tokenizer.
+    */
     Tokenizer() {
     }
 
+    /*!
+        @brief  Constructor for tokenizer that takes in command to tokenize.
+
+        @param  command
+                The command to tokenize.
+    */
     explicit Tokenizer(std::string & command) {
         set_command(command);
     }
 
+    /*!
+        @brief  Sets the command to be tokenized.
+
+        @param  command
+                The command to tokenize.
+    */
     void set_command(std::string & command) {
-        command_ = utils::remove_str_whitespace(command);
+        command_ = remove_str_whitespace(command);
         add_missing_optional_arguments();
         tokenStartIdx_ = 0;
     }
 
+    /*!
+        @brief  Tokenizes the command stored in the tokenizer.
+
+        @return The tokenized command.
+    */
     std::vector<Token> tokenize() {
         std::vector<Token> tokens;
         Token token(TokenType::UNKNOWN);
@@ -293,16 +443,31 @@ public:
             token = get_next_token();
             tokens.push_back(token);
         } while (token.type != TokenType::CMD_END && token.type != TokenType::UNKNOWN);
-        cleanup_math_tokens(tokens);
+        process_math_tokens(tokens);
         return tokens;
     }
 
+    /*!
+        @brief  Tokenizes the given command.
+
+        @param  command
+                The command to tokenize.
+
+        @return The tokenized command.
+    */
     std::vector<Token> tokenize(std::string & command) {
         set_command(command);
         return tokenize();
     }
 
-    void cleanup_math_tokens(std::vector<Token> & tokens) {
+    /*!
+        @brief  Performs processing on the math tokens within the command.
+                Comparison tokens are compressed, and unary '-' tokens are detected.
+
+        @param  tokens
+                The tokenized command.
+    */
+    void process_math_tokens(std::vector<Token> & tokens) {
         // Compresses '<' + '=' into '<=' and '>' + '=' into '>='
         std::vector<Token>::iterator iter = tokens.begin();
         while (iter != tokens.end()) {
@@ -331,14 +496,19 @@ public:
                 std::vector<Token>::iterator prev = iter;
                 --prev;
                 if (iter == tokens.begin() ||
-                    is_operator(*prev) ||
-                    is_left_bracket(*prev)) {
+                    prev->is_operator() ||
+                    prev->is_left_bracket()) {
                     iter->type = TokenType::UNARY_NEG;
                 }
             }
         }
     }
 
+    /*!
+        @brief  Gets the next token from command stored in the tokenizer.
+
+        @return The next token from the stored command.
+    */
     Token get_next_token() {
         // No more tokens
         if (tokenStartIdx_ == command_.size()) {
@@ -363,6 +533,12 @@ public:
         return Token(TokenType::UNKNOWN);
     }
 
+    /*!
+        @brief  Gets the next command token from the stored command.
+
+        @return The next command token.
+                If the next token is not a command, an unknown token is returned.
+    */
     Token get_next_command_token() {
         for (int i = 0; i < commandLookup_.size(); ++i) {
             if (command_.find(commandLookup_[i], tokenStartIdx_) == tokenStartIdx_) {
@@ -373,6 +549,12 @@ public:
         return Token(TokenType::UNKNOWN);
     }
 
+    /*!
+        @brief  Gets the next name token from the stored command.
+
+        @return The next name token.
+                If the next token is not a name, an unknown token is returned.
+    */
     Token get_next_name_token() {
         int currIdx = tokenStartIdx_;
         while (currIdx < command_.size() && (islower(command_[currIdx]) || command_[currIdx] == '_')) {
@@ -384,6 +566,12 @@ public:
         return result;
     }
 
+    /*!
+        @brief  Gets the next number token from the stored command.
+
+        @return The next number token.
+                If the next token is not a number, an unknown token is returned.
+    */
     Token get_next_number_token() {
         int currIdx = tokenStartIdx_;
         while (currIdx < command_.size() && isdigit(command_[currIdx])) {
@@ -395,12 +583,29 @@ public:
         return result;
     }
 
+    /*!
+        @brief  Gets the next punctuation token from the stored command.
+
+        @return The next punctuation token.
+                If the next token is not punctuation, an unknown token is returned.
+    */
     Token get_next_punctuation_token() {
         Token result(punctuation_str_to_token_type(command_.substr(tokenStartIdx_, 1)));
         ++tokenStartIdx_;
         return result;    
     }
 
+    /*!
+        @brief  Gets the missing arguments, if any, for a function.
+
+        @param  tokenType
+                The type of the function
+
+        @param  numArguments
+                The number of arguments to the function supplied by the user.
+
+        @return The remaining missing arguments, if any.
+    */
     std::string get_additional_arguments(TokenType tokenType, int const & numArguments) {
         switch (tokenType) {
         case TokenType::CREATE_NUM:
@@ -447,6 +652,9 @@ public:
         }
     }
 
+    /*!
+        @brief  Adds the missing arguments, if any, for the functions present in the command.
+    */
     void add_missing_optional_arguments() {
         for (int i = 0; i < commandLookup_.size(); ++i) {
             int idx = command_.find(commandLookup_[i]);
@@ -462,7 +670,7 @@ public:
                 numArguments = std::count(command_.begin() + opParenIdx, command_.begin() + clParenIdx, ',') + 1;
             }
             // Need to fill up arguments
-            if (numArguments < num_function_arguments(command_str_to_token_type(commandLookup_[i]))) {
+            if (numArguments < Token(command_str_to_token_type(commandLookup_[i])).num_function_arguments()) {
                 std::string aditionalArguments = get_additional_arguments(command_str_to_token_type(commandLookup_[i]), numArguments);
                 command_.insert(clParenIdx, aditionalArguments);
             }
@@ -490,6 +698,4 @@ private:
     const std::string validPunctuation_ = "(),=<>+-*/%^&|!";
 };
 
-} // namespace tokenizer
-
-} // namespace kitty
+} // namespace kty
