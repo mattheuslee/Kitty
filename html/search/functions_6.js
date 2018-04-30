@@ -1,13 +1,12 @@
 var searchData=
 [
-  ['info_5fstr',['info_str',['../structkitty_1_1interpreter_1_1_device.html#a6202db08659f0fff49e5bee12829a6e4',1,'kitty::interpreter::Device']]],
-  ['int_5fto_5fstr',['int_to_str',['../namespacekitty_1_1utils.html#a20f232359fcef89cfe282139577e9d11',1,'kitty::utils']]],
-  ['is_5fcomma',['is_comma',['../namespacekitty_1_1tokenizer.html#a09ca177dc6a89862d1139a71662ff015',1,'kitty::tokenizer']]],
-  ['is_5fcreation',['is_creation',['../namespacekitty_1_1tokenizer.html#a1b420153c9a0b1d64dc4b2b3292b814c',1,'kitty::tokenizer']]],
-  ['is_5ffunction',['is_function',['../namespacekitty_1_1tokenizer.html#abcd221c481e74b9c7399bbfe2ad5d2a1',1,'kitty::tokenizer']]],
-  ['is_5fleft_5fassociative',['is_left_associative',['../namespacekitty_1_1tokenizer.html#a07877ff9f0fcb67b7f6dce4e527ab84a',1,'kitty::tokenizer']]],
-  ['is_5fleft_5fbracket',['is_left_bracket',['../namespacekitty_1_1tokenizer.html#a79fb16289e720abc614a72797003f384',1,'kitty::tokenizer']]],
-  ['is_5foperand',['is_operand',['../namespacekitty_1_1tokenizer.html#a7e3d50d0e8a4b002be238197aa946826',1,'kitty::tokenizer']]],
-  ['is_5foperator',['is_operator',['../namespacekitty_1_1tokenizer.html#a770620b621fea04e645b0240dd2fe1bc',1,'kitty::tokenizer']]],
-  ['is_5fright_5fbracket',['is_right_bracket',['../namespacekitty_1_1tokenizer.html#a381e2e401319fbb350a3ec1f60b6ef6b',1,'kitty::tokenizer']]]
+  ['info_5fstr',['info_str',['../structkty_1_1_device.html#a7da2a518de4b8b5776218d018938aa9b',1,'kty::Device']]],
+  ['is_5fcomma',['is_comma',['../structkty_1_1_token.html#aff315c624e4aea8d5b4956a6683558b0',1,'kty::Token']]],
+  ['is_5fcreation_5fcommand',['is_creation_command',['../structkty_1_1_token.html#a748e87365ffff834bb33fb8d972cf840',1,'kty::Token']]],
+  ['is_5ffunction',['is_function',['../structkty_1_1_token.html#a9bc0a26b243037856933a7e33631189f',1,'kty::Token']]],
+  ['is_5fleft_5fassociative',['is_left_associative',['../structkty_1_1_token.html#a6c6c7ff314da8612d545cb0051d42711',1,'kty::Token']]],
+  ['is_5fleft_5fbracket',['is_left_bracket',['../structkty_1_1_token.html#a5f02f27d7954371fbfc0f9b457fb8b9e',1,'kty::Token']]],
+  ['is_5foperand',['is_operand',['../structkty_1_1_token.html#a560ad82e44ebde22c544cbff4401a97f',1,'kty::Token']]],
+  ['is_5foperator',['is_operator',['../structkty_1_1_token.html#a82bfb6da828a8fd5f576175f07d09d6b',1,'kty::Token']]],
+  ['is_5fright_5fbracket',['is_right_bracket',['../structkty_1_1_token.html#ae1ce753906ebfd19655797e33a53b0fc',1,'kty::Token']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['name',['name',['../structkitty_1_1interpreter_1_1_device.html#afcdd60307b4f6a06ced83e8e33f1777d',1,'kitty::interpreter::Device']]]
+  ['name',['name',['../structkty_1_1_device.html#a080efb0fdf46640036ffba00247d69f5',1,'kty::Device']]]
 ];

@@ -1,12 +1,9 @@
 var searchData=
 [
-  ['parse',['parse',['../classkitty_1_1parser_1_1_parser.html#a1288cef5bce29ca67722fee630a485a4',1,'kitty::parser::Parser::parse()'],['../classkitty_1_1parser_1_1_parser.html#aa22b01825712db718b4bdd1ae26354fe',1,'kitty::parser::Parser::parse(std::vector&lt; kitty::tokenizer::Token &gt; const &amp;command)']]],
-  ['parser',['Parser',['../classkitty_1_1parser_1_1_parser.html#a1534b2c417e857760525da7a78cdebbd',1,'kitty::parser::Parser::Parser()'],['../classkitty_1_1parser_1_1_parser.html#af278cc469a8706274745daa6088ecb63',1,'kitty::parser::Parser::Parser(std::vector&lt; kitty::tokenizer::Token &gt; const &amp;command)']]],
-  ['parser_5fcheck_5fcorrect_5ftokens',['parser_check_correct_tokens',['../parser__test_8hpp.html#a79005733c8dc79fd3976b60422705f8b',1,'parser_test.hpp']]],
-  ['parser_5fcheck_5fcorrect_5ftypes_5fvalues',['parser_check_correct_types_values',['../parser__test_8hpp.html#a56391ebbbf18ff9d38ac95047f1d9f56',1,'parser_test.hpp']]],
-  ['preprocess',['preprocess',['../classkitty_1_1parser_1_1_parser.html#a5b6aba0b62c215651d88529e57cb76b9',1,'kitty::parser::Parser']]],
-  ['print_5fprompt',['print_prompt',['../classkitty_1_1interface_1_1_interface.html#a9d81c944795aef4423f3e34bdd226269',1,'kitty::interface::Interface::print_prompt()'],['../classkitty_1_1interface_1_1_interface.html#aab3ed681475223166faa816d9186f512',1,'kitty::interface::Interface::print_prompt(std::string const &amp;prefix)']]],
-  ['print_5ftokens',['print_tokens',['../parser__test_8hpp.html#a6b124565c8560aa2ae1c909534d65b3f',1,'parser_test.hpp']]],
-  ['print_5fwelcome',['print_welcome',['../classkitty_1_1interface_1_1_interface.html#ac9728894958e209ad1044f01b4cc0103',1,'kitty::interface::Interface']]],
-  ['punctuation_5fstr_5fto_5ftoken_5ftype',['punctuation_str_to_token_type',['../namespacekitty_1_1tokenizer.html#a8794a18e141d16ce7a88cc13c28f7474',1,'kitty::tokenizer']]]
+  ['parse',['parse',['../classkty_1_1_parser.html#ae107a96c1c1c4de46c26c934ba939a57',1,'kty::Parser::parse()'],['../classkty_1_1_parser.html#a8fbc0ec20cfdca52e172c7cbe48aaeee',1,'kty::Parser::parse(std::vector&lt; Token &gt; const &amp;command)']]],
+  ['parser',['Parser',['../classkty_1_1_parser.html#a8db524bd901ac8a2f69f80254ba59276',1,'kty::Parser::Parser()'],['../classkty_1_1_parser.html#a5115769a63354fc79e4f604bb8251159',1,'kty::Parser::Parser(std::vector&lt; Token &gt; const &amp;command)']]],
+  ['preprocess',['preprocess',['../classkty_1_1_parser.html#a7a4a38ccf9d8531de8d43bf2eb23ce53',1,'kty::Parser']]],
+  ['print_5fprompt',['print_prompt',['../classkty_1_1_interface.html#adbd7f7b5a8dd5ba2d25027837cebb648',1,'kty::Interface::print_prompt()'],['../classkty_1_1_interface.html#a4a22e246ae84c4c56a3bf1489a75b89b',1,'kty::Interface::print_prompt(std::string const &amp;prefix)']]],
+  ['print_5fwelcome',['print_welcome',['../classkty_1_1_interface.html#a09a2c4e06ed0a8f4fd9d17bfa940608c',1,'kty::Interface']]],
+  ['process_5fmath_5ftokens',['process_math_tokens',['../classkty_1_1_tokenizer.html#a4b57b21d7b14d189cae9d5f1005c3cbe',1,'kty::Tokenizer']]]
 ];

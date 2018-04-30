@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['type',['type',['../structkitty_1_1interpreter_1_1_device.html#afeb6a9c601defc1c46a8c5445347e570',1,'kitty::interpreter::Device::type()'],['../structkitty_1_1tokenizer_1_1_token.html#a26891b687dc81c0b83b76e137865fd8d',1,'kitty::tokenizer::Token::type()']]]
+  ['type',['type',['../structkty_1_1_device.html#ab94356f1444bf401090311c152fa8e98',1,'kty::Device::type()'],['../structkty_1_1_token.html#a87f7fa9be7750eb30d06f05e0b522f11',1,'kty::Token::type()']]]
 ];
