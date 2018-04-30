@@ -25,7 +25,7 @@ enum TokenType {
     MATH_ADD, MATH_SUB, MATH_MUL, MATH_DIV, MATH_MOD, MATH_POW,
     UNARY_NEG,
     LOGI_AND, LOGI_OR, LOGI_XOR,
-    UNKNOWN,
+    UNKNOWN_TYPE,
     CMD_END,
 };
 
@@ -73,7 +73,7 @@ std::string token_type_to_str(TokenType tokenType) {
         {TokenType::LOGI_AND, "LOGI_AND"},
         {TokenType::LOGI_OR, "LOGI_OR"},
         {TokenType::LOGI_XOR, "LOGI_XOR"},
-        {TokenType::UNKNOWN, "UNKNOWN"},
+        {TokenType::UNKNOWN_TYPE, "UNKNOWN"},
         {TokenType::CMD_END, "CMD_END"},
     };
     if (lookupMap.find(tokenType) == lookupMap.end()) {
@@ -109,7 +109,7 @@ TokenType command_str_to_token_type(std::string const & str) {
         {"While", TokenType::WHILE},
     };
     if (lookupMap.find(str) == lookupMap.end()) {
-        return TokenType::UNKNOWN;
+        return TokenType::UNKNOWN_TYPE;
     }
     return lookupMap[str];
 }
@@ -145,7 +145,7 @@ TokenType punctuation_str_to_token_type(std::string const & str) {
     };
     int idx = validPunctuation_.find(str);
     if (idx == -1) {
-        return TokenType::UNKNOWN;
+        return TokenType::UNKNOWN_TYPE;
     }
     return lookup[idx];
 }
@@ -438,11 +438,11 @@ public:
     */
     std::vector<Token> tokenize() {
         std::vector<Token> tokens;
-        Token token(TokenType::UNKNOWN);
+        Token token(TokenType::UNKNOWN_TYPE);
         do {
             token = get_next_token();
             tokens.push_back(token);
-        } while (token.type != TokenType::CMD_END && token.type != TokenType::UNKNOWN);
+        } while (token.type != TokenType::CMD_END && token.type != TokenType::UNKNOWN_TYPE);
         process_math_tokens(tokens);
         return tokens;
     }
@@ -530,7 +530,7 @@ public:
         else if (validPunctuation_.find(command_[tokenStartIdx_]) != std::string::npos) {
             return get_next_punctuation_token();
         }
-        return Token(TokenType::UNKNOWN);
+        return Token(TokenType::UNKNOWN_TYPE);
     }
 
     /*!
@@ -546,7 +546,7 @@ public:
                 return Token(command_str_to_token_type(commandLookup_[i]));
             }
         }
-        return Token(TokenType::UNKNOWN);
+        return Token(TokenType::UNKNOWN_TYPE);
     }
 
     /*!
