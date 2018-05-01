@@ -23,6 +23,7 @@ script:
    - cd test
    - make test
    - cd ..
+   - rm -r -f arduninounit
 
 # Generate and deploy documentation
 after_success:
