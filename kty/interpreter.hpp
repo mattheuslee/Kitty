@@ -38,7 +38,7 @@ std::string device_type_to_str(DeviceType deviceType) {
     if (lookupMap.find(deviceType) == lookupMap.end()) {
         return "UNKNOWN_DEVICE";
     }
-    return lookupMap[deviceType];
+    return lookupMap.find(deviceType)->second;
 }
 
 /*!
@@ -82,9 +82,6 @@ struct Device {
         @return The informational string representation of the device.
     */
     std::string info_str() const {
-        if (type == DeviceType::UNKNOWN_DEVICE) {
-            return "UNKNOWN_DEVICE";
-        }
         std::string str = name + ": ";
         switch (type) {
         case NUM:
@@ -102,6 +99,9 @@ struct Device {
                  str += "    " + info[i] + "\n";
             }
             break;
+        case UNKNOWN_DEVICE:
+        default:
+            return "UNKNOWN_DEVICE";            
         };
         return str;
     }

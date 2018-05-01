@@ -80,7 +80,7 @@ std::string token_type_to_str(TokenType tokenType) {
     if (lookupMap.find(tokenType) == lookupMap.end()) {
         return "UNKNOWN";
     }
-    return *lookupMap.find(tokenType);
+    return lookupMap.find(tokenType)->second;
 }
 
 /*!
@@ -112,7 +112,7 @@ TokenType command_str_to_token_type(std::string const & str) {
     if (lookupMap.find(str) == lookupMap.end()) {
         return TokenType::UNKNOWN_TYPE;
     }
-    return *lookupMap.find(str);
+    return *lookupMap.find(str)->second;
 }
 
 /*!
@@ -424,7 +424,7 @@ int get_token_precedence_level(Token const & token) {
     if (precedenceLevel.find(token.type) == precedenceLevel.end()) {
         return 0;
     }
-    return *precedenceLevel.find(token.type);
+    return precedenceLevel.find(token.type)->second;
 }
 
 /*!
