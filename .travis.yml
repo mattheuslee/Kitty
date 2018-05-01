@@ -18,8 +18,8 @@ install:
    - arduino --install-library "ArduinoSTL","ArduinoUnit"
 
 script:
-   - git clone https://github.com/mmurdoch/arduinounit.git
    - build_platform mega2560
+   - git clone https://github.com/mmurdoch/arduinounit.git
    - cd test && make test && cd .. && rm -r -f /home/travis/build/mattheuslee/KittyInterpreter/arduinounit/
 
 # Generate and deploy documentation
