@@ -21,7 +21,7 @@ install:
 script:
    - build_platform mega2560
    - git clone https://github.com/mmurdoch/arduinounit.git
-   - cd test && ./configure --enable-gcov && make test && cd .. && rm -r -f /home/travis/build/mattheuslee/KittyInterpreter/arduinounit/
+   - ./configure --enable-gcov && cd test && make test && cd .. && rm -r -f /home/travis/build/mattheuslee/KittyInterpreter/arduinounit/
 
 # Generate and deploy documentation
 after_success:
