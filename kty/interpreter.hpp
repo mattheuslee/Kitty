@@ -5,7 +5,7 @@
 #include <queue>
 #include <stack>
 #include <vector>
-#include <Servo.h>
+//#include <Servo.h>
 
 #include <kty/tokenizer.hpp>
 #include <kty/parser.hpp>
@@ -54,7 +54,7 @@ struct Device {
     std::vector<std::string> info;
 
     /** A servo object to be used if the device is a servo. */    
-    Servo servo;
+    //Servo servo;
 
     /*!
         @brief  Constructor for device
