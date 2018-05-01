@@ -13,6 +13,7 @@ env:
 
 before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/mattheuslee/travis-ci-arduino/kitty/install.sh)
+   - pip install --user cpp-coveralls
 
 install:
    - arduino --install-library "ArduinoSTL","ArduinoUnit"
@@ -26,3 +27,4 @@ script:
 after_success:
    - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/library_check.sh)
    - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/doxy_gen_and_deploy.sh)
+   - coveralls --exclude lib --exclude tests --gcov-options '\-lp'
