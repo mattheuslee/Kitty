@@ -3,10 +3,10 @@
 #endif
 #include "ArduinoUnit.h"
 
-//#include "test/interpreter_test.hpp"
-//#include <test/parser_test.hpp>
-//#include <test/tokenizer_test.hpp>
-//#include <test/string_utils_test.hpp>
+#include "test/interpreter_test.hpp"
+#include <test/parser_test.hpp>
+#include <test/tokenizer_test.hpp>
+#include <test/string_utils_test.hpp>
 
 void setup() {
     Serial.begin(115200);
