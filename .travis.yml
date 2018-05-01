@@ -19,6 +19,9 @@ install:
 
 script:
    - build_platform mega2560
+   - cd test
+   - make test
+   - cd ..
 
 # Generate and deploy documentation
 after_success:
