@@ -87,6 +87,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a97d7949f7c7ca179b7fd126844629d32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a97d7949f7c7ca179b7fd126844629d32">execute</a> (std::string const &amp;command)</td></tr>
 <tr class="memdesc:a97d7949f7c7ca179b7fd126844629d32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command.  <a href="#a97d7949f7c7ca179b7fd126844629d32">More...</a><br /></td></tr>
 <tr class="separator:a97d7949f7c7ca179b7fd126844629d32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae04ae25217fea8414db7fb8f666321d2"><td class="memItemLeft" align="right" valign="top"><a id="ae04ae25217fea8414db7fb8f666321d2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ae04ae25217fea8414db7fb8f666321d2">execute_command_queue</a> ()</td></tr>
+<tr class="memdesc:ae04ae25217fea8414db7fb8f666321d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes all the commands still in the command queue, if any. <br /></td></tr>
+<tr class="separator:ae04ae25217fea8414db7fb8f666321d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8d85f212906fcb16b1b7f6160db880f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aa8d85f212906fcb16b1b7f6160db880f">execute</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
 <tr class="memdesc:aa8d85f212906fcb16b1b7f6160db880f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command.  <a href="#aa8d85f212906fcb16b1b7f6160db880f">More...</a><br /></td></tr>
 <tr class="separator:aa8d85f212906fcb16b1b7f6160db880f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -96,6 +100,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae9e890492973c875fecf1e435bd608c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ae9e890492973c875fecf1e435bd608c7">execute_create</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
 <tr class="memdesc:ae9e890492973c875fecf1e435bd608c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the different creation commands.  <a href="#ae9e890492973c875fecf1e435bd608c7">More...</a><br /></td></tr>
 <tr class="separator:ae9e890492973c875fecf1e435bd608c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad285fcf61260774d6b4d632fc59b5663"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ad285fcf61260774d6b4d632fc59b5663">execute_run_group</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
+<tr class="memdesc:ad285fcf61260774d6b4d632fc59b5663"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the running of a command group. Essentially adds the commands in the command group to the command queue to be executed later.  <a href="#ad285fcf61260774d6b4d632fc59b5663">More...</a><br /></td></tr>
+<tr class="separator:ad285fcf61260774d6b4d632fc59b5663"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2b3b2b22f7647c51c7fc129e755c056"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_device.html">Device</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ad2b3b2b22f7647c51c7fc129e755c056">get_device</a> (std::string const &amp;name)</td></tr>
 <tr class="memdesc:ad2b3b2b22f7647c51c7fc129e755c056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a device by name.  <a href="#ad2b3b2b22f7647c51c7fc129e755c056">More...</a><br /></td></tr>
 <tr class="separator:ad2b3b2b22f7647c51c7fc129e755c056"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -288,6 +295,40 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Executes the different creation commands. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>The command to execute. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad285fcf61260774d6b4d632fc59b5663"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad285fcf61260774d6b4d632fc59b5663">&#9670;&nbsp;</a></span>execute_run_group()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kty::Interpreter::execute_run_group </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>command</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Executes the running of a command group. Essentially adds the commands in the command group to the command queue to be executed later. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">command</td><td>The command to execute. </td></tr>
