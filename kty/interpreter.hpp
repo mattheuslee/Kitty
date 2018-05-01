@@ -320,7 +320,7 @@ public:
         int numTimes = str_to_int(result.top().value);
         std::vector<std::string> commands = get_device(name).info;
         Serial.print("Running group = ");
-        Serial.println(name);
+        Serial.println(name.c_str());
         for (int i = 0; i < numTimes; ++i) {
             for (int j = 0; j < commands.size(); ++j) {
                 Serial.println(commands[j].c_str());
