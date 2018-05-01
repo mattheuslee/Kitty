@@ -77,6 +77,16 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:aaea0e18ad6eb6b3f819c98427dd66d0b"><td class="memItemLeft" align="right" valign="top"><a id="aaea0e18ad6eb6b3f819c98427dd66d0b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aaea0e18ad6eb6b3f819c98427dd66d0b">Interpreter</a> ()</td></tr>
+<tr class="memdesc:aaea0e18ad6eb6b3f819c98427dd66d0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default interpreter constructor. <br /></td></tr>
+<tr class="separator:aaea0e18ad6eb6b3f819c98427dd66d0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b549cc75d793258632bd7168a0dd854"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a4b549cc75d793258632bd7168a0dd854">get_prompt_prefix</a> () const</td></tr>
+<tr class="memdesc:a4b549cc75d793258632bd7168a0dd854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the prefix(if any) for the user prompt.  <a href="#a4b549cc75d793258632bd7168a0dd854">More...</a><br /></td></tr>
+<tr class="separator:a4b549cc75d793258632bd7168a0dd854"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97d7949f7c7ca179b7fd126844629d32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a97d7949f7c7ca179b7fd126844629d32">execute</a> (std::string const &amp;command)</td></tr>
+<tr class="memdesc:a97d7949f7c7ca179b7fd126844629d32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command.  <a href="#a97d7949f7c7ca179b7fd126844629d32">More...</a><br /></td></tr>
+<tr class="separator:a97d7949f7c7ca179b7fd126844629d32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa8d85f212906fcb16b1b7f6160db880f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aa8d85f212906fcb16b1b7f6160db880f">execute</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
 <tr class="memdesc:aa8d85f212906fcb16b1b7f6160db880f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command.  <a href="#aa8d85f212906fcb16b1b7f6160db880f">More...</a><br /></td></tr>
 <tr class="separator:aa8d85f212906fcb16b1b7f6160db880f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -110,12 +120,83 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6319ef7677a33d569d4fd2a249f8c3ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a6319ef7677a33d569d4fd2a249f8c3ef">create_led</a> (std::string const &amp;name, std::stack&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; &amp;info)</td></tr>
 <tr class="memdesc:a6319ef7677a33d569d4fd2a249f8c3ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an LED using the name and information given.  <a href="#a6319ef7677a33d569d4fd2a249f8c3ef">More...</a><br /></td></tr>
 <tr class="separator:a6319ef7677a33d569d4fd2a249f8c3ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0035330c04eb3b37082a0fab8a22672"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ac0035330c04eb3b37082a0fab8a22672">create_group</a> (std::string const &amp;name)</td></tr>
+<tr class="memdesc:ac0035330c04eb3b37082a0fab8a22672"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the creation of a command group.  <a href="#ac0035330c04eb3b37082a0fab8a22672">More...</a><br /></td></tr>
+<tr class="separator:ac0035330c04eb3b37082a0fab8a22672"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acec4d7bb4d1f68afef44b48f4ea7fcab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#acec4d7bb4d1f68afef44b48f4ea7fcab">close_group</a> (std::string const &amp;name, std::vector&lt; std::string &gt; &amp;commands)</td></tr>
+<tr class="memdesc:acec4d7bb4d1f68afef44b48f4ea7fcab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finishes the creation of a command group.  <a href="#acec4d7bb4d1f68afef44b48f4ea7fcab">More...</a><br /></td></tr>
+<tr class="separator:acec4d7bb4d1f68afef44b48f4ea7fcab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54d3234273fc3b585ff1c1eab8770939"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a54d3234273fc3b585ff1c1eab8770939">add_to_group</a> (std::string const &amp;command)</td></tr>
+<tr class="memdesc:a54d3234273fc3b585ff1c1eab8770939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a command to the command group that is currently being created.  <a href="#a54d3234273fc3b585ff1c1eab8770939">More...</a><br /></td></tr>
+<tr class="separator:a54d3234273fc3b585ff1c1eab8770939"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that stores state on all devices and groups, and executes commands. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4b549cc75d793258632bd7168a0dd854"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b549cc75d793258632bd7168a0dd854">&#9670;&nbsp;</a></span>get_prompt_prefix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string kty::Interpreter::get_prompt_prefix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the prefix(if any) for the user prompt. </p>
+<dl class="section return"><dt>Returns</dt><dd>The prefix for the user prompt. If there is no required prefix, an empty string is returned. </dd></dl>
+
+</div>
+</div>
+<a id="a97d7949f7c7ca179b7fd126844629d32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97d7949f7c7ca179b7fd126844629d32">&#9670;&nbsp;</a></span>execute() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kty::Interpreter::execute </td>
+          <td>(</td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>command</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Executes a given command. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>The raw string command to execute. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="aa8d85f212906fcb16b1b7f6160db880f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8d85f212906fcb16b1b7f6160db880f">&#9670;&nbsp;</a></span>execute()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8d85f212906fcb16b1b7f6160db880f">&#9670;&nbsp;</a></span>execute() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -550,6 +631,119 @@ Public Member Functions</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">name</td><td>The name of the LED to be created</td></tr>
     <tr><td class="paramname">info</td><td>The information about the LED. The LED brightness value is expected to be the top token of the stack, and the LED pin number is expected to be the second token from the top. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac0035330c04eb3b37082a0fab8a22672"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0035330c04eb3b37082a0fab8a22672">&#9670;&nbsp;</a></span>create_group()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kty::Interpreter::create_group </td>
+          <td>(</td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Begins the creation of a command group. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the command group to be created. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acec4d7bb4d1f68afef44b48f4ea7fcab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acec4d7bb4d1f68afef44b48f4ea7fcab">&#9670;&nbsp;</a></span>close_group()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kty::Interpreter::close_group </td>
+          <td>(</td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>commands</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Finishes the creation of a command group. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the command group to be created.</td></tr>
+    <tr><td class="paramname">commands</td><td>The commands that make up the command group. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a54d3234273fc3b585ff1c1eab8770939"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54d3234273fc3b585ff1c1eab8770939">&#9670;&nbsp;</a></span>add_to_group()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kty::Interpreter::add_to_group </td>
+          <td>(</td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>command</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a command to the command group that is currently being created. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>The command to add to the command group. </td></tr>
   </table>
   </dd>
 </dl>
