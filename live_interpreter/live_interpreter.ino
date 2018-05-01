@@ -12,12 +12,9 @@ using namespace std;
 using namespace kty;
 
 string command;
-vector<Token> tokens;
 
 Interface kty_interface;
 Interpreter kty_interpreter;
-Parser kty_parser;
-Tokenizer kty_tokenizer;
 
 void setup() {
     kty_interface.print_welcome();
@@ -27,8 +24,6 @@ void setup() {
 void loop() {
     command = kty_interface.get_next_command();
     kty_interface.echo_command(command);
-    tokens = kty_tokenizer.tokenize(command);
-    tokens = kty_parser.parse(tokens);
-    kty_interpreter.execute(tokens);
-    kty_interface.print_prompt();
+    kty_interpreter.execute(command);
+    kty_interface.print_prompt(kty_interpreter.get_interface_prefix());
 }
