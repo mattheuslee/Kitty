@@ -208,6 +208,25 @@ public:
         case CREATING_GROUP:
             add_to_group(command);
         };
+        // Execute command queue, if any
+        execute_command_queue();
+    }
+
+    /*!
+        @brief  Executes all the commands still in the command queue, if any.
+    */
+    void execute_command_queue() {
+        // No commands to execute
+        if (commandQueue_.size() == 0) {
+            return;
+        }
+        while (!commandQueue_.empty()) {
+            std::string command = commandQueue_.front();
+            commandQueue_.pop();
+            Serial.print("Executing = ");
+            Serial.println(command.c_str());
+            execute(command);
+        }
     }
 
     /*!
@@ -235,7 +254,7 @@ public:
             }
             // Running group
             else {
-
+                execute_run_group(command);
             }
         }
     }
@@ -278,6 +297,35 @@ public:
         }
         else if (createToken.is_create_group()) {
             create_group(name);
+        }
+    }
+
+    /*!
+        @brief  Executes the running of a command group.
+                Essentially adds the commands in the command group to the
+                command queue to be executed later.
+
+        @param  command
+                The command to execute.
+    */
+    void execute_run_group(std::vector<Token> const & command) {
+        
+        std::queue<Token> tokenQueue;
+        for (int i = 0; i < command.size() - 1; ++i) {
+            tokenQueue.push(command[i]);
+        }
+        std::string name = tokenQueue.front().value;
+
+        std::stack<Token> result = evaluate_postfix(tokenQueue);
+        int numTimes = str_to_int(result.top().value);
+        std::vector<std::string> commands = get_device(name).info;
+        Serial.print("Running group = ");
+        Serial.println(name);
+        for (int i = 0; i < numTimes; ++i) {
+            for (int j = 0; j < commands.size(); ++j) {
+                Serial.println(commands[j].c_str());
+                commandQueue_.push(commands[j]);
+            }
         }
     }
 
