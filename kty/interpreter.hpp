@@ -5,7 +5,9 @@
 #include <queue>
 #include <stack>
 #include <vector>
-//#include <Servo.h>
+#if defined(ARDUINO)
+#include <Servo.h>
+#endif
 
 #include <kty/tokenizer.hpp>
 #include <kty/parser.hpp>
@@ -53,8 +55,10 @@ struct Device {
     /** Information about the device. The format of this member varies depending on the type of the device. */    
     std::vector<std::string> info;
 
+    #if defined(ARDUINO)
     /** A servo object to be used if the device is a servo. */    
-    //Servo servo;
+    Servo servo;
+    #endif
 
     /*!
         @brief  Constructor for device
@@ -143,12 +147,63 @@ struct Device {
     }
 };
 
+/** The various status types of the interpreter */
+enum InterpreterStatus {
+    CREATING_GROUP,
+    CREATING_IF,
+    CREATING_ELSE,
+    CREATING_ELSEIF,
+    NORMAL,
+};
+
 /*!
     @brief  Class that stores state on all devices and groups, and executes commands.
 */
 class Interpreter {
 
 public:
+    /*!
+        @brief  Default interpreter constructor.
+    */
+    Interpreter() {
+        status_.push(InterpreterStatus::NORMAL);
+    }
+
+    std::string get_interface_prefix() const {
+        switch (status_.top()) {
+        case NORMAL:
+            return "";
+        case CREATING_GROUP:
+            return "(" + commandBuffer_.top()[0] + ")";
+        default:
+            return "";
+        }
+    }
+
+    /*!
+        @brief  Executes a given command.
+
+        @param  command
+                The raw string command to execute.
+    */
+    void execute(std::string const & command) {
+        // Nothing to execute
+        if (command.size() == 0) {
+            return;
+        }
+        std::vector<Token> tokens;
+        switch (status_.top()) {
+        // Normal execution
+        case NORMAL:
+            tokens = tokenizer_.tokenize(command);
+            tokens = parser_.parse(tokens);
+            execute(tokens);
+            break;
+        case CREATING_GROUP:
+            add_to_group(command);
+        };
+    }
+
     /*!
         @brief  Executes a given command.
 
@@ -206,11 +261,17 @@ public:
 
         std::stack<Token> result = evaluate_postfix(tokenQueue);
 
-        if (createToken.type == TokenType::CREATE_NUM) {
+        if (createToken.is_create_num()) {
             create_number(name, result);
         }
-        else if (createToken.type == TokenType::CREATE_LED) {
+        else if (createToken.is_create_led()) {
             create_led(name, result);
+        }
+        else if (createToken.is_create_servo()) {
+            
+        }
+        else if (createToken.is_create_group()) {
+            create_group(name);
         }
     }
 
@@ -426,11 +487,12 @@ public:
                 The number value is expected to be the top token of the stack.
     */
     void create_number(std::string const & name, std::stack<Token> & info) {
-        Serial.println("Creating number");
         Device number(DeviceType::NUM);
         number.name = name;
         number.info.push_back(info.top().value);
         devices_[name] = number;
+        Serial.print("Creating number = ");
+        Serial.println(info.top().value.c_str());
     }
 
     /*!
@@ -458,9 +520,72 @@ public:
         devices_[name] = number;
     }
 
+    /*!
+        @brief  Begins the creation of a command group.
+
+        @param  name
+                The name of the command group to be created.
+    */
+    void create_group(std::string const & name) {
+        status_.push(InterpreterStatus::CREATING_GROUP);
+        commandBuffer_.push(std::vector<std::string>());
+        commandBuffer_.top().push_back(name);
+        Serial.print("Creating group = ");
+        Serial.println(name.c_str());
+    }
+
+    /*!
+        @brief  Finishes the creation of a command group.
+
+        @param  name
+                The name of the command group to be created.
+        
+        @param  commands
+                The commands that make up the command group.
+    */
+    void close_group(std::string const & name, std::vector<std::string> & commands) {
+        Device group(DeviceType::GROUP);
+        group.name = name;
+        group.info = commands;
+        devices_[name] = group;
+        status_.pop();
+        Serial.print("Closing group = ");
+        Serial.println(name.c_str());
+    }
+
+    /*!
+        @brief  Adds a command to the command group that is currently being created.
+
+        @param  command
+                The command to add to the command group.
+    */
+    void add_to_group(std::string const & command) {
+        std::vector<Token> tokens = tokenizer_.tokenize(command);
+        // Check if the group is complete
+        if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
+            std::vector<std::string> commands = commandBuffer_.top();
+            commandBuffer_.pop();
+            std::string name = commands[0];
+            commands.erase(commands.begin());
+            close_group(name, commands);
+        }
+        // Add command to group
+        else {
+            commandBuffer_.top().push_back(command);
+            Serial.print("Adding command to group = ");
+            Serial.println(command.c_str());
+        }
+    }
+
 private:
     std::queue<std::string> commandQueue_;
-    std::map<std::string, Device> devices_;
+    std::map<std::string, Device> devices_; 
+
+    std::stack<InterpreterStatus> status_;
+    std::stack<std::vector<std::string>> commandBuffer_;
+
+    Parser parser_;
+    Tokenizer tokenizer_;
 
 };
 
