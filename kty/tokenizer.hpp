@@ -112,7 +112,7 @@ TokenType command_str_to_token_type(std::string const & str) {
     if (lookupMap.find(str) == lookupMap.end()) {
         return TokenType::UNKNOWN_TYPE;
     }
-    return *lookupMap.find(str)->second;
+    return lookupMap.find(str)->second;
 }
 
 /*!
