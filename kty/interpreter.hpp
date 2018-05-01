@@ -246,7 +246,12 @@ public:
         while (!tokenQueue.empty()) {
             Token token = tokenQueue.front();
             tokenQueue.pop();
-            if (token.is_operator()) {
+            if (token.is_unary_operator()) {
+                Token operand = tokenStack.top();
+                tokenStack.pop();
+                Token result = evaluate_unary_operation(token, operand);
+            }
+            else if (token.is_operator()) {
                 Token rhs = tokenStack.top();
                 tokenStack.pop();
                 Token lhs = tokenStack.top();
@@ -270,6 +275,34 @@ public:
     }
 
     /*!
+        @brief  Evaluates single unary operation.
+
+        @param  op
+                The operation to be applied.
+        
+        @param  operand
+                The operand to be operated on.
+
+        @return The result of performing the operation.
+                If any of the arguments are invalid, 
+                a token containing "0" is returned.
+    */
+    Token evaluate_unary_operation(Token const & op, Token const & operand) {
+        int value = get_token_value(operand);
+        Token result(TokenType::NUM_VAL);
+        result.value = "0";
+        
+        if (op.type == TokenType::UNARY_NEG) {
+            result.value = int_to_str(-value);
+        }
+        else if (op.type == TokenType::LOGI_NOT) {
+            result.value = int_to_str(!value);
+        }
+
+        return result;
+    }
+
+    /*!
         @brief  Evaluates single binary operation.
 
         @param  op
@@ -283,7 +316,7 @@ public:
 
         @return The result of performing the operation.
                 If any of the arguments are invalid, 
-                an unknown token is returned.
+                a token containing "0" is returned.
     */
     Token evaluate_operation(Token const & op, Token const & lhs, Token const & rhs) {
         int lhsValue = get_token_value(lhs);
