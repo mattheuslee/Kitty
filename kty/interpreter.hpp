@@ -169,7 +169,13 @@ public:
         status_.push(InterpreterStatus::NORMAL);
     }
 
-    std::string get_interface_prefix() const {
+    /*!
+        @brief  Gets the prefix(if any) for the user prompt.
+
+        @return The prefix for the user prompt.
+                If there is no required prefix, an empty string is returned.
+    */
+    std::string get_prompt_prefix() const {
         switch (status_.top()) {
         case NORMAL:
             return "";

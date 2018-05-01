@@ -25,5 +25,5 @@ void loop() {
     command = kty_interface.get_next_command();
     kty_interface.echo_command(command);
     kty_interpreter.execute(command);
-    kty_interface.print_prompt(kty_interpreter.get_interface_prefix());
+    kty_interface.print_prompt(kty_interpreter.get_prompt_prefix());
 }
