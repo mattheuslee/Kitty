@@ -80,7 +80,7 @@ std::string token_type_to_str(TokenType tokenType) {
     if (lookupMap.find(tokenType) == lookupMap.end()) {
         return "UNKNOWN";
     }
-    return lookupMap[tokenType];
+    return *lookupMap.find(tokenType);
 }
 
 /*!
@@ -112,7 +112,7 @@ TokenType command_str_to_token_type(std::string const & str) {
     if (lookupMap.find(str) == lookupMap.end()) {
         return TokenType::UNKNOWN_TYPE;
     }
-    return lookupMap[str];
+    return *lookupMap.find(str);
 }
 
 /*!
@@ -203,7 +203,7 @@ struct Token {
 
         @return True if this token is an number, false otherwise.
     */
-    bool is_number() {
+    bool is_number() const {
         return type == TokenType::NUM_VAL;
     }
 
@@ -212,7 +212,7 @@ struct Token {
 
         @return True if this token is a name, false otherwise.
     */
-    bool is_name() {
+    bool is_name() const {
         return type == TokenType::NAME;
     }
 
@@ -221,7 +221,7 @@ struct Token {
 
         @return True if this token is an operand, false otherwise.
     */
-    bool is_operand() {
+    bool is_operand() const {
         return type == TokenType::NAME || 
                type == TokenType::NUM_VAL;
     }
@@ -231,7 +231,7 @@ struct Token {
 
         @return True if this token is a function, false otherwise.
     */
-    bool is_function() {
+    bool is_function() const {
         return type == TokenType::CREATE_NUM ||
                type == TokenType::CREATE_LED ||
                type == TokenType::CREATE_SERVO ||
@@ -252,7 +252,7 @@ struct Token {
 
         @return True if this token is a unary operator, false otherwise.
     */
-    bool is_unary_operator() {
+    bool is_unary_operator() const {
         return type == TokenType::UNARY_NEG || 
                type == TokenType::LOGI_NOT;
     }
@@ -262,7 +262,7 @@ struct Token {
 
         @return True if this token is an operator, false otherwise.
     */
-    bool is_operator() {
+    bool is_operator() const {
         return type == TokenType::EQUALS || 
                type == TokenType::L_EQUALS || 
                type == TokenType::G_EQUALS || 
@@ -286,7 +286,7 @@ struct Token {
 
         @return True if this token is a left bracket, false otherwise.
     */
-    bool is_left_bracket() {
+    bool is_left_bracket() const {
         return type == TokenType::OP_PAREN;
     }
 
@@ -295,7 +295,7 @@ struct Token {
 
         @return True if this token is a right bracket, false otherwise.
     */
-    bool is_right_bracket() {
+    bool is_right_bracket() const {
         return type == TokenType::CL_PAREN;
     }
 
@@ -304,7 +304,7 @@ struct Token {
 
         @return True if this token is a comma, false otherwise.
     */
-    bool is_comma() {
+    bool is_comma() const {
         return type == TokenType::COMMA;
     }
 
@@ -313,7 +313,7 @@ struct Token {
 
         @return True if this token is a creation command type, false otherwise.
     */
-    bool is_creation_command() {
+    bool is_creation_command() const {
         return type == TokenType::CREATE_NUM || 
                type == TokenType::CREATE_LED || 
                type == TokenType::CREATE_SERVO || 
@@ -325,7 +325,7 @@ struct Token {
 
         @return True if this token is a left associative operator, false otherwise.
     */
-    bool is_left_associative() {
+    bool is_left_associative() const {
         return is_operator() && type != TokenType::MATH_POW;
     }
 
@@ -337,7 +337,7 @@ struct Token {
 
         @return True if this token has a higher precedence than the other token, false otherwise.
     */
-    bool has_greater_precedence_than(Token const & other) {
+    bool has_greater_precedence_than(Token const & other) const {
         return get_token_precedence_level(*this) > get_token_precedence_level(other);
     }
 
@@ -349,7 +349,7 @@ struct Token {
 
         @return True if this token has an equal precedence to the other token, false otherwise.
     */
-    bool has_equal_precedence_to(Token const & other) {
+    bool has_equal_precedence_to(Token const & other) const {
         return get_token_precedence_level(*this) == get_token_precedence_level(other);
     }
 
@@ -359,7 +359,7 @@ struct Token {
         @return The number of function arguments for this token.
                 If this token is not a function, returns 0.
     */
-    int num_function_arguments() {
+    int num_function_arguments() const {
         switch (type) {
         case TokenType::CREATE_NUM:
             return 1;
@@ -424,7 +424,7 @@ int get_token_precedence_level(Token const & token) {
     if (precedenceLevel.find(token.type) == precedenceLevel.end()) {
         return 0;
     }
-    return precedenceLevel[token.type];
+    return *precedenceLevel.find(token.type);
 }
 
 /*!
