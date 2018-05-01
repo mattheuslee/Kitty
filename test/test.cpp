@@ -6,6 +6,8 @@
 #include "ArduinoUnit.h"
 #include "ArduinoUnitMock.h"
 
+#include <mock_arduino_pins.hpp>
+
 void setup();
 void loop();
 
