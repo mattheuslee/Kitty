@@ -227,6 +227,42 @@ struct Token {
     }
 
     /*!
+        @brief  Checks if this token is the create number function.
+
+        @return True if this token is the create number function, false otherwise.
+    */
+    bool is_create_num() const {
+        return type == TokenType::CREATE_NUM;
+    }
+
+    /*!
+        @brief  Checks if this token is the create led function.
+
+        @return True if this token is the create led function, false otherwise.
+    */
+    bool is_create_led() const {
+        return type == TokenType::CREATE_LED;
+    }
+
+    /*!
+        @brief  Checks if this token is the create servo function.
+
+        @return True if this token is the create servo function, false otherwise.
+    */
+    bool is_create_servo() const {
+        return type == TokenType::CREATE_SERVO;
+    }
+
+    /*!
+        @brief  Checks if this token is the create group function.
+
+        @return True if this token is the create group function, false otherwise.
+    */
+    bool is_create_group() const {
+        return type == TokenType::CREATE_GROUP;
+    }
+
+    /*!
         @brief  Checks if this token is a function.
 
         @return True if this token is a function, false otherwise.
@@ -446,7 +482,7 @@ public:
         @param  command
                 The command to tokenize.
     */
-    explicit Tokenizer(std::string & command) {
+    explicit Tokenizer(std::string const & command) {
         set_command(command);
     }
 
@@ -456,7 +492,7 @@ public:
         @param  command
                 The command to tokenize.
     */
-    void set_command(std::string & command) {
+    void set_command(std::string const & command) {
         command_ = remove_str_whitespace(command);
         add_missing_optional_arguments();
         tokenStartIdx_ = 0;
@@ -486,7 +522,7 @@ public:
 
         @return The tokenized command.
     */
-    std::vector<Token> tokenize(std::string & command) {
+    std::vector<Token> tokenize(std::string const & command) {
         set_command(command);
         return tokenize();
     }
