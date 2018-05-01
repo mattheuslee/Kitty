@@ -1,4 +1,4 @@
-KITTY_SRC_DIR=..
+KITTY_SRC_DIR=./../kty
 ARDUINO_UNIT_SRC_DIR=./arduinounit_src
 ARDUINO_UNIT_SRC=${ARDUINO_UNIT_SRC_DIR}/ArduinoUnitUtility/ArduinoUnitString.cpp ${ARDUINO_UNIT_SRC_DIR}/ArduinoUnitUtility/ArduinoUnit.cpp
 
