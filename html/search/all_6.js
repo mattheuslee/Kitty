@@ -16,5 +16,6 @@ var searchData=
   ['is_5foperand',['is_operand',['../structkty_1_1_token.html#a560ad82e44ebde22c544cbff4401a97f',1,'kty::Token']]],
   ['is_5foperator',['is_operator',['../structkty_1_1_token.html#a82bfb6da828a8fd5f576175f07d09d6b',1,'kty::Token']]],
   ['is_5fright_5fbracket',['is_right_bracket',['../structkty_1_1_token.html#ae1ce753906ebfd19655797e33a53b0fc',1,'kty::Token']]],
-  ['is_5fservo',['is_servo',['../structkty_1_1_device.html#a8b28708acf7a30eaca801ded2b22c33c',1,'kty::Device']]]
+  ['is_5fservo',['is_servo',['../structkty_1_1_device.html#a8b28708acf7a30eaca801ded2b22c33c',1,'kty::Device']]],
+  ['is_5funary_5foperator',['is_unary_operator',['../structkty_1_1_token.html#a270aa9e7afe61b0c63812fda851c16fa',1,'kty::Token']]]
 ];

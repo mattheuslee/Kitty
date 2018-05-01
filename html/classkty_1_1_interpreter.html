@@ -92,6 +92,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a86bc4bfb307ca123cba35e6beb61d5d2"><td class="memItemLeft" align="right" valign="top">std::stack&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a86bc4bfb307ca123cba35e6beb61d5d2">evaluate_postfix</a> (std::queue&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; &amp;tokenQueue)</td></tr>
 <tr class="memdesc:a86bc4bfb307ca123cba35e6beb61d5d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a postfix expression.  <a href="#a86bc4bfb307ca123cba35e6beb61d5d2">More...</a><br /></td></tr>
 <tr class="separator:a86bc4bfb307ca123cba35e6beb61d5d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf4562e036c85f380e08f3688ef849bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_token.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#acf4562e036c85f380e08f3688ef849bf">evaluate_unary_operation</a> (<a class="el" href="structkty_1_1_token.html">Token</a> const &amp;op, <a class="el" href="structkty_1_1_token.html">Token</a> const &amp;operand)</td></tr>
+<tr class="memdesc:acf4562e036c85f380e08f3688ef849bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates single unary operation.  <a href="#acf4562e036c85f380e08f3688ef849bf">More...</a><br /></td></tr>
+<tr class="separator:acf4562e036c85f380e08f3688ef849bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a2f11cace5a9753a312326f74416913"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_token.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a1a2f11cace5a9753a312326f74416913">evaluate_operation</a> (<a class="el" href="structkty_1_1_token.html">Token</a> const &amp;op, <a class="el" href="structkty_1_1_token.html">Token</a> const &amp;lhs, <a class="el" href="structkty_1_1_token.html">Token</a> const &amp;rhs)</td></tr>
 <tr class="memdesc:a1a2f11cace5a9753a312326f74416913"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates single binary operation.  <a href="#a1a2f11cace5a9753a312326f74416913">More...</a><br /></td></tr>
 <tr class="separator:a1a2f11cace5a9753a312326f74416913"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -283,6 +286,52 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="acf4562e036c85f380e08f3688ef849bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf4562e036c85f380e08f3688ef849bf">&#9670;&nbsp;</a></span>evaluate_unary_operation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structkty_1_1_token.html">Token</a> kty::Interpreter::evaluate_unary_operation </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structkty_1_1_token.html">Token</a> const &amp;&#160;</td>
+          <td class="paramname"><em>op</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structkty_1_1_token.html">Token</a> const &amp;&#160;</td>
+          <td class="paramname"><em>operand</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Evaluates single unary operation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">op</td><td>The operation to be applied.</td></tr>
+    <tr><td class="paramname">operand</td><td>The operand to be operated on.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of performing the operation. If any of the arguments are invalid, a token containing "0" is returned. </dd></dl>
+
+</div>
+</div>
 <a id="a1a2f11cace5a9753a312326f74416913"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1a2f11cace5a9753a312326f74416913">&#9670;&nbsp;</a></span>evaluate_operation()</h2>
 
@@ -332,7 +381,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The result of performing the operation. If any of the arguments are invalid, an unknown token is returned. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of performing the operation. If any of the arguments are invalid, a token containing "0" is returned. </dd></dl>
 
 </div>
 </div>
