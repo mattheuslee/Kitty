@@ -24,7 +24,7 @@ enum TokenType {
     EQUALS, L_EQUALS, G_EQUALS, LESS, GREATER,
     MATH_ADD, MATH_SUB, MATH_MUL, MATH_DIV, MATH_MOD, MATH_POW,
     UNARY_NEG,
-    LOGI_AND, LOGI_OR, LOGI_XOR,
+    LOGI_AND, LOGI_OR, LOGI_XOR, LOGI_NOT,
     UNKNOWN_TYPE,
     CMD_END,
 };
@@ -73,6 +73,7 @@ std::string token_type_to_str(TokenType tokenType) {
         {TokenType::LOGI_AND, "LOGI_AND"},
         {TokenType::LOGI_OR, "LOGI_OR"},
         {TokenType::LOGI_XOR, "LOGI_XOR"},
+        {TokenType::LOGI_NOT, "LOGI_NOT"},
         {TokenType::UNKNOWN_TYPE, "UNKNOWN"},
         {TokenType::CMD_END, "CMD_END"},
     };
@@ -125,7 +126,7 @@ TokenType command_str_to_token_type(std::string const & str) {
             the unknown token type is returned.
 */
 TokenType punctuation_str_to_token_type(std::string const & str) {
-    static const std::string validPunctuation_ = "(),=<>+-*/%^&|!";
+    static const std::string validPunctuation_ = "(),=<>+-*/%^&|!~";
     static const TokenType lookup[] = {
         TokenType::OP_PAREN,
         TokenType::CL_PAREN,
@@ -142,6 +143,7 @@ TokenType punctuation_str_to_token_type(std::string const & str) {
         TokenType::LOGI_AND,
         TokenType::LOGI_OR,
         TokenType::LOGI_XOR,
+        TokenType::LOGI_NOT,
     };
     int idx = validPunctuation_.find(str);
     if (idx == -1) {
@@ -246,6 +248,16 @@ struct Token {
     }
 
     /*!
+        @brief  Checks if this token is a unary operator.
+
+        @return True if this token is a unary operator, false otherwise.
+    */
+    bool is_unary_operator() {
+        return type == TokenType::UNARY_NEG || 
+               type == TokenType::LOGI_NOT;
+    }
+
+    /*!
         @brief  Checks if this token is an operator.
 
         @return True if this token is an operator, false otherwise.
@@ -265,7 +277,8 @@ struct Token {
                type == TokenType::UNARY_NEG ||
                type == TokenType::LOGI_AND ||
                type == TokenType::LOGI_OR ||
-               type == TokenType::LOGI_XOR;
+               type == TokenType::LOGI_XOR ||
+               type == TokenType::LOGI_NOT;
     }
     
     /*!
@@ -378,7 +391,6 @@ struct Token {
             return 0;
         }
     }
-
 };
 
 /*! 
@@ -393,6 +405,7 @@ struct Token {
 int get_token_precedence_level(Token const & token) {
     static const std::map<TokenType, int> precedenceLevel = {
         {TokenType::UNARY_NEG, 6},
+        {TokenType::LOGI_NOT, 6},
         {TokenType::MATH_POW, 5},
         {TokenType::MATH_MUL, 4},
         {TokenType::MATH_DIV, 4},
@@ -713,7 +726,7 @@ private:
         "Else",
         "While"
     };
-    const std::string validPunctuation_ = "(),=<>+-*/%^&|!";
+    const std::string validPunctuation_ = "(),=<>+-*/%^&|!~";
 };
 
 } // namespace kty
