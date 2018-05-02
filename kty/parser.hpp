@@ -127,6 +127,9 @@ public:
                     operatorStack.pop();                    
                 }
             }
+            else {
+                output.push_back(token);
+            }
         }
         while (!operatorStack.empty()) {
             output.push_back(operatorStack.top());

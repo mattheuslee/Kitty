@@ -18,7 +18,7 @@ namespace kty {
 enum TokenType {
     CREATE_NUM, CREATE_LED, CREATE_SERVO, CREATE_GROUP, RUN_GROUP,
     MOVE_BY_FOR, MOVE_BY, SET_TO_FOR, SET_TO,
-    NAME, NUM_VAL, 
+    NAME, NUM_VAL, STRING,
     IF, ELSE_IF, ELSE, WHILE, 
     OP_PAREN, CL_PAREN, COMMA,
     EQUALS, L_EQUALS, G_EQUALS, LESS, GREATER,
@@ -51,6 +51,7 @@ std::string token_type_to_str(TokenType tokenType) {
         {TokenType::SET_TO, "SET_TO"},
         {TokenType::NAME, "NAME"},
         {TokenType::NUM_VAL, "NUM_VAL"},
+        {TokenType::STRING, "STRING"},
         {TokenType::IF, "IF"},
         {TokenType::ELSE_IF, "ELSE_IF"},
         {TokenType::ELSE, "ELSE"},
@@ -227,39 +228,66 @@ struct Token {
     }
 
     /*!
-        @brief  Checks if this token is the create number function.
+        @brief  Checks if this token is a string.
 
-        @return True if this token is the create number function, false otherwise.
+        @return True if this token is a string, false otherwise.
+    */
+    bool is_string() const {
+        return type == TokenType::STRING;
+    }
+
+    /*!
+        @brief  Checks if this token is the create number command.
+
+        @return True if this token is the create number command, false otherwise.
     */
     bool is_create_num() const {
         return type == TokenType::CREATE_NUM;
     }
 
     /*!
-        @brief  Checks if this token is the create led function.
+        @brief  Checks if this token is the create led command.
 
-        @return True if this token is the create led function, false otherwise.
+        @return True if this token is the create led command, false otherwise.
     */
     bool is_create_led() const {
         return type == TokenType::CREATE_LED;
     }
 
     /*!
-        @brief  Checks if this token is the create servo function.
+        @brief  Checks if this token is the create servo command.
 
-        @return True if this token is the create servo function, false otherwise.
+        @return True if this token is the create servo command, false otherwise.
     */
     bool is_create_servo() const {
         return type == TokenType::CREATE_SERVO;
     }
 
     /*!
-        @brief  Checks if this token is the create group function.
+        @brief  Checks if this token is the create group command.
 
-        @return True if this token is the create group function, false otherwise.
+        @return True if this token is the create group command, false otherwise.
     */
     bool is_create_group() const {
         return type == TokenType::CREATE_GROUP;
+    }
+
+    /*!
+        @brief  Checks if this token is the if command.
+
+        @return True if this token is the if command, false otherwise.
+    */
+    bool is_if() const {
+        return type == TokenType::IF;
+    }
+
+    /*!
+        @brief  Checks if this token is the else connand.
+
+        @return True if this token is the create else command, false otherwise.
+    */
+    bool is_else() const {
+        return type == TokenType::ELSE;
     }
 
     /*!
@@ -396,6 +424,7 @@ struct Token {
                 If this token is not a function, returns 0.
     */
     int num_function_arguments() const {
+        // TODO: convert to static const map
         switch (type) {
         case TokenType::CREATE_NUM:
             return 1;
@@ -593,6 +622,13 @@ public:
         else if (isdigit(command_[tokenStartIdx_])) {
             return get_next_number_token();
         }
+        // Next token is string
+        else if (command_[tokenStartIdx_] == '"') {
+            return get_next_string_token('"');
+        }
+        else if (command_[tokenStartIdx_] == '\'') {
+            return get_next_string_token('\'');
+        }
         // Next token is punctuation
         else if (validPunctuation_.find(command_[tokenStartIdx_]) != std::string::npos) {
             return get_next_punctuation_token();
@@ -647,6 +683,24 @@ public:
         std::string value = command_.substr(tokenStartIdx_, currIdx - tokenStartIdx_);
         Token result(TokenType::NUM_VAL, value);
         tokenStartIdx_ = currIdx;
+        return result;
+    }
+
+    /*!
+        @brief  Gets the next string token from the stored command.
+
+        @param  open
+                The opening character to the string.
+                The closing character must match the opening character.
+
+        @return The next string token.
+                If the next token is not a string, an unknown token is returned.
+    */
+    Token get_next_string_token(char const & open) {
+        int endIdx = command_.find(open, tokenStartIdx_ + 1);
+        // Only take substr of the string, without quotes
+        Token result(TokenType::STRING, command_.substr(tokenStartIdx_ + 1, endIdx - tokenStartIdx_ - 1));
+        tokenStartIdx_ = endIdx + 1;
         return result;
     }
 

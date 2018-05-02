@@ -169,6 +169,7 @@ public:
     Interpreter() {
         currNestedLevel_ = 0;
         status_.push(InterpreterStatus::NORMAL);
+        lastIfCondition_.push(""); // Last if condition is null
     }
 
     /*!
@@ -246,24 +247,27 @@ public:
         if (command.empty()) {
             return;
         }
-        if (command.back().type == TokenType::IF) {
+        if (command.back().is_if()) {
             execute_if(command);
         }
-        else if (command.back().type == TokenType::ELSE) {
+        else if (command.back().is_else()) {
             execute_else(command);
         }
-        else if (command[0].type == TokenType::NAME) {
+        else if (command[0].is_name()) {
             // Creation of a device/group
-            if (command.back().type == TokenType::CREATE_NUM || 
-                command.back().type == TokenType::CREATE_LED || 
-                command.back().type == TokenType::CREATE_SERVO || 
-                command.back().type == TokenType::CREATE_GROUP) {
+            if (command.back().is_create_num() || 
+                command.back().is_create_led() || 
+                command.back().is_create_servo() || 
+                command.back().is_create_group()) {
                 execute_create(command);
             }
             // Running group
             else {
                 execute_run_group(command);
             }
+        }
+        else if (command[0].is_string()) {
+            execute_print_string(command);
         }
     }
 
@@ -352,6 +356,16 @@ public:
                 commandQueue_.push_front(commands[commands.size() - j - 1]);
             }
         }
+    }
+
+    /*!
+        @brief  Executes the printing of a string.
+
+        @param  command
+                The print string command to execute.
+    */
+    void execute_print_string(std::vector<Token> const & command) {
+        Serial.println(command[0].value.c_str());
     }
 
     /*!
@@ -638,6 +652,7 @@ public:
     */
     void close_if() {
         bool evaluatedCondition = str_to_int(commandBuffer_.top()[0]) != 0;
+        lastIfCondition_.top() = commandBuffer_.top()[0];
         if (evaluatedCondition) {
             Serial.print("condition is true, ");
             // Add commands to commandQueue in reverse order,
@@ -724,6 +739,7 @@ public:
         status_.push(status);
         commandBuffer_.push(std::vector<std::string>());
         bracketParity_.push(0);
+        lastIfCondition_.push("");
     }
 
     /*!
@@ -734,6 +750,7 @@ public:
         status_.pop();
         commandBuffer_.pop();
         bracketParity_.pop();
+        lastIfCondition_.pop();
     }
 
 private:
@@ -741,13 +758,15 @@ private:
         std::string commandText;
         int nestedLevel;
     };
-
     int currNestedLevel_;
+
     std::deque<std::string> commandQueue_;
     std::map<std::string, Device> devices_; 
 
     std::stack<InterpreterStatus> status_;
     std::stack<std::vector<std::string>> commandBuffer_;
+    /** Used to check for else/elseif blocks */
+    std::stack<std::string> lastIfCondition_;
     std::stack<int> bracketParity_;
 
     Parser parser_;
