@@ -16,7 +16,8 @@ Kitty will only work on an Arduino Mega as it requires a high amount of sketch a
 
 Additional Arduino libraries required:  
 * [ArduinoSTL](https://github.com/mike-matera/ArduinoSTL)  
-* [ArduinoUnit](https://github.com/mmurdoch/arduinounit) (for unit tests)
+* [ArduinoUnit](https://github.com/mmurdoch/arduinounit) for unit tests
+* [ArduinoLog](https://github.com/thijse/Arduino-Log) for logging
 
 ## Running the live interpreter:
 Open `live_interpreter/live_interpreter.ino` using the Arduino IDE.  
