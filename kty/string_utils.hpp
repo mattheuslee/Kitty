@@ -4,6 +4,7 @@
 #include <cctype>
 #include <sstream>
 #include <string>
+#include <ArduinoLog.h>
 
 namespace kty {
 

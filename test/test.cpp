@@ -5,7 +5,7 @@
 #include <time.h>
 #include "ArduinoUnit.h"
 #include "ArduinoUnitMock.h"
-
+#include <ArduinoLog.h>
 CppIOStream Serial;
 
 #include <kitty.hpp>
@@ -18,6 +18,7 @@ CppIOStream Serial;
 void setup() {
     Serial.begin(115200);
     while (!Serial);
+    Log.begin(LOG_LEVEL_SILENT), &Serial);
 }
 
 void loop() {

@@ -2,6 +2,7 @@
 
 #include <kty/stl_impl.hpp>
 #include <string>
+#include <ArduinoLog.h>
 
 #include <kty/interpreter.hpp>
 #include <kty/parser.hpp>
@@ -42,6 +43,16 @@ public:
         Serial.println(F("Kitty 0.2.0 for Arduino (2017, 2018)"));
         Serial.println(F("Mattheus Lee, mattheus.lee@gmail.com"));
         Serial.println(F(""));
+    }
+
+    /*!
+        @brief  Begins the logging using ArduinoLog
+
+        @param  logLevel 
+                Logging level parameter passed to ArduinoLog
+    */
+    void begin_logging(int logLevel) {
+        Log.begin(logLevel, &Serial);
     }
 
     /*!

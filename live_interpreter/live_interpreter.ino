@@ -2,6 +2,7 @@
 #include <kty/stl_impl.hpp>
 #include <string>
 #include <vector>
+#include <ArduinoLog.h>
 
 #include <kty/interface.hpp>
 #include <kty/interpreter.hpp>
@@ -18,6 +19,7 @@ Interpreter interpreter;
 
 void setup() {
     interface.print_welcome();
+    interface.begin_logging(LOG_LEVEL_TRACE);
     interface.print_prompt();
 }
 
