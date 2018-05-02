@@ -284,10 +284,19 @@ struct Token {
     /*!
         @brief  Checks if this token is the else connand.
 
-        @return True if this token is the create else command, false otherwise.
+        @return True if this token is the else command, false otherwise.
     */
     bool is_else() const {
         return type == TokenType::ELSE;
+    }
+
+    /*!
+        @brief  Checks if this token is the else if connand.
+
+        @return True if this token is the else if command, false otherwise.
+    */
+    bool is_else_if() const {
+        return type == TokenType::ELSE_IF;
     }
 
     /*!

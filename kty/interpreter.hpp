@@ -211,11 +211,18 @@ public:
         case CREATING_IF:
             add_to_if(command);
             break;
+        case CREATING_ELSE:
+            add_to_else(command);
+            break;
+        case CREATING_ELSEIF:
+            add_to_else_if(command);
+            break;
         case CREATING_GROUP:
             add_to_group(command);
             break;
         };
         execute_command_queue();
+        cleanup_after_command_queue_execute();
     }
 
     /*!
@@ -232,6 +239,19 @@ public:
             Serial.print("Executing = ");
             Serial.println(command.c_str());
             execute(command);
+        }
+    }
+
+    /*!
+        @brief  Executes all the cleanup for internal state after executing 
+                the commands in the command queue.
+    */
+    void cleanup_after_command_queue_execute() {
+        if (!toPopLastIfCondition_.empty()) {
+            if (toPopLastIfCondition_.top()) {
+                lastIfCondition_.pop();
+            }
+            toPopLastIfCondition_.pop();
         }
     }
 
@@ -253,21 +273,51 @@ public:
         else if (command.back().is_else()) {
             execute_else(command);
         }
-        else if (command[0].is_name()) {
-            // Creation of a device/group
-            if (command.back().is_create_num() || 
-                command.back().is_create_led() || 
-                command.back().is_create_servo() || 
-                command.back().is_create_group()) {
-                execute_create(command);
+        else if (command.back().is_else_if()) {
+            execute_else_if(command);
+        }
+        else {
+            // Everything other than if and else, last if condition is no longer valid
+            lastIfCondition_.top() = "";
+            if (command[0].is_name()) {
+                // Printing information
+                if (command.size() == 1) {
+                    execute_print_info(command);
+                }
+                // Creation of a device/group
+                else if (command.back().is_create_num() || 
+                         command.back().is_create_led() || 
+                         command.back().is_create_servo() || 
+                         command.back().is_create_group()) {
+                    execute_create(command);
+                }
+                // Running group
+                else {
+                    execute_run_group(command);
+                }
             }
-            // Running group
-            else {
-                execute_run_group(command);
+            else if (command[0].is_string()) {
+                lastIfCondition_.top() = "";
+                execute_print_string(command);
             }
         }
-        else if (command[0].is_string()) {
-            execute_print_string(command);
+    }
+
+    /*!
+        @brief  Executes the print information command.
+
+        @param  command
+                The command to execute.
+    */
+    void execute_print_info(std::vector<Token> const & command) {
+        std::string name = command[0].value;
+        if (devices_.find(name) != devices_.end()) {
+            Serial.println(devices_.find(name)->second.info_str().c_str());
+        }
+        else {
+            Serial.print("Error: ");
+            Serial.print(name.c_str());
+            Serial.println(" does not exist");
         }
     }
 
@@ -294,7 +344,24 @@ public:
                 The command to execute.
     */
     void execute_else(std::vector<Token> const & command) {
+        // No condition to extract for else, immediately create group
+        create_else();
+    }
 
+    /*!
+        @brief  Executes the else if command.
+
+        @param  command
+                The command to execute.
+    */
+    void execute_else_if(std::vector<Token> const & command) {
+        std::queue<Token> tokenQueue;
+        // Skip the if token at the end
+        for (int i = 0; i < command.size() - 1; ++i) {
+            tokenQueue.push(command[i]);
+        }
+        std::stack<Token> result = evaluate_postfix(tokenQueue);
+        create_else_if(result.top().value);
     }
 
     /*!
@@ -304,6 +371,7 @@ public:
                 The command to execute.
     */
     void execute_create(std::vector<Token> const & command) {
+        Serial.println(F("Execute create"));
         std::queue<Token> tokenQueue;
         // Skip the create token at the end
         for (int i = 0; i < command.size() - 1; ++i) {
@@ -635,13 +703,21 @@ public:
     */
     void add_to_if(std::string const & command) {
         std::vector<Token> tokens = tokenizer_.tokenize(command);
-        // Check if the group is to be closed
-        if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
+        // Group is closed
+        if (bracketParity_.top() == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
             close_if();
         }
         // Add command to group
         else {
             commandBuffer_.top().push_back(command);
+            // Check if command introduces a '('
+            if (tokens[tokens.size() - 2].is_left_bracket()) {
+                ++(bracketParity_.top());
+            }
+            // Check if command closes with a ')'
+            else if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
+                --(bracketParity_.top());
+            }
             Serial.println("Adding command to if group");
         }
     }
@@ -660,9 +736,146 @@ public:
             for (int i = commandBuffer_.top().size() - 1; i > 0; --i) {
                 commandQueue_.push_front(commandBuffer_.top()[i]);
             }
+            // Push for any commands that might require in nested scope
+            lastIfCondition_.push("");
+            toPopLastIfCondition_.push(true);
         }
         decrease_nested_level();
         Serial.println("Closing if");
+    }
+
+    /*!
+        @brief  Begins the creation of an else command group.
+    */
+    void create_else() {
+        increase_nested_level(InterpreterStatus::CREATING_ELSE);
+        Serial.print("Creating else, last if condition = ");
+        Serial.println(lastIfCondition_.top().c_str());
+    }
+
+    /*!
+        @brief  Adds a command to the else command group that is currently being created.
+
+        @param  command
+                The command to add to the else command group.
+    */
+    void add_to_else(std::string const & command) {
+        std::vector<Token> tokens = tokenizer_.tokenize(command);
+        // Group is closed
+        if (bracketParity_.top() == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
+            close_else();
+        }
+        // Add command to group
+        else {
+            commandBuffer_.top().push_back(command);
+            // Check if command introduces a '('
+            if (tokens[tokens.size() - 2].is_left_bracket()) {
+                ++(bracketParity_.top());
+            }
+            // Check if command closes with a ')'
+            else if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
+                --(bracketParity_.top());
+            }
+            Serial.println("Adding command to else group");
+        }
+    }
+
+    /*!
+        @brief  Finishes the creation of an else command group,
+                and adds its commands to the commandQueue if the else
+                directly follows an if that had a condition which was false.
+    */
+    void close_else() {
+        bool evaluatedLastIfCondition = str_to_int(lastIfCondition_.top()) != 0;
+        // Must directly come after an if command
+        if (lastIfCondition_.top().size() == 0) {
+            evaluatedLastIfCondition = true;
+        }
+        lastIfCondition_.top() = "";
+        if (!evaluatedLastIfCondition) {
+            Serial.print(F("last if condition was false, "));
+            // Add commands to commandQueue in reverse order,
+            // since pushing from the front
+            for (int i = commandBuffer_.top().size() - 1; i >= 0; --i) {
+                commandQueue_.push_front(commandBuffer_.top()[i]);
+            }
+            // Push for any commands that might require in nested scope
+            lastIfCondition_.push("");
+            toPopLastIfCondition_.push(true);
+        }
+        decrease_nested_level();
+        Serial.println("Closing else");
+    }
+
+    /*!
+        @brief  Begins the creation of an else if command group.
+
+        @param  condition
+                The result of evaluating the condition.
+    */
+    void create_else_if(std::string const & condition) {
+        increase_nested_level(InterpreterStatus::CREATING_ELSEIF);
+        commandBuffer_.top().push_back(condition);
+        Serial.print("Creating else if, last if condition = ");
+        Serial.print(lastIfCondition_.top().c_str());
+        Serial.print(", condition =");
+        Serial.println(condition.c_str());
+    }
+
+    /*!
+        @brief  Adds a command to the else if command group that is currently being created.
+
+        @param  command
+                The command to add to the else command group.
+    */
+    void add_to_else_if(std::string const & command) {
+        std::vector<Token> tokens = tokenizer_.tokenize(command);
+        // Group is closed
+        if (bracketParity_.top() == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
+            close_else_if();
+        }
+        // Add command to group
+        else {
+            commandBuffer_.top().push_back(command);
+            // Check if command introduces a '('
+            if (tokens[tokens.size() - 2].is_left_bracket()) {
+                ++(bracketParity_.top());
+            }
+            // Check if command closes with a ')'
+            else if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
+                --(bracketParity_.top());
+            }
+            Serial.println("Adding command to else if group");
+        }
+    }
+
+    /*!
+        @brief  Finishes the creation of an else if command group,
+                and adds its commands to the commandQueue if the else if
+                directly follows an if that had a condition which was false,
+                and its own condition is true.
+    */
+    void close_else_if() {
+        bool evaluatedLastIfCondition = str_to_int(lastIfCondition_.top()) != 0;
+        bool evaluatedOwnCondition = str_to_int(commandBuffer_.top()[0]) != 0;
+        // Must directly come after an if command
+        if (lastIfCondition_.top().size() == 0) {
+            evaluatedLastIfCondition = true;
+        }
+        lastIfCondition_.top() = commandBuffer_.top()[0];
+        if (!evaluatedLastIfCondition && evaluatedOwnCondition) {
+            Serial.print(F("last if condition was false and our condition is true, "));
+            // Add commands to commandQueue in reverse order,
+            // since pushing from the front
+            for (int i = commandBuffer_.top().size() - 1; i > 0; --i) {
+                commandQueue_.push_front(commandBuffer_.top()[i]);
+            }
+            // Push for any commands that might require in nested scope
+            lastIfCondition_.push("");
+            toPopLastIfCondition_.push(true);
+        }
+        decrease_nested_level();
+        Serial.println("Closing else if");
     }
 
     /*!
@@ -723,6 +936,9 @@ public:
         group.name = name;
         group.info = commands;
         devices_[name] = group;
+        // Push for any commands that might require in nested scope
+        lastIfCondition_.push("");
+        toPopLastIfCondition_.push(true);
         decrease_nested_level();
         Serial.print("Closing group = ");
         Serial.println(name.c_str());
@@ -739,7 +955,6 @@ public:
         status_.push(status);
         commandBuffer_.push(std::vector<std::string>());
         bracketParity_.push(0);
-        lastIfCondition_.push("");
     }
 
     /*!
@@ -750,7 +965,6 @@ public:
         status_.pop();
         commandBuffer_.pop();
         bracketParity_.pop();
-        lastIfCondition_.pop();
     }
 
 private:
@@ -767,6 +981,7 @@ private:
     std::stack<std::vector<std::string>> commandBuffer_;
     /** Used to check for else/elseif blocks */
     std::stack<std::string> lastIfCondition_;
+    std::stack<bool> toPopLastIfCondition_;
     std::stack<int> bracketParity_;
 
     Parser parser_;
