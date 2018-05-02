@@ -390,6 +390,7 @@ public:
                 Token operand = tokenStack.top();
                 tokenStack.pop();
                 Token result = evaluate_unary_operation(token, operand);
+                tokenStack.push(result);
             }
             else if (token.is_operator()) {
                 Token rhs = tokenStack.top();
