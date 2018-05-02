@@ -8,7 +8,6 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <ArduinoLog.h>
 
 #include <kty/string_utils.hpp>
 

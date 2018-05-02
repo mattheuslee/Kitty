@@ -8,7 +8,6 @@
 #if defined(ARDUINO)
 #include <Servo.h>
 #endif
-#include <ArduinoLog.h>
 
 #include <kty/tokenizer.hpp>
 #include <kty/parser.hpp>

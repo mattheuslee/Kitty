@@ -3,7 +3,6 @@
 #include <kty/stl_impl.hpp>
 #include <stack>
 #include <vector>
-#include <ArduinoLog.h>
 
 #include <kty/tokenizer.hpp>
 #include <kty/string_utils.hpp>
