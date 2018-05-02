@@ -148,7 +148,8 @@ Also, notice that we only include `(` after the `IsGroup` command. Once we're do
 > `blink: Command Group containing the command(s):`  
 > `light SetTo 100 For 1s`
 
-When creating a command group, each command within the group must be on its own line.
+When creating a command group, each command within the group must be on its own line.  
+Also note that when entering the commands which will be in the command group, none of the commands will be executed until the `RunGroup` command is used.
 
 Once we have created the command group `blink`, we can run its commands using the `RunGroup` command:  
 > `>>> blink RunGroup()`  
@@ -217,7 +218,7 @@ The `If` command runs its commands once, only if the condition is evaluated to b
 We want to create an LED called `light` using the pin number stored in `pin`, if that number is 20 or less.
 > `>>> pin IsNumber(15)`  
 > `>>> light IsLED(13)`  
-> `>>> If(pin <= 20) (`  
+> `>>> If (pin <= 20) (`  
 > `>>> light IsLED(pin)`  
 > `>>> )`  
 > `>>> light`  
@@ -229,7 +230,7 @@ When using the `If` command, the condition must be on the same line as the `If`,
 Here's an example where the condition is `False`:  
 > `>>> pin IsNumber(25)`  
 > `>>> light IsLED(13)`  
-> `>>> If(pin <= 20) (`  
+> `>>> If (pin <= 20) (`  
 > `>>> light IsLED(pin)`  
 > `>>> )`  
 > `>>> light`  
@@ -237,12 +238,14 @@ Here's an example where the condition is `False`:
 
 We can see here that since the condition `pin <= 20` is `False`, none of the commands within the `If` command are run, and so `light` is still referring to the LED using pin 13.
 
+Take note that all the commands within the `If` section are only run once the section has been closed with `)`, and only if the condition is `True`.
+
 __`Else` Command__   
 Sometimes when we have an `If` command that runs several commands if a condition is `True`, we also want to be able to run some other commands if that condition is `False` instead.  
 
 We want to create an LED called `light` using the pin number stored in `pin`, if that number is 20 or less. If it is more than 20, then we want to create an LED called `light` using pin 13 instead:  
 > `>>> pin IsNumber(15)`  
-> `>>> If(pin <= 20) (`  
+> `>>> If (pin <= 20) (`  
 > `>>> light IsLED(pin)`  
 > `>>> )`  
 > `>>> Else (`  
@@ -253,7 +256,7 @@ We want to create an LED called `light` using the pin number stored in `pin`, if
 
 And here's the alternative scenario:  
 > `>>> pin IsNumber(25)`  
-> `>>> If(pin <= 20) (`  
+> `>>> If (pin <= 20) (`  
 > `>>> light IsLED(pin)`  
 > `>>> )`  
 > `>>> Else (`  
@@ -268,7 +271,7 @@ __`While` Command__
 The `While` command keeps running its commands as long as the condition is still evaluated to be `True`.  
 We want to count from 1 to 5, using a number stored in `num`:  
 > `>>> num IsNumber(1)`  
-> `>>> While(num <= 5) (`  
+> `>>> While (num <= 5) (`  
 > `>>> num`  
 > `>>> num MoveBy(1)`  
 > `>>> )`  
@@ -278,4 +281,5 @@ We want to count from 1 to 5, using a number stored in `num`:
 > `num: Number storing 4`  
 > `num: Number storing 5`  
 
-We can see here that the value stored in `num` will keep increasing one step at a time, until it reaches 6. When it is 6, then `num <= 5` is `False`, and the `While` command stops repeating its commands.  
+We can see here that the value stored in `num` will keep increasing one step at a time, until it reaches 6.  
+When it reaches 6, then `num <= 5` is `False`, and the `While` command stops repeating its commands.  
