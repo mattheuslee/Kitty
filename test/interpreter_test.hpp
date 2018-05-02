@@ -105,3 +105,65 @@ test(interpreter_fizz_buzz)
     assertTrue(interpreter.get_device("num").type == DeviceType::NUM);
     assertTrue(interpreter.get_device("num").info[0] == "6");
 }
+
+test(interpreter_fizz_buzz_alternative_1)
+{
+    vector<string> commands = {
+        "fizzbuzz IsGroup (",
+            "If (num % 3 = 0 & num % 5 = 0) (",
+            "    'FizzBuzz'",
+            ")",
+            "If (num % 3 = 0 & ~(num % 5 = 0)) (",
+            "    'Fizz'",
+            ")",
+            "If (~(num % 3 = 0) & num % 5 = 0) (",
+            "    'Buzz'",
+            ")",
+            "If (~(num % 3 = 0) & ~(num % 5 = 0)) (",
+                "num",
+            ")",
+            "num IsNumber(num + 1)",
+        ")",
+        "num IsNumber(1)",
+        "fizzbuzz RunGroup(5)"
+    };
+    Interpreter interpreter;
+    for (int i = 0; i < commands.size(); ++i) {
+        interpreter.execute(commands[i]);
+    }
+    assertTrue(interpreter.get_device("num").type == DeviceType::NUM);
+    assertTrue(interpreter.get_device("num").info[0] == "6");
+}
+
+test(interpreter_fizz_buzz_alternative_2)
+{
+    vector<string> commands = {
+        "fizzbuzz IsGroup (",
+            "If (num % 3 = 0 & num % 5 = 0) (",
+                "'FizzBuzz'",
+            ")",
+            "Else (",
+                "If (num % 3 = 0) (",
+                    "'Fizz'",
+                ")",
+                "Else (",
+                    "If (num % 5 = 0) (",
+                        "'Buzz'",
+                    ")",
+                    "Else (",
+                        "num",
+                    ")",
+                ")",
+            ")",
+            "num IsNumber(num + 1)",
+        ")",
+        "num IsNumber(1)",
+        "fizzbuzz RunGroup(5)"
+    };
+    Interpreter interpreter;
+    for (int i = 0; i < commands.size(); ++i) {
+        interpreter.execute(commands[i]);
+    }
+    assertTrue(interpreter.get_device("num").type == DeviceType::NUM);
+    assertTrue(interpreter.get_device("num").info[0] == "6");
+}
