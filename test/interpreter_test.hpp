@@ -125,14 +125,14 @@ test(interpreter_fizz_buzz_alternative_1)
             "num IsNumber(num + 1)",
         ")",
         "num IsNumber(1)",
-        "fizzbuzz RunGroup(5)"
+        "fizzbuzz RunGroup(20)"
     };
     Interpreter interpreter;
     for (int i = 0; i < commands.size(); ++i) {
         interpreter.execute(commands[i]);
     }
     assertTrue(interpreter.get_device("num").type == DeviceType::NUM);
-    assertTrue(interpreter.get_device("num").info[0] == "6");
+    assertTrue(interpreter.get_device("num").info[0] == "21");
 }
 
 test(interpreter_fizz_buzz_alternative_2)
@@ -158,12 +158,12 @@ test(interpreter_fizz_buzz_alternative_2)
             "num IsNumber(num + 1)",
         ")",
         "num IsNumber(1)",
-        "fizzbuzz RunGroup(5)"
+        "fizzbuzz RunGroup(20)"
     };
     Interpreter interpreter;
     for (int i = 0; i < commands.size(); ++i) {
         interpreter.execute(commands[i]);
     }
     assertTrue(interpreter.get_device("num").type == DeviceType::NUM);
-    assertTrue(interpreter.get_device("num").info[0] == "6");
+    assertTrue(interpreter.get_device("num").info[0] == "21");
 }

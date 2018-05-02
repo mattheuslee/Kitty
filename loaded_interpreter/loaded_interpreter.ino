@@ -2,6 +2,7 @@
 #include <kty/stl_impl.hpp>
 #include <string>
 #include <vector>
+#include <ArduinoLog.h>
 
 #include <kty/interface.hpp>
 #include <kty/interpreter.hpp>
