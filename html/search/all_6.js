@@ -11,8 +11,11 @@ var searchData=
   ['is_5fcreate_5fnum',['is_create_num',['../structkty_1_1_token.html#a3a28a327ce2b9dc77c0197319fef65b1',1,'kty::Token']]],
   ['is_5fcreate_5fservo',['is_create_servo',['../structkty_1_1_token.html#a99f9aeda9af0e9c7fddfd147952a005d',1,'kty::Token']]],
   ['is_5fcreation_5fcommand',['is_creation_command',['../structkty_1_1_token.html#aa24e1b6129879278007f9b707260ddf8',1,'kty::Token']]],
+  ['is_5felse',['is_else',['../structkty_1_1_token.html#a7e96379dcc21bd5eeb3b66123ccf0746',1,'kty::Token']]],
+  ['is_5felse_5fif',['is_else_if',['../structkty_1_1_token.html#a18c00c5a8826fe94101abe5cf271beb4',1,'kty::Token']]],
   ['is_5ffunction',['is_function',['../structkty_1_1_token.html#a812a5188d24340bf36880cdf6bf7382c',1,'kty::Token']]],
   ['is_5fgroup',['is_group',['../structkty_1_1_device.html#abf47ae4e66589e54c5387321c0c05a5a',1,'kty::Device']]],
+  ['is_5fif',['is_if',['../structkty_1_1_token.html#a4089c40d5991f50ddffc3d06925f2e9f',1,'kty::Token']]],
   ['is_5fled',['is_led',['../structkty_1_1_device.html#a8a50c8f7695794ad2c29a04d3d387d96',1,'kty::Device']]],
   ['is_5fleft_5fassociative',['is_left_associative',['../structkty_1_1_token.html#a4e707d7faf7e4b27dc7c56832d94b1bb',1,'kty::Token']]],
   ['is_5fleft_5fbracket',['is_left_bracket',['../structkty_1_1_token.html#a7568cfd741ef70207a2c693a44d4751a',1,'kty::Token']]],
@@ -22,5 +25,6 @@ var searchData=
   ['is_5foperator',['is_operator',['../structkty_1_1_token.html#ad17545b6b50cffec429a2d5aed8e3267',1,'kty::Token']]],
   ['is_5fright_5fbracket',['is_right_bracket',['../structkty_1_1_token.html#a196a4b15d973ab70b1e7c62dd0833f9a',1,'kty::Token']]],
   ['is_5fservo',['is_servo',['../structkty_1_1_device.html#a8b28708acf7a30eaca801ded2b22c33c',1,'kty::Device']]],
+  ['is_5fstring',['is_string',['../structkty_1_1_token.html#aad87655119160c2c092385168380f12e',1,'kty::Token']]],
   ['is_5funary_5foperator',['is_unary_operator',['../structkty_1_1_token.html#a0fc22e94ebb5f1b5e5543b3b1419008f',1,'kty::Token']]]
 ];

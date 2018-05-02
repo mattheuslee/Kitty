@@ -108,6 +108,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a98b76a1b046f0f960694aef792dcd6eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_token.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_tokenizer.html#a98b76a1b046f0f960694aef792dcd6eb">get_next_number_token</a> ()</td></tr>
 <tr class="memdesc:a98b76a1b046f0f960694aef792dcd6eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the next number token from the stored command.  <a href="#a98b76a1b046f0f960694aef792dcd6eb">More...</a><br /></td></tr>
 <tr class="separator:a98b76a1b046f0f960694aef792dcd6eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31cda563ff2d2b79b3f91fd6e45a70a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_token.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_tokenizer.html#a31cda563ff2d2b79b3f91fd6e45a70a6">get_next_string_token</a> (char const &amp;open)</td></tr>
+<tr class="memdesc:a31cda563ff2d2b79b3f91fd6e45a70a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the next string token from the stored command.  <a href="#a31cda563ff2d2b79b3f91fd6e45a70a6">More...</a><br /></td></tr>
+<tr class="separator:a31cda563ff2d2b79b3f91fd6e45a70a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf724c747234fc68cd5c42abc1b2580b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_token.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_tokenizer.html#adf724c747234fc68cd5c42abc1b2580b">get_next_punctuation_token</a> ()</td></tr>
 <tr class="memdesc:adf724c747234fc68cd5c42abc1b2580b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the next punctuation token from the stored command.  <a href="#adf724c747234fc68cd5c42abc1b2580b">More...</a><br /></td></tr>
 <tr class="separator:adf724c747234fc68cd5c42abc1b2580b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -397,6 +400,41 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <p>Gets the next number token from the stored command. </p>
 <dl class="section return"><dt>Returns</dt><dd>The next number token. If the next token is not a number, an unknown token is returned. </dd></dl>
+
+</div>
+</div>
+<a id="a31cda563ff2d2b79b3f91fd6e45a70a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31cda563ff2d2b79b3f91fd6e45a70a6">&#9670;&nbsp;</a></span>get_next_string_token()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structkty_1_1_token.html">Token</a> kty::Tokenizer::get_next_string_token </td>
+          <td>(</td>
+          <td class="paramtype">char const &amp;&#160;</td>
+          <td class="paramname"><em>open</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the next string token from the stored command. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">open</td><td>The opening character to the string. The closing character must match the opening character.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The next string token. If the next token is not a string, an unknown token is returned. </dd></dl>
 
 </div>
 </div>
