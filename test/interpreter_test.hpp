@@ -103,5 +103,5 @@ test(interpreter_fizz_buzz)
         interpreter.execute(commands[i]);
     }
     assertTrue(interpreter.get_device("num").type == DeviceType::NUM);
-    assertTrue(interpreter.get_device("num").info[0] == "5");
+    assertTrue(interpreter.get_device("num").info[0] == "6");
 }

@@ -236,8 +236,6 @@ public:
         while (!commandQueue_.empty()) {
             std::string command = commandQueue_.front();
             commandQueue_.pop_front();
-            Serial.print("Executing = ");
-            Serial.println(command.c_str());
             execute(command);
         }
     }
@@ -371,7 +369,6 @@ public:
                 The command to execute.
     */
     void execute_create(std::vector<Token> const & command) {
-        Serial.println(F("Execute create"));
         std::queue<Token> tokenQueue;
         // Skip the create token at the end
         for (int i = 0; i < command.size() - 1; ++i) {
@@ -419,7 +416,6 @@ public:
         Serial.println(name.c_str());
         for (int i = 0; i < numTimes; ++i) {
             for (int j = 0; j < commands.size(); ++j) {
-                Serial.println(commands[j].c_str());
                 // Push in reverse order since pushing from the front
                 commandQueue_.push_front(commands[commands.size() - j - 1]);
             }
@@ -480,11 +476,6 @@ public:
                 Token lhs = tokenStack.top();
                 tokenStack.pop();
                 Token result = evaluate_operation(token, lhs, rhs);
-                //Serial.print(lhs.str().c_str());
-                //Serial.print(token.str().c_str());
-                //Serial.print(rhs.str().c_str());
-                //Serial.print(" = ");
-                //Serial.println(result.str().c_str());
                 tokenStack.push(result);
             }
             else if (token.is_operand()) {
@@ -862,8 +853,9 @@ public:
         if (lastIfCondition_.top().size() == 0) {
             evaluatedLastIfCondition = true;
         }
-        lastIfCondition_.top() = commandBuffer_.top()[0];
+        lastIfCondition_.top() = "0";
         if (!evaluatedLastIfCondition && evaluatedOwnCondition) {
+            lastIfCondition_.top() = "1";
             Serial.print(F("last if condition was false and our condition is true, "));
             // Add commands to commandQueue in reverse order,
             // since pushing from the front
