@@ -16,11 +16,12 @@ before_install:
 #   - pip install --user cpp-coveralls
 
 install:
-   - arduino --install-library "ArduinoSTL","ArduinoUnit"
+   - arduino --install-library "ArduinoSTL","ArduinoUnit","ArduinoLog"
 
 script:
    - build_platform mega2560
    - git clone https://github.com/mmurdoch/arduinounit.git
+   - git clone https://github.com/thijse/Arduino-Log.git
    - cd test && make test && cd .. && rm -r -f /home/travis/build/mattheuslee/KittyInterpreter/arduinounit/
 
 # Generate and deploy documentation
