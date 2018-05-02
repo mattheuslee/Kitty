@@ -22,4 +22,3 @@ void analogWrite(int const & pin, int const & value) {
 }
 
 #endif
-
