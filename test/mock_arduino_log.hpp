@@ -11,5 +11,3 @@ public:
 private:
 
 };
-
-MockArduinoLog Log;

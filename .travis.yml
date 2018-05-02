@@ -21,9 +21,10 @@ install:
 script:
    - build_platform mega2560
    - git clone https://github.com/mmurdoch/arduinounit.git
-   - git clone -b travis_friendly https://github.com/mattheuslee/Arduino-Log.git
+#   - git clone -b travis_friendly https://github.com/mattheuslee/Arduino-Log.git
    - cd test && make test
-   - rm -r -f /home/travis/build/mattheuslee/KittyInterpreter/arduinounit/ /home/travis/build/mattheuslee/KittyInterpreter/Arduino-Log/
+   - rm -r -f /home/travis/build/mattheuslee/KittyInterpreter/arduinounit/ 
+#   - rm -r -f /home/travis/build/mattheuslee/KittyInterpreter/Arduino-Log/
 
 # Generate and deploy documentation
 after_success:

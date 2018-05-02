@@ -7,7 +7,7 @@
 #define HIGH 1
 #define LOW 0
 
-#define F(x) 1
+#define F(string) 1
 
 void pinMode(int const & pin, int const & mode) {
 

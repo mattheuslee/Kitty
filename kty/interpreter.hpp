@@ -412,7 +412,7 @@ public:
         std::stack<Token> result = evaluate_postfix(tokenQueue);
         int numTimes = str_to_int(result.top().value);
         std::vector<std::string> commands = get_device(name).info;
-        Log.trace(F("Running group = %s" CR), name.c_str());
+        Log.trace(F("Running group = %s\n"), name.c_str());
         for (int i = 0; i < numTimes; ++i) {
             for (int j = 0; j < commands.size(); ++j) {
                 // Push in reverse order since pushing from the front
@@ -643,7 +643,7 @@ public:
         number.name = name;
         number.info.push_back(info.top().value);
         devices_[name] = number;
-        Log.trace(F("Creating number %s" CR), info.top().value.c_str());
+        Log.trace(F("Creating number %s\n"), info.top().value.c_str());
     }
 
     /*!
@@ -669,7 +669,7 @@ public:
         number.info.push_back(int_to_str(pinNumber));
         number.info.push_back(int_to_str(brightness));
         devices_[name] = number;
-        Log.trace(F("Creating LED, pin %d brightness %d" CR), pinNumber, brightness);
+        Log.trace(F("Creating LED, pin %d brightness %d\n"), pinNumber, brightness);
     }
 
     /*!
@@ -681,7 +681,7 @@ public:
     void create_if(std::string const & condition) {
         increase_nested_level(InterpreterStatus::CREATING_IF);
         commandBuffer_.top().push_back(condition);
-        Log.trace(F("Creating if, condition: %s" CR), condition.c_str());
+        Log.trace(F("Creating if, condition: %s\n"), condition.c_str());
     }
 
     /*!
@@ -707,7 +707,7 @@ public:
             else if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
                 --(bracketParity_.top());
             }
-            Log.trace(F("Adding command to if group: %s" CR), command.c_str());
+            Log.trace(F("Adding command to if group: %s\n"), command.c_str());
         }
     }
 
@@ -719,7 +719,7 @@ public:
         bool evaluatedCondition = str_to_int(commandBuffer_.top()[0]) != 0;
         lastIfCondition_.top() = commandBuffer_.top()[0];
         if (evaluatedCondition) {
-            Log.trace(F("If condition is true" CR));
+            Log.trace(F("If condition is true\n"));
             // Add commands to commandQueue in reverse order,
             // since pushing from the front
             for (int i = commandBuffer_.top().size() - 1; i > 0; --i) {
@@ -730,7 +730,7 @@ public:
             toPopLastIfCondition_.push(true);
         }
         decrease_nested_level();
-        Log.trace(F("Closing if" CR));
+        Log.trace(F("Closing if\n"));
     }
 
     /*!
@@ -738,7 +738,7 @@ public:
     */
     void create_else() {
         increase_nested_level(InterpreterStatus::CREATING_ELSE);
-        Log.trace(F("Creating else, last if condition: %s" CR), lastIfCondition_.top().c_str());
+        Log.trace(F("Creating else, last if condition: %s\n"), lastIfCondition_.top().c_str());
     }
 
     /*!
@@ -764,7 +764,7 @@ public:
             else if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
                 --(bracketParity_.top());
             }
-            Log.trace(F("Adding command to else group: %s" CR), command.c_str());
+            Log.trace(F("Adding command to else group: %s\n"), command.c_str());
         }
     }
 
@@ -781,7 +781,7 @@ public:
         }
         lastIfCondition_.top() = "";
         if (!evaluatedLastIfCondition) {
-            Log.trace(F("Last if condition is false" CR));
+            Log.trace(F("Last if condition is false\n"));
             // Add commands to commandQueue in reverse order,
             // since pushing from the front
             for (int i = commandBuffer_.top().size() - 1; i >= 0; --i) {
@@ -792,7 +792,7 @@ public:
             toPopLastIfCondition_.push(true);
         }
         decrease_nested_level();
-        Log.trace(F("Closing else" CR));
+        Log.trace(F("Closing else\n"));
     }
 
     /*!
@@ -804,7 +804,7 @@ public:
     void create_else_if(std::string const & condition) {
         increase_nested_level(InterpreterStatus::CREATING_ELSEIF);
         commandBuffer_.top().push_back(condition);
-        Log.trace(F("Creating else if, last if condition: %s, condition: %s" CR), lastIfCondition_.top().c_str(), condition.c_str());
+        Log.trace(F("Creating else if, last if condition: %s, condition: %s\n"), lastIfCondition_.top().c_str(), condition.c_str());
     }
 
     /*!
@@ -830,7 +830,7 @@ public:
             else if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
                 --(bracketParity_.top());
             }
-            Log.trace(F("Adding command to else if group: %s" CR), command.c_str());
+            Log.trace(F("Adding command to else if group: %s\n"), command.c_str());
         }
     }
 
@@ -850,7 +850,7 @@ public:
         lastIfCondition_.top() = "0";
         if (!evaluatedLastIfCondition && evaluatedOwnCondition) {
             lastIfCondition_.top() = "1";
-            Log.trace(F("Last if condition was false and our condition is true" CR));
+            Log.trace(F("Last if condition was false and our condition is true\n"));
             // Add commands to commandQueue in reverse order,
             // since pushing from the front
             for (int i = commandBuffer_.top().size() - 1; i > 0; --i) {
@@ -861,7 +861,7 @@ public:
             toPopLastIfCondition_.push(true);
         }
         decrease_nested_level();
-        Log.trace(F("Closing else if" CR));
+        Log.trace(F("Closing else if\n"));
     }
 
     /*!
@@ -873,7 +873,7 @@ public:
     void create_group(std::string const & name) {
         increase_nested_level(InterpreterStatus::CREATING_GROUP);
         commandBuffer_.top().push_back(name);
-        Log.trace(F("Creating group: %s" CR), name.c_str());
+        Log.trace(F("Creating group: %s\n"), name.c_str());
     }
 
     /*!
@@ -902,7 +902,7 @@ public:
             else if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
                 --(bracketParity_.top());
             }
-            Log.trace(F("Adding command to group: %s" CR), command.c_str());
+            Log.trace(F("Adding command to group: %s\n"), command.c_str());
         }
     }
 
@@ -924,7 +924,7 @@ public:
         lastIfCondition_.push("");
         toPopLastIfCondition_.push(true);
         decrease_nested_level();
-        Log.trace(F("Closing group: %s" CR), name.c_str());
+        Log.trace(F("Closing group: %s\n"), name.c_str());
     }
 
     /*!
