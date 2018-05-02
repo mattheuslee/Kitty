@@ -44,6 +44,18 @@ test(interpreter_if)
     }
     assertTrue(interpreter.get_device("answer").type == DeviceType::NUM);
     assertTrue(interpreter.get_device("answer").info[0] == "52");
+
+    commands = {
+        "answer IsNumber(42)",
+        "If (~(answer = 0)) (",
+        "   answer IsNumber(0)",
+        ")"
+    };
+    for (int i = 0; i < commands.size(); ++i) {
+        interpreter.execute(commands[i]);
+    }
+    assertTrue(interpreter.get_device("answer").type == DeviceType::NUM);
+    assertTrue(interpreter.get_device("answer").info[0] == "0");
 }
 
 test(interpreter_if_group)
