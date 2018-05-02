@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['run_5fshunting_5fyard',['run_shunting_yard',['../classkty_1_1_parser.html#a0cd4f1fa2c983d0f51efc6d63f6d459e',1,'kty::Parser']]]
+  ['name',['name',['../structkty_1_1_device.html#a080efb0fdf46640036ffba00247d69f5',1,'kty::Device']]],
+  ['num_5ffunction_5farguments',['num_function_arguments',['../structkty_1_1_token.html#ac022b025c6be94f83f8b064bd501323a',1,'kty::Token']]]
 ];
