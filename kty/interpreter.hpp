@@ -149,10 +149,11 @@ struct Device {
 
 /** The various status types of the interpreter */
 enum InterpreterStatus {
-    CREATING_GROUP,
     CREATING_IF,
     CREATING_ELSE,
     CREATING_ELSEIF,
+    CREATING_WHILE,
+    CREATING_GROUP,
     NORMAL,
 };
 
@@ -166,6 +167,7 @@ public:
         @brief  Default interpreter constructor.
     */
     Interpreter() {
+        currNestedLevel_ = 0;
         status_.push(InterpreterStatus::NORMAL);
     }
 
@@ -187,7 +189,8 @@ public:
     }
 
     /*!
-        @brief  Executes a given command.
+        @brief  Executes a given command. 
+                This method takes the current interpreter status into account.
 
         @param  command
                 The raw string command to execute.
@@ -199,16 +202,18 @@ public:
         }
         std::vector<Token> tokens;
         switch (status_.top()) {
-        // Normal execution
         case NORMAL:
             tokens = tokenizer_.tokenize(command);
             tokens = parser_.parse(tokens);
             execute(tokens);
             break;
+        case CREATING_IF:
+            add_to_if(command);
+            break;
         case CREATING_GROUP:
             add_to_group(command);
+            break;
         };
-        // Execute command queue, if any
         execute_command_queue();
     }
 
@@ -222,7 +227,7 @@ public:
         }
         while (!commandQueue_.empty()) {
             std::string command = commandQueue_.front();
-            commandQueue_.pop();
+            commandQueue_.pop_front();
             Serial.print("Executing = ");
             Serial.println(command.c_str());
             execute(command);
@@ -241,7 +246,10 @@ public:
         if (command.empty()) {
             return;
         }
-        if (command[0].type == TokenType::ELSE) {
+        if (command.back().type == TokenType::IF) {
+            execute_if(command);
+        }
+        else if (command.back().type == TokenType::ELSE) {
             execute_else(command);
         }
         else if (command[0].type == TokenType::NAME) {
@@ -257,6 +265,22 @@ public:
                 execute_run_group(command);
             }
         }
+    }
+
+    /*!
+        @brief  Executes the if command.
+
+        @param  command
+                The command to execute.
+    */
+    void execute_if(std::vector<Token> const & command) {
+        std::queue<Token> tokenQueue;
+        // Skip the if token at the end
+        for (int i = 0; i < command.size() - 1; ++i) {
+            tokenQueue.push(command[i]);
+        }
+        std::stack<Token> result = evaluate_postfix(tokenQueue);
+        create_if(result.top().value);
     }
 
     /*!
@@ -277,6 +301,7 @@ public:
     */
     void execute_create(std::vector<Token> const & command) {
         std::queue<Token> tokenQueue;
+        // Skip the create token at the end
         for (int i = 0; i < command.size() - 1; ++i) {
             tokenQueue.push(command[i]);
         }
@@ -309,7 +334,6 @@ public:
                 The command to execute.
     */
     void execute_run_group(std::vector<Token> const & command) {
-        
         std::queue<Token> tokenQueue;
         for (int i = 0; i < command.size() - 1; ++i) {
             tokenQueue.push(command[i]);
@@ -324,7 +348,8 @@ public:
         for (int i = 0; i < numTimes; ++i) {
             for (int j = 0; j < commands.size(); ++j) {
                 Serial.println(commands[j].c_str());
-                commandQueue_.push(commands[j]);
+                // Push in reverse order since pushing from the front
+                commandQueue_.push_front(commands[commands.size() - j - 1]);
             }
         }
     }
@@ -575,17 +600,97 @@ public:
     }
 
     /*!
+        @brief  Begins the creation of an if command group.
+
+        @param  condition
+                The result of evaluating the condition.
+    */
+    void create_if(std::string const & condition) {
+        increase_nested_level(InterpreterStatus::CREATING_IF);
+        commandBuffer_.top().push_back(condition);
+        Serial.print("Creating if = ");
+        Serial.println(condition.c_str());
+    }
+
+    /*!
+        @brief  Adds a command to the if command group that is currently being created.
+
+        @param  command
+                The command to add to the if command group.
+    */
+    void add_to_if(std::string const & command) {
+        std::vector<Token> tokens = tokenizer_.tokenize(command);
+        // Check if the group is to be closed
+        if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
+            close_if();
+        }
+        // Add command to group
+        else {
+            commandBuffer_.top().push_back(command);
+            Serial.println("Adding command to if group");
+        }
+    }
+
+    /*!
+        @brief  Finishes the creation of an if command group,
+                and adds its commands to the commandQueue if the condition is true.
+    */
+    void close_if() {
+        bool evaluatedCondition = str_to_int(commandBuffer_.top()[0]) != 0;
+        if (evaluatedCondition) {
+            Serial.print("condition is true, ");
+            // Add commands to commandQueue in reverse order,
+            // since pushing from the front
+            for (int i = commandBuffer_.top().size() - 1; i > 0; --i) {
+                commandQueue_.push_front(commandBuffer_.top()[i]);
+            }
+        }
+        decrease_nested_level();
+        Serial.println("Closing if");
+    }
+
+    /*!
         @brief  Begins the creation of a command group.
 
         @param  name
                 The name of the command group to be created.
     */
     void create_group(std::string const & name) {
-        status_.push(InterpreterStatus::CREATING_GROUP);
-        commandBuffer_.push(std::vector<std::string>());
+        increase_nested_level(InterpreterStatus::CREATING_GROUP);
         commandBuffer_.top().push_back(name);
         Serial.print("Creating group = ");
         Serial.println(name.c_str());
+    }
+
+    /*!
+        @brief  Adds a command to the command group that is currently being created.
+
+        @param  command
+                The command to add to the command group.
+    */
+    void add_to_group(std::string const & command) {
+        std::vector<Token> tokens = tokenizer_.tokenize(command);
+        // Group is closed
+        if (bracketParity_.top() == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
+            std::vector<std::string> commands = commandBuffer_.top();
+            std::string name = commands[0];
+            commands.erase(commands.begin()); // Remove name
+            close_group(name, commands);
+        }
+        // Add command to group
+        else {
+            commandBuffer_.top().push_back(command);
+            // Check if command introduces a '('
+            if (tokens[tokens.size() - 2].is_left_bracket()) {
+                ++(bracketParity_.top());
+            }
+            // Check if command closes with a ')'
+            else if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
+                --(bracketParity_.top());
+            }
+            Serial.print("Adding command to group = ");
+            Serial.println(command.c_str());
+        }
     }
 
     /*!
@@ -602,41 +707,47 @@ public:
         group.name = name;
         group.info = commands;
         devices_[name] = group;
-        status_.pop();
+        decrease_nested_level();
         Serial.print("Closing group = ");
         Serial.println(name.c_str());
     }
 
     /*!
-        @brief  Adds a command to the command group that is currently being created.
+        @brief  Increases the nested level of the interpreter.
 
-        @param  command
-                The command to add to the command group.
+        @param  status
+                The new status of the interpreter.
     */
-    void add_to_group(std::string const & command) {
-        std::vector<Token> tokens = tokenizer_.tokenize(command);
-        // Check if the group is complete
-        if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
-            std::vector<std::string> commands = commandBuffer_.top();
-            commandBuffer_.pop();
-            std::string name = commands[0];
-            commands.erase(commands.begin());
-            close_group(name, commands);
-        }
-        // Add command to group
-        else {
-            commandBuffer_.top().push_back(command);
-            Serial.print("Adding command to group = ");
-            Serial.println(command.c_str());
-        }
+    void increase_nested_level(InterpreterStatus status) {
+        ++currNestedLevel_;
+        status_.push(status);
+        commandBuffer_.push(std::vector<std::string>());
+        bracketParity_.push(0);
+    }
+
+    /*!
+        @brief  Decreases the nested level of the interpreter
+    */
+    void decrease_nested_level() {
+        --currNestedLevel_;
+        status_.pop();
+        commandBuffer_.pop();
+        bracketParity_.pop();
     }
 
 private:
-    std::queue<std::string> commandQueue_;
+    struct Command {
+        std::string commandText;
+        int nestedLevel;
+    };
+
+    int currNestedLevel_;
+    std::deque<std::string> commandQueue_;
     std::map<std::string, Device> devices_; 
 
     std::stack<InterpreterStatus> status_;
     std::stack<std::vector<std::string>> commandBuffer_;
+    std::stack<int> bracketParity_;
 
     Parser parser_;
     Tokenizer tokenizer_;
