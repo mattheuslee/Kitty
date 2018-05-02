@@ -76,3 +76,32 @@ test(interpreter_if_group)
     assertTrue(interpreter.get_device("answer").type == DeviceType::NUM);
     assertTrue(interpreter.get_device("answer").info[0] == "0");
 }
+
+test(interpreter_fizz_buzz)
+{
+    vector<string> commands = {
+        "fizzbuzz IsGroup (",
+            "If (num % 3 = 0 & num % 5 = 0) (",
+            "    'FizzBuzz'",
+            ")",
+            "ElseIf (num % 3 = 0) (",
+            "    'Fizz'",
+            ")",
+            "ElseIf (num % 5 = 0) (",
+            "    'Buzz'",
+            ")",
+            "Else (",
+                "num",
+            ")",
+            "num IsNumber(num + 1)",
+        ")",
+        "num IsNumber(1)",
+        "fizzbuzz RunGroup(5)"
+    };
+    Interpreter interpreter;
+    for (int i = 0; i < commands.size(); ++i) {
+        interpreter.execute(commands[i]);
+    }
+    assertTrue(interpreter.get_device("num").type == DeviceType::NUM);
+    assertTrue(interpreter.get_device("num").info[0] == "5");
+}
