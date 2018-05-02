@@ -63,6 +63,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classkty_1_1_interpreter-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -85,7 +86,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a4b549cc75d793258632bd7168a0dd854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the prefix(if any) for the user prompt.  <a href="#a4b549cc75d793258632bd7168a0dd854">More...</a><br /></td></tr>
 <tr class="separator:a4b549cc75d793258632bd7168a0dd854"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97d7949f7c7ca179b7fd126844629d32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a97d7949f7c7ca179b7fd126844629d32">execute</a> (std::string const &amp;command)</td></tr>
-<tr class="memdesc:a97d7949f7c7ca179b7fd126844629d32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command.  <a href="#a97d7949f7c7ca179b7fd126844629d32">More...</a><br /></td></tr>
+<tr class="memdesc:a97d7949f7c7ca179b7fd126844629d32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command. This method takes the current interpreter status into account.  <a href="#a97d7949f7c7ca179b7fd126844629d32">More...</a><br /></td></tr>
 <tr class="separator:a97d7949f7c7ca179b7fd126844629d32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae04ae25217fea8414db7fb8f666321d2"><td class="memItemLeft" align="right" valign="top"><a id="ae04ae25217fea8414db7fb8f666321d2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ae04ae25217fea8414db7fb8f666321d2">execute_command_queue</a> ()</td></tr>
@@ -94,6 +95,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:aa8d85f212906fcb16b1b7f6160db880f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aa8d85f212906fcb16b1b7f6160db880f">execute</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
 <tr class="memdesc:aa8d85f212906fcb16b1b7f6160db880f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command.  <a href="#aa8d85f212906fcb16b1b7f6160db880f">More...</a><br /></td></tr>
 <tr class="separator:aa8d85f212906fcb16b1b7f6160db880f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9b3ef4f2441f298a1c8adfcfe3822e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ad9b3ef4f2441f298a1c8adfcfe3822e4">execute_if</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
+<tr class="memdesc:ad9b3ef4f2441f298a1c8adfcfe3822e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the if command.  <a href="#ad9b3ef4f2441f298a1c8adfcfe3822e4">More...</a><br /></td></tr>
+<tr class="separator:ad9b3ef4f2441f298a1c8adfcfe3822e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7d923b9c936c419d78fcfbb42315076"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aa7d923b9c936c419d78fcfbb42315076">execute_else</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
 <tr class="memdesc:aa7d923b9c936c419d78fcfbb42315076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the else command.  <a href="#aa7d923b9c936c419d78fcfbb42315076">More...</a><br /></td></tr>
 <tr class="separator:aa7d923b9c936c419d78fcfbb42315076"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,15 +131,32 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a6319ef7677a33d569d4fd2a249f8c3ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a6319ef7677a33d569d4fd2a249f8c3ef">create_led</a> (std::string const &amp;name, std::stack&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; &amp;info)</td></tr>
 <tr class="memdesc:a6319ef7677a33d569d4fd2a249f8c3ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an LED using the name and information given.  <a href="#a6319ef7677a33d569d4fd2a249f8c3ef">More...</a><br /></td></tr>
 <tr class="separator:a6319ef7677a33d569d4fd2a249f8c3ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbc2e293c132eea7e10d813dee0607da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#adbc2e293c132eea7e10d813dee0607da">create_if</a> (std::string const &amp;condition)</td></tr>
+<tr class="memdesc:adbc2e293c132eea7e10d813dee0607da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the creation of an if command group.  <a href="#adbc2e293c132eea7e10d813dee0607da">More...</a><br /></td></tr>
+<tr class="separator:adbc2e293c132eea7e10d813dee0607da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d40227c94b61cc702fc08a2553121fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a6d40227c94b61cc702fc08a2553121fa">add_to_if</a> (std::string const &amp;command)</td></tr>
+<tr class="memdesc:a6d40227c94b61cc702fc08a2553121fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a command to the if command group that is currently being created.  <a href="#a6d40227c94b61cc702fc08a2553121fa">More...</a><br /></td></tr>
+<tr class="separator:a6d40227c94b61cc702fc08a2553121fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a968f821f6145a2e728bcdb83ecacf8e1"><td class="memItemLeft" align="right" valign="top"><a id="a968f821f6145a2e728bcdb83ecacf8e1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a968f821f6145a2e728bcdb83ecacf8e1">close_if</a> ()</td></tr>
+<tr class="memdesc:a968f821f6145a2e728bcdb83ecacf8e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finishes the creation of an if command group, and adds its commands to the commandQueue if the condition is true. <br /></td></tr>
+<tr class="separator:a968f821f6145a2e728bcdb83ecacf8e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0035330c04eb3b37082a0fab8a22672"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ac0035330c04eb3b37082a0fab8a22672">create_group</a> (std::string const &amp;name)</td></tr>
 <tr class="memdesc:ac0035330c04eb3b37082a0fab8a22672"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the creation of a command group.  <a href="#ac0035330c04eb3b37082a0fab8a22672">More...</a><br /></td></tr>
 <tr class="separator:ac0035330c04eb3b37082a0fab8a22672"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acec4d7bb4d1f68afef44b48f4ea7fcab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#acec4d7bb4d1f68afef44b48f4ea7fcab">close_group</a> (std::string const &amp;name, std::vector&lt; std::string &gt; &amp;commands)</td></tr>
-<tr class="memdesc:acec4d7bb4d1f68afef44b48f4ea7fcab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finishes the creation of a command group.  <a href="#acec4d7bb4d1f68afef44b48f4ea7fcab">More...</a><br /></td></tr>
-<tr class="separator:acec4d7bb4d1f68afef44b48f4ea7fcab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54d3234273fc3b585ff1c1eab8770939"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a54d3234273fc3b585ff1c1eab8770939">add_to_group</a> (std::string const &amp;command)</td></tr>
 <tr class="memdesc:a54d3234273fc3b585ff1c1eab8770939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a command to the command group that is currently being created.  <a href="#a54d3234273fc3b585ff1c1eab8770939">More...</a><br /></td></tr>
 <tr class="separator:a54d3234273fc3b585ff1c1eab8770939"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acec4d7bb4d1f68afef44b48f4ea7fcab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#acec4d7bb4d1f68afef44b48f4ea7fcab">close_group</a> (std::string const &amp;name, std::vector&lt; std::string &gt; &amp;commands)</td></tr>
+<tr class="memdesc:acec4d7bb4d1f68afef44b48f4ea7fcab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finishes the creation of a command group.  <a href="#acec4d7bb4d1f68afef44b48f4ea7fcab">More...</a><br /></td></tr>
+<tr class="separator:acec4d7bb4d1f68afef44b48f4ea7fcab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8dae84e3bd6791e0d20f95839dc56e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ad8dae84e3bd6791e0d20f95839dc56e8">increase_nested_level</a> (InterpreterStatus status)</td></tr>
+<tr class="memdesc:ad8dae84e3bd6791e0d20f95839dc56e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increases the nested level of the interpreter.  <a href="#ad8dae84e3bd6791e0d20f95839dc56e8">More...</a><br /></td></tr>
+<tr class="separator:ad8dae84e3bd6791e0d20f95839dc56e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5f03b00aa4b819886a27070b27c713f"><td class="memItemLeft" align="right" valign="top"><a id="ab5f03b00aa4b819886a27070b27c713f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ab5f03b00aa4b819886a27070b27c713f">decrease_nested_level</a> ()</td></tr>
+<tr class="memdesc:ab5f03b00aa4b819886a27070b27c713f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decreases the nested level of the interpreter. <br /></td></tr>
+<tr class="separator:ab5f03b00aa4b819886a27070b27c713f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that stores state on all devices and groups, and executes commands. </p>
@@ -192,7 +213,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table>
 </div><div class="memdoc">
 
-<p>Executes a given command. </p>
+<p>Executes a given command. This method takes the current interpreter status into account. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">command</td><td>The raw string command to execute. </td></tr>
@@ -230,6 +251,40 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">command</td><td>The command to execute. Tokens in command are assumed to be in postfix notation. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad9b3ef4f2441f298a1c8adfcfe3822e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9b3ef4f2441f298a1c8adfcfe3822e4">&#9670;&nbsp;</a></span>execute_if()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kty::Interpreter::execute_if </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>command</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Executes the if command. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>The command to execute. </td></tr>
   </table>
   </dd>
 </dl>
@@ -678,6 +733,74 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
+<a id="adbc2e293c132eea7e10d813dee0607da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbc2e293c132eea7e10d813dee0607da">&#9670;&nbsp;</a></span>create_if()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kty::Interpreter::create_if </td>
+          <td>(</td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>condition</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Begins the creation of an if command group. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">condition</td><td>The result of evaluating the condition. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6d40227c94b61cc702fc08a2553121fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d40227c94b61cc702fc08a2553121fa">&#9670;&nbsp;</a></span>add_to_if()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kty::Interpreter::add_to_if </td>
+          <td>(</td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>command</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a command to the if command group that is currently being created. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>The command to add to the if command group. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ac0035330c04eb3b37082a0fab8a22672"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac0035330c04eb3b37082a0fab8a22672">&#9670;&nbsp;</a></span>create_group()</h2>
 
@@ -706,6 +829,40 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">name</td><td>The name of the command group to be created. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a54d3234273fc3b585ff1c1eab8770939"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54d3234273fc3b585ff1c1eab8770939">&#9670;&nbsp;</a></span>add_to_group()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kty::Interpreter::add_to_group </td>
+          <td>(</td>
+          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramname"><em>command</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a command to the command group that is currently being created. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>The command to add to the command group. </td></tr>
   </table>
   </dd>
 </dl>
@@ -757,8 +914,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a54d3234273fc3b585ff1c1eab8770939"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54d3234273fc3b585ff1c1eab8770939">&#9670;&nbsp;</a></span>add_to_group()</h2>
+<a id="ad8dae84e3bd6791e0d20f95839dc56e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8dae84e3bd6791e0d20f95839dc56e8">&#9670;&nbsp;</a></span>increase_nested_level()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -767,10 +924,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::add_to_group </td>
+          <td class="memname">void kty::Interpreter::increase_nested_level </td>
           <td>(</td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
-          <td class="paramname"><em>command</em></td><td>)</td>
+          <td class="paramtype">InterpreterStatus&#160;</td>
+          <td class="paramname"><em>status</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -781,10 +938,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </table>
 </div><div class="memdoc">
 
-<p>Adds a command to the command group that is currently being created. </p>
+<p>Increases the nested level of the interpreter. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">command</td><td>The command to add to the command group. </td></tr>
+    <tr><td class="paramname">status</td><td>The new status of the interpreter. </td></tr>
   </table>
   </dd>
 </dl>

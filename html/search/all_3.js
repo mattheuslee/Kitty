@@ -8,5 +8,6 @@ var searchData=
   ['execute_5fcommand_5fqueue',['execute_command_queue',['../classkty_1_1_interpreter.html#ae04ae25217fea8414db7fb8f666321d2',1,'kty::Interpreter']]],
   ['execute_5fcreate',['execute_create',['../classkty_1_1_interpreter.html#ae9e890492973c875fecf1e435bd608c7',1,'kty::Interpreter']]],
   ['execute_5felse',['execute_else',['../classkty_1_1_interpreter.html#aa7d923b9c936c419d78fcfbb42315076',1,'kty::Interpreter']]],
+  ['execute_5fif',['execute_if',['../classkty_1_1_interpreter.html#ad9b3ef4f2441f298a1c8adfcfe3822e4',1,'kty::Interpreter']]],
   ['execute_5frun_5fgroup',['execute_run_group',['../classkty_1_1_interpreter.html#ad285fcf61260774d6b4d632fc59b5663',1,'kty::Interpreter']]]
 ];
