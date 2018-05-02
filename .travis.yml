@@ -22,7 +22,8 @@ script:
    - build_platform mega2560
    - git clone https://github.com/mmurdoch/arduinounit.git
    - git clone https://github.com/thijse/Arduino-Log.git
-   - cd test && make test && cd .. && rm -r -f /home/travis/build/mattheuslee/KittyInterpreter/arduinounit/
+   - cd test && make test
+   - rm -r -f /home/travis/build/mattheuslee/KittyInterpreter/arduinounit/ /home/travis/build/mattheuslee/KittyInterpreter/Arduino-Log/
 
 # Generate and deploy documentation
 after_success:
