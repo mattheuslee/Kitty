@@ -1,18 +1,17 @@
 fizzbuzz IsGroup (
     If (num % 3 = 0 & num % 5 = 0) (
-        "FizzBuzz"
+        'FizzBuzz'
     )
     ElseIf (num % 3 = 0) (
-        "Fizz"
+        'Fizz'
     )
     ElseIf (num % 5 = 0) (
-        "Buzz"
+        'Buzz'
     )
     Else (
         num
     )
-    num MoveBy(1)
+    num IsNumber(num + 1)
 )
-
 num IsNumber(1)
-fizzbuz RunGroup(20)
+fizzbuzz RunGroup(20)
