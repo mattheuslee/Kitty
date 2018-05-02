@@ -32,7 +32,7 @@ int main(void) {
         loop();
     }
 
-    return 0;
+    return Test::getCurrentFailed();
 }
 
 #endif
