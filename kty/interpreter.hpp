@@ -738,7 +738,6 @@ public:
                 and the LED pin number is expected to be the second token from the top.
     */
     void create_led(std::string const & name, std::stack<Token> & info) {
-        Serial.println("Creating LED");
         Device number(DeviceType::LED);
         number.name = name;
         int brightness = str_to_int(info.top().value);
