@@ -38,7 +38,7 @@ Tokenizer tokenizer;
 #include <test/tokenizer_test.hpp>
 
 int main(void) {
-    Test::min_verbosity = TEST_VERBOSITY_ALL;
+    //Test::min_verbosity = TEST_VERBOSITY_ALL;
 
     while (Test::remaining() > 0) {
         Test::run();
