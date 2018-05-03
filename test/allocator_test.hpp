@@ -25,5 +25,6 @@ test(allocator)
 
     for (int i = 0; i < numInts; ++i) {
         allocator.deallocate(ints[i]);
+        ints[i] = NULL;
     }
 }
