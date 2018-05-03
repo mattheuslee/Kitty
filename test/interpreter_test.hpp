@@ -93,7 +93,7 @@ test(interpreter_fizz_buzz)
             "Else (",
                 "num",
             ")",
-            "num IsNumber(num + 1)",
+            "num MoveBy(1)",
         ")",
         "num IsNumber(1)",
         "fizzbuzz RunGroup(5)"
@@ -122,7 +122,7 @@ test(interpreter_fizz_buzz_alternative_1)
             "If (~(num % 3 = 0) & ~(num % 5 = 0)) (",
                 "num",
             ")",
-            "num IsNumber(num + 1)",
+            "num MoveBy(1)",
         ")",
         "num IsNumber(1)",
         "fizzbuzz RunGroup(20)"
@@ -155,7 +155,7 @@ test(interpreter_fizz_buzz_alternative_2)
                     ")",
                 ")",
             ")",
-            "num IsNumber(num + 1)",
+            "num MoveBy(1)",
         ")",
         "num IsNumber(1)",
         "fizzbuzz RunGroup(20)"

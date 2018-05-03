@@ -300,6 +300,24 @@ struct Token {
     }
 
     /*!
+        @brief  Checks if this token is the move by connand.
+
+        @return True if this token is the move by command, false otherwise.
+    */
+    bool is_move_by() const {
+        return type == TokenType::MOVE_BY;
+    }
+
+    /*!
+        @brief  Checks if this token is the move by for connand.
+
+        @return True if this token is the move by for command, false otherwise.
+    */
+    bool is_move_by_for() const {
+        return type == TokenType::MOVE_BY_FOR;
+    }
+
+    /*!
         @brief  Checks if this token is a function.
 
         @return True if this token is a function, false otherwise.

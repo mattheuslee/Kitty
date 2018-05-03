@@ -98,9 +98,9 @@ struct Device {
             str += "Servo using pin " + info[0] + " ("+ info[1] + " degrees)";
             break;
         case GROUP:
-            str += "Command Group containing the command(s):\n";
+            str += "Command Group containing the command(s):";
             for (int i = 0; i < info.size(); ++i) {
-                 str += "    " + info[i] + "\n";
+                str += "\n    " + info[i];
             }
             break;
         case UNKNOWN_DEVICE:
@@ -108,6 +108,24 @@ struct Device {
             return "UNKNOWN_DEVICE";            
         };
         return str;
+    }
+
+    /*!
+        @brief  Sets the device to a given number value.
+
+        @param  value
+                The value to set the device to.
+    */
+    void set_to(int const & value) {
+        switch (type) {
+        case NUM:
+            info[0] = int_to_str(value);
+            break;
+        case LED:
+            info[1] = int_to_str(value);
+            analogWrite(str_to_int(info[0]), (int)(value * 2.55));
+            break;
+        };
     }
 
     /*!
@@ -289,6 +307,10 @@ public:
                          command.back().is_create_group()) {
                     execute_create(command);
                 }
+                else if (command.back().is_move_by() ||
+                         command.back().is_move_by_for()) {
+                    execute_move_by(command);
+                }
                 // Running group
                 else {
                     execute_run_group(command);
@@ -313,9 +335,9 @@ public:
             Serial.println(devices_.find(name)->second.info_str().c_str());
         }
         else {
-            Serial.print("Error: ");
+            Serial.print(F("Error: "));
             Serial.print(name.c_str());
-            Serial.println(" does not exist");
+            Serial.println(F(" does not exist"));
         }
     }
 
@@ -386,11 +408,57 @@ public:
         else if (createToken.is_create_led()) {
             create_led(name, result);
         }
-        else if (createToken.is_create_servo()) {
-            
-        }
         else if (createToken.is_create_group()) {
             create_group(name);
+        }
+    }
+
+    /*!
+        @brief  Executes the move by or move by for commands.
+
+        @param  command
+                The command to execute.
+    */
+    void execute_move_by(std::vector<Token> const & command) {
+        std::queue<Token> tokenQueue;
+        // Skip the move by or move by for token at the end
+        for (int i = 0; i < command.size() - 1; ++i) {
+            tokenQueue.push(command[i]);
+        }
+        std::string name = tokenQueue.front().value;
+        // Nothing to move
+        if (devices_.find(name) == devices_.end()) {
+            Serial.print(F("Error: "));
+            Serial.print(name.c_str());
+            Serial.println(F(" does not exist"));
+            return;
+        }
+        // Cannot be moved
+        if (!devices_.find(name)->second.is_number() &&
+            !devices_.find(name)->second.is_led() &&
+            !devices_.find(name)->second.is_servo()) {
+            Serial.print(F("Error: move command is not valid for"));
+            Serial.println(name.c_str());
+            return;
+        }
+        Token createToken = command[command.size() - 1];
+        tokenQueue.pop();
+
+        std::stack<Token> result = evaluate_postfix(tokenQueue);
+
+        int displacement, durationMs = 0;
+        // There will be an additional argument if it is move by for
+        if (result.size() > 1) {
+            durationMs = str_to_int(result.top().value);
+            result.pop();
+        }
+        displacement = str_to_int(result.top().value);
+
+        int originalValue = str_to_int(devices_.find(name)->second.info.back());
+        devices_.find(name)->second.set_to(originalValue + displacement);
+        if (command.back().is_move_by_for()) {
+            delay(durationMs);
+            devices_.find(name)->second.set_to(originalValue);
         }
     }
 
@@ -408,16 +476,17 @@ public:
             tokenQueue.push(command[i]);
         }
         std::string name = tokenQueue.front().value;
-
         std::stack<Token> result = evaluate_postfix(tokenQueue);
         int numTimes = str_to_int(result.top().value);
         std::vector<std::string> commands = get_device(name).info;
         Log.trace(F("Running group = %s\n"), name.c_str());
-        for (int i = 0; i < numTimes; ++i) {
-            for (int j = 0; j < commands.size(); ++j) {
-                // Push in reverse order since pushing from the front
-                commandQueue_.push_front(commands[commands.size() - j - 1]);
-            }
+        // Add command for one more call to run the group
+        if (numTimes > 1) {
+            commandQueue_.push_front(name + "RunGroup(" + int_to_str(numTimes - 1) + ")");
+        }
+        for (int j = 0; j < commands.size(); ++j) {
+            // Push in reverse order since pushing from the front
+            commandQueue_.push_front(commands[commands.size() - j - 1]);
         }
     }
 
