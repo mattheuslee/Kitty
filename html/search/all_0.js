@@ -6,5 +6,6 @@ var searchData=
   ['add_5fto_5fgroup',['add_to_group',['../classkty_1_1_interpreter.html#a54d3234273fc3b585ff1c1eab8770939',1,'kty::Interpreter']]],
   ['add_5fto_5fif',['add_to_if',['../classkty_1_1_interpreter.html#a6d40227c94b61cc702fc08a2553121fa',1,'kty::Interpreter']]],
   ['allocate',['allocate',['../classkty_1_1_allocator.html#a164690a279a6c23ab86d8e4af2fe8b88',1,'kty::Allocator']]],
-  ['allocator',['Allocator',['../classkty_1_1_allocator.html',1,'kty::Allocator&lt; T &gt;'],['../classkty_1_1_allocator.html#ac021638f93f588373b3c256ce9fa2a50',1,'kty::Allocator::Allocator()']]]
+  ['allocator',['Allocator',['../classkty_1_1_allocator.html',1,'kty::Allocator&lt; T &gt;'],['../classkty_1_1_allocator.html#ac021638f93f588373b3c256ce9fa2a50',1,'kty::Allocator::Allocator()']]],
+  ['allocator_3c_20kty_3a_3adeque_3a_3adequenode_20_3e',['Allocator&lt; kty::Deque::DequeNode &gt;',['../classkty_1_1_allocator.html',1,'kty']]]
 ];
