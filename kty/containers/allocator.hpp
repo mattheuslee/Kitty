@@ -27,6 +27,9 @@ public:
         T* ptr = NULL;
         for (int i = 0; i < poolSize_; ++i) {
             ptr = (T*)(malloc(itemSize));
+            if (ptr == NULL) {
+                Log.warning(F("Allocator received NULL when attempting to create pool\n"));
+            }
             pool_[i] = ptr;
             taken_[i] = false;
         }

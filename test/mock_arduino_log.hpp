@@ -26,6 +26,15 @@ public:
     template<typename... Args>
     void trace(Args... args) {}
 
+    /*!
+        @brief  Mock version of ArduinoLog's warning logging.
+
+        @param  args
+                Mock arguments.
+    */
+    template<typename... Args>
+    void warning(Args... args) {}
+
 private:
 
 };
