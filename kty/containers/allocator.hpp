@@ -46,9 +46,9 @@ public:
         @brief  Prints stats about the allocator.
     */
     void stat() {
-        Serial.print(F("Allocator: num taken = ");
+        Serial.print(F("Allocator: num taken = "));
         Serial.print(numTaken_);
-        Serial.print(F(", max num taken = ");
+        Serial.print(F(", max num taken = "));
         Serial.println(maxNumTaken_);
     }
 
