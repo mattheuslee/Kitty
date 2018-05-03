@@ -6,7 +6,6 @@
 #include <cctype>
 #include <sstream>
 #include <string>
-#include <map>
 #include <vector>
 
 #include <kty/string_utils.hpp>
@@ -39,49 +38,84 @@ enum TokenType {
             If the token type is invalid, "UNKNOWN" is returned.
 */
 std::string token_type_to_str(TokenType tokenType) {
-    static const std::map<TokenType, std::string> lookupMap = {
-        {TokenType::CREATE_NUM, "CREATE_NUM"},
-        {TokenType::CREATE_LED, "CREATE_LED"},
-        {TokenType::CREATE_SERVO, "CREATE_SERVO"},
-        {TokenType::CREATE_GROUP, "CREATE_GROUP"},
-        {TokenType::RUN_GROUP, "RUN_GROUP"},
-        {TokenType::MOVE_BY_FOR, "MOVE_BY_FOR"},
-        {TokenType::MOVE_BY, "MOVE_BY"},
-        {TokenType::SET_TO_FOR, "SET_TO_FOR"},
-        {TokenType::SET_TO, "SET_TO"},
-        {TokenType::NAME, "NAME"},
-        {TokenType::NUM_VAL, "NUM_VAL"},
-        {TokenType::STRING, "STRING"},
-        {TokenType::IF, "IF"},
-        {TokenType::ELSE_IF, "ELSE_IF"},
-        {TokenType::ELSE, "ELSE"},
-        {TokenType::WHILE, "WHILE"},
-        {TokenType::OP_PAREN, "OP_PAREN"},
-        {TokenType::CL_PAREN, "CL_PAREN"},
-        {TokenType::COMMA, "COMMA"},
-        {TokenType::EQUALS, "EQUALS"},
-        {TokenType::L_EQUALS, "L_EQUALS"},
-        {TokenType::G_EQUALS, "G_EQUALS"},
-        {TokenType::LESS, "LESS"},
-        {TokenType::GREATER, "GREATER"},
-        {TokenType::MATH_ADD, "MATH_ADD"},
-        {TokenType::MATH_SUB, "MATH_SUB"},
-        {TokenType::MATH_MUL, "MATH_MUL"},
-        {TokenType::MATH_DIV, "MATH_DIV"},
-        {TokenType::MATH_MOD, "MATH_MOD"},
-        {TokenType::MATH_POW, "MATH_POW"},
-        {TokenType::UNARY_NEG, "UNARY_NEG"},
-        {TokenType::LOGI_AND, "LOGI_AND"},
-        {TokenType::LOGI_OR, "LOGI_OR"},
-        {TokenType::LOGI_XOR, "LOGI_XOR"},
-        {TokenType::LOGI_NOT, "LOGI_NOT"},
-        {TokenType::UNKNOWN_TYPE, "UNKNOWN"},
-        {TokenType::CMD_END, "CMD_END"},
-    };
-    if (lookupMap.find(tokenType) == lookupMap.end()) {
+    switch(tokenType) {
+    case CREATE_NUM:
+        return "CREATE_NUM";
+    case CREATE_LED:
+        return "CREATE_LED";
+    case CREATE_SERVO:
+        return "CREATE_SERVO";
+    case CREATE_GROUP:
+        return "CREATE_GROUP";
+    case RUN_GROUP:
+        return "RUN_GROUP";
+    case MOVE_BY_FOR:
+        return "MOVE_BY_FOR";
+    case MOVE_BY:
+        return "MOVE_BY";
+    case SET_TO_FOR:
+        return "SET_TO_FOR";
+    case SET_TO:
+        return "SET_TO";
+    case NAME:
+        return "NAME";
+    case NUM_VAL:
+        return "NUM_VAL";
+    case STRING:
+        return "STRING";
+    case IF:
+        return "IF";
+    case ELSE_IF:
+        return "ELSE_IF";
+    case ELSE:
+        return "ELSE";
+    case WHILE:
+        return "WHILE";
+    case OP_PAREN:
+        return "OP_PAREN";
+    case CL_PAREN:
+        return "CL_PAREN";
+    case COMMA:
+        return "COMMA";
+    case EQUALS:
+        return "EQUALS";
+    case L_EQUALS:
+        return "L_EQUALS";
+    case G_EQUALS:
+        return "G_EQUALS";
+    case LESS:
+        return "LESS";
+    case GREATER:
+        return "GREATER";
+    case MATH_ADD:
+        return "MATH_ADD";
+    case MATH_SUB:
+        return "MATH_SUB";
+    case MATH_MUL:
+        return "MATH_MUL";
+    case MATH_DIV:
+        return "MATH_DIV";
+    case MATH_MOD:
+        return "MATH_MOD";
+    case MATH_POW:
+        return "MATH_POW";
+    case UNARY_NEG:
+        return "UNARY_NEG";
+    case LOGI_AND:
+        return "LOGI_AND";
+    case LOGI_OR:
+        return "LOGI_OR";
+    case LOGI_XOR:
+        return "LOGI_XOR";
+    case LOGI_NOT:
+        return "LOGI_NOT";
+    case UNKNOWN_TYPE:
+        return "UNKNOWN_TYPE";
+    case CMD_END:
+        return "CMD_END";
+    default:
         return "UNKNOWN";
-    }
-    return lookupMap.find(tokenType)->second;
+    };
 }
 
 /*!
@@ -451,7 +485,6 @@ struct Token {
                 If this token is not a function, returns 0.
     */
     int num_function_arguments() const {
-        // TODO: convert to static const map
         switch (type) {
         case TokenType::CREATE_NUM:
             return 1;
@@ -495,28 +528,42 @@ struct Token {
             If the token is not an operator, 0 is returned.
 */
 int get_token_precedence_level(Token const & token) {
-    static const std::map<TokenType, int> precedenceLevel = {
-        {TokenType::UNARY_NEG, 6},
-        {TokenType::LOGI_NOT, 6},
-        {TokenType::MATH_POW, 5},
-        {TokenType::MATH_MUL, 4},
-        {TokenType::MATH_DIV, 4},
-        {TokenType::MATH_MOD, 4},
-        {TokenType::MATH_ADD, 3},
-        {TokenType::MATH_SUB, 3},
-        {TokenType::EQUALS, 2},
-        {TokenType::L_EQUALS, 2},
-        {TokenType::G_EQUALS, 2},
-        {TokenType::LESS, 2},
-        {TokenType::GREATER, 2},
-        {TokenType::LOGI_AND, 1},
-        {TokenType::LOGI_OR, 1},
-        {TokenType::LOGI_XOR, 1},
-    };
-    if (precedenceLevel.find(token.type) == precedenceLevel.end()) {
+    switch (token.type) {
+    case UNARY_NEG:
+        return 6;
+    case LOGI_NOT:
+        return 6;
+    case MATH_POW:
+        return 5;
+    case MATH_MUL:
+        return 4;
+    case MATH_DIV:
+        return 4;
+    case MATH_MOD:
+        return 4;
+    case MATH_ADD:
+        return 3;
+    case MATH_SUB:
+        return 3;
+    case EQUALS:
+        return 2;
+    case L_EQUALS:
+        return 2;
+    case G_EQUALS:
+        return 2;
+    case LESS:
+        return 2;
+    case GREATER:
+        return 2;
+    case LOGI_AND:
+        return 1;
+    case LOGI_OR:
+        return 1;
+    case LOGI_XOR:
+        return 1;
+    default:
         return 0;
-    }
-    return precedenceLevel.find(token.type)->second;
+    };
 }
 
 /*!
