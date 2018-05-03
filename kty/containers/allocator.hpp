@@ -61,6 +61,7 @@ public:
                 return pool_[i];
             }
         }
+        Log.warning(F("Allocator could not allocate new block from pool\n"));
         return NULL;
     }
 
@@ -78,6 +79,7 @@ public:
                 return;
             }
         }
+        Log.warning(F("Pointer given to allocator to deallocate did not come from pool\n"));
     }
 
 private:
