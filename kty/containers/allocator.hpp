@@ -66,6 +66,7 @@ public:
                 taken_[i] = true;
                 ++numTaken_;
                 if (numTaken_ > maxNumTaken_) {
+                    Log.trace(F("Allocator: new max num taken %d\n"), maxNumTaken_);
                     maxNumTaken_ = numTaken_;
                 }
                 return pool_[i];
