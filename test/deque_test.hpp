@@ -29,4 +29,9 @@ test(deque)
         deque.pop_front();
     }
     assertTrue(deque.is_empty());
+
+    deque.push_front(2);
+    deque.push_front(1);
+    assertTrue(deque.front() == 1);
+    assertTrue(deque.back() == 2);
 }
