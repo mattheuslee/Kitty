@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['device',['Device',['../structkty_1_1_device.html',1,'kty']]]
+  ['allocator',['Allocator',['../classkty_1_1_allocator.html',1,'kty']]]
 ];
