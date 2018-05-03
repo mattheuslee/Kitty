@@ -19,6 +19,8 @@ var searchData=
   ['is_5fled',['is_led',['../structkty_1_1_device.html#a8a50c8f7695794ad2c29a04d3d387d96',1,'kty::Device']]],
   ['is_5fleft_5fassociative',['is_left_associative',['../structkty_1_1_token.html#a4e707d7faf7e4b27dc7c56832d94b1bb',1,'kty::Token']]],
   ['is_5fleft_5fbracket',['is_left_bracket',['../structkty_1_1_token.html#a7568cfd741ef70207a2c693a44d4751a',1,'kty::Token']]],
+  ['is_5fmove_5fby',['is_move_by',['../structkty_1_1_token.html#aa8b76d1532a3dcc844b8467f07a2c14b',1,'kty::Token']]],
+  ['is_5fmove_5fby_5ffor',['is_move_by_for',['../structkty_1_1_token.html#a6dab1a1df4f53f00409beaa74c87494f',1,'kty::Token']]],
   ['is_5fname',['is_name',['../structkty_1_1_token.html#a5c6eff2db2c1f79b17f9302d89686c00',1,'kty::Token']]],
   ['is_5fnumber',['is_number',['../structkty_1_1_device.html#a598e84eafb37c92655cd93d1635d727d',1,'kty::Device::is_number()'],['../structkty_1_1_token.html#afbe498f1a3d63f86999a2363c25e3e7b',1,'kty::Token::is_number()']]],
   ['is_5foperand',['is_operand',['../structkty_1_1_token.html#a79885fba61f711cbd45e2a7fef3d3702',1,'kty::Token']]],

@@ -114,6 +114,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:ae9e890492973c875fecf1e435bd608c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ae9e890492973c875fecf1e435bd608c7">execute_create</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
 <tr class="memdesc:ae9e890492973c875fecf1e435bd608c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the different creation commands.  <a href="#ae9e890492973c875fecf1e435bd608c7">More...</a><br /></td></tr>
 <tr class="separator:ae9e890492973c875fecf1e435bd608c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc73345ba283dc71c614698c313059de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#acc73345ba283dc71c614698c313059de">execute_move_by</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
+<tr class="memdesc:acc73345ba283dc71c614698c313059de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the move by or move by for commands.  <a href="#acc73345ba283dc71c614698c313059de">More...</a><br /></td></tr>
+<tr class="separator:acc73345ba283dc71c614698c313059de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad285fcf61260774d6b4d632fc59b5663"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ad285fcf61260774d6b4d632fc59b5663">execute_run_group</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
 <tr class="memdesc:ad285fcf61260774d6b4d632fc59b5663"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the running of a command group. Essentially adds the commands in the command group to the command queue to be executed later.  <a href="#ad285fcf61260774d6b4d632fc59b5663">More...</a><br /></td></tr>
 <tr class="separator:ad285fcf61260774d6b4d632fc59b5663"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -452,6 +455,40 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 
 <p>Executes the different creation commands. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>The command to execute. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acc73345ba283dc71c614698c313059de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc73345ba283dc71c614698c313059de">&#9670;&nbsp;</a></span>execute_move_by()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kty::Interpreter::execute_move_by </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>command</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Executes the move by or move by for commands. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">command</td><td>The command to execute. </td></tr>
