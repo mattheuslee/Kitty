@@ -11,7 +11,7 @@ fizzbuzz IsGroup (
     If (~(num % 3 = 0) & ~(num % 5 = 0)) (
         num
     )
-    num IsNumber(num + 1)
+    num MoveBy(1)
 )
 num IsNumber(1)
 fizzbuzz RunGroup(20)
