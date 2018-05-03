@@ -5,6 +5,7 @@ var searchData=
   ['close_5felse_5fif',['close_else_if',['../classkty_1_1_interpreter.html#a6f01bd611564f9b491f2d6a13d416428',1,'kty::Interpreter']]],
   ['close_5fgroup',['close_group',['../classkty_1_1_interpreter.html#acec4d7bb4d1f68afef44b48f4ea7fcab',1,'kty::Interpreter']]],
   ['close_5fif',['close_if',['../classkty_1_1_interpreter.html#a968f821f6145a2e728bcdb83ecacf8e1',1,'kty::Interpreter']]],
+  ['create_5fallocator',['create_allocator',['../classkty_1_1_deque.html#a71930c2c9b4383b3af27ce6e48590997',1,'kty::Deque']]],
   ['create_5felse',['create_else',['../classkty_1_1_interpreter.html#aebc0963a3a359825fcf763e2b98eb8b0',1,'kty::Interpreter']]],
   ['create_5felse_5fif',['create_else_if',['../classkty_1_1_interpreter.html#a73315c72c3c5729bc72e89fe8ea0211b',1,'kty::Interpreter']]],
   ['create_5fgroup',['create_group',['../classkty_1_1_interpreter.html#ac0035330c04eb3b37082a0fab8a22672',1,'kty::Interpreter']]],

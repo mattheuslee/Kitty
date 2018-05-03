@@ -65,6 +65,7 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classkty_1_1_deque-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">kty::Deque&lt; T &gt; Class Template Reference</div>  </div>
@@ -117,6 +118,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:ab91b5ef5d39e12fb341838e3e0023fdf"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#ab91b5ef5d39e12fb341838e3e0023fdf">operator[]</a> (int const &amp;i)</td></tr>
 <tr class="memdesc:ab91b5ef5d39e12fb341838e3e0023fdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the ith-indexed element of the deque. Has undefined behaviour if the deque has less than i elements.  <a href="#ab91b5ef5d39e12fb341838e3e0023fdf">More...</a><br /></td></tr>
 <tr class="separator:ab91b5ef5d39e12fb341838e3e0023fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a71930c2c9b4383b3af27ce6e48590997"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classkty_1_1_allocator.html">Allocator</a>&lt; <a class="el" href="structkty_1_1_deque_1_1_deque_node.html">DequeNode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a71930c2c9b4383b3af27ce6e48590997">create_allocator</a> (int const &amp;maxSize)</td></tr>
+<tr class="memdesc:a71930c2c9b4383b3af27ce6e48590997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an allocator for this deque.  <a href="#a71930c2c9b4383b3af27ce6e48590997">More...</a><br /></td></tr>
+<tr class="separator:a71930c2c9b4383b3af27ce6e48590997"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
@@ -161,6 +168,43 @@ template&lt;typename T&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a71930c2c9b4383b3af27ce6e48590997"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71930c2c9b4383b3af27ce6e48590997">&#9670;&nbsp;</a></span>create_allocator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classkty_1_1_allocator.html">Allocator</a>&lt;<a class="el" href="structkty_1_1_deque_1_1_deque_node.html">DequeNode</a>&gt; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T &gt;::create_allocator </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>maxSize</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates an allocator for this deque. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">maxSize</td><td>Maximum size for the deque. If the deque using this allocator exceeds this max size, undefined behaviour will occur.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The allocator to use for this deque. </dd></dl>
+
+</div>
+</div>
 <a id="a84fb79616267c91d178e4902e4794485"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a84fb79616267c91d178e4902e4794485">&#9670;&nbsp;</a></span>is_empty()</h2>
 
