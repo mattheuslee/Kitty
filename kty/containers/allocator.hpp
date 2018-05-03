@@ -42,14 +42,25 @@ public:
         free(taken_);
     }
 
+    /*!
+        @brief  Prints stats about the allocator.
+    */
     void stat() {
-        Serial.println(numTaken_);
+        Serial.print(F("Allocator: num taken = ");
+        Serial.print(numTaken_);
+        Serial.print(F(", max num taken = ");
         Serial.println(maxNumTaken_);
     }
 
+    /*!
+        @brief  Prints the addresses used by the allocator
+    */
     void dump_addresses() {
+        Serial.print(F("Allocator: Pool address = "));
         Serial.println((unsigned int)pool_);
-        Serial.println((unsigned int)(&(pool_[1])));
+        Serial.print(F("Allocator: Taken address = "));
+        Serial.println((unsigned int)taken_);
+        Serial.println(F("Allocator: Pool block addresses = "));
         for (int i = 0; i < poolSize_; ++i) {
             Serial.println((unsigned int)pool_[i]);
         }
