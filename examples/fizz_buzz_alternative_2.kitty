@@ -1,0 +1,21 @@
+fizzbuzz IsGroup (
+    If (num % 3 = 0 & num % 5 = 0) (
+        'FizzBuzz'
+    )
+    Else (
+        If (num % 3 = 0) (
+            'Fizz'
+        )
+        Else (
+            If (num % 5 = 0) (
+                'Buzz'
+            )
+            Else (
+                num
+            )
+        )
+    )
+    num MoveBy(1)
+)
+num IsNumber(1)
+fizzbuzz RunGroup(20)
