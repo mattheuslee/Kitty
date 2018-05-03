@@ -6,7 +6,7 @@ var searchData=
   ['pop_5ffront',['pop_front',['../classkty_1_1_deque.html#a6e7051b67bd82bb9514b0d8cc3c026da',1,'kty::Deque']]],
   ['power',['power',['../classkty_1_1_interpreter.html#a4df0cdd602e563e509a97bbf183fccb2',1,'kty::Interpreter']]],
   ['preprocess',['preprocess',['../classkty_1_1_parser.html#a7a4a38ccf9d8531de8d43bf2eb23ce53',1,'kty::Parser']]],
-  ['prev',['prev',['../structkty_1_1_deque_1_1_deque_node.html#aa1d11dd18e149059ce2ab0bf73da003f',1,'kty::Deque::DequeNode']]],
+  ['prev',['prev',['../structkty_1_1_deque_1_1_node.html#a11a1433f83866ab0d88d52b26f5083aa',1,'kty::Deque::Node']]],
   ['print_5fprompt',['print_prompt',['../classkty_1_1_interface.html#adbd7f7b5a8dd5ba2d25027837cebb648',1,'kty::Interface::print_prompt()'],['../classkty_1_1_interface.html#a4a22e246ae84c4c56a3bf1489a75b89b',1,'kty::Interface::print_prompt(std::string const &amp;prefix)']]],
   ['print_5fwelcome',['print_welcome',['../classkty_1_1_interface.html#a09a2c4e06ed0a8f4fd9d17bfa940608c',1,'kty::Interface']]],
   ['process_5fmath_5ftokens',['process_math_tokens',['../classkty_1_1_tokenizer.html#a4b57b21d7b14d189cae9d5f1005c3cbe',1,'kty::Tokenizer']]],
