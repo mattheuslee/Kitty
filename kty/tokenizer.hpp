@@ -151,40 +151,52 @@ TokenType command_str_to_token_type(std::string const & str) {
 }
 
 /*!
-    @brief  Converts a punctuation string to its corresponding token type.
+    @brief  Converts a punctuation character to its corresponding token type.
 
-    @param  str
+    @param  ch
             The punctuation.
 
     @return The corresponding token type for the punctuation.
             If the parameter is not valid punctuation,
             the unknown token type is returned.
 */
-TokenType punctuation_str_to_token_type(std::string const & str) {
-    static const std::string validPunctuation_ = "(),=<>+-*/%^&|!~";
-    static const TokenType lookup[] = {
-        TokenType::OP_PAREN,
-        TokenType::CL_PAREN,
-        TokenType::COMMA,
-        TokenType::EQUALS,
-        TokenType::LESS,
-        TokenType::GREATER,
-        TokenType::MATH_ADD,
-        TokenType::MATH_SUB,
-        TokenType::MATH_MUL,
-        TokenType::MATH_DIV,
-        TokenType::MATH_MOD,
-        TokenType::MATH_POW,
-        TokenType::LOGI_AND,
-        TokenType::LOGI_OR,
-        TokenType::LOGI_XOR,
-        TokenType::LOGI_NOT,
-    };
-    int idx = validPunctuation_.find(str);
-    if (idx == -1) {
+TokenType punctuation_char_to_token_type(char const & ch) {
+    switch (ch) {
+    case '(':
+        return TokenType::OP_PAREN;
+    case ')':
+        return TokenType::CL_PAREN;
+    case ',':
+        return TokenType::COMMA;
+    case '=':
+        return TokenType::EQUALS;
+    case '<':
+        return TokenType::LESS;
+    case '>':
+        return TokenType::GREATER;
+    case '+':
+        return TokenType::MATH_ADD;
+    case '-':
+        return TokenType::MATH_SUB;
+    case '*':
+        return TokenType::MATH_MUL;
+    case '/':
+        return TokenType::MATH_DIV;
+    case '%':
+        return TokenType::MATH_MOD;
+    case '^':
+        return TokenType::MATH_POW;
+    case '&':
+        return TokenType::LOGI_AND;
+    case '|':
+        return TokenType::LOGI_OR;
+    case '!':
+        return TokenType::LOGI_XOR;
+    case '~':
+        return TokenType::LOGI_NOT;
+    default:
         return TokenType::UNKNOWN_TYPE;
-    }
-    return lookup[idx];
+    };
 }
 
 struct Token;
@@ -596,7 +608,8 @@ public:
                 The command to tokenize.
     */
     void set_command(std::string const & command) {
-        command_ = remove_str_whitespace(command);
+        command_ = command;
+        remove_str_whitespace(command_);
         add_missing_optional_arguments();
         tokenStartIdx_ = 0;
     }
@@ -785,7 +798,7 @@ public:
                 If the next token is not punctuation, an unknown token is returned.
     */
     Token get_next_punctuation_token() {
-        Token result(punctuation_str_to_token_type(command_.substr(tokenStartIdx_, 1)));
+        Token result(punctuation_char_to_token_type(command_[tokenStartIdx_]));
         ++tokenStartIdx_;
         return result;    
     }
