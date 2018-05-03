@@ -22,15 +22,11 @@ public:
                 Defaults to sizeof(T) if not provided.
     */
     Allocator(int const & poolSize, int const & itemSize = sizeof(T)) : poolSize_(poolSize), itemSize_(itemSize) {
+        T* pool = (T*)(malloc(itemSize * poolSize));
         pool_ = (T**)malloc(sizeof(T*) * poolSize_);
         taken_ = (bool*)malloc(sizeof(bool) * poolSize_);
-        T* ptr = NULL;
         for (int i = 0; i < poolSize_; ++i) {
-            ptr = (T*)(malloc(itemSize));
-            if (ptr == NULL) {
-                Log.warning(F("Allocator received NULL when attempting to create pool\n"));
-            }
-            pool_[i] = ptr;
+            pool_[i] = pool + i;
             taken_[i] = false;
         }
         numTaken_ = 0;
@@ -41,17 +37,22 @@ public:
         @brief  Destructor for the allocator.
     */
     ~Allocator() {
-        for (int i = 0; i < poolSize_; ++i) {
-            free(pool_[i]);
-            pool_[i] = NULL;
-        }
+        free(pool_[0]);
         free(pool_);
         free(taken_);
-        pool_ = NULL;
-        //Serial.print("Num taken: ");
-        //Serial.println(numTaken_);
-        //Serial.print("Max num taken: ");
-        //Serial.println(maxNumTaken_);
+    }
+
+    void stat() {
+        Serial.println(numTaken_);
+        Serial.println(maxNumTaken_);
+    }
+
+    void dump_addresses() {
+        Serial.println((unsigned int)pool_);
+        Serial.println((unsigned int)(&(pool_[1])));
+        for (int i = 0; i < poolSize_; ++i) {
+            Serial.println((unsigned int)pool_[i]);
+        }
     }
 
     /*!
