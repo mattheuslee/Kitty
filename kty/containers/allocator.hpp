@@ -33,6 +33,8 @@ public:
             pool_[i] = ptr;
             taken_[i] = false;
         }
+        numTaken_ = 0;
+        maxNumTaken_ = 0;
     }
 
     /*!
@@ -46,6 +48,10 @@ public:
         free(pool_);
         free(taken_);
         pool_ = NULL;
+        //Serial.print("Num taken: ");
+        //Serial.println(numTaken_);
+        //Serial.print("Max num taken: ");
+        //Serial.println(maxNumTaken_);
     }
 
     /*!
@@ -58,6 +64,10 @@ public:
         for (int i = 0; i < poolSize_; ++i) {
             if (!taken_[i]) {
                 taken_[i] = true;
+                ++numTaken_;
+                if (numTaken_ > maxNumTaken_) {
+                    maxNumTaken_ = numTaken_;
+                }
                 return pool_[i];
             }
         }
@@ -76,6 +86,7 @@ public:
         for (int i = 0; i < poolSize_; ++i) {
             if (pool_[i] == ptr) {
                 taken_[i] = false;
+                --numTaken_;
                 return;
             }
         }
@@ -87,6 +98,8 @@ private:
     const int itemSize_;
 
     T** pool_;
+    int numTaken_;
+    int maxNumTaken_;
     bool* taken_;
 
 };
