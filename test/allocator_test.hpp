@@ -19,6 +19,7 @@ test(allocator)
         ints.push_back(allocator.allocate());
         *(ints[i]) = i;
     }
+    assertTrue(allocator.allocate() == NULL);
 
     for (int i = 0; i < numInts; ++i) {
         assertTrue(*(ints[i]) == i, "i = " << i);
