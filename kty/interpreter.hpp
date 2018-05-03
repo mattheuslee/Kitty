@@ -31,16 +31,18 @@ enum DeviceType {
             If the device type given is invalid, "UNKNOWN_DEVICE" is returned.
 */
 std::string device_type_to_str(DeviceType deviceType) {
-    static const std::map<DeviceType, std::string> lookupMap = {
-        {NUM, "NUM"},
-        {LED, "LED"},
-        {SERVO, "SERVO"},
-        {GROUP, "GROUP"},
-    };
-    if (lookupMap.find(deviceType) == lookupMap.end()) {
+    switch (deviceType) {
+    case NUM:
+        return "NUM";
+    case LED:
+        return "LED";
+    case SERVO:
+        return "SERVO";
+    case GROUP:
+        return "GROUP";
+    default:
         return "UNKNOWN_DEVICE";
-    }
-    return lookupMap.find(deviceType)->second;
+    };
 }
 
 /*!
