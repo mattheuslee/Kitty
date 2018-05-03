@@ -1,5 +1,7 @@
 #if !defined(ARDUINO)
 
+#include <iostream>
+
 #include <stdlib.h>
 #include <sys/time.h>
 #include <time.h>
@@ -31,8 +33,10 @@ void loop() {
 
 int main(void) {
     setup();
+    Test::min_verbosity = TEST_VERBOSITY_ALL;
 
     while (Test::remaining() > 0) {
+        std::cout << "Remaining: " << Test::remaining() << std::endl;
         loop();
     }
 
