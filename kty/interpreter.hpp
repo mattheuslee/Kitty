@@ -187,11 +187,15 @@ class Interpreter {
 public:
     /*!
         @brief  Default interpreter constructor.
+
+        @param  dequeIntAlloc
+                Allocator for all Deque<int> within the class to use.
     */
-    Interpreter()
-            : toPopLastIfConditionAlloc_(10), toPopLastIfCondition_(toPopLastIfConditionAlloc_),
-              bracketParityAlloc_(10), bracketParity_(bracketParityAlloc_),
-              lastIfConditionAlloc_(10), lastIfCondition_(lastIfConditionAlloc_) {
+    Interpreter(Allocator<Deque<int>::Node>& dequeIntAlloc)
+            : dequeIntAlloc_(dequeIntAlloc),
+              toPopLastIfCondition_(dequeIntAlloc_),
+              bracketParity_(dequeIntAlloc_),
+              lastIfCondition_(dequeIntAlloc_) {
         currNestedLevel_ = 0;
         status_.push(InterpreterStatus::NORMAL);
         lastIfCondition_.push_back(-1); // Last if condition is null
@@ -1025,6 +1029,8 @@ private:
     };
     int currNestedLevel_;
 
+    Allocator<Deque<int>::Node>& dequeIntAlloc_;
+
     std::deque<std::string> commandQueue_;
     std::map<std::string, Device> devices_; 
 
@@ -1032,11 +1038,8 @@ private:
     std::stack<std::vector<std::string>> commandBuffer_;
 
     /** Used to check for else/elseif blocks */
-    Allocator<Deque<int>::Node> lastIfConditionAlloc_;
     Deque<int> lastIfCondition_;
-    Allocator<Deque<bool>::Node> toPopLastIfConditionAlloc_;
-    Deque<bool> toPopLastIfCondition_;
-    Allocator<Deque<int>::Node> bracketParityAlloc_;
+    Deque<int> toPopLastIfCondition_;
     Deque<int> bracketParity_;
 
     Parser parser_;
