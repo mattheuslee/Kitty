@@ -5,6 +5,7 @@
 
 #include <kty/containers/allocator.hpp>
 
+using namespace std;
 using namespace kty;
 
 test(allocator)

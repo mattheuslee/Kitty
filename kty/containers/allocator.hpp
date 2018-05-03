@@ -26,7 +26,7 @@ public:
         taken_ = (bool*)malloc(sizeof(bool) * poolSize_);
         T* ptr = NULL;
         for (int i = 0; i < poolSize_; ++i) {
-            ptr = T*(malloc(itemSize));
+            ptr = (T*)(malloc(itemSize));
             pool_[i] = ptr;
             taken_[i] = false;
         }
