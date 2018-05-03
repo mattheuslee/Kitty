@@ -158,7 +158,7 @@ Running a command group once is exactly the same as if we were to execute all th
 
 We can also run a command group multiple times.  
 To run the command group `blink` 10 times:  
-> `>>>blink RunGroup(10)`  
+> `>>> blink RunGroup(10)`  
 
 ## Expressions
 +, -, *, /, %, ^, etc...

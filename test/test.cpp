@@ -9,7 +9,7 @@
 CppIOStream Serial;
 
 #include <kitty.hpp>
-#include <test/mock_arduino_pins.hpp>
+#include <test/mock_arduino.hpp>
 #include <test/mock_arduino_log.hpp>
 MockArduinoLog Log;
 #include <test/interpreter_test.hpp>
