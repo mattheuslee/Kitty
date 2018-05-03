@@ -15,6 +15,23 @@ CppIOStream Serial;
 #include <test/mock_arduino_log.hpp>
 MockArduinoLog Log;
 
+#include <kty/containers/allocator.hpp>
+#include <kty/containers/deque.hpp>
+#include <kty/string_utils.hpp>
+#include <kty/interface.hpp>
+#include <kty/interpreter.hpp>
+#include <kty/parser.hpp>
+#include <kty/tokenizer.hpp>
+
+using namespace kty;
+
+// 120 seems to be safe enough to run all the tests
+Allocator<Deque<int>::Node> dequeIntAlloc = Deque<int>::create_allocator(120);
+Interface interface;
+Interpreter interpreter(dequeIntAlloc);
+Parser parser;
+Tokenizer tokenizer;
+
 #include <test/allocator_test.hpp>
 #include <test/deque_test.hpp>
 #include <test/string_utils_test.hpp>
@@ -23,21 +40,11 @@ MockArduinoLog Log;
 #include <test/parser_test.hpp>
 #include <test/tokenizer_test.hpp>
 
-void setup() {
-}
-
-void loop() {
-    Test::run();
-}
-
-
 int main(void) {
-    setup();
     Test::min_verbosity = TEST_VERBOSITY_ALL;
 
     while (Test::remaining() > 0) {
-        std::cout << "Remaining: " << Test::remaining() << std::endl;
-        loop();
+        Test::run();
     }
 
     return Test::getCurrentFailed();
