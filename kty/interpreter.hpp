@@ -9,6 +9,8 @@
 #include <Servo.h>
 #endif
 
+#include <kty/containers/allocator.hpp>
+#include <kty/containers/deque.hpp>
 #include <kty/tokenizer.hpp>
 #include <kty/parser.hpp>
 
@@ -186,10 +188,13 @@ public:
     /*!
         @brief  Default interpreter constructor.
     */
-    Interpreter() {
+    Interpreter()
+            : toPopLastIfConditionAlloc_(10), toPopLastIfCondition_(toPopLastIfConditionAlloc_),
+              bracketParityAlloc_(10), bracketParity_(bracketParityAlloc_),
+              lastIfConditionAlloc_(10), lastIfCondition_(lastIfConditionAlloc_) {
         currNestedLevel_ = 0;
         status_.push(InterpreterStatus::NORMAL);
-        lastIfCondition_.push(""); // Last if condition is null
+        lastIfCondition_.push_back(-1); // Last if condition is null
     }
 
     /*!
@@ -265,11 +270,11 @@ public:
                 the commands in the command queue.
     */
     void cleanup_after_command_queue_execute() {
-        if (!toPopLastIfCondition_.empty()) {
-            if (toPopLastIfCondition_.top()) {
-                lastIfCondition_.pop();
+        if (!toPopLastIfCondition_.is_empty()) {
+            if (toPopLastIfCondition_.back()) {
+                lastIfCondition_.pop_back();
             }
-            toPopLastIfCondition_.pop();
+            toPopLastIfCondition_.pop_back();
         }
     }
 
@@ -296,7 +301,7 @@ public:
         }
         else {
             // Everything other than if and else, last if condition is no longer valid
-            lastIfCondition_.top() = "";
+            lastIfCondition_.back() = -1;
             if (command[0].is_name()) {
                 // Printing information
                 if (command.size() == 1) {
@@ -319,7 +324,7 @@ public:
                 }
             }
             else if (command[0].is_string()) {
-                lastIfCondition_.top() = "";
+                lastIfCondition_.back() = -1;
                 execute_print_string(command);
             }
         }
@@ -764,7 +769,7 @@ public:
     void add_to_if(std::string const & command) {
         std::vector<Token> tokens = tokenizer_.tokenize(command);
         // Group is closed
-        if (bracketParity_.top() == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
+        if (bracketParity_.back() == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
             close_if();
         }
         // Add command to group
@@ -772,11 +777,11 @@ public:
             commandBuffer_.top().push_back(command);
             // Check if command introduces a '('
             if (tokens[tokens.size() - 2].is_left_bracket()) {
-                ++(bracketParity_.top());
+                ++(bracketParity_.back());
             }
             // Check if command closes with a ')'
             else if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
-                --(bracketParity_.top());
+                --(bracketParity_.back());
             }
             Log.trace(F("Adding command to if group: %s\n"), command.c_str());
         }
@@ -788,7 +793,7 @@ public:
     */
     void close_if() {
         bool evaluatedCondition = str_to_int(commandBuffer_.top()[0]) != 0;
-        lastIfCondition_.top() = commandBuffer_.top()[0];
+        lastIfCondition_.back() = evaluatedCondition;
         if (evaluatedCondition) {
             Log.trace(F("If condition is true\n"));
             // Add commands to commandQueue in reverse order,
@@ -797,8 +802,8 @@ public:
                 commandQueue_.push_front(commandBuffer_.top()[i]);
             }
             // Push for any commands that might require in nested scope
-            lastIfCondition_.push("");
-            toPopLastIfCondition_.push(true);
+            lastIfCondition_.push_back(-1);
+            toPopLastIfCondition_.push_back(true);
         }
         decrease_nested_level();
         Log.trace(F("Closing if\n"));
@@ -809,7 +814,7 @@ public:
     */
     void create_else() {
         increase_nested_level(InterpreterStatus::CREATING_ELSE);
-        Log.trace(F("Creating else, last if condition: %s\n"), lastIfCondition_.top().c_str());
+        Log.trace(F("Creating else, last if condition: %T\n"), lastIfCondition_.back());
     }
 
     /*!
@@ -821,7 +826,7 @@ public:
     void add_to_else(std::string const & command) {
         std::vector<Token> tokens = tokenizer_.tokenize(command);
         // Group is closed
-        if (bracketParity_.top() == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
+        if (bracketParity_.back() == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
             close_else();
         }
         // Add command to group
@@ -829,11 +834,11 @@ public:
             commandBuffer_.top().push_back(command);
             // Check if command introduces a '('
             if (tokens[tokens.size() - 2].is_left_bracket()) {
-                ++(bracketParity_.top());
+                ++(bracketParity_.back());
             }
             // Check if command closes with a ')'
             else if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
-                --(bracketParity_.top());
+                --(bracketParity_.back());
             }
             Log.trace(F("Adding command to else group: %s\n"), command.c_str());
         }
@@ -845,12 +850,8 @@ public:
                 directly follows an if that had a condition which was false.
     */
     void close_else() {
-        bool evaluatedLastIfCondition = str_to_int(lastIfCondition_.top()) != 0;
-        // Must directly come after an if command
-        if (lastIfCondition_.top().size() == 0) {
-            evaluatedLastIfCondition = true;
-        }
-        lastIfCondition_.top() = "";
+        bool evaluatedLastIfCondition = lastIfCondition_.back() != 0;
+        lastIfCondition_.back() = -1;
         if (!evaluatedLastIfCondition) {
             Log.trace(F("Last if condition is false\n"));
             // Add commands to commandQueue in reverse order,
@@ -859,8 +860,8 @@ public:
                 commandQueue_.push_front(commandBuffer_.top()[i]);
             }
             // Push for any commands that might require in nested scope
-            lastIfCondition_.push("");
-            toPopLastIfCondition_.push(true);
+            lastIfCondition_.push_back(-1);
+            toPopLastIfCondition_.push_back(true);
         }
         decrease_nested_level();
         Log.trace(F("Closing else\n"));
@@ -875,7 +876,7 @@ public:
     void create_else_if(std::string const & condition) {
         increase_nested_level(InterpreterStatus::CREATING_ELSEIF);
         commandBuffer_.top().push_back(condition);
-        Log.trace(F("Creating else if, last if condition: %s, condition: %s\n"), lastIfCondition_.top().c_str(), condition.c_str());
+        Log.trace(F("Creating else if, last if condition: %T, condition: %s\n"), lastIfCondition_.back(), condition.c_str());
     }
 
     /*!
@@ -887,7 +888,7 @@ public:
     void add_to_else_if(std::string const & command) {
         std::vector<Token> tokens = tokenizer_.tokenize(command);
         // Group is closed
-        if (bracketParity_.top() == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
+        if (bracketParity_.back() == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
             close_else_if();
         }
         // Add command to group
@@ -895,11 +896,11 @@ public:
             commandBuffer_.top().push_back(command);
             // Check if command introduces a '('
             if (tokens[tokens.size() - 2].is_left_bracket()) {
-                ++(bracketParity_.top());
+                ++(bracketParity_.back());
             }
             // Check if command closes with a ')'
             else if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
-                --(bracketParity_.top());
+                --(bracketParity_.back());
             }
             Log.trace(F("Adding command to else if group: %s\n"), command.c_str());
         }
@@ -912,15 +913,11 @@ public:
                 and its own condition is true.
     */
     void close_else_if() {
-        bool evaluatedLastIfCondition = str_to_int(lastIfCondition_.top()) != 0;
+        bool evaluatedLastIfCondition = lastIfCondition_.back() != 0;
         bool evaluatedOwnCondition = str_to_int(commandBuffer_.top()[0]) != 0;
-        // Must directly come after an if command
-        if (lastIfCondition_.top().size() == 0) {
-            evaluatedLastIfCondition = true;
-        }
-        lastIfCondition_.top() = "0";
+        lastIfCondition_.back() = false;
         if (!evaluatedLastIfCondition && evaluatedOwnCondition) {
-            lastIfCondition_.top() = "1";
+            lastIfCondition_.back() = true;
             Log.trace(F("Last if condition was false and our condition is true\n"));
             // Add commands to commandQueue in reverse order,
             // since pushing from the front
@@ -928,8 +925,8 @@ public:
                 commandQueue_.push_front(commandBuffer_.top()[i]);
             }
             // Push for any commands that might require in nested scope
-            lastIfCondition_.push("");
-            toPopLastIfCondition_.push(true);
+            lastIfCondition_.push_back(-1);
+            toPopLastIfCondition_.push_back(true);
         }
         decrease_nested_level();
         Log.trace(F("Closing else if\n"));
@@ -956,7 +953,7 @@ public:
     void add_to_group(std::string const & command) {
         std::vector<Token> tokens = tokenizer_.tokenize(command);
         // Group is closed
-        if (bracketParity_.top() == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
+        if (bracketParity_.back() == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
             std::vector<std::string> commands = commandBuffer_.top();
             std::string name = commands[0];
             commands.erase(commands.begin()); // Remove name
@@ -967,11 +964,11 @@ public:
             commandBuffer_.top().push_back(command);
             // Check if command introduces a '('
             if (tokens[tokens.size() - 2].is_left_bracket()) {
-                ++(bracketParity_.top());
+                ++(bracketParity_.back());
             }
             // Check if command closes with a ')'
             else if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
-                --(bracketParity_.top());
+                --(bracketParity_.back());
             }
             Log.trace(F("Adding command to group: %s\n"), command.c_str());
         }
@@ -992,8 +989,8 @@ public:
         group.info = commands;
         devices_[name] = group;
         // Push for any commands that might require in nested scope
-        lastIfCondition_.push("");
-        toPopLastIfCondition_.push(true);
+        lastIfCondition_.push_back(-1);
+        toPopLastIfCondition_.push_back(true);
         decrease_nested_level();
         Log.trace(F("Closing group: %s\n"), name.c_str());
     }
@@ -1008,7 +1005,7 @@ public:
         ++currNestedLevel_;
         status_.push(status);
         commandBuffer_.push(std::vector<std::string>());
-        bracketParity_.push(0);
+        bracketParity_.push_back(0);
     }
 
     /*!
@@ -1018,7 +1015,7 @@ public:
         --currNestedLevel_;
         status_.pop();
         commandBuffer_.pop();
-        bracketParity_.pop();
+        bracketParity_.pop_back();
     }
 
 private:
@@ -1033,10 +1030,14 @@ private:
 
     std::stack<InterpreterStatus> status_;
     std::stack<std::vector<std::string>> commandBuffer_;
+
     /** Used to check for else/elseif blocks */
-    std::stack<std::string> lastIfCondition_;
-    std::stack<bool> toPopLastIfCondition_;
-    std::stack<int> bracketParity_;
+    Allocator<Deque<int>::Node> lastIfConditionAlloc_;
+    Deque<int> lastIfCondition_;
+    Allocator<Deque<bool>::Node> toPopLastIfConditionAlloc_;
+    Deque<bool> toPopLastIfCondition_;
+    Allocator<Deque<int>::Node> bracketParityAlloc_;
+    Deque<int> bracketParity_;
 
     Parser parser_;
     Tokenizer tokenizer_;
