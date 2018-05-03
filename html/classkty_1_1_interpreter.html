@@ -63,7 +63,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classkty_1_1_interpreter-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -81,12 +80,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aeb2818c4dbf3995505a39e65ba067a5d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aeb2818c4dbf3995505a39e65ba067a5d">Interpreter</a> (<a class="el" href="classkty_1_1_allocator.html">Allocator</a>&lt; <a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; int &gt;::Node &gt; &amp;dequeIntAlloc)</td></tr>
 <tr class="memdesc:aeb2818c4dbf3995505a39e65ba067a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default interpreter constructor.  <a href="#aeb2818c4dbf3995505a39e65ba067a5d">More...</a><br /></td></tr>
 <tr class="separator:aeb2818c4dbf3995505a39e65ba067a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b549cc75d793258632bd7168a0dd854"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a4b549cc75d793258632bd7168a0dd854">get_prompt_prefix</a> () const</td></tr>
-<tr class="memdesc:a4b549cc75d793258632bd7168a0dd854"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the prefix(if any) for the user prompt.  <a href="#a4b549cc75d793258632bd7168a0dd854">More...</a><br /></td></tr>
-<tr class="separator:a4b549cc75d793258632bd7168a0dd854"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97d7949f7c7ca179b7fd126844629d32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a97d7949f7c7ca179b7fd126844629d32">execute</a> (std::string const &amp;command)</td></tr>
-<tr class="memdesc:a97d7949f7c7ca179b7fd126844629d32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command. This method takes the current interpreter status into account.  <a href="#a97d7949f7c7ca179b7fd126844629d32">More...</a><br /></td></tr>
-<tr class="separator:a97d7949f7c7ca179b7fd126844629d32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af6950bc36ebdf12053e9f50a331dce19"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#af6950bc36ebdf12053e9f50a331dce19">get_prompt_prefix</a> ()</td></tr>
+<tr class="memdesc:af6950bc36ebdf12053e9f50a331dce19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the prefix(if any) for the user prompt.  <a href="#af6950bc36ebdf12053e9f50a331dce19">More...</a><br /></td></tr>
+<tr class="separator:af6950bc36ebdf12053e9f50a331dce19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b62f5a8b71966118daffa57557c2045"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a6b62f5a8b71966118daffa57557c2045">execute</a> (std::string command)</td></tr>
+<tr class="memdesc:a6b62f5a8b71966118daffa57557c2045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command. This method takes the current interpreter status into account.  <a href="#a6b62f5a8b71966118daffa57557c2045">More...</a><br /></td></tr>
+<tr class="separator:a6b62f5a8b71966118daffa57557c2045"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae04ae25217fea8414db7fb8f666321d2"><td class="memItemLeft" align="right" valign="top"><a id="ae04ae25217fea8414db7fb8f666321d2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ae04ae25217fea8414db7fb8f666321d2">execute_command_queue</a> ()</td></tr>
 <tr class="memdesc:ae04ae25217fea8414db7fb8f666321d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes all the commands still in the command queue, if any. <br /></td></tr>
@@ -107,9 +106,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:aa7d923b9c936c419d78fcfbb42315076"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aa7d923b9c936c419d78fcfbb42315076">execute_else</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
 <tr class="memdesc:aa7d923b9c936c419d78fcfbb42315076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the else command.  <a href="#aa7d923b9c936c419d78fcfbb42315076">More...</a><br /></td></tr>
 <tr class="separator:aa7d923b9c936c419d78fcfbb42315076"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a894acb572cd2aa285869d69c8950d355"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a894acb572cd2aa285869d69c8950d355">execute_else_if</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
-<tr class="memdesc:a894acb572cd2aa285869d69c8950d355"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the else if command.  <a href="#a894acb572cd2aa285869d69c8950d355">More...</a><br /></td></tr>
-<tr class="separator:a894acb572cd2aa285869d69c8950d355"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9e890492973c875fecf1e435bd608c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ae9e890492973c875fecf1e435bd608c7">execute_create</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
 <tr class="memdesc:ae9e890492973c875fecf1e435bd608c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the different creation commands.  <a href="#ae9e890492973c875fecf1e435bd608c7">More...</a><br /></td></tr>
 <tr class="separator:ae9e890492973c875fecf1e435bd608c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -167,16 +163,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a6f2d67467b0f4bbeb5d9b4e40a770cfa">close_else</a> ()</td></tr>
 <tr class="memdesc:a6f2d67467b0f4bbeb5d9b4e40a770cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finishes the creation of an else command group, and adds its commands to the commandQueue if the else directly follows an if that had a condition which was false. <br /></td></tr>
 <tr class="separator:a6f2d67467b0f4bbeb5d9b4e40a770cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73315c72c3c5729bc72e89fe8ea0211b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a73315c72c3c5729bc72e89fe8ea0211b">create_else_if</a> (std::string const &amp;condition)</td></tr>
-<tr class="memdesc:a73315c72c3c5729bc72e89fe8ea0211b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the creation of an else if command group.  <a href="#a73315c72c3c5729bc72e89fe8ea0211b">More...</a><br /></td></tr>
-<tr class="separator:a73315c72c3c5729bc72e89fe8ea0211b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba616df1761a30019ccc1718fc59897a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aba616df1761a30019ccc1718fc59897a">add_to_else_if</a> (std::string const &amp;command)</td></tr>
-<tr class="memdesc:aba616df1761a30019ccc1718fc59897a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a command to the else if command group that is currently being created.  <a href="#aba616df1761a30019ccc1718fc59897a">More...</a><br /></td></tr>
-<tr class="separator:aba616df1761a30019ccc1718fc59897a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f01bd611564f9b491f2d6a13d416428"><td class="memItemLeft" align="right" valign="top"><a id="a6f01bd611564f9b491f2d6a13d416428"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a6f01bd611564f9b491f2d6a13d416428">close_else_if</a> ()</td></tr>
-<tr class="memdesc:a6f01bd611564f9b491f2d6a13d416428"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finishes the creation of an else if command group, and adds its commands to the commandQueue if the else if directly follows an if that had a condition which was false, and its own condition is true. <br /></td></tr>
-<tr class="separator:a6f01bd611564f9b491f2d6a13d416428"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0035330c04eb3b37082a0fab8a22672"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ac0035330c04eb3b37082a0fab8a22672">create_group</a> (std::string const &amp;name)</td></tr>
 <tr class="memdesc:ac0035330c04eb3b37082a0fab8a22672"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the creation of a command group.  <a href="#ac0035330c04eb3b37082a0fab8a22672">More...</a><br /></td></tr>
 <tr class="separator:ac0035330c04eb3b37082a0fab8a22672"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -232,8 +218,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4b549cc75d793258632bd7168a0dd854"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b549cc75d793258632bd7168a0dd854">&#9670;&nbsp;</a></span>get_prompt_prefix()</h2>
+<a id="af6950bc36ebdf12053e9f50a331dce19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6950bc36ebdf12053e9f50a331dce19">&#9670;&nbsp;</a></span>get_prompt_prefix()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,7 +231,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td class="memname">std::string kty::Interpreter::get_prompt_prefix </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
   </td>
@@ -260,8 +246,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a97d7949f7c7ca179b7fd126844629d32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97d7949f7c7ca179b7fd126844629d32">&#9670;&nbsp;</a></span>execute() <span class="overload">[1/2]</span></h2>
+<a id="a6b62f5a8b71966118daffa57557c2045"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b62f5a8b71966118daffa57557c2045">&#9670;&nbsp;</a></span>execute() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -272,7 +258,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">void kty::Interpreter::execute </td>
           <td>(</td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
           <td></td>
         </tr>
@@ -421,40 +407,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 
 <p>Executes the else command. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">command</td><td>The command to execute. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a894acb572cd2aa285869d69c8950d355"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a894acb572cd2aa285869d69c8950d355">&#9670;&nbsp;</a></span>execute_else_if()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void kty::Interpreter::execute_else_if </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
-          <td class="paramname"><em>command</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Executes the else if command. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">command</td><td>The command to execute. </td></tr>
@@ -1033,74 +985,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div><div class="memdoc">
 
 <p>Adds a command to the else command group that is currently being created. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">command</td><td>The command to add to the else command group. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a73315c72c3c5729bc72e89fe8ea0211b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73315c72c3c5729bc72e89fe8ea0211b">&#9670;&nbsp;</a></span>create_else_if()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void kty::Interpreter::create_else_if </td>
-          <td>(</td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
-          <td class="paramname"><em>condition</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Begins the creation of an else if command group. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">condition</td><td>The result of evaluating the condition. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aba616df1761a30019ccc1718fc59897a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba616df1761a30019ccc1718fc59897a">&#9670;&nbsp;</a></span>add_to_else_if()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void kty::Interpreter::add_to_else_if </td>
-          <td>(</td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
-          <td class="paramname"><em>command</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Adds a command to the else if command group that is currently being created. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">command</td><td>The command to add to the else command group. </td></tr>

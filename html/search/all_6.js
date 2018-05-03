@@ -9,6 +9,6 @@ var searchData=
   ['get_5fnext_5fpunctuation_5ftoken',['get_next_punctuation_token',['../classkty_1_1_tokenizer.html#adf724c747234fc68cd5c42abc1b2580b',1,'kty::Tokenizer']]],
   ['get_5fnext_5fstring_5ftoken',['get_next_string_token',['../classkty_1_1_tokenizer.html#a31cda563ff2d2b79b3f91fd6e45a70a6',1,'kty::Tokenizer']]],
   ['get_5fnext_5ftoken',['get_next_token',['../classkty_1_1_tokenizer.html#ac60061f3623aa66f87e689f16e41ff29',1,'kty::Tokenizer']]],
-  ['get_5fprompt_5fprefix',['get_prompt_prefix',['../classkty_1_1_interpreter.html#a4b549cc75d793258632bd7168a0dd854',1,'kty::Interpreter']]],
+  ['get_5fprompt_5fprefix',['get_prompt_prefix',['../classkty_1_1_interpreter.html#af6950bc36ebdf12053e9f50a331dce19',1,'kty::Interpreter']]],
   ['get_5ftoken_5fvalue',['get_token_value',['../classkty_1_1_interpreter.html#a5966f270420b6d19d5acdce459e0f9f9',1,'kty::Interpreter']]]
 ];

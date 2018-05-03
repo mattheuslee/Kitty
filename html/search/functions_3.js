@@ -4,5 +4,6 @@ var searchData=
   ['debug_5fstr',['debug_str',['../structkty_1_1_device.html#af55314a9ce2c1dbfc3946fe0666ce173',1,'kty::Device']]],
   ['decrease_5fnested_5flevel',['decrease_nested_level',['../classkty_1_1_interpreter.html#ab5f03b00aa4b819886a27070b27c713f',1,'kty::Interpreter']]],
   ['deque',['Deque',['../classkty_1_1_deque.html#a4f9b8c5df2489ac3e3c6f304d70e5600',1,'kty::Deque']]],
-  ['device',['Device',['../structkty_1_1_device.html#acc7d591157698041f54a3e815eaec3ce',1,'kty::Device']]]
+  ['device',['Device',['../structkty_1_1_device.html#acc7d591157698041f54a3e815eaec3ce',1,'kty::Device']]],
+  ['dump_5faddresses',['dump_addresses',['../classkty_1_1_allocator.html#ab6ccfd2fb030903afb26d37793113fed',1,'kty::Allocator']]]
 ];
