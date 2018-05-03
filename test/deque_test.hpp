@@ -1,5 +1,6 @@
 #pragma once
 
+#include <kty/containers/allocator.hpp>
 #include <kty/containers/deque.hpp>
 
 using namespace kty;
@@ -7,7 +8,8 @@ using namespace kty;
 test(deque)
 {
     int maxSize = 10;
-    Deque<int> deque(maxSize);
+    Allocator<Deque<int>::DequeNode> dequeAllocator(maxSize);
+    Deque<int> deque(dequeAllocator);
     for (int i = 0; i < maxSize; ++i) {
         deque.push_back(i);
     }

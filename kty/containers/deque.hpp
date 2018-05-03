@@ -67,11 +67,11 @@ public:
     void push_front(T const & value) {
         // Allocate new node
         DequeNode* toInsert = allocator_.allocate();
-        toInsert.value = value;
+        toInsert->value = value;
         DequeNode* next = head->next;
         // Rearrange pointers
-        toInsert.next = next;
-        toInsert.prev = head;
+        toInsert->next = next;
+        toInsert->prev = head;
         next->prev = toInsert;
         head->next = toInsert;
     }
@@ -101,11 +101,11 @@ public:
     void push_back(T const & value) {
         // Allocate new node
         DequeNode* toInsert = allocator_.allocate();
-        toInsert.value = value;
+        toInsert->value = value;
         DequeNode* prev = head->prev;
         // Rearrange pointers
-        toInsert.next = head;
-        toInsert.prev = prev;
+        toInsert->next = head;
+        toInsert->prev = prev;
         prev->next = toInsert;
         head->prev = toInsert;
     }
