@@ -27,6 +27,21 @@ public:
     };
 
     /*!
+        @brief  Creates an allocator for this deque.
+
+        @param  maxSize
+                Maximum size for the deque.
+                If the deque using this allocator exceeds this max size,
+                undefined behaviour will occur.
+        
+        @return The allocator to use for this deque.
+    */
+    static Allocator<DequeNode> create_allocator(int const & maxSize) {
+        // +1 because of the dummy head node
+        return Allocator<DequeNode>(maxSize + 1);
+    }
+
+    /*!
         @brief  Constructor for the deque.
 
         @param  allocator
