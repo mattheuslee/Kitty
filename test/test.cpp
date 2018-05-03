@@ -26,7 +26,6 @@ using namespace kty;
 
 // 120 seems to be safe enough to run all the tests
 Allocator<Deque<int>::Node> dequeIntAlloc = Deque<int>::create_allocator(120);
-Interface interface;
 Interpreter interpreter(dequeIntAlloc);
 Parser parser;
 Tokenizer tokenizer;
