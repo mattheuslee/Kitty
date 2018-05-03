@@ -14,20 +14,20 @@ using namespace kty;
 test(interpreter_is_number)
 {
     string command = "answer IsNumber(3 + (1 - 5)^2 / 4)";
-    //Interpreter interpreter;
     interpreter.execute(command);
     assertTrue(interpreter.get_device("answer").type == DeviceType::NUM);
     assertTrue(interpreter.get_device("answer").info[0] == "7");
+    dequeIntAlloc.stat();
 }
 
 test(interpreter_is_led)
 {
     string command = "light IsLED(13, 25)";
-    //Interpreter interpreter;
     interpreter.execute(command);
     assertTrue(interpreter.get_device("light").type == DeviceType::LED);
     assertTrue(interpreter.get_device("light").info[0] == "13");
     assertTrue(interpreter.get_device("light").info[1] == "25");
+    dequeIntAlloc.stat();
 }
 
 test(interpreter_if)
@@ -38,7 +38,6 @@ test(interpreter_if)
         "   answer IsNumber(answer + 10)",
         ")"
     };
-    //Interpreter interpreter;
     for (int i = 0; i < commands.size(); ++i) {
         interpreter.execute(commands[i]);
     }
@@ -56,6 +55,7 @@ test(interpreter_if)
     }
     assertTrue(interpreter.get_device("answer").type == DeviceType::NUM);
     assertTrue(interpreter.get_device("answer").info[0] == "0");
+    dequeIntAlloc.stat();
 }
 
 test(interpreter_if_group)
@@ -69,44 +69,15 @@ test(interpreter_if_group)
         "answer IsNumber(42)",
         "make_answer_zero RunGroup()"
     };
-    //Interpreter interpreter;
     for (int i = 0; i < commands.size(); ++i) {
         interpreter.execute(commands[i]);
     }
     assertTrue(interpreter.get_device("answer").type == DeviceType::NUM);
     assertTrue(interpreter.get_device("answer").info[0] == "0");
+    dequeIntAlloc.stat();
 }
 
-test(interpreter_fizz_buzz)
-{
-    vector<string> commands = {
-        "fizzbuzz IsGroup (",
-            "If (num % 3 = 0 & num % 5 = 0) (",
-            "    'FizzBuzz'",
-            ")",
-            "ElseIf (num % 3 = 0) (",
-            "    'Fizz'",
-            ")",
-            "ElseIf (num % 5 = 0) (",
-            "    'Buzz'",
-            ")",
-            "Else (",
-                "num",
-            ")",
-            "num MoveBy(1)",
-        ")",
-        "num IsNumber(1)",
-        "fizzbuzz RunGroup(5)"
-    };
-    //Interpreter interpreter;
-    for (int i = 0; i < commands.size(); ++i) {
-        interpreter.execute(commands[i]);
-    }
-    assertTrue(interpreter.get_device("num").type == DeviceType::NUM);
-    assertTrue(interpreter.get_device("num").info[0] == "6");
-}
-
-test(interpreter_fizz_buzz_alternative_1)
+test(interpreter_fizz_buzz_1)
 {
     vector<string> commands = {
         "fizzbuzz IsGroup (",
@@ -127,15 +98,15 @@ test(interpreter_fizz_buzz_alternative_1)
         "num IsNumber(1)",
         "fizzbuzz RunGroup(20)"
     };
-    //Interpreter interpreter;
     for (int i = 0; i < commands.size(); ++i) {
         interpreter.execute(commands[i]);
     }
     assertTrue(interpreter.get_device("num").type == DeviceType::NUM);
     assertTrue(interpreter.get_device("num").info[0] == "21");
+    dequeIntAlloc.stat();
 }
 
-test(interpreter_fizz_buzz_alternative_2)
+test(interpreter_fizz_buzz_2)
 {
     vector<string> commands = {
         "fizzbuzz IsGroup (",
@@ -160,10 +131,10 @@ test(interpreter_fizz_buzz_alternative_2)
         "num IsNumber(1)",
         "fizzbuzz RunGroup(20)"
     };
-    //Interpreter interpreter;
     for (int i = 0; i < commands.size(); ++i) {
         interpreter.execute(commands[i]);
     }
     assertTrue(interpreter.get_device("num").type == DeviceType::NUM);
     assertTrue(interpreter.get_device("num").info[0] == "21");
+    dequeIntAlloc.stat();
 }
