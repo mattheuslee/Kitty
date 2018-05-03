@@ -38,10 +38,23 @@ test(string_utils_int_to_str)
 
 test(string_utils_remove_str_whitespace)
 {
-    assertTrue(remove_str_whitespace(" a") == "a");
-    assertTrue(remove_str_whitespace("a ") == "a");
-    assertTrue(remove_str_whitespace("a b") == "ab");
-    assertTrue(remove_str_whitespace(" a b") == "ab");
-    assertTrue(remove_str_whitespace("a b ") == "ab");
-    assertTrue(remove_str_whitespace(" a b ") == "ab");
+    string str;
+    str = " a";
+    remove_str_whitespace(str);
+    assertTrue(str == "a");
+    str = "a ";
+    remove_str_whitespace(str);
+    assertTrue(str == "a");
+    str = "a b";
+    remove_str_whitespace(str);
+    assertTrue(str == "ab");
+    str = " a   b";
+    remove_str_whitespace(str);
+    assertTrue(str == "ab");
+    str = "a b  ";
+    remove_str_whitespace(str);
+    assertTrue(str == "ab");
+    str = " a   b   ";
+    remove_str_whitespace(str);
+    assertTrue(str == "ab");
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <kty/stl_impl.hpp>
+#include <cctype>
 #include <string>
 
 #include <kty/interpreter.hpp>
@@ -90,7 +91,9 @@ public:
                 if (c == '\n') { // Finished reading one complete line of input
                     break;
                 }
-                line += c;
+                if (!isspace(c)) {
+                    line += c;
+                }
             }
         }
         if (line[line.size() - 1] == ' ') {

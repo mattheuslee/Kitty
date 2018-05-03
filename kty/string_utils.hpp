@@ -56,20 +56,21 @@ std::string int_to_str(int const & i) {
 
 /*! 
     @brief  Removes all whitespace characters from the string.
+            This function modifies the string parameter in place.
 
     @param  str
             The string to remove whitespace from.
-
-    @return The input string with all whitespace removed.
 */
-std::string remove_str_whitespace(std::string const & str) {
-    std::string result;
-    for (int i = 0; i < str.size(); ++i) {
-        if (!isspace(str[i])) {
-            result += str[i];
+void remove_str_whitespace(std::string & str) {
+    std::string::iterator i = str.begin();
+    while (i != str.end()) {
+        if (isspace(*i)) {
+            i = str.erase(i);
+        }
+        else {
+            ++i;
         }
     }
-    return result;
 }
 
 } // namespace kty
