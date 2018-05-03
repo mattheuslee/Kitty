@@ -8,7 +8,7 @@ using namespace kty;
 test(deque)
 {
     int maxSize = 10;
-    Allocator<Deque<int>::DequeNode> dequeAllocator = Deque<int>::create_allocator(maxSize);
+    Allocator<Deque<int>::Node> dequeAllocator = Deque<int>::create_allocator(maxSize);
     Deque<int> deque(dequeAllocator);
     for (int i = 0; i < maxSize; ++i) {
         deque.push_back(i);
@@ -16,6 +16,7 @@ test(deque)
     for (int i = 0; i < maxSize; ++i) {
         assertTrue(deque[i] == i, "i = " << i);
     }
+    assertTrue(deque.size() == maxSize);
     for (int i = 0; i < maxSize; ++i) {
         deque.pop_back();
     }
@@ -27,6 +28,7 @@ test(deque)
     for (int i = 0; i < maxSize; ++i) {
         assertTrue(deque[i] == i, "i = " << i);
     }
+    assertTrue(deque.size() == maxSize);
     for (int i = 0; i < maxSize; ++i) {
         deque.pop_front();
     }

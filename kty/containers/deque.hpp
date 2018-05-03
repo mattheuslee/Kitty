@@ -17,13 +17,13 @@ public:
     /*!
         @brief  The node structure that makes up the deque.
     */
-    struct DequeNode {
+    struct Node {
         /** The value stored in the node */
         T value;
         /** The node after this one */
-        DequeNode* next;
+        Node* next;
         /** The node before this one */
-        DequeNode* prev;
+        Node* prev;
     };
 
     /*!
@@ -36,9 +36,9 @@ public:
         
         @return The allocator to use for this deque.
     */
-    static Allocator<DequeNode> create_allocator(int const & maxSize) {
+    static Allocator<Node> create_allocator(int const & maxSize) {
         // +1 because of the dummy head node
-        return Allocator<DequeNode>(maxSize + 1);
+        return Allocator<Node>(maxSize + 1);
     }
 
     /*!
@@ -47,7 +47,8 @@ public:
         @param  allocator
                 The allocator for the deque nodes.
     */
-    Deque(Allocator<DequeNode>& allocator) : allocator_(allocator) {
+    Deque(Allocator<Node>& allocator) : allocator_(allocator) {
+        size_ = 0;
         head = allocator_.allocate();
         head->next = head;
         head->prev = head;
@@ -65,12 +66,21 @@ public:
     }
 
     /*!
+        @brief  Returns the size of the deque.
+
+        @return The number of elements in the deque.
+    */
+    int size() {
+        return size_;
+    }
+
+    /*!
         @brief  Returns true if the deque is empty, false otherwise.
 
         @return True if the deque is empty, false otherwise.
     */
     bool is_empty() {
-        return head->next == head;
+        return size_ == 0;
     }
 
     /*!
@@ -81,14 +91,15 @@ public:
     */
     void push_front(T const & value) {
         // Allocate new node
-        DequeNode* toInsert = allocator_.allocate();
+        Node* toInsert = allocator_.allocate();
         toInsert->value = value;
-        DequeNode* next = head->next;
+        Node* next = head->next;
         // Rearrange pointers
         toInsert->next = next;
         toInsert->prev = head;
         next->prev = toInsert;
         head->next = toInsert;
+        ++size_;
     }
 
     /*!
@@ -99,12 +110,13 @@ public:
         if (is_empty()) {
             return;
         }
-        DequeNode* toRemove = head->next;
-        DequeNode* next = toRemove->next;
+        Node* toRemove = head->next;
+        Node* next = toRemove->next;
         // Rearrange pointers to bypass node to be removed
         head->next = next;
         next->prev = head;
         allocator_.deallocate(toRemove);
+        --size_;
     }
 
     /*!
@@ -115,14 +127,15 @@ public:
     */
     void push_back(T const & value) {
         // Allocate new node
-        DequeNode* toInsert = allocator_.allocate();
+        Node* toInsert = allocator_.allocate();
         toInsert->value = value;
-        DequeNode* prev = head->prev;
+        Node* prev = head->prev;
         // Rearrange pointers
         toInsert->next = head;
         toInsert->prev = prev;
         prev->next = toInsert;
         head->prev = toInsert;
+        ++size_;
     }
 
     /*!
@@ -133,12 +146,13 @@ public:
         if (is_empty()) {
             return;
         }
-        DequeNode* toRemove = head->prev;
-        DequeNode* prev = toRemove->prev;
+        Node* toRemove = head->prev;
+        Node* prev = toRemove->prev;
         // Rearrange pointers to bypass node to be removed
         head->prev = prev;
         prev->next = head;
         allocator_.deallocate(toRemove);
+        --size_;
     }
 
     /*!
@@ -171,7 +185,7 @@ public:
         @return A reference to the element.
     */
     T& operator[](int const & i) {
-        DequeNode* curr = head->next;
+        Node* curr = head->next;
         for (int j = 0; j < i; ++j) {
             curr = curr->next;
         }
@@ -179,9 +193,10 @@ public:
     }
 
 private:
-    DequeNode* head;
+    Node* head;
+    int size_;
 
-    Allocator<DequeNode>& allocator_;
+    Allocator<Node>& allocator_;
 
 };
 
