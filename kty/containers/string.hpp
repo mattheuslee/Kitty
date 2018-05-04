@@ -15,14 +15,13 @@ template <int N, int S>
 class StringDatabase {
 
 public:
-    friend class DBString<StringDatabase<N, S>>;
     /*!
         @brief  Constructor for the string database
     */
     StringDatabase() {
         for (int i = 0; i < N; ++i) {
-            for (int j = 0; j < S; ++j) {
-                *(pool_ + (i * S) + j) = 0;
+            for (int j = 0; j <= S; ++j) {
+                *(pool_ + (i * (S + 1)) + j) = 0;
             }
             taken_[i] = false;
         }
@@ -35,7 +34,7 @@ public:
         Serial.print(F("StringDatabase: Pool addresses = "));
         Serial.print((unsigned int)pool_);
         Serial.print(F(" to "));
-        Serial.println((unsigned int)(pool_ + N * S - 1));
+        Serial.println((unsigned int)(pool_ + N * (S + 1) - 1));
     }
 
     /*!
@@ -56,6 +55,15 @@ public:
     }
 
     /*!
+        @brief  Returns the maximum possible length for a string.
+
+        @return The maximum possible string length.
+    */
+    int max_str_len() {
+        return S;
+    }
+
+    /*!
         @brief  Returns the string at a given index.
 
         @param  idx
@@ -66,7 +74,7 @@ public:
     */
     char* get(int const & idx) {
         if (idx < N) {
-            return pool_ + (idx * S);
+            return pool_ + (idx * (S + 1));
         }
         Log.warning(F("StringDatabase: Attempt to get string at index %d, max index = %d\n"), idx, N - 1);
         return NULL;
@@ -84,13 +92,13 @@ public:
     void set(int const & idx, char * str) {
         int i = 0;
         for (i = 0; i < S && str[i] != '\0'; ++i) {
-            *(pool_ + (idx * S) + i) = str[i];
+            *(pool_ + (idx * (S + 1)) + i) = str[i];
         }
-        *(pool_ + (idx * S) + i) = '\0';
+        *(pool_ + (idx * (S + 1)) + i) = '\0';
     }
 
 private:
-    char pool_[N * S];
+    char pool_[N * (S + 1)];
     bool taken_[N];
 
 };
