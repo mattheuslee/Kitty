@@ -6,7 +6,6 @@
 
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/deque.hpp>
-#include <kty/containers/string.hpp>
 #include <kty/interface.hpp>
 #include <kty/interpreter.hpp>
 
