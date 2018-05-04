@@ -17,6 +17,7 @@ MockArduinoLog Log;
 
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/deque.hpp>
+#include <kty/containers/string.hpp>
 #include <kty/string_utils.hpp>
 #include <kty/interpreter.hpp>
 #include <kty/parser.hpp>
@@ -32,6 +33,7 @@ Tokenizer tokenizer;
 
 #include <test/allocator_test.hpp>
 #include <test/deque_test.hpp>
+#include <test/string_test.hpp>
 #include <test/string_utils_test.hpp>
 #include <test/interpreter_test.hpp>
 #include <test/parser_test.hpp>
