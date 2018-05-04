@@ -189,8 +189,8 @@ public:
     /*!
         @brief  Default interpreter constructor.
 
-        @param  dequeIntAlloc
-                Allocator for all Deque<int> within the class to use.
+        @param  alloc
+                Allocator for the class to use.
     */
     Interpreter(Alloc& alloc)
             : alloc_(alloc), toPopLastIfCondition_(alloc_), lastIfCondition_(alloc_) {
