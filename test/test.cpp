@@ -37,12 +37,21 @@ using namespace kty;
 //#include <test/parser_test.hpp>
 //#include <test/tokenizer_test.hpp>
 
+struct TestNode {
+    int value;
+    TestNode* prev;
+    TestNode* next;
+};
+
 int main(void) {
     //Test::min_verbosity = TEST_VERBOSITY_ALL;
 
     while (Test::remaining() > 0) {
         Test::run();
     }
+
+    Serial.println(sizeof(int));
+    Serial.println(sizeof(TestNode));
 
     return Test::getCurrentFailed();
 }
