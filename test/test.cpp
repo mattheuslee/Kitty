@@ -31,7 +31,7 @@ using namespace kty;
 //Tokenizer tokenizer;
 
 #include <test/allocator_test.hpp>
-//#include <test/deque_test.hpp>
+#include <test/deque_test.hpp>
 //#include <test/string_utils_test.hpp>
 //#include <test/interpreter_test.hpp>
 //#include <test/parser_test.hpp>
