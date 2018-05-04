@@ -1,5 +1,8 @@
 #pragma once
 
+#include <kty/stl_impl.hpp>
+#include <cstring>
+
 namespace kty {
 
 /*!
@@ -15,12 +18,8 @@ public:
         @brief  Constructor for the allocator.
     */
     Allocator() {
-        for (int i = 0; i < N; ++i) {
-            for (int j = 0; j < B; ++j) {
-                *(pool_ + (i * B) + j) = 0;
-            }
-            taken_[i] = false;
-        }
+        memset((void*)pool_, '\0', N * B);
+        memset((void*)taken_, false, N);
         numTaken_ = 0;
         maxNumTaken_ = 0;
     }

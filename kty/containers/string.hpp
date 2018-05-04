@@ -1,5 +1,8 @@
 #pragma once
 
+#include <kty/stl_impl.hpp>
+#include <cstring>
+
 namespace kty {
 
 /** Forward declaration necessary for StringDatabase friend class declaration */
@@ -19,12 +22,8 @@ public:
         @brief  Constructor for the string database
     */
     StringDatabase() {
-        for (int i = 0; i < N; ++i) {
-            for (int j = 0; j <= S; ++j) {
-                *(pool_ + (i * (S + 1)) + j) = 0;
-            }
-            taken_[i] = false;
-        }
+        memset((void*)pool_, '\0', N * (S + 1));
+        memset((void*)taken_, false, N);
     }
 
     /*!
@@ -90,11 +89,9 @@ public:
                 The incoming string.
     */
     void set(int const & idx, char * str) {
-        int i = 0;
-        for (i = 0; i < S && str[i] != '\0'; ++i) {
-            *(pool_ + (idx * (S + 1)) + i) = str[i];
-        }
-        *(pool_ + (idx * (S + 1)) + i) = '\0';
+        int len = strlen(str);
+        int lenToCopy = S < len ? S : len;
+        strncpy(pool_ + (idx * (S + 1)), str, lenToCopy);
     }
 
 private:
