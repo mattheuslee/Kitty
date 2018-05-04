@@ -25,7 +25,7 @@ MockArduinoLog Log;
 using namespace kty;
 
 // 120 seems to be safe enough to run all the tests
-//Allocator<120, 4 * sizeof(int)> alloc;
+Allocator<120, sizeof(int) * 8> alloc;
 //Interpreter<decltype(alloc)> interpreter(alloc);
 //Parser parser;
 //Tokenizer tokenizer;
@@ -37,21 +37,12 @@ using namespace kty;
 //#include <test/parser_test.hpp>
 //#include <test/tokenizer_test.hpp>
 
-struct TestNode {
-    int value;
-    TestNode* prev;
-    TestNode* next;
-};
-
 int main(void) {
     //Test::min_verbosity = TEST_VERBOSITY_ALL;
 
     while (Test::remaining() > 0) {
         Test::run();
     }
-
-    Serial.println(sizeof(int));
-    Serial.println(sizeof(TestNode));
 
     return Test::getCurrentFailed();
 }
