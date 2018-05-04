@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['increase_5fnested_5flevel',['increase_nested_level',['../classkty_1_1_interpreter.html#ad8dae84e3bd6791e0d20f95839dc56e8',1,'kty::Interpreter']]],
+  ['increase_5fnested_5flevel',['increase_nested_level',['../classkty_1_1_interpreter.html#a57a1c74f3fea0686182cf015bd2a38c1',1,'kty::Interpreter']]],
   ['info',['info',['../structkty_1_1_device.html#a9e6547663cbacc24f109e1ffbb634614',1,'kty::Device']]],
   ['info_5fstr',['info_str',['../structkty_1_1_device.html#a7da2a518de4b8b5776218d018938aa9b',1,'kty::Device']]],
   ['interface',['Interface',['../classkty_1_1_interface.html',1,'kty']]],
-  ['interpreter',['Interpreter',['../classkty_1_1_interpreter.html',1,'kty::Interpreter'],['../classkty_1_1_interpreter.html#aeb2818c4dbf3995505a39e65ba067a5d',1,'kty::Interpreter::Interpreter()']]],
+  ['interpreter',['Interpreter',['../classkty_1_1_interpreter.html',1,'kty::Interpreter&lt; Alloc &gt;'],['../classkty_1_1_interpreter.html#a5834981370133a0af811559e4f7837ed',1,'kty::Interpreter::Interpreter()']]],
   ['is_5fcomma',['is_comma',['../structkty_1_1_token.html#af0042b16e0b7a7518c9e7aaa395d4070',1,'kty::Token']]],
   ['is_5fcreate_5fgroup',['is_create_group',['../structkty_1_1_token.html#a8d69af386e4737c2fa2d9288438c6198',1,'kty::Token']]],
   ['is_5fcreate_5fled',['is_create_led',['../structkty_1_1_token.html#adf522306b75a27d369451445044fce06',1,'kty::Token']]],
@@ -13,7 +13,7 @@ var searchData=
   ['is_5fcreation_5fcommand',['is_creation_command',['../structkty_1_1_token.html#aa24e1b6129879278007f9b707260ddf8',1,'kty::Token']]],
   ['is_5felse',['is_else',['../structkty_1_1_token.html#a7e96379dcc21bd5eeb3b66123ccf0746',1,'kty::Token']]],
   ['is_5felse_5fif',['is_else_if',['../structkty_1_1_token.html#a18c00c5a8826fe94101abe5cf271beb4',1,'kty::Token']]],
-  ['is_5fempty',['is_empty',['../classkty_1_1_deque.html#a84fb79616267c91d178e4902e4794485',1,'kty::Deque']]],
+  ['is_5fempty',['is_empty',['../classkty_1_1_deque.html#a35d000303d5497575d3ac54ccb725cb4',1,'kty::Deque']]],
   ['is_5ffunction',['is_function',['../structkty_1_1_token.html#a812a5188d24340bf36880cdf6bf7382c',1,'kty::Token']]],
   ['is_5fgroup',['is_group',['../structkty_1_1_device.html#abf47ae4e66589e54c5387321c0c05a5a',1,'kty::Device']]],
   ['is_5fif',['is_if',['../structkty_1_1_token.html#a4089c40d5991f50ddffc3d06925f2e9f',1,'kty::Token']]],

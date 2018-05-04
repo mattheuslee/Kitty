@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>KittyInterpreter: kty::Interpreter Class Reference</title>
+<title>KittyInterpreter: kty::Interpreter&lt; Alloc &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classkty_1_1_interpreter-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">kty::Interpreter Class Reference</div>  </div>
+<div class="title">kty::Interpreter&lt; Alloc &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -77,126 +77,131 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aeb2818c4dbf3995505a39e65ba067a5d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aeb2818c4dbf3995505a39e65ba067a5d">Interpreter</a> (<a class="el" href="classkty_1_1_allocator.html">Allocator</a>&lt; <a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; int &gt;::Node &gt; &amp;dequeIntAlloc)</td></tr>
-<tr class="memdesc:aeb2818c4dbf3995505a39e65ba067a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default interpreter constructor.  <a href="#aeb2818c4dbf3995505a39e65ba067a5d">More...</a><br /></td></tr>
-<tr class="separator:aeb2818c4dbf3995505a39e65ba067a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6950bc36ebdf12053e9f50a331dce19"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#af6950bc36ebdf12053e9f50a331dce19">get_prompt_prefix</a> ()</td></tr>
-<tr class="memdesc:af6950bc36ebdf12053e9f50a331dce19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the prefix(if any) for the user prompt.  <a href="#af6950bc36ebdf12053e9f50a331dce19">More...</a><br /></td></tr>
-<tr class="separator:af6950bc36ebdf12053e9f50a331dce19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b62f5a8b71966118daffa57557c2045"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a6b62f5a8b71966118daffa57557c2045">execute</a> (std::string command)</td></tr>
-<tr class="memdesc:a6b62f5a8b71966118daffa57557c2045"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command. This method takes the current interpreter status into account.  <a href="#a6b62f5a8b71966118daffa57557c2045">More...</a><br /></td></tr>
-<tr class="separator:a6b62f5a8b71966118daffa57557c2045"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae04ae25217fea8414db7fb8f666321d2"><td class="memItemLeft" align="right" valign="top"><a id="ae04ae25217fea8414db7fb8f666321d2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ae04ae25217fea8414db7fb8f666321d2">execute_command_queue</a> ()</td></tr>
-<tr class="memdesc:ae04ae25217fea8414db7fb8f666321d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes all the commands still in the command queue, if any. <br /></td></tr>
-<tr class="separator:ae04ae25217fea8414db7fb8f666321d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd729a845b3b66eda15f483167ae0d18"><td class="memItemLeft" align="right" valign="top"><a id="afd729a845b3b66eda15f483167ae0d18"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#afd729a845b3b66eda15f483167ae0d18">cleanup_after_command_queue_execute</a> ()</td></tr>
-<tr class="memdesc:afd729a845b3b66eda15f483167ae0d18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes all the cleanup for internal state after executing the commands in the command queue. <br /></td></tr>
-<tr class="separator:afd729a845b3b66eda15f483167ae0d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8d85f212906fcb16b1b7f6160db880f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aa8d85f212906fcb16b1b7f6160db880f">execute</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
-<tr class="memdesc:aa8d85f212906fcb16b1b7f6160db880f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command.  <a href="#aa8d85f212906fcb16b1b7f6160db880f">More...</a><br /></td></tr>
-<tr class="separator:aa8d85f212906fcb16b1b7f6160db880f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad166dfafebf7ecc470a2caf94f796eff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ad166dfafebf7ecc470a2caf94f796eff">execute_print_info</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
-<tr class="memdesc:ad166dfafebf7ecc470a2caf94f796eff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the print information command.  <a href="#ad166dfafebf7ecc470a2caf94f796eff">More...</a><br /></td></tr>
-<tr class="separator:ad166dfafebf7ecc470a2caf94f796eff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9b3ef4f2441f298a1c8adfcfe3822e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ad9b3ef4f2441f298a1c8adfcfe3822e4">execute_if</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
-<tr class="memdesc:ad9b3ef4f2441f298a1c8adfcfe3822e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the if command.  <a href="#ad9b3ef4f2441f298a1c8adfcfe3822e4">More...</a><br /></td></tr>
-<tr class="separator:ad9b3ef4f2441f298a1c8adfcfe3822e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7d923b9c936c419d78fcfbb42315076"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aa7d923b9c936c419d78fcfbb42315076">execute_else</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
-<tr class="memdesc:aa7d923b9c936c419d78fcfbb42315076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the else command.  <a href="#aa7d923b9c936c419d78fcfbb42315076">More...</a><br /></td></tr>
-<tr class="separator:aa7d923b9c936c419d78fcfbb42315076"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9e890492973c875fecf1e435bd608c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ae9e890492973c875fecf1e435bd608c7">execute_create</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
-<tr class="memdesc:ae9e890492973c875fecf1e435bd608c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the different creation commands.  <a href="#ae9e890492973c875fecf1e435bd608c7">More...</a><br /></td></tr>
-<tr class="separator:ae9e890492973c875fecf1e435bd608c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc73345ba283dc71c614698c313059de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#acc73345ba283dc71c614698c313059de">execute_move_by</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
-<tr class="memdesc:acc73345ba283dc71c614698c313059de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the move by or move by for commands.  <a href="#acc73345ba283dc71c614698c313059de">More...</a><br /></td></tr>
-<tr class="separator:acc73345ba283dc71c614698c313059de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad285fcf61260774d6b4d632fc59b5663"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ad285fcf61260774d6b4d632fc59b5663">execute_run_group</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
-<tr class="memdesc:ad285fcf61260774d6b4d632fc59b5663"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the running of a command group. Essentially adds the commands in the command group to the command queue to be executed later.  <a href="#ad285fcf61260774d6b4d632fc59b5663">More...</a><br /></td></tr>
-<tr class="separator:ad285fcf61260774d6b4d632fc59b5663"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaffc4334bb962d02f0b4a453f367b300"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aaffc4334bb962d02f0b4a453f367b300">execute_print_string</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
-<tr class="memdesc:aaffc4334bb962d02f0b4a453f367b300"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the printing of a string.  <a href="#aaffc4334bb962d02f0b4a453f367b300">More...</a><br /></td></tr>
-<tr class="separator:aaffc4334bb962d02f0b4a453f367b300"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2b3b2b22f7647c51c7fc129e755c056"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_device.html">Device</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ad2b3b2b22f7647c51c7fc129e755c056">get_device</a> (std::string const &amp;name)</td></tr>
-<tr class="memdesc:ad2b3b2b22f7647c51c7fc129e755c056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a device by name.  <a href="#ad2b3b2b22f7647c51c7fc129e755c056">More...</a><br /></td></tr>
-<tr class="separator:ad2b3b2b22f7647c51c7fc129e755c056"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86bc4bfb307ca123cba35e6beb61d5d2"><td class="memItemLeft" align="right" valign="top">std::stack&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a86bc4bfb307ca123cba35e6beb61d5d2">evaluate_postfix</a> (std::queue&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; &amp;tokenQueue)</td></tr>
-<tr class="memdesc:a86bc4bfb307ca123cba35e6beb61d5d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a postfix expression.  <a href="#a86bc4bfb307ca123cba35e6beb61d5d2">More...</a><br /></td></tr>
-<tr class="separator:a86bc4bfb307ca123cba35e6beb61d5d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf4562e036c85f380e08f3688ef849bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_token.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#acf4562e036c85f380e08f3688ef849bf">evaluate_unary_operation</a> (<a class="el" href="structkty_1_1_token.html">Token</a> const &amp;op, <a class="el" href="structkty_1_1_token.html">Token</a> const &amp;operand)</td></tr>
-<tr class="memdesc:acf4562e036c85f380e08f3688ef849bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates single unary operation.  <a href="#acf4562e036c85f380e08f3688ef849bf">More...</a><br /></td></tr>
-<tr class="separator:acf4562e036c85f380e08f3688ef849bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a2f11cace5a9753a312326f74416913"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_token.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a1a2f11cace5a9753a312326f74416913">evaluate_operation</a> (<a class="el" href="structkty_1_1_token.html">Token</a> const &amp;op, <a class="el" href="structkty_1_1_token.html">Token</a> const &amp;lhs, <a class="el" href="structkty_1_1_token.html">Token</a> const &amp;rhs)</td></tr>
-<tr class="memdesc:a1a2f11cace5a9753a312326f74416913"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates single binary operation.  <a href="#a1a2f11cace5a9753a312326f74416913">More...</a><br /></td></tr>
-<tr class="separator:a1a2f11cace5a9753a312326f74416913"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4df0cdd602e563e509a97bbf183fccb2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a4df0cdd602e563e509a97bbf183fccb2">power</a> (int const &amp;a, int const &amp;b)</td></tr>
-<tr class="memdesc:a4df0cdd602e563e509a97bbf183fccb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a to the power of b.  <a href="#a4df0cdd602e563e509a97bbf183fccb2">More...</a><br /></td></tr>
-<tr class="separator:a4df0cdd602e563e509a97bbf183fccb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5966f270420b6d19d5acdce459e0f9f9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a5966f270420b6d19d5acdce459e0f9f9">get_token_value</a> (<a class="el" href="structkty_1_1_token.html">Token</a> const &amp;token)</td></tr>
-<tr class="memdesc:a5966f270420b6d19d5acdce459e0f9f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of a token.  <a href="#a5966f270420b6d19d5acdce459e0f9f9">More...</a><br /></td></tr>
-<tr class="separator:a5966f270420b6d19d5acdce459e0f9f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92072c78fce3aed839e0822559333af9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a92072c78fce3aed839e0822559333af9">create_number</a> (std::string const &amp;name, std::stack&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; &amp;info)</td></tr>
-<tr class="memdesc:a92072c78fce3aed839e0822559333af9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a number using the name and information given.  <a href="#a92072c78fce3aed839e0822559333af9">More...</a><br /></td></tr>
-<tr class="separator:a92072c78fce3aed839e0822559333af9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6319ef7677a33d569d4fd2a249f8c3ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a6319ef7677a33d569d4fd2a249f8c3ef">create_led</a> (std::string const &amp;name, std::stack&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; &amp;info)</td></tr>
-<tr class="memdesc:a6319ef7677a33d569d4fd2a249f8c3ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an LED using the name and information given.  <a href="#a6319ef7677a33d569d4fd2a249f8c3ef">More...</a><br /></td></tr>
-<tr class="separator:a6319ef7677a33d569d4fd2a249f8c3ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbc2e293c132eea7e10d813dee0607da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#adbc2e293c132eea7e10d813dee0607da">create_if</a> (std::string const &amp;condition)</td></tr>
-<tr class="memdesc:adbc2e293c132eea7e10d813dee0607da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the creation of an if command group.  <a href="#adbc2e293c132eea7e10d813dee0607da">More...</a><br /></td></tr>
-<tr class="separator:adbc2e293c132eea7e10d813dee0607da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d40227c94b61cc702fc08a2553121fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a6d40227c94b61cc702fc08a2553121fa">add_to_if</a> (std::string const &amp;command)</td></tr>
-<tr class="memdesc:a6d40227c94b61cc702fc08a2553121fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a command to the if command group that is currently being created.  <a href="#a6d40227c94b61cc702fc08a2553121fa">More...</a><br /></td></tr>
-<tr class="separator:a6d40227c94b61cc702fc08a2553121fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a968f821f6145a2e728bcdb83ecacf8e1"><td class="memItemLeft" align="right" valign="top"><a id="a968f821f6145a2e728bcdb83ecacf8e1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a968f821f6145a2e728bcdb83ecacf8e1">close_if</a> ()</td></tr>
-<tr class="memdesc:a968f821f6145a2e728bcdb83ecacf8e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finishes the creation of an if command group, and adds its commands to the commandQueue if the condition is true. <br /></td></tr>
-<tr class="separator:a968f821f6145a2e728bcdb83ecacf8e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebc0963a3a359825fcf763e2b98eb8b0"><td class="memItemLeft" align="right" valign="top"><a id="aebc0963a3a359825fcf763e2b98eb8b0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aebc0963a3a359825fcf763e2b98eb8b0">create_else</a> ()</td></tr>
-<tr class="memdesc:aebc0963a3a359825fcf763e2b98eb8b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the creation of an else command group. <br /></td></tr>
-<tr class="separator:aebc0963a3a359825fcf763e2b98eb8b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a204935269f802cbe3137451dc69a3bd9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a204935269f802cbe3137451dc69a3bd9">add_to_else</a> (std::string const &amp;command)</td></tr>
-<tr class="memdesc:a204935269f802cbe3137451dc69a3bd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a command to the else command group that is currently being created.  <a href="#a204935269f802cbe3137451dc69a3bd9">More...</a><br /></td></tr>
-<tr class="separator:a204935269f802cbe3137451dc69a3bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f2d67467b0f4bbeb5d9b4e40a770cfa"><td class="memItemLeft" align="right" valign="top"><a id="a6f2d67467b0f4bbeb5d9b4e40a770cfa"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a6f2d67467b0f4bbeb5d9b4e40a770cfa">close_else</a> ()</td></tr>
-<tr class="memdesc:a6f2d67467b0f4bbeb5d9b4e40a770cfa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finishes the creation of an else command group, and adds its commands to the commandQueue if the else directly follows an if that had a condition which was false. <br /></td></tr>
-<tr class="separator:a6f2d67467b0f4bbeb5d9b4e40a770cfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0035330c04eb3b37082a0fab8a22672"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ac0035330c04eb3b37082a0fab8a22672">create_group</a> (std::string const &amp;name)</td></tr>
-<tr class="memdesc:ac0035330c04eb3b37082a0fab8a22672"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the creation of a command group.  <a href="#ac0035330c04eb3b37082a0fab8a22672">More...</a><br /></td></tr>
-<tr class="separator:ac0035330c04eb3b37082a0fab8a22672"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54d3234273fc3b585ff1c1eab8770939"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a54d3234273fc3b585ff1c1eab8770939">add_to_group</a> (std::string const &amp;command)</td></tr>
-<tr class="memdesc:a54d3234273fc3b585ff1c1eab8770939"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a command to the command group that is currently being created.  <a href="#a54d3234273fc3b585ff1c1eab8770939">More...</a><br /></td></tr>
-<tr class="separator:a54d3234273fc3b585ff1c1eab8770939"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acec4d7bb4d1f68afef44b48f4ea7fcab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#acec4d7bb4d1f68afef44b48f4ea7fcab">close_group</a> (std::string const &amp;name, std::vector&lt; std::string &gt; &amp;commands)</td></tr>
-<tr class="memdesc:acec4d7bb4d1f68afef44b48f4ea7fcab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finishes the creation of a command group.  <a href="#acec4d7bb4d1f68afef44b48f4ea7fcab">More...</a><br /></td></tr>
-<tr class="separator:acec4d7bb4d1f68afef44b48f4ea7fcab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8dae84e3bd6791e0d20f95839dc56e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ad8dae84e3bd6791e0d20f95839dc56e8">increase_nested_level</a> (InterpreterStatus status)</td></tr>
-<tr class="memdesc:ad8dae84e3bd6791e0d20f95839dc56e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increases the nested level of the interpreter.  <a href="#ad8dae84e3bd6791e0d20f95839dc56e8">More...</a><br /></td></tr>
-<tr class="separator:ad8dae84e3bd6791e0d20f95839dc56e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5f03b00aa4b819886a27070b27c713f"><td class="memItemLeft" align="right" valign="top"><a id="ab5f03b00aa4b819886a27070b27c713f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ab5f03b00aa4b819886a27070b27c713f">decrease_nested_level</a> ()</td></tr>
-<tr class="memdesc:ab5f03b00aa4b819886a27070b27c713f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decreases the nested level of the interpreter. <br /></td></tr>
-<tr class="separator:ab5f03b00aa4b819886a27070b27c713f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5834981370133a0af811559e4f7837ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a5834981370133a0af811559e4f7837ed">Interpreter</a> (Alloc &amp;alloc)</td></tr>
+<tr class="memdesc:a5834981370133a0af811559e4f7837ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default interpreter constructor.  <a href="#a5834981370133a0af811559e4f7837ed">More...</a><br /></td></tr>
+<tr class="separator:a5834981370133a0af811559e4f7837ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a956a70b9c1804fc36e01687b5582ce90"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a956a70b9c1804fc36e01687b5582ce90">get_prompt_prefix</a> ()</td></tr>
+<tr class="memdesc:a956a70b9c1804fc36e01687b5582ce90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the prefix(if any) for the user prompt.  <a href="#a956a70b9c1804fc36e01687b5582ce90">More...</a><br /></td></tr>
+<tr class="separator:a956a70b9c1804fc36e01687b5582ce90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d90991d63a9e34163b385ff950453f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a7d90991d63a9e34163b385ff950453f5">execute</a> (std::string command)</td></tr>
+<tr class="memdesc:a7d90991d63a9e34163b385ff950453f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command. This method takes the current interpreter status into account.  <a href="#a7d90991d63a9e34163b385ff950453f5">More...</a><br /></td></tr>
+<tr class="separator:a7d90991d63a9e34163b385ff950453f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f2ce528cfaf7e25c51458453a9dfac3"><td class="memItemLeft" align="right" valign="top"><a id="a7f2ce528cfaf7e25c51458453a9dfac3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a7f2ce528cfaf7e25c51458453a9dfac3">execute_command_queue</a> ()</td></tr>
+<tr class="memdesc:a7f2ce528cfaf7e25c51458453a9dfac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes all the commands still in the command queue, if any. <br /></td></tr>
+<tr class="separator:a7f2ce528cfaf7e25c51458453a9dfac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58b2b292ef900dc44b1048bda4862881"><td class="memItemLeft" align="right" valign="top"><a id="a58b2b292ef900dc44b1048bda4862881"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a58b2b292ef900dc44b1048bda4862881">cleanup_after_command_queue_execute</a> ()</td></tr>
+<tr class="memdesc:a58b2b292ef900dc44b1048bda4862881"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes all the cleanup for internal state after executing the commands in the command queue. <br /></td></tr>
+<tr class="separator:a58b2b292ef900dc44b1048bda4862881"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e82efff98d8dd598fef0fbf29f87d50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a6e82efff98d8dd598fef0fbf29f87d50">execute</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
+<tr class="memdesc:a6e82efff98d8dd598fef0fbf29f87d50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command.  <a href="#a6e82efff98d8dd598fef0fbf29f87d50">More...</a><br /></td></tr>
+<tr class="separator:a6e82efff98d8dd598fef0fbf29f87d50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a066f8916b337835300637b0abfe0979a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a066f8916b337835300637b0abfe0979a">execute_print_info</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
+<tr class="memdesc:a066f8916b337835300637b0abfe0979a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the print information command.  <a href="#a066f8916b337835300637b0abfe0979a">More...</a><br /></td></tr>
+<tr class="separator:a066f8916b337835300637b0abfe0979a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a624efb2a2540da81d04df229e936b810"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a624efb2a2540da81d04df229e936b810">execute_if</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
+<tr class="memdesc:a624efb2a2540da81d04df229e936b810"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the if command.  <a href="#a624efb2a2540da81d04df229e936b810">More...</a><br /></td></tr>
+<tr class="separator:a624efb2a2540da81d04df229e936b810"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61bcb1933cb6a38fc11454e1ee91d68a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a61bcb1933cb6a38fc11454e1ee91d68a">execute_else</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
+<tr class="memdesc:a61bcb1933cb6a38fc11454e1ee91d68a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the else command.  <a href="#a61bcb1933cb6a38fc11454e1ee91d68a">More...</a><br /></td></tr>
+<tr class="separator:a61bcb1933cb6a38fc11454e1ee91d68a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9a5220e81b2f91d0d5882643821c762"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ac9a5220e81b2f91d0d5882643821c762">execute_create</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
+<tr class="memdesc:ac9a5220e81b2f91d0d5882643821c762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the different creation commands.  <a href="#ac9a5220e81b2f91d0d5882643821c762">More...</a><br /></td></tr>
+<tr class="separator:ac9a5220e81b2f91d0d5882643821c762"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbe6585d0a224c564d41be5cda81f527"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#afbe6585d0a224c564d41be5cda81f527">execute_move_by</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
+<tr class="memdesc:afbe6585d0a224c564d41be5cda81f527"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the move by or move by for commands.  <a href="#afbe6585d0a224c564d41be5cda81f527">More...</a><br /></td></tr>
+<tr class="separator:afbe6585d0a224c564d41be5cda81f527"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7a200fd4067cfc398748400ff9c2e00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ae7a200fd4067cfc398748400ff9c2e00">execute_run_group</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
+<tr class="memdesc:ae7a200fd4067cfc398748400ff9c2e00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the running of a command group. Essentially adds the commands in the command group to the command queue to be executed later.  <a href="#ae7a200fd4067cfc398748400ff9c2e00">More...</a><br /></td></tr>
+<tr class="separator:ae7a200fd4067cfc398748400ff9c2e00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab909b996c7653657d9137642fa2f9acc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ab909b996c7653657d9137642fa2f9acc">execute_print_string</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
+<tr class="memdesc:ab909b996c7653657d9137642fa2f9acc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the printing of a string.  <a href="#ab909b996c7653657d9137642fa2f9acc">More...</a><br /></td></tr>
+<tr class="separator:ab909b996c7653657d9137642fa2f9acc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9566241caded91a7780e94e2750926e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_device.html">Device</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a9566241caded91a7780e94e2750926e7">get_device</a> (std::string const &amp;name)</td></tr>
+<tr class="memdesc:a9566241caded91a7780e94e2750926e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves a device by name.  <a href="#a9566241caded91a7780e94e2750926e7">More...</a><br /></td></tr>
+<tr class="separator:a9566241caded91a7780e94e2750926e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90a7e62bcf8ec65f049f048a905a6712"><td class="memItemLeft" align="right" valign="top">std::stack&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a90a7e62bcf8ec65f049f048a905a6712">evaluate_postfix</a> (std::queue&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; &amp;tokenQueue)</td></tr>
+<tr class="memdesc:a90a7e62bcf8ec65f049f048a905a6712"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a postfix expression.  <a href="#a90a7e62bcf8ec65f049f048a905a6712">More...</a><br /></td></tr>
+<tr class="separator:a90a7e62bcf8ec65f049f048a905a6712"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56e8d318f0c8894c33779d8b62df01d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_token.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a56e8d318f0c8894c33779d8b62df01d5">evaluate_unary_operation</a> (<a class="el" href="structkty_1_1_token.html">Token</a> const &amp;op, <a class="el" href="structkty_1_1_token.html">Token</a> const &amp;operand)</td></tr>
+<tr class="memdesc:a56e8d318f0c8894c33779d8b62df01d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates single unary operation.  <a href="#a56e8d318f0c8894c33779d8b62df01d5">More...</a><br /></td></tr>
+<tr class="separator:a56e8d318f0c8894c33779d8b62df01d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80b6642827b072d646e5dac2d16475e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_token.html">Token</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a80b6642827b072d646e5dac2d16475e6">evaluate_operation</a> (<a class="el" href="structkty_1_1_token.html">Token</a> const &amp;op, <a class="el" href="structkty_1_1_token.html">Token</a> const &amp;lhs, <a class="el" href="structkty_1_1_token.html">Token</a> const &amp;rhs)</td></tr>
+<tr class="memdesc:a80b6642827b072d646e5dac2d16475e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates single binary operation.  <a href="#a80b6642827b072d646e5dac2d16475e6">More...</a><br /></td></tr>
+<tr class="separator:a80b6642827b072d646e5dac2d16475e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff55d79e68ee85ad2b12f02393f3f630"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aff55d79e68ee85ad2b12f02393f3f630">power</a> (int const &amp;a, int const &amp;b)</td></tr>
+<tr class="memdesc:aff55d79e68ee85ad2b12f02393f3f630"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates a to the power of b.  <a href="#aff55d79e68ee85ad2b12f02393f3f630">More...</a><br /></td></tr>
+<tr class="separator:aff55d79e68ee85ad2b12f02393f3f630"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17b465cd11f2ce42110bb4432c2c4c95"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a17b465cd11f2ce42110bb4432c2c4c95">get_token_value</a> (<a class="el" href="structkty_1_1_token.html">Token</a> const &amp;token)</td></tr>
+<tr class="memdesc:a17b465cd11f2ce42110bb4432c2c4c95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of a token.  <a href="#a17b465cd11f2ce42110bb4432c2c4c95">More...</a><br /></td></tr>
+<tr class="separator:a17b465cd11f2ce42110bb4432c2c4c95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a893b1ced3a8b4960317f305c0a954898"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a893b1ced3a8b4960317f305c0a954898">create_number</a> (std::string const &amp;name, std::stack&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; &amp;info)</td></tr>
+<tr class="memdesc:a893b1ced3a8b4960317f305c0a954898"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a number using the name and information given.  <a href="#a893b1ced3a8b4960317f305c0a954898">More...</a><br /></td></tr>
+<tr class="separator:a893b1ced3a8b4960317f305c0a954898"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0240dcbffdd26714d262780b1fa4c5c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a0240dcbffdd26714d262780b1fa4c5c3">create_led</a> (std::string const &amp;name, std::stack&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; &amp;info)</td></tr>
+<tr class="memdesc:a0240dcbffdd26714d262780b1fa4c5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an LED using the name and information given.  <a href="#a0240dcbffdd26714d262780b1fa4c5c3">More...</a><br /></td></tr>
+<tr class="separator:a0240dcbffdd26714d262780b1fa4c5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad51bebb0529d53d5ea77d7e099498402"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ad51bebb0529d53d5ea77d7e099498402">create_if</a> (std::string const &amp;condition)</td></tr>
+<tr class="memdesc:ad51bebb0529d53d5ea77d7e099498402"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the creation of an if command group.  <a href="#ad51bebb0529d53d5ea77d7e099498402">More...</a><br /></td></tr>
+<tr class="separator:ad51bebb0529d53d5ea77d7e099498402"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90edd75fc7e1a67bc987e13483d1df97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a90edd75fc7e1a67bc987e13483d1df97">add_to_if</a> (std::string const &amp;command)</td></tr>
+<tr class="memdesc:a90edd75fc7e1a67bc987e13483d1df97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a command to the if command group that is currently being created.  <a href="#a90edd75fc7e1a67bc987e13483d1df97">More...</a><br /></td></tr>
+<tr class="separator:a90edd75fc7e1a67bc987e13483d1df97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2ed9fb83fc71e84dd806f02d8ea3389"><td class="memItemLeft" align="right" valign="top"><a id="ac2ed9fb83fc71e84dd806f02d8ea3389"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ac2ed9fb83fc71e84dd806f02d8ea3389">close_if</a> ()</td></tr>
+<tr class="memdesc:ac2ed9fb83fc71e84dd806f02d8ea3389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finishes the creation of an if command group, and adds its commands to the commandQueue if the condition is true. <br /></td></tr>
+<tr class="separator:ac2ed9fb83fc71e84dd806f02d8ea3389"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affd28d55aecccb146f1f4a6c6d569aed"><td class="memItemLeft" align="right" valign="top"><a id="affd28d55aecccb146f1f4a6c6d569aed"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#affd28d55aecccb146f1f4a6c6d569aed">create_else</a> ()</td></tr>
+<tr class="memdesc:affd28d55aecccb146f1f4a6c6d569aed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the creation of an else command group. <br /></td></tr>
+<tr class="separator:affd28d55aecccb146f1f4a6c6d569aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abed821d5d80446d19de37062d43f173e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#abed821d5d80446d19de37062d43f173e">add_to_else</a> (std::string const &amp;command)</td></tr>
+<tr class="memdesc:abed821d5d80446d19de37062d43f173e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a command to the else command group that is currently being created.  <a href="#abed821d5d80446d19de37062d43f173e">More...</a><br /></td></tr>
+<tr class="separator:abed821d5d80446d19de37062d43f173e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc483d279efd56511584a943e4461129"><td class="memItemLeft" align="right" valign="top"><a id="abc483d279efd56511584a943e4461129"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#abc483d279efd56511584a943e4461129">close_else</a> ()</td></tr>
+<tr class="memdesc:abc483d279efd56511584a943e4461129"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finishes the creation of an else command group, and adds its commands to the commandQueue if the else directly follows an if that had a condition which was false. <br /></td></tr>
+<tr class="separator:abc483d279efd56511584a943e4461129"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d11ced2ea941fa8eb1728635039d68a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a4d11ced2ea941fa8eb1728635039d68a">create_group</a> (std::string const &amp;name)</td></tr>
+<tr class="memdesc:a4d11ced2ea941fa8eb1728635039d68a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the creation of a command group.  <a href="#a4d11ced2ea941fa8eb1728635039d68a">More...</a><br /></td></tr>
+<tr class="separator:a4d11ced2ea941fa8eb1728635039d68a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a239da3545aa612ae0c38cf95e576ff7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a239da3545aa612ae0c38cf95e576ff7b">add_to_group</a> (std::string const &amp;command)</td></tr>
+<tr class="memdesc:a239da3545aa612ae0c38cf95e576ff7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a command to the command group that is currently being created.  <a href="#a239da3545aa612ae0c38cf95e576ff7b">More...</a><br /></td></tr>
+<tr class="separator:a239da3545aa612ae0c38cf95e576ff7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a830860bb9bceb5d15004cc7ae13991b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a830860bb9bceb5d15004cc7ae13991b7">close_group</a> (std::string const &amp;name, std::vector&lt; std::string &gt; &amp;commands)</td></tr>
+<tr class="memdesc:a830860bb9bceb5d15004cc7ae13991b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finishes the creation of a command group.  <a href="#a830860bb9bceb5d15004cc7ae13991b7">More...</a><br /></td></tr>
+<tr class="separator:a830860bb9bceb5d15004cc7ae13991b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57a1c74f3fea0686182cf015bd2a38c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a57a1c74f3fea0686182cf015bd2a38c1">increase_nested_level</a> (InterpreterStatus status)</td></tr>
+<tr class="memdesc:a57a1c74f3fea0686182cf015bd2a38c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increases the nested level of the interpreter.  <a href="#a57a1c74f3fea0686182cf015bd2a38c1">More...</a><br /></td></tr>
+<tr class="separator:a57a1c74f3fea0686182cf015bd2a38c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaabc9a56acf94b4dc205f7ab9f1ff336"><td class="memItemLeft" align="right" valign="top"><a id="aaabc9a56acf94b4dc205f7ab9f1ff336"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aaabc9a56acf94b4dc205f7ab9f1ff336">decrease_nested_level</a> ()</td></tr>
+<tr class="memdesc:aaabc9a56acf94b4dc205f7ab9f1ff336"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decreases the nested level of the interpreter. <br /></td></tr>
+<tr class="separator:aaabc9a56acf94b4dc205f7ab9f1ff336"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class that stores state on all devices and groups, and executes commands. </p>
+<div class="textblock"><h3>template&lt;class Alloc&gt;<br />
+class kty::Interpreter&lt; Alloc &gt;</h3>
+
+<p>Class that stores state on all devices and groups, and executes commands. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aeb2818c4dbf3995505a39e65ba067a5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb2818c4dbf3995505a39e65ba067a5d">&#9670;&nbsp;</a></span>Interpreter()</h2>
+<a id="a5834981370133a0af811559e4f7837ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5834981370133a0af811559e4f7837ed">&#9670;&nbsp;</a></span>Interpreter()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">kty::Interpreter::Interpreter </td>
+          <td class="memname"><a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::<a class="el" href="classkty_1_1_interpreter.html">Interpreter</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classkty_1_1_allocator.html">Allocator</a>&lt; <a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; int &gt;::Node &gt; &amp;&#160;</td>
-          <td class="paramname"><em>dequeIntAlloc</em></td><td>)</td>
+          <td class="paramtype">Alloc &amp;&#160;</td>
+          <td class="paramname"><em>alloc</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -210,7 +215,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Default interpreter constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dequeIntAlloc</td><td><a class="el" href="classkty_1_1_allocator.html" title="Class that performs allocation and deallocation of memory. Utilises a centrally managed pool to avoid...">Allocator</a> for all <a class="el" href="classkty_1_1_deque.html">Deque&lt;int&gt;</a> within the class to use. </td></tr>
+    <tr><td class="paramname">alloc</td><td><a class="el" href="classkty_1_1_allocator.html" title="Class that performs allocation and deallocation of memory. The memory pool is created on the stack to...">Allocator</a> for the class to use. </td></tr>
   </table>
   </dd>
 </dl>
@@ -218,17 +223,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af6950bc36ebdf12053e9f50a331dce19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6950bc36ebdf12053e9f50a331dce19">&#9670;&nbsp;</a></span>get_prompt_prefix()</h2>
+<a id="a956a70b9c1804fc36e01687b5582ce90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a956a70b9c1804fc36e01687b5582ce90">&#9670;&nbsp;</a></span>get_prompt_prefix()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string kty::Interpreter::get_prompt_prefix </td>
+          <td class="memname">std::string <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::get_prompt_prefix </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -246,17 +253,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a6b62f5a8b71966118daffa57557c2045"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b62f5a8b71966118daffa57557c2045">&#9670;&nbsp;</a></span>execute() <span class="overload">[1/2]</span></h2>
+<a id="a7d90991d63a9e34163b385ff950453f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d90991d63a9e34163b385ff950453f5">&#9670;&nbsp;</a></span>execute() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::execute </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::execute </td>
           <td>(</td>
           <td class="paramtype">std::string&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
@@ -280,17 +289,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="aa8d85f212906fcb16b1b7f6160db880f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8d85f212906fcb16b1b7f6160db880f">&#9670;&nbsp;</a></span>execute() <span class="overload">[2/2]</span></h2>
+<a id="a6e82efff98d8dd598fef0fbf29f87d50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e82efff98d8dd598fef0fbf29f87d50">&#9670;&nbsp;</a></span>execute() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::execute </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::execute </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
@@ -314,17 +325,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="ad166dfafebf7ecc470a2caf94f796eff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad166dfafebf7ecc470a2caf94f796eff">&#9670;&nbsp;</a></span>execute_print_info()</h2>
+<a id="a066f8916b337835300637b0abfe0979a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a066f8916b337835300637b0abfe0979a">&#9670;&nbsp;</a></span>execute_print_info()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::execute_print_info </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::execute_print_info </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
@@ -348,17 +361,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="ad9b3ef4f2441f298a1c8adfcfe3822e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9b3ef4f2441f298a1c8adfcfe3822e4">&#9670;&nbsp;</a></span>execute_if()</h2>
+<a id="a624efb2a2540da81d04df229e936b810"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a624efb2a2540da81d04df229e936b810">&#9670;&nbsp;</a></span>execute_if()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::execute_if </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::execute_if </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
@@ -382,17 +397,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="aa7d923b9c936c419d78fcfbb42315076"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7d923b9c936c419d78fcfbb42315076">&#9670;&nbsp;</a></span>execute_else()</h2>
+<a id="a61bcb1933cb6a38fc11454e1ee91d68a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61bcb1933cb6a38fc11454e1ee91d68a">&#9670;&nbsp;</a></span>execute_else()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::execute_else </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::execute_else </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
@@ -416,17 +433,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="ae9e890492973c875fecf1e435bd608c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9e890492973c875fecf1e435bd608c7">&#9670;&nbsp;</a></span>execute_create()</h2>
+<a id="ac9a5220e81b2f91d0d5882643821c762"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9a5220e81b2f91d0d5882643821c762">&#9670;&nbsp;</a></span>execute_create()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::execute_create </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::execute_create </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
@@ -450,17 +469,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="acc73345ba283dc71c614698c313059de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc73345ba283dc71c614698c313059de">&#9670;&nbsp;</a></span>execute_move_by()</h2>
+<a id="afbe6585d0a224c564d41be5cda81f527"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbe6585d0a224c564d41be5cda81f527">&#9670;&nbsp;</a></span>execute_move_by()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::execute_move_by </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::execute_move_by </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
@@ -484,17 +505,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="ad285fcf61260774d6b4d632fc59b5663"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad285fcf61260774d6b4d632fc59b5663">&#9670;&nbsp;</a></span>execute_run_group()</h2>
+<a id="ae7a200fd4067cfc398748400ff9c2e00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7a200fd4067cfc398748400ff9c2e00">&#9670;&nbsp;</a></span>execute_run_group()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::execute_run_group </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::execute_run_group </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
@@ -518,17 +541,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="aaffc4334bb962d02f0b4a453f367b300"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaffc4334bb962d02f0b4a453f367b300">&#9670;&nbsp;</a></span>execute_print_string()</h2>
+<a id="ab909b996c7653657d9137642fa2f9acc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab909b996c7653657d9137642fa2f9acc">&#9670;&nbsp;</a></span>execute_print_string()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::execute_print_string </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::execute_print_string </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
@@ -552,17 +577,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="ad2b3b2b22f7647c51c7fc129e755c056"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2b3b2b22f7647c51c7fc129e755c056">&#9670;&nbsp;</a></span>get_device()</h2>
+<a id="a9566241caded91a7780e94e2750926e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9566241caded91a7780e94e2750926e7">&#9670;&nbsp;</a></span>get_device()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structkty_1_1_device.html">Device</a> kty::Interpreter::get_device </td>
+          <td class="memname"><a class="el" href="structkty_1_1_device.html">Device</a> <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::get_device </td>
           <td>(</td>
           <td class="paramtype">std::string const &amp;&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
@@ -587,17 +614,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a86bc4bfb307ca123cba35e6beb61d5d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86bc4bfb307ca123cba35e6beb61d5d2">&#9670;&nbsp;</a></span>evaluate_postfix()</h2>
+<a id="a90a7e62bcf8ec65f049f048a905a6712"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90a7e62bcf8ec65f049f048a905a6712">&#9670;&nbsp;</a></span>evaluate_postfix()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::stack&lt;<a class="el" href="structkty_1_1_token.html">Token</a>&gt; kty::Interpreter::evaluate_postfix </td>
+          <td class="memname">std::stack&lt;<a class="el" href="structkty_1_1_token.html">Token</a>&gt; <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::evaluate_postfix </td>
           <td>(</td>
           <td class="paramtype">std::queue&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>tokenQueue</em></td><td>)</td>
@@ -622,17 +651,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="acf4562e036c85f380e08f3688ef849bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf4562e036c85f380e08f3688ef849bf">&#9670;&nbsp;</a></span>evaluate_unary_operation()</h2>
+<a id="a56e8d318f0c8894c33779d8b62df01d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56e8d318f0c8894c33779d8b62df01d5">&#9670;&nbsp;</a></span>evaluate_unary_operation()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structkty_1_1_token.html">Token</a> kty::Interpreter::evaluate_unary_operation </td>
+          <td class="memname"><a class="el" href="structkty_1_1_token.html">Token</a> <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::evaluate_unary_operation </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structkty_1_1_token.html">Token</a> const &amp;&#160;</td>
           <td class="paramname"><em>op</em>, </td>
@@ -668,17 +699,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a1a2f11cace5a9753a312326f74416913"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a2f11cace5a9753a312326f74416913">&#9670;&nbsp;</a></span>evaluate_operation()</h2>
+<a id="a80b6642827b072d646e5dac2d16475e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80b6642827b072d646e5dac2d16475e6">&#9670;&nbsp;</a></span>evaluate_operation()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structkty_1_1_token.html">Token</a> kty::Interpreter::evaluate_operation </td>
+          <td class="memname"><a class="el" href="structkty_1_1_token.html">Token</a> <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::evaluate_operation </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structkty_1_1_token.html">Token</a> const &amp;&#160;</td>
           <td class="paramname"><em>op</em>, </td>
@@ -721,17 +754,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a4df0cdd602e563e509a97bbf183fccb2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4df0cdd602e563e509a97bbf183fccb2">&#9670;&nbsp;</a></span>power()</h2>
+<a id="aff55d79e68ee85ad2b12f02393f3f630"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff55d79e68ee85ad2b12f02393f3f630">&#9670;&nbsp;</a></span>power()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int kty::Interpreter::power </td>
+          <td class="memname">int <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::power </td>
           <td>(</td>
           <td class="paramtype">int const &amp;&#160;</td>
           <td class="paramname"><em>a</em>, </td>
@@ -767,17 +802,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a5966f270420b6d19d5acdce459e0f9f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5966f270420b6d19d5acdce459e0f9f9">&#9670;&nbsp;</a></span>get_token_value()</h2>
+<a id="a17b465cd11f2ce42110bb4432c2c4c95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17b465cd11f2ce42110bb4432c2c4c95">&#9670;&nbsp;</a></span>get_token_value()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int kty::Interpreter::get_token_value </td>
+          <td class="memname">int <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::get_token_value </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structkty_1_1_token.html">Token</a> const &amp;&#160;</td>
           <td class="paramname"><em>token</em></td><td>)</td>
@@ -802,17 +839,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a92072c78fce3aed839e0822559333af9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92072c78fce3aed839e0822559333af9">&#9670;&nbsp;</a></span>create_number()</h2>
+<a id="a893b1ced3a8b4960317f305c0a954898"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a893b1ced3a8b4960317f305c0a954898">&#9670;&nbsp;</a></span>create_number()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::create_number </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::create_number </td>
           <td>(</td>
           <td class="paramtype">std::string const &amp;&#160;</td>
           <td class="paramname"><em>name</em>, </td>
@@ -847,17 +886,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a6319ef7677a33d569d4fd2a249f8c3ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6319ef7677a33d569d4fd2a249f8c3ef">&#9670;&nbsp;</a></span>create_led()</h2>
+<a id="a0240dcbffdd26714d262780b1fa4c5c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0240dcbffdd26714d262780b1fa4c5c3">&#9670;&nbsp;</a></span>create_led()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::create_led </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::create_led </td>
           <td>(</td>
           <td class="paramtype">std::string const &amp;&#160;</td>
           <td class="paramname"><em>name</em>, </td>
@@ -892,17 +933,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="adbc2e293c132eea7e10d813dee0607da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbc2e293c132eea7e10d813dee0607da">&#9670;&nbsp;</a></span>create_if()</h2>
+<a id="ad51bebb0529d53d5ea77d7e099498402"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad51bebb0529d53d5ea77d7e099498402">&#9670;&nbsp;</a></span>create_if()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::create_if </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::create_if </td>
           <td>(</td>
           <td class="paramtype">std::string const &amp;&#160;</td>
           <td class="paramname"><em>condition</em></td><td>)</td>
@@ -926,17 +969,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a6d40227c94b61cc702fc08a2553121fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d40227c94b61cc702fc08a2553121fa">&#9670;&nbsp;</a></span>add_to_if()</h2>
+<a id="a90edd75fc7e1a67bc987e13483d1df97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90edd75fc7e1a67bc987e13483d1df97">&#9670;&nbsp;</a></span>add_to_if()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::add_to_if </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::add_to_if </td>
           <td>(</td>
           <td class="paramtype">std::string const &amp;&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
@@ -960,17 +1005,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a204935269f802cbe3137451dc69a3bd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a204935269f802cbe3137451dc69a3bd9">&#9670;&nbsp;</a></span>add_to_else()</h2>
+<a id="abed821d5d80446d19de37062d43f173e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abed821d5d80446d19de37062d43f173e">&#9670;&nbsp;</a></span>add_to_else()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::add_to_else </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::add_to_else </td>
           <td>(</td>
           <td class="paramtype">std::string const &amp;&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
@@ -994,17 +1041,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="ac0035330c04eb3b37082a0fab8a22672"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0035330c04eb3b37082a0fab8a22672">&#9670;&nbsp;</a></span>create_group()</h2>
+<a id="a4d11ced2ea941fa8eb1728635039d68a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d11ced2ea941fa8eb1728635039d68a">&#9670;&nbsp;</a></span>create_group()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::create_group </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::create_group </td>
           <td>(</td>
           <td class="paramtype">std::string const &amp;&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
@@ -1028,17 +1077,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a54d3234273fc3b585ff1c1eab8770939"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54d3234273fc3b585ff1c1eab8770939">&#9670;&nbsp;</a></span>add_to_group()</h2>
+<a id="a239da3545aa612ae0c38cf95e576ff7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a239da3545aa612ae0c38cf95e576ff7b">&#9670;&nbsp;</a></span>add_to_group()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::add_to_group </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::add_to_group </td>
           <td>(</td>
           <td class="paramtype">std::string const &amp;&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
@@ -1062,17 +1113,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="acec4d7bb4d1f68afef44b48f4ea7fcab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acec4d7bb4d1f68afef44b48f4ea7fcab">&#9670;&nbsp;</a></span>close_group()</h2>
+<a id="a830860bb9bceb5d15004cc7ae13991b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a830860bb9bceb5d15004cc7ae13991b7">&#9670;&nbsp;</a></span>close_group()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::close_group </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::close_group </td>
           <td>(</td>
           <td class="paramtype">std::string const &amp;&#160;</td>
           <td class="paramname"><em>name</em>, </td>
@@ -1107,17 +1160,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="ad8dae84e3bd6791e0d20f95839dc56e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8dae84e3bd6791e0d20f95839dc56e8">&#9670;&nbsp;</a></span>increase_nested_level()</h2>
+<a id="a57a1c74f3fea0686182cf015bd2a38c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57a1c74f3fea0686182cf015bd2a38c1">&#9670;&nbsp;</a></span>increase_nested_level()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interpreter::increase_nested_level </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc &gt;::increase_nested_level </td>
           <td>(</td>
           <td class="paramtype">InterpreterStatus&#160;</td>
           <td class="paramname"><em>status</em></td><td>)</td>

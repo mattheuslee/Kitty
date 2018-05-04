@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['front',['front',['../classkty_1_1_deque.html#a78ed989f0d2196bdcdccab18153fe041',1,'kty::Deque']]]
+  ['front',['front',['../classkty_1_1_deque.html#afe3f0b8868c3b5e6202c5317fbbaf3fe',1,'kty::Deque']]]
 ];

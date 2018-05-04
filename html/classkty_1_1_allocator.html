@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>KittyInterpreter: kty::Allocator&lt; T &gt; Class Template Reference</title>
+<title>KittyInterpreter: kty::Allocator&lt; N, B &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,72 +66,66 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classkty_1_1_allocator-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">kty::Allocator&lt; T &gt; Class Template Reference</div>  </div>
+<div class="title">kty::Allocator&lt; N, B &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Class that performs allocation and deallocation of memory. Utilises a centrally managed pool to avoid heap fragmentation. Templated on a type T.  
+<p>Class that performs allocation and deallocation of memory. The memory pool is created on the stack to avoid heap fragmentation. Holds enough memory to allocate N instances of B bytes.  
  <a href="classkty_1_1_allocator.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="allocator_8hpp_source.html">allocator.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac021638f93f588373b3c256ce9fa2a50"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#ac021638f93f588373b3c256ce9fa2a50">Allocator</a> (int const &amp;poolSize, int const &amp;itemSize=sizeof(T))</td></tr>
-<tr class="memdesc:ac021638f93f588373b3c256ce9fa2a50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the allocator.  <a href="#ac021638f93f588373b3c256ce9fa2a50">More...</a><br /></td></tr>
-<tr class="separator:ac021638f93f588373b3c256ce9fa2a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49ef0891e895af98ece79763753f3e34"><td class="memItemLeft" align="right" valign="top"><a id="a49ef0891e895af98ece79763753f3e34"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#a49ef0891e895af98ece79763753f3e34">~Allocator</a> ()</td></tr>
-<tr class="memdesc:a49ef0891e895af98ece79763753f3e34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for the allocator. <br /></td></tr>
-<tr class="separator:a49ef0891e895af98ece79763753f3e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae38d2e27efdb60131213adfd60b6801b"><td class="memItemLeft" align="right" valign="top"><a id="ae38d2e27efdb60131213adfd60b6801b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#ae38d2e27efdb60131213adfd60b6801b">stat</a> ()</td></tr>
-<tr class="memdesc:ae38d2e27efdb60131213adfd60b6801b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints stats about the allocator. <br /></td></tr>
-<tr class="separator:ae38d2e27efdb60131213adfd60b6801b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6ccfd2fb030903afb26d37793113fed"><td class="memItemLeft" align="right" valign="top"><a id="ab6ccfd2fb030903afb26d37793113fed"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#ab6ccfd2fb030903afb26d37793113fed">dump_addresses</a> ()</td></tr>
-<tr class="memdesc:ab6ccfd2fb030903afb26d37793113fed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the addresses used by the allocator. <br /></td></tr>
-<tr class="separator:ab6ccfd2fb030903afb26d37793113fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a164690a279a6c23ab86d8e4af2fe8b88"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#a164690a279a6c23ab86d8e4af2fe8b88">allocate</a> ()</td></tr>
-<tr class="memdesc:a164690a279a6c23ab86d8e4af2fe8b88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a single block of memory from the pool.  <a href="#a164690a279a6c23ab86d8e4af2fe8b88">More...</a><br /></td></tr>
-<tr class="separator:a164690a279a6c23ab86d8e4af2fe8b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40a28b4b5933d64e3ac7385ed87c4465"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#a40a28b4b5933d64e3ac7385ed87c4465">deallocate</a> (T *ptr)</td></tr>
-<tr class="memdesc:a40a28b4b5933d64e3ac7385ed87c4465"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a single block of memory to the pool. This does not call the destructor on the data stored at the block.  <a href="#a40a28b4b5933d64e3ac7385ed87c4465">More...</a><br /></td></tr>
-<tr class="separator:a40a28b4b5933d64e3ac7385ed87c4465"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b8894f220a810e53c73fa8519f34961"><td class="memItemLeft" align="right" valign="top"><a id="a8b8894f220a810e53c73fa8519f34961"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#a8b8894f220a810e53c73fa8519f34961">Allocator</a> ()</td></tr>
+<tr class="memdesc:a8b8894f220a810e53c73fa8519f34961"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the allocator. <br /></td></tr>
+<tr class="separator:a8b8894f220a810e53c73fa8519f34961"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef13822d1ca901de045eccda01c0e337"><td class="memItemLeft" align="right" valign="top"><a id="aef13822d1ca901de045eccda01c0e337"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#aef13822d1ca901de045eccda01c0e337">stat</a> ()</td></tr>
+<tr class="memdesc:aef13822d1ca901de045eccda01c0e337"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints stats about the allocator. <br /></td></tr>
+<tr class="separator:aef13822d1ca901de045eccda01c0e337"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20a2e5a27354e8eb0f2543210a638361"><td class="memItemLeft" align="right" valign="top"><a id="a20a2e5a27354e8eb0f2543210a638361"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#a20a2e5a27354e8eb0f2543210a638361">dump_addresses</a> ()</td></tr>
+<tr class="memdesc:a20a2e5a27354e8eb0f2543210a638361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the addresses used by the allocator. <br /></td></tr>
+<tr class="separator:a20a2e5a27354e8eb0f2543210a638361"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca34452653676f6a04b27f199c0cb550"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aca34452653676f6a04b27f199c0cb550"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#aca34452653676f6a04b27f199c0cb550">owns</a> (T *ptr)</td></tr>
+<tr class="memdesc:aca34452653676f6a04b27f199c0cb550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if an address is owned by this allocator.  <a href="#aca34452653676f6a04b27f199c0cb550">More...</a><br /></td></tr>
+<tr class="separator:aca34452653676f6a04b27f199c0cb550"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dd1b76519b259088bfe5e71e28d7454"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#a1dd1b76519b259088bfe5e71e28d7454">allocate</a> ()</td></tr>
+<tr class="memdesc:a1dd1b76519b259088bfe5e71e28d7454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a single block of memory from the pool.  <a href="#a1dd1b76519b259088bfe5e71e28d7454">More...</a><br /></td></tr>
+<tr class="separator:a1dd1b76519b259088bfe5e71e28d7454"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e3d7757d2b9dcdb57b91be684292b88"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a6e3d7757d2b9dcdb57b91be684292b88"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#a6e3d7757d2b9dcdb57b91be684292b88">deallocate</a> (T *ptr)</td></tr>
+<tr class="memdesc:a6e3d7757d2b9dcdb57b91be684292b88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a single block of memory to the pool. This does not call the destructor on the data stored at the block.  <a href="#a6e3d7757d2b9dcdb57b91be684292b88">More...</a><br /></td></tr>
+<tr class="separator:a6e3d7757d2b9dcdb57b91be684292b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T&gt;<br />
-class kty::Allocator&lt; T &gt;</h3>
+<div class="textblock"><h3>template&lt;int N, int B&gt;<br />
+class kty::Allocator&lt; N, B &gt;</h3>
 
-<p>Class that performs allocation and deallocation of memory. Utilises a centrally managed pool to avoid heap fragmentation. Templated on a type T. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac021638f93f588373b3c256ce9fa2a50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac021638f93f588373b3c256ce9fa2a50">&#9670;&nbsp;</a></span>Allocator()</h2>
+<p>Class that performs allocation and deallocation of memory. The memory pool is created on the stack to avoid heap fragmentation. Holds enough memory to allocate N instances of B bytes. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aca34452653676f6a04b27f199c0cb550"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca34452653676f6a04b27f199c0cb550">&#9670;&nbsp;</a></span>owns()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T&gt; </div>
+template&lt;int N, int B&gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classkty_1_1_allocator.html">kty::Allocator</a>&lt; T &gt;::<a class="el" href="classkty_1_1_allocator.html">Allocator</a> </td>
+          <td class="memname">bool <a class="el" href="classkty_1_1_allocator.html">kty::Allocator</a>&lt; N, B &gt;::owns </td>
           <td>(</td>
-          <td class="paramtype">int const &amp;&#160;</td>
-          <td class="paramname"><em>poolSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">int const &amp;&#160;</td>
-          <td class="paramname"><em>itemSize</em> = <code>sizeof(T)</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -141,31 +135,30 @@ template&lt;typename T&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor for the allocator. </p>
+<p>Checks if an address is owned by this allocator. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">poolSize</td><td>The size of pool to prepare, in terms of number of items.</td></tr>
-    <tr><td class="paramname">itemSize</td><td>The size of each item, in bytes. Defaults to sizeof(T) if not provided. </td></tr>
+    <tr><td class="paramname">ptr</td><td>The address to check.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the address is owned by this allocator, false otherwise. </dd></dl>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a164690a279a6c23ab86d8e4af2fe8b88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a164690a279a6c23ab86d8e4af2fe8b88">&#9670;&nbsp;</a></span>allocate()</h2>
+<a id="a1dd1b76519b259088bfe5e71e28d7454"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dd1b76519b259088bfe5e71e28d7454">&#9670;&nbsp;</a></span>allocate()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T&gt; </div>
+template&lt;int N, int B&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T* <a class="el" href="classkty_1_1_allocator.html">kty::Allocator</a>&lt; T &gt;::allocate </td>
+          <td class="memname">void* <a class="el" href="classkty_1_1_allocator.html">kty::Allocator</a>&lt; N, B &gt;::allocate </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -183,19 +176,21 @@ template&lt;typename T&gt; </div>
 
 </div>
 </div>
-<a id="a40a28b4b5933d64e3ac7385ed87c4465"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40a28b4b5933d64e3ac7385ed87c4465">&#9670;&nbsp;</a></span>deallocate()</h2>
+<a id="a6e3d7757d2b9dcdb57b91be684292b88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e3d7757d2b9dcdb57b91be684292b88">&#9670;&nbsp;</a></span>deallocate()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T&gt; </div>
+template&lt;int N, int B&gt; </div>
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classkty_1_1_allocator.html">kty::Allocator</a>&lt; T &gt;::deallocate </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_allocator.html">kty::Allocator</a>&lt; N, B &gt;::deallocate </td>
           <td>(</td>
           <td class="paramtype">T *&#160;</td>
           <td class="paramname"><em>ptr</em></td><td>)</td>
