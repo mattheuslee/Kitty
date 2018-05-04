@@ -26,9 +26,9 @@ using namespace kty;
 
 // 120 seems to be safe enough to run all the tests
 Allocator<120, sizeof(int) * 8> alloc;
-//Interpreter<decltype(alloc)> interpreter(alloc);
-//Parser parser;
-//Tokenizer tokenizer;
+Interpreter<decltype(alloc)> interpreter(alloc);
+Parser parser;
+Tokenizer tokenizer;
 
 #include <test/allocator_test.hpp>
 #include <test/deque_test.hpp>
