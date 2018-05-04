@@ -4,10 +4,6 @@
 #include <cctype>
 #include <string>
 
-#include <kty/interpreter.hpp>
-#include <kty/parser.hpp>
-#include <kty/tokenizer.hpp>
-
 namespace kty {
 
 /*!
