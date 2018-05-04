@@ -25,7 +25,7 @@ MockArduinoLog Log;
 using namespace kty;
 
 // 120 seems to be safe enough to run all the tests
-Allocator<120, sizeof(int)> alloc;
+Allocator<20, sizeof(int)> alloc;
 Interpreter<decltype(alloc)> interpreter(alloc);
 Parser parser;
 Tokenizer tokenizer;

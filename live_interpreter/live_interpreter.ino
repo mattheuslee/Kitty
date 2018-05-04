@@ -22,7 +22,6 @@ void setup() {
     interface.begin_logging(LOG_LEVEL_TRACE);
     //interface.begin_logging(LOG_LEVEL_SILENT);
     alloc.dump_addresses();
-    stringDB.dump_addresses();
     interface.print_prompt();
 }
 
