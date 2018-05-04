@@ -13,7 +13,7 @@ using namespace std;
 using namespace kty;
 
 string command;
-Allocator<50, 8> alloc;
+Allocator<50, 4 * sizeof(int)> alloc;
 Interface interface;
 Interpreter<decltype(alloc)> interpreter(alloc);
 

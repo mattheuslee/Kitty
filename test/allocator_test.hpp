@@ -8,25 +8,24 @@
 using namespace std;
 using namespace kty;
 
-/*test(allocator)
+test(allocator)
 {
-    int numInts = 10;
+    const int numInts = 10;
+    Allocator<numInts, sizeof(int)> allocator;
     vector<int*> ints;
 
     for (int i = 0; i < numInts; ++i) {
-        Serial.println(i);
-        ints.push_back((int*)alloc.allocate());
+        ints.push_back((int*)allocator.allocate());
         *(ints[i]) = i;
     }
+    assertTrue(allocator.allocate() == NULL);
 
     for (int i = 0; i < numInts; ++i) {
-        Serial.println(i);
         assertTrue(*(ints[i]) == i, "i = " << i);
     }
 
     for (int i = 0; i < numInts; ++i) {
-        Serial.println(i);
-        alloc.deallocate(ints[i]);
+        allocator.deallocate(ints[i]);
         ints[i] = NULL;
     }
-}*/
+}
