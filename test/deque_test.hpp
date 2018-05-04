@@ -7,9 +7,10 @@ using namespace kty;
 
 test(deque)
 {
-    int maxSize = 10;
-    Allocator<Deque<int>::Node> dequeAllocator = Deque<int>::create_allocator(maxSize);
-    Deque<int> deque(dequeAllocator);
+    const int maxSize = 10;
+    Allocator<maxSize + 1, sizeof(int)> alloc;
+    Deque<int, decltype(alloc)> deque(alloc);
+
     for (int i = 0; i < maxSize; ++i) {
         deque.push_back(i);
     }

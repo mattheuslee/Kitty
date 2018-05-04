@@ -182,6 +182,7 @@ enum InterpreterStatus {
 /*!
     @brief  Class that stores state on all devices and groups, and executes commands.
 */
+template <class Alloc>
 class Interpreter {
 
 public:
@@ -191,10 +192,8 @@ public:
         @param  dequeIntAlloc
                 Allocator for all Deque<int> within the class to use.
     */
-    Interpreter(Allocator<Deque<int>::Node>& dequeIntAlloc)
-            : dequeIntAlloc_(dequeIntAlloc),
-              toPopLastIfCondition_(dequeIntAlloc_),
-              lastIfCondition_(dequeIntAlloc_) {
+    Interpreter(Alloc& alloc)
+            : alloc_(alloc), toPopLastIfCondition_(alloc_), lastIfCondition_(alloc_) {
         status_ = InterpreterStatus::NORMAL;
         lastIfCondition_.push_back(-1); // Last if condition is null
     }
@@ -941,7 +940,7 @@ public:
     }
 
 private:
-    Allocator<Deque<int>::Node>& dequeIntAlloc_;
+    Alloc& alloc_;
 
     std::deque<std::string> commandQueue_;
     std::map<std::string, Device> devices_;
@@ -950,8 +949,8 @@ private:
     std::vector<std::string> commandBuffer_;
 
     /** Used to check for else/elseif blocks */
-    Deque<int> lastIfCondition_;
-    Deque<int> toPopLastIfCondition_;
+    Deque<int, Alloc> lastIfCondition_;
+    Deque<int, Alloc> toPopLastIfCondition_;
     int bracketParity_;
 
     Parser parser_;

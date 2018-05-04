@@ -6,25 +6,25 @@
 
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/deque.hpp>
+#include <kty/containers/string.hpp>
 #include <kty/interface.hpp>
 #include <kty/interpreter.hpp>
-#include <kty/parser.hpp>
-#include <kty/tokenizer.hpp>
 
 using namespace std;
 using namespace kty;
 
 string command;
-
-Allocator<Deque<int>::Node> dequeIntAlloc = Deque<int>::create_allocator(100);
+Allocator<50, 8> alloc;
 Interface interface;
-Interpreter interpreter(dequeIntAlloc);
+Interpreter<decltype(alloc)> interpreter(alloc);
 
 void setup() {
     interface.print_welcome();
     interface.begin_logging(LOG_LEVEL_TRACE);
+    //interface.begin_logging(LOG_LEVEL_SILENT);
+    alloc.dump_addresses();
+    stringDB.dump_addresses();
     interface.print_prompt();
-    Serial.println(sizeof(int) * 1000);
 }
 
 void loop() {

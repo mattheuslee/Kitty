@@ -4,42 +4,25 @@ namespace kty {
 
 /*!
     @brief  Class that performs allocation and deallocation of memory.
-            Utilises a centrally managed pool to avoid heap fragmentation.
-            Templated on a type T.
+            The memory pool is created on the stack to avoid heap fragmentation.
+            Holds enough memory to allocate N instances of B bytes.
 */
-template <typename T>
+template <int N, int B>
 class Allocator {
 
 public:
     /*!
         @brief  Constructor for the allocator.
-
-        @param  poolSize
-                The size of pool to prepare, in terms of number of items.
-
-        @param  itemSize
-                The size of each item, in bytes.
-                Defaults to sizeof(T) if not provided.
     */
-    Allocator(int const & poolSize, int const & itemSize = sizeof(T)) : poolSize_(poolSize), itemSize_(itemSize) {
-        T* pool = (T*)(malloc(itemSize * poolSize));
-        pool_ = (T**)malloc(sizeof(T*) * poolSize_);
-        taken_ = (bool*)malloc(sizeof(bool) * poolSize_);
-        for (int i = 0; i < poolSize_; ++i) {
-            pool_[i] = pool + i;
+    Allocator() {
+        for (int i = 0; i < N; ++i) {
+            for (int j = 0; j < B; ++j) {
+                *(pool_ + (i * B) + j) = 0;
+            }
             taken_[i] = false;
         }
         numTaken_ = 0;
         maxNumTaken_ = 0;
-    }
-
-    /*!
-        @brief  Destructor for the allocator.
-    */
-    ~Allocator() {
-        free(pool_[0]);
-        free(pool_);
-        free(taken_);
     }
 
     /*!
@@ -56,14 +39,24 @@ public:
         @brief  Prints the addresses used by the allocator
     */
     void dump_addresses() {
-        Serial.print(F("Allocator: Pool address = "));
-        Serial.println((unsigned int)pool_);
-        Serial.print(F("Allocator: Taken address = "));
-        Serial.println((unsigned int)taken_);
-        Serial.println(F("Allocator: Pool block addresses = "));
-        for (int i = 0; i < poolSize_; ++i) {
-            Serial.println((unsigned int)pool_[i]);
-        }
+        Serial.print(F("Allocator: Pool addresses = "));
+        Serial.print((unsigned int)pool_);
+        Serial.print(F(" to "));
+        Serial.println((unsigned int)(pool_ + N * B - 1));
+    }
+
+    /*!
+        @brief  Checks if an address is owned by this allocator.
+
+        @param  ptr
+                The address to check.
+
+        @return True if the address is owned by this allocator, false otherwise.
+    */
+    template <typename T>
+    bool owns(T* ptr) {
+        char* ptr_ = (char*)ptr;
+        return ptr_ - pool_ > 0 && ptr_ - pool_ < N * B;
     }
 
     /*!
@@ -72,8 +65,8 @@ public:
         @return A pointer to a block of memory.
                 If no memory is available, NULL is returned.
     */
-    T* allocate() {
-        for (int i = 0; i < poolSize_; ++i) {
+    void* allocate() {
+        for (int i = 0; i < N; ++i) {
             if (!taken_[i]) {
                 taken_[i] = true;
                 ++numTaken_;
@@ -81,10 +74,10 @@ public:
                     Log.trace(F("Allocator: new max num taken %d\n"), maxNumTaken_);
                     maxNumTaken_ = numTaken_;
                 }
-                return pool_[i];
+                return (void*)(pool_ + (B * i));
             }
         }
-        Log.warning(F("Allocator could not allocate new block from pool\n"));
+        Log.warning(F("Allocator: Could not allocate new block from pool\n"));
         return NULL;
     }
 
@@ -95,25 +88,22 @@ public:
         @param  ptr
                 A pointer to a block of memory to be returned to the pool.
     */
+    template <typename T>
     void deallocate(T* ptr) {
-        for (int i = 0; i < poolSize_; ++i) {
-            if (pool_[i] == ptr) {
-                taken_[i] = false;
-                --numTaken_;
-                return;
-            }
+        char* ptr_ = (char*)ptr;
+        if (!owns(ptr_)) {
+            Log.warning(F("Allocator: Pointer given to deallocate did not come from pool\n"));
+            return;
         }
-        Log.warning(F("Pointer given to allocator to deallocate did not come from pool\n"));
+        taken_[(ptr_ - pool_) / B] = false;
+        --numTaken_;
     }
 
 private:
-    const int poolSize_;
-    const int itemSize_;
-
-    T** pool_;
+    char pool_[N * B];
+    bool taken_[N];
     int numTaken_;
     int maxNumTaken_;
-    bool* taken_;
 
 };
 
