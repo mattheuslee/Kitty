@@ -32,13 +32,13 @@ using namespace kty;
 
 #include <test/allocator_test.hpp>
 #include <test/deque_test.hpp>
-//#include <test/string_utils_test.hpp>
+#include <test/string_utils_test.hpp>
 //#include <test/interpreter_test.hpp>
 //#include <test/parser_test.hpp>
 //#include <test/tokenizer_test.hpp>
 
 int main(void) {
-    Test::min_verbosity = TEST_VERBOSITY_ALL;
+    //Test::min_verbosity = TEST_VERBOSITY_ALL;
 
     while (Test::remaining() > 0) {
         Test::run();
