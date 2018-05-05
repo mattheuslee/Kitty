@@ -11,6 +11,7 @@
 
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/deque.hpp>
+#include <kty/containers/string.hpp>
 #include <kty/string_utils.hpp>
 #include <kty/tokenizer.hpp>
 #include <kty/parser.hpp>
@@ -182,7 +183,7 @@ enum InterpreterStatus {
 /*!
     @brief  Class that stores state on all devices and groups, and executes commands.
 */
-template <class Alloc>
+template <class Alloc, class StringPool>
 class Interpreter {
 
 public:
@@ -191,9 +192,12 @@ public:
 
         @param  alloc
                 Allocator for the class to use.
+        
+        @param  stringPool
+                String pool for the class to use.
     */
-    Interpreter(Alloc& alloc)
-            : alloc_(alloc), toPopLastIfCondition_(alloc_), lastIfCondition_(alloc_) {
+    Interpreter(Alloc& alloc, StringPool& stringPool)
+            : alloc_(alloc), toPopLastIfCondition_(alloc_), lastIfCondition_(alloc_), stringPool_(stringPool), commandBuffer_(alloc_, stringPool_) {
         status_ = InterpreterStatus::NORMAL;
         lastIfCondition_.push_back(-1); // Last if condition is null
     }
@@ -209,7 +213,7 @@ public:
         case NORMAL:
             return "";
         case CREATING_GROUP:
-            return "(" + commandBuffer_[0] + ") ";
+            return "(" + std::string(stringPool_.c_str(commandBuffer_[0])) + ") ";
         case CREATING_IF:
             return "(IF) ";
         case CREATING_ELSE:
@@ -742,7 +746,8 @@ public:
     */
     void create_if(std::string const & condition) {
         increase_nested_level(InterpreterStatus::CREATING_IF);
-        commandBuffer_.push_back(condition);
+        commandBuffer_.push_back(stringPool_.allocate_idx());
+        stringPool_.strcpy(commandBuffer_.back(), condition.c_str());
         Log.trace(F("Creating if\n"));
     }
 
@@ -760,7 +765,12 @@ public:
         }
         // Add command to group
         else {
-            commandBuffer_.push_back(command);
+            Serial.print("Copying ");
+            Serial.print(command.c_str());
+            Serial.print(" to index ");
+            commandBuffer_.push_back(stringPool_.allocate_idx());
+            Serial.println(commandBuffer_.back());
+            stringPool_.strcpy(commandBuffer_.back(), command.c_str());
             // Check if command introduces a '('
             if (tokens[tokens.size() - 2].is_left_bracket()) {
                 ++bracketParity_;
@@ -777,14 +787,14 @@ public:
                 and adds its commands to the commandQueue if the condition is true.
     */
     void close_if() {
-        bool evaluatedCondition = str_to_int(commandBuffer_[0]) != 0;
+        bool evaluatedCondition = *(stringPool_.c_str(commandBuffer_[0])) == '1';
         lastIfCondition_.back() = evaluatedCondition;
         if (evaluatedCondition) {
             Log.trace(F("If condition is true\n"));
             // Add commands to commandQueue in reverse order,
             // since pushing from the front
             for (int i = commandBuffer_.size() - 1; i > 0; --i) {
-                commandQueue_.push_front(commandBuffer_[i]);
+                commandQueue_.push_front(std::string(stringPool_.c_str(commandBuffer_[i])));
             }
             // Push for any commands that might require in nested scope
             lastIfCondition_.push_back(-1);
@@ -802,10 +812,12 @@ public:
         Log.trace(F("Creating else\n"));
         // Only execute else block if last if condition was false
         if (lastIfCondition_.back() == 0) {
-            commandBuffer_.push_back("1");
+            commandBuffer_.push_back(stringPool_.allocate_idx());
+            stringPool_.strcpy(commandBuffer_.back(), "1");
         }
         else {
-            commandBuffer_.push_back("0");
+            commandBuffer_.push_back(stringPool_.allocate_idx());
+            stringPool_.strcpy(commandBuffer_.back(), "0");
         }
     }
 
@@ -823,7 +835,8 @@ public:
         }
         // Add command to group
         else {
-            commandBuffer_.push_back(command);
+            commandBuffer_.push_back(stringPool_.allocate_idx());
+            stringPool_.strcpy(commandBuffer_.back(), command.c_str());
             // Check if command introduces a '('
             if (tokens[tokens.size() - 2].is_left_bracket()) {
                 ++bracketParity_;
@@ -841,7 +854,7 @@ public:
                 directly follows an if that had a condition which was false.
     */
     void close_else() {
-        bool evaluatedCondition = commandBuffer_[0] == "1";
+        bool evaluatedCondition = *(stringPool_.c_str(commandBuffer_[0])) == '1';
         // Definitely no else after this
         lastIfCondition_.back() = -1;
         if (evaluatedCondition) {
@@ -849,7 +862,7 @@ public:
             // Add commands to commandQueue in reverse order,
             // since pushing from the front
             for (int i = commandBuffer_.size() - 1; i >= 0; --i) {
-                commandQueue_.push_front(commandBuffer_[i]);
+                commandQueue_.push_front(std::string(stringPool_.c_str(commandBuffer_[i])));
             }
             // Push for any commands that might require in nested scope
             lastIfCondition_.push_back(-1);
@@ -867,7 +880,8 @@ public:
     */
     void create_group(std::string const & name) {
         increase_nested_level(InterpreterStatus::CREATING_GROUP);
-        commandBuffer_.push_back(name);
+        commandBuffer_.push_back(stringPool_.allocate_idx());
+        stringPool_.strcpy(commandBuffer_.back(), name.c_str());
         Log.trace(F("Creating group\n"));
     }
 
@@ -881,14 +895,18 @@ public:
         std::vector<Token> tokens = tokenizer_.tokenize(command);
         // Group is closed
         if (bracketParity_ == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
-            std::vector<std::string> commands = commandBuffer_;
+            std::vector<std::string> commands;
+            for (int i = 0; i < commandBuffer_.size(); ++i) {
+                commands.push_back(std::string(stringPool_.c_str(commandBuffer_[i])));
+            }
             std::string name = commands[0];
             commands.erase(commands.begin()); // Remove name
             close_group(name, commands);
         }
         // Add command to group
         else {
-            commandBuffer_.push_back(command);
+            commandBuffer_.push_back(stringPool_.allocate_idx());
+            stringPool_.strcpy(commandBuffer_.back(), command.c_str());
             // Check if command introduces a '('
             if (tokens[tokens.size() - 2].is_left_bracket()) {
                 ++bracketParity_;
@@ -941,12 +959,14 @@ public:
 
 private:
     Alloc& alloc_;
+    StringPool& stringPool_;
 
     std::deque<std::string> commandQueue_;
     std::map<std::string, Device> devices_;
 
     InterpreterStatus status_;
-    std::vector<std::string> commandBuffer_;
+    StringDeque<Alloc, StringPool> commandBuffer_;
+    //std::vector<std::string> commandBuffer_;
 
     /** Used to check for else/elseif blocks */
     Deque<int, Alloc> lastIfCondition_;
