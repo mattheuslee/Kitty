@@ -92,9 +92,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a9c436dd5bde78771e66191c0039e2958"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a9c436dd5bde78771e66191c0039e2958">allocate_idx</a> ()</td></tr>
 <tr class="memdesc:a9c436dd5bde78771e66191c0039e2958"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the next free index for a string.  <a href="#a9c436dd5bde78771e66191c0039e2958">More...</a><br /></td></tr>
 <tr class="separator:a9c436dd5bde78771e66191c0039e2958"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a947c490a8411c4f932f177f64259c562"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a947c490a8411c4f932f177f64259c562">deallocate_idx</a> (int const &amp;idx)</td></tr>
-<tr class="memdesc:a947c490a8411c4f932f177f64259c562"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string index to the pool.  <a href="#a947c490a8411c4f932f177f64259c562">More...</a><br /></td></tr>
-<tr class="separator:a947c490a8411c4f932f177f64259c562"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03689b24b0bf2528d332c08dbde0c7c7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a03689b24b0bf2528d332c08dbde0c7c7">deallocate_idx</a> (int const &amp;idx)</td></tr>
+<tr class="memdesc:a03689b24b0bf2528d332c08dbde0c7c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string index to the pool.  <a href="#a03689b24b0bf2528d332c08dbde0c7c7">More...</a><br /></td></tr>
+<tr class="separator:a03689b24b0bf2528d332c08dbde0c7c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b3a14293560daf17c1721074dbc75df"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a9b3a14293560daf17c1721074dbc75df">max_str_len</a> () const</td></tr>
 <tr class="memdesc:a9b3a14293560daf17c1721074dbc75df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum possible length for a string.  <a href="#a9b3a14293560daf17c1721074dbc75df">More...</a><br /></td></tr>
 <tr class="separator:a9b3a14293560daf17c1721074dbc75df"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,8 +144,8 @@ template&lt;int N, int S&gt; </div>
 
 </div>
 </div>
-<a id="a947c490a8411c4f932f177f64259c562"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a947c490a8411c4f932f177f64259c562">&#9670;&nbsp;</a></span>deallocate_idx()</h2>
+<a id="a03689b24b0bf2528d332c08dbde0c7c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03689b24b0bf2528d332c08dbde0c7c7">&#9670;&nbsp;</a></span>deallocate_idx()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,7 +156,7 @@ template&lt;int N, int S&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::deallocate_idx </td>
+          <td class="memname">bool <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::deallocate_idx </td>
           <td>(</td>
           <td class="paramtype">int const &amp;&#160;</td>
           <td class="paramname"><em>idx</em></td><td>)</td>
@@ -173,10 +173,11 @@ template&lt;int N, int S&gt; </div>
 <p>Returns a string index to the pool. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">idx</td><td>The index to return to the pool </td></tr>
+    <tr><td class="paramname">idx</td><td>The index to return to the pool</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the deallocation was successful, false otherwise. </dd></dl>
 
 </div>
 </div>

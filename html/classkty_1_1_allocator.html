@@ -96,10 +96,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a1dd1b76519b259088bfe5e71e28d7454"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#a1dd1b76519b259088bfe5e71e28d7454">allocate</a> ()</td></tr>
 <tr class="memdesc:a1dd1b76519b259088bfe5e71e28d7454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a single block of memory from the pool.  <a href="#a1dd1b76519b259088bfe5e71e28d7454">More...</a><br /></td></tr>
 <tr class="separator:a1dd1b76519b259088bfe5e71e28d7454"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e3d7757d2b9dcdb57b91be684292b88"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a6e3d7757d2b9dcdb57b91be684292b88"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#a6e3d7757d2b9dcdb57b91be684292b88">deallocate</a> (T *ptr)</td></tr>
-<tr class="memdesc:a6e3d7757d2b9dcdb57b91be684292b88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a single block of memory to the pool. This does not call the destructor on the data stored at the block.  <a href="#a6e3d7757d2b9dcdb57b91be684292b88">More...</a><br /></td></tr>
-<tr class="separator:a6e3d7757d2b9dcdb57b91be684292b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51d1b64e7f06d9ccbfb218f9e3cc5bd1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a51d1b64e7f06d9ccbfb218f9e3cc5bd1"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#a51d1b64e7f06d9ccbfb218f9e3cc5bd1">deallocate</a> (T *ptr)</td></tr>
+<tr class="memdesc:a51d1b64e7f06d9ccbfb218f9e3cc5bd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a single block of memory to the pool. This does not call the destructor on the data stored at the block.  <a href="#a51d1b64e7f06d9ccbfb218f9e3cc5bd1">More...</a><br /></td></tr>
+<tr class="separator:a51d1b64e7f06d9ccbfb218f9e3cc5bd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;int N, int B&gt;<br />
@@ -176,8 +176,8 @@ template&lt;int N, int B&gt; </div>
 
 </div>
 </div>
-<a id="a6e3d7757d2b9dcdb57b91be684292b88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e3d7757d2b9dcdb57b91be684292b88">&#9670;&nbsp;</a></span>deallocate()</h2>
+<a id="a51d1b64e7f06d9ccbfb218f9e3cc5bd1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51d1b64e7f06d9ccbfb218f9e3cc5bd1">&#9670;&nbsp;</a></span>deallocate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -190,7 +190,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classkty_1_1_allocator.html">kty::Allocator</a>&lt; N, B &gt;::deallocate </td>
+          <td class="memname">bool <a class="el" href="classkty_1_1_allocator.html">kty::Allocator</a>&lt; N, B &gt;::deallocate </td>
           <td>(</td>
           <td class="paramtype">T *&#160;</td>
           <td class="paramname"><em>ptr</em></td><td>)</td>
@@ -207,10 +207,11 @@ template&lt;typename T &gt; </div>
 <p>Returns a single block of memory to the pool. This does not call the destructor on the data stored at the block. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ptr</td><td>A pointer to a block of memory to be returned to the pool. </td></tr>
+    <tr><td class="paramname">ptr</td><td>A pointer to a block of memory to be returned to the pool.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the deallocation was successful, false otherwise. </dd></dl>
 
 </div>
 </div>
