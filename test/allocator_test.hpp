@@ -11,21 +11,21 @@ using namespace kty;
 test(allocator)
 {
     const int numInts = 10;
-    Allocator<numInts, sizeof(int)> allocator;
+    Allocator<numInts, sizeof(int)> alloc;
     vector<int*> ints;
 
     for (int i = 0; i < numInts; ++i) {
-        ints.push_back((int*)allocator.allocate());
+        ints.push_back((int*)alloc.allocate());
         *(ints[i]) = i;
     }
-    assertTrue(allocator.allocate() == NULL);
+    assertEqual((unsigned int)alloc.allocate(), (unsigned int)nullptr);
 
     for (int i = 0; i < numInts; ++i) {
-        assertTrue(*(ints[i]) == i, "i = " << i);
+        assertEqual(*(ints[i]), i, "i = " << i);
     }
 
     for (int i = 0; i < numInts; ++i) {
-        allocator.deallocate(ints[i]);
-        ints[i] = NULL;
+        alloc.deallocate(ints[i]);
+        ints[i] = nullptr;
     }
 }

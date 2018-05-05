@@ -62,7 +62,7 @@ public:
         @brief  Allocates a single block of memory from the pool.
 
         @return A pointer to a block of memory.
-                If no memory is available, NULL is returned.
+                If no memory is available, nullptr is returned.
     */
     void* allocate() {
         for (int i = 0; i < N; ++i) {
@@ -77,7 +77,7 @@ public:
             }
         }
         Log.warning(F("Allocator: Could not allocate new block from pool\n"));
-        return NULL;
+        return nullptr;
     }
 
     /*!
