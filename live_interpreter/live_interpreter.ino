@@ -6,6 +6,7 @@
 
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/deque.hpp>
+#include <kty/containers/string.hpp>
 #include <kty/interface.hpp>
 #include <kty/interpreter.hpp>
 
@@ -14,8 +15,10 @@ using namespace kty;
 
 string command;
 Allocator<50, sizeof(int) * 8> alloc;
+StringPool<25, 40> stringPool;
+
 Interface interface;
-Interpreter<decltype(alloc)> interpreter(alloc);
+Interpreter<decltype(alloc), decltype(stringPool)> interpreter(alloc, stringPool);
 
 void setup() {
     interface.print_welcome();
