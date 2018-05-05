@@ -154,6 +154,9 @@ public:
 
         @param  allocator
                 The allocator for the deque nodes.
+        
+        @param  pool
+                The pool allocator for the strings.
     */
     StringDeque(Alloc & allocator, Pool & pool) : Deque<poolstring_t, Alloc>(allocator), pool_(pool) {
     }
@@ -251,6 +254,10 @@ public:
 
         @param  str
                 The string to compare to.
+
+        @return <0 if this string is < the other string,
+                >0 if this string is > the other string,
+                0 if the two strings are identical.
     */
     int strcmp(char * str) {
         return ::strcmp(pool_.c_str(poolIdx_), str);

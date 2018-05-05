@@ -178,9 +178,12 @@ public:
     }
 
 protected:
+    /** Pointer to the head node of the internal linked list */
     Node* head_;
+    /** Current size of the linked list */
     int size_;
 
+    /** Reference to the allocator used to allocate new nodes */
     Alloc& allocator_;
 
 };
