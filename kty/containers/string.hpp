@@ -73,15 +73,17 @@ public:
     
         @param  idx
                 The index to return to the pool
+
+        @return True if the deallocation was successful, false otherwise.
     */
-    void deallocate_idx(int const & idx) {
+    bool deallocate_idx(int const & idx) {
         if (idx >= 0 && idx < N) {
             taken_[idx] = false;
             --numTaken_;
+            return true;
         }
-        else {
-            Log.warning(F("StringPool: Index given to deallocate did not come from pool\n"));
-        }
+        Log.warning(F("StringPool: Index given to deallocate did not come from pool\n"));
+        return false;
     }
 
     /*!

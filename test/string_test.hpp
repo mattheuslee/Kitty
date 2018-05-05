@@ -2,6 +2,7 @@
 
 #include <kty/stl_impl.hpp>
 #include <cstring>
+#include <vector>
 
 #include <kty/containers/deque.hpp>
 #include <kty/containers/string.hpp>
@@ -13,13 +14,20 @@ test(string_stringpool)
 {
     const int numStrings = 100;
     StringPool<numStrings, 20> stringPool;
+    vector<int> stringPoolIndices;
 
     assertEqual(stringPool.max_str_len(), 20);
     
     for (int i = 0; i < numStrings; ++i) {
-        assertMoreOrEqual(stringPool.allocate_idx(), 0, "i = " << i);
+        stringPoolIndices.push_back(stringPool.allocate_idx());
+        assertMoreOrEqual(stringPoolIndices.back(), 0, "i = " << i);
     }
     assertEqual(stringPool.allocate_idx(), -1);
+
+    for (int i = 0; i < numStrings; ++i) {
+        assertTrue(stringPool.deallocate_idx(stringPoolIndices[i]));
+    }
+    assertFalse(stringPool.deallocate_idx(-1));
 }
 
 test(string_stringpool_string_deque)
