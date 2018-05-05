@@ -18,6 +18,7 @@ test(interpreter_is_number)
     assertEqual(interpreter.get_device("answer").type, DeviceType::NUM);
     assertTrue(interpreter.get_device("answer").info[0] == "7");
     alloc.stat();
+    stringPool.stat();
 }
 
 test(interpreter_is_led)
@@ -28,6 +29,7 @@ test(interpreter_is_led)
     assertTrue(interpreter.get_device("light").info[0] == "13");
     assertTrue(interpreter.get_device("light").info[1] == "25");
     alloc.stat();
+    stringPool.stat();
 }
 
 test(interpreter_if)
@@ -56,6 +58,7 @@ test(interpreter_if)
     assertTrue(interpreter.get_device("answer").type == DeviceType::NUM);
     assertTrue(interpreter.get_device("answer").info[0] == "0");
     alloc.stat();
+    stringPool.stat();
 }
 
 test(interpreter_if_group)
@@ -75,6 +78,7 @@ test(interpreter_if_group)
     assertTrue(interpreter.get_device("answer").type == DeviceType::NUM);
     assertTrue(interpreter.get_device("answer").info[0] == "0");
     alloc.stat();
+    stringPool.stat();
 }
 
 test(interpreter_fizz_buzz_1)
@@ -104,6 +108,7 @@ test(interpreter_fizz_buzz_1)
     assertTrue(interpreter.get_device("num").type == DeviceType::NUM);
     assertTrue(interpreter.get_device("num").info[0] == "21");
     alloc.stat();
+    stringPool.stat();
 }
 
 test(interpreter_fizz_buzz_2)
@@ -137,4 +142,5 @@ test(interpreter_fizz_buzz_2)
     assertTrue(interpreter.get_device("num").type == DeviceType::NUM);
     assertTrue(interpreter.get_device("num").info[0] == "21");
     alloc.stat();
+    stringPool.stat();
 }
