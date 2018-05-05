@@ -13,7 +13,7 @@ env:
 
 before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/mattheuslee/travis-ci-arduino/kitty/install.sh)
-#   - pip install --user cpp-coveralls
+   - pip install --user cpp-coveralls
 
 install:
    - arduino --install-library "ArduinoSTL","ArduinoUnit","ArduinoLog"
@@ -21,13 +21,13 @@ install:
 script:
    - build_platform mega2560
    - git clone https://github.com/mmurdoch/arduinounit.git
-#   - git clone -b travis_friendly https://github.com/mattheuslee/Arduino-Log.git
-   - cd test && make test
+   - make test
    - rm -r -f /home/travis/build/mattheuslee/KittyInterpreter/arduinounit/ 
-#   - rm -r -f /home/travis/build/mattheuslee/KittyInterpreter/Arduino-Log/
 
 # Generate and deploy documentation
 after_success:
-#   - coveralls --exclude lib --exclude tests --gcov-options '\-lp'
    - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/library_check.sh)
    - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/doxy_gen_and_deploy.sh)
+   - git clone https://github.com/mmurdoch/arduinounit.git
+   - make coverage
+   - coveralls --exclude arduinounit --exclude test --gcov-options '\-lp'
