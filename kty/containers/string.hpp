@@ -22,12 +22,24 @@ public:
     StringPool() {
         memset((void*)pool_, '\0', N * (S + 1));
         memset((void*)taken_, false, N);
+        numTaken_ = 0;
+        maxNumTaken_ = 0;
+    }
+
+    /*!
+        @brief  Prints stats about the string pool.
+    */
+    void stat() {
+        Serial.print(F("StringPool: num taken = "));
+        Serial.print(numTaken_);
+        Serial.print(F(", max num taken = "));
+        Serial.println(maxNumTaken_);
     }
 
     /*!
         @brief  Prints the addresses used by the string database
     */
-    void dump_addresses() {
+    void dump_addresses() const {
         Serial.print(F("StringPool: Pool addresses = "));
         Serial.print((unsigned int)pool_);
         Serial.print(F(" to "));
@@ -44,6 +56,11 @@ public:
         for (int i = 0; i < N; ++i) {
             if (!taken_[i]) {
                 taken_[i] = true;
+                ++numTaken_;
+                if (numTaken_ > maxNumTaken_) {
+                    Log.trace(F("StringPool: new max num taken %d\n"), maxNumTaken_);
+                    maxNumTaken_ = numTaken_;
+                }
                 return i;
             }
         }
@@ -60,6 +77,7 @@ public:
     void deallocate_idx(int const & idx) {
         if (idx >= 0 && idx < N) {
             taken_[idx] = false;
+            --numTaken_;
         }
         else {
             Log.warning(F("StringPool: Index given to deallocate did not come from pool\n"));
@@ -71,7 +89,7 @@ public:
 
         @return The maximum possible string length.
     */
-    int max_str_len() {
+    int max_str_len() const {
         return S;
     }
 
@@ -84,12 +102,12 @@ public:
         @return str
                 The stored string.
     */
-    char* c_str(int const & idx) {
+    char * c_str(int const & idx) const {
         if (idx < N) {
-            return pool_ + (idx * (S + 1));
+            return const_cast<char*>(pool_) + (idx * (S + 1));
         }
-        Log.warning(F("StringPool: Attempt to get string at index %d, max index = %d\n"), idx, N - 1);
-        return NULL;
+        Log.warning(F("StringPool: Attempt to get c_str at index %d, max index possible is %d\n"), idx, N - 1);
+        return nullptr;
     }
 
     /*!
@@ -107,7 +125,7 @@ public:
                 start copying from.
                 Default is index 0.
     */
-    void strcpy(int const & idx, char * str, int const & i = 0) {
+    void strcpy(int const & idx, char const * str, int const & i = 0) {
         int copyStrLen = strlen(str);
         int lenToCopy = (S < copyStrLen ? S : copyStrLen) - i;
         strncpy(c_str(idx) + i, str, lenToCopy);
@@ -124,7 +142,7 @@ public:
         @param  str
                 The incoming string which will be concatenated onto the end.
     */
-    void strcat(int const & idx, char * str) {
+    void strcat(int const & idx, char const * str) {
         int currLen = strlen(c_str(idx));
         int catStrLen = strlen(str);
         // Length to cat is minimum of remaining space and length of string to cat
@@ -136,6 +154,8 @@ public:
 private:
     char pool_[N * (S + 1)];
     bool taken_[N];
+    int numTaken_;
+    int maxNumTaken_;
 
 };
 
@@ -235,7 +255,7 @@ public:
         @param  str
                 The string to copy from.
     */
-    void strcpy(char * str) {
+    void strcpy(char const * str) {
         pool_.strcpy(poolIdx_, str);
     }
 
@@ -245,7 +265,7 @@ public:
         @param  str
                 The string to concatenate onto this string.
     */
-    void strcat(char * str) {
+    void strcat(char const * str) {
         pool_.strcat(poolIdx_, str);
     }
 
@@ -259,7 +279,7 @@ public:
                 >0 if this string is > the other string,
                 0 if the two strings are identical.
     */
-    int strcmp(char * str) {
+    int strcmp(char const * str) const {
         return ::strcmp(pool_.c_str(poolIdx_), str);
     }
 
@@ -268,7 +288,7 @@ public:
 
         @return The length of the string, in number of characters.
     */
-    int strlen() {
+    int strlen() const {
         return ::strlen(c_str());
     }
 
@@ -278,7 +298,7 @@ public:
         @param  str
                 The string to copy from.
     */
-    void operator=(char * str) {
+    void operator=(char const * str) {
         pool_.strcpy(poolIdx_, str);
     }
 
@@ -300,7 +320,7 @@ public:
 
         @return True if the two strings are the same, false otherwise.
     */
-    bool operator==(char * str) {
+    bool operator==(char const * str) const {
         return ::strcmp(c_str(), str) == 0;
     }
 
@@ -312,7 +332,7 @@ public:
 
         @return True if the two strings are the same, false otherwise.
     */
-    bool operator==(PoolString const & str) {
+    bool operator==(PoolString const & str) const {
         return ::strcmp(c_str(), str.c_str()) == 0;
     }
 
@@ -322,7 +342,7 @@ public:
         @param  str
                 The string to append onto this string.
     */
-    void operator+=(char * str) {
+    void operator+=(char const * str) {
         strcat(str);
     }
 
