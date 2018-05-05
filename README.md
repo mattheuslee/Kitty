@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/mattheuslee/KittyInterpreter.svg?branch=master)](https://travis-ci.org/mattheuslee/KittyInterpreter)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/f23a880e869647f89641f2d6a9e4a9ef)](https://www.codacy.com/app/mattheus.lee/KittyInterpreter?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mattheuslee/KittyInterpreter&amp;utm_campaign=Badge_Grade)
+[![Coverage Status](https://coveralls.io/repos/github/mattheuslee/KittyInterpreter/badge.svg?branch=master)](https://coveralls.io/github/mattheuslee/KittyInterpreter?branch=master)
 # Kitty (v0.2.0 in progress)
 A high-level scripting language that runs entirely on an Arduino Mega.
 
