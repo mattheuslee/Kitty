@@ -34,20 +34,20 @@ public:
     */
     Deque(Alloc & allocator) : allocator_(allocator) {
         size_ = 0;
-        head = (Node*)allocator_.allocate();
-        head->next = head;
-        head->prev = head;
+        head_ = (Node*)allocator_.allocate();
+        head_->next = head_;
+        head_->prev = head_;
     }
 
     /*!
         @brief  Destructor for the deque.
     */
-    ~Deque() {
+    virtual ~Deque() {
         while (!is_empty()) {
             pop_front();
         }
-        allocator_.deallocate(head);
-        head = NULL;
+        allocator_.deallocate(head_);
+        head_ = NULL;
     }
 
     /*!
@@ -55,7 +55,7 @@ public:
 
         @return The number of elements in the deque.
     */
-    int size() {
+    virtual int size() {
         return size_;
     }
 
@@ -64,7 +64,7 @@ public:
 
         @return True if the deque is empty, false otherwise.
     */
-    bool is_empty() {
+    virtual bool is_empty() {
         return size_ == 0;
     }
 
@@ -74,16 +74,16 @@ public:
         @param  value
                 The value to push to the front of the deque.
     */
-    void push_front(T const & value) {
+    virtual void push_front(T const & value) {
         // Allocate new node
         Node* toInsert = (Node*)allocator_.allocate();
         toInsert->value = value;
-        Node* next = head->next;
+        Node* next = head_->next;
         // Rearrange pointers
         toInsert->next = next;
-        toInsert->prev = head;
+        toInsert->prev = head_;
         next->prev = toInsert;
-        head->next = toInsert;
+        head_->next = toInsert;
         ++size_;
     }
 
@@ -91,15 +91,15 @@ public:
         @brief  Pops value from the front of the deque.
                 If there is no value to pop, does nothing.
     */
-    void pop_front() {
+    virtual void pop_front() {
         if (is_empty()) {
             return;
         }
-        Node* toRemove = head->next;
+        Node* toRemove = head_->next;
         Node* next = toRemove->next;
         // Rearrange pointers to bypass node to be removed
-        head->next = next;
-        next->prev = head;
+        head_->next = next;
+        next->prev = head_;
         allocator_.deallocate(toRemove);
         --size_;
     }
@@ -110,16 +110,16 @@ public:
         @param  value
                 The value to push to the back of the deque.
     */
-    void push_back(T const & value) {
+    virtual void push_back(T const & value) {
         // Allocate new node
         Node* toInsert = (Node*)allocator_.allocate();
         toInsert->value = value;
-        Node* prev = head->prev;
+        Node* prev = head_->prev;
         // Rearrange pointers
-        toInsert->next = head;
+        toInsert->next = head_;
         toInsert->prev = prev;
         prev->next = toInsert;
-        head->prev = toInsert;
+        head_->prev = toInsert;
         ++size_;
     }
 
@@ -127,15 +127,15 @@ public:
         @brief  Pops value from the back of the deque.
                 If there is no value to pop, does nothing.
     */
-    void pop_back() {
+    virtual void pop_back() {
         if (is_empty()) {
             return;
         }
-        Node* toRemove = head->prev;
+        Node* toRemove = head_->prev;
         Node* prev = toRemove->prev;
         // Rearrange pointers to bypass node to be removed
-        head->prev = prev;
-        prev->next = head;
+        head_->prev = prev;
+        prev->next = head_;
         allocator_.deallocate(toRemove);
         --size_;
     }
@@ -146,8 +146,8 @@ public:
                 
         @return A reference to the element.
     */
-    T& front() {
-        return head->next->value;
+    virtual T& front() {
+        return head_->next->value;
     }
 
     /*!
@@ -156,8 +156,8 @@ public:
 
         @return A reference to the element.
     */
-    T& back() {
-        return head->prev->value;
+    virtual T& back() {
+        return head_->prev->value;
     }
 
     /*!
@@ -169,16 +169,16 @@ public:
 
         @return A reference to the element.
     */
-    T& operator[](int const & i) {
-        Node* curr = head->next;
+    virtual T& operator[](int const & i) {
+        Node* curr = head_->next;
         for (int j = 0; j < i; ++j) {
             curr = curr->next;
         }
         return curr->value;
     }
 
-private:
-    Node* head;
+protected:
+    Node* head_;
     int size_;
 
     Alloc& allocator_;
