@@ -765,11 +765,7 @@ public:
         }
         // Add command to group
         else {
-            Serial.print("Copying ");
-            Serial.print(command.c_str());
-            Serial.print(" to index ");
             commandBuffer_.push_back(stringPool_.allocate_idx());
-            Serial.println(commandBuffer_.back());
             stringPool_.strcpy(commandBuffer_.back(), command.c_str());
             // Check if command introduces a '('
             if (tokens[tokens.size() - 2].is_left_bracket()) {
