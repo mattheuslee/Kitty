@@ -43,9 +43,7 @@ public:
         @brief  Destructor for the deque.
     */
     virtual ~Deque() {
-        while (!is_empty()) {
-            pop_front();
-        }
+        clear();
         allocator_.deallocate(head_);
         head_ = NULL;
     }
@@ -66,6 +64,15 @@ public:
     */
     virtual bool is_empty() {
         return size_ == 0;
+    }
+
+    /*!
+        @brief  Clears all elements in the deque, leaving it empty.
+    */
+    virtual void clear() {
+        while (!is_empty()) {
+            pop_front();
+        }
     }
 
     /*!
