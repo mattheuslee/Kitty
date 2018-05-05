@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['type',['type',['../structkty_1_1_device.html#ab94356f1444bf401090311c152fa8e98',1,'kty::Device::type()'],['../structkty_1_1_token.html#a87f7fa9be7750eb30d06f05e0b522f11',1,'kty::Token::type()']]]
+  ['name',['name',['../structkty_1_1_device.html#a080efb0fdf46640036ffba00247d69f5',1,'kty::Device']]],
+  ['next',['next',['../structkty_1_1_deque_1_1_node.html#a5e5bb26a4c74d825e959113be712205e',1,'kty::Deque::Node']]]
 ];

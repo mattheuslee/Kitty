@@ -77,17 +77,20 @@ $(function() {
 : <a class="el" href="classkty_1_1_allocator.html#a1dd1b76519b259088bfe5e71e28d7454">kty::Allocator&lt; N, B &gt;</a>
 </li>
 <li>allocate_idx()
-: <a class="el" href="classkty_1_1_string_database.html#a8af50b29aee02d3833632f3622a0a04b">kty::StringDatabase&lt; N, S &gt;</a>
+: <a class="el" href="classkty_1_1_string_pool.html#a9c436dd5bde78771e66191c0039e2958">kty::StringPool&lt; N, S &gt;</a>
 </li>
 <li>Allocator()
 : <a class="el" href="classkty_1_1_allocator.html#a8b8894f220a810e53c73fa8519f34961">kty::Allocator&lt; N, B &gt;</a>
+</li>
+<li>allocator_
+: <a class="el" href="classkty_1_1_deque.html#ac389b9458c171a8fd65d2c911aa862d4">kty::Deque&lt; T, Alloc &gt;</a>
 </li>
 </ul>
 
 
 <h3><a id="index_b"></a>- b -</h3><ul>
 <li>back()
-: <a class="el" href="classkty_1_1_deque.html#ac79cb5158492b6867301207928866d29">kty::Deque&lt; T, Alloc &gt;</a>
+: <a class="el" href="classkty_1_1_deque.html#a9c680353f9d1fac4fff51cecbd605d81">kty::Deque&lt; T, Alloc &gt;</a>
 </li>
 <li>begin()
 : <a class="el" href="class_mock_arduino_log.html#ac348d044c88b57e5e9818b36a0cd6eeb">MockArduinoLog</a>
@@ -100,7 +103,8 @@ $(function() {
 
 <h3><a id="index_c"></a>- c -</h3><ul>
 <li>c_str()
-: <a class="el" href="classkty_1_1_d_b_string.html#a6898dccf80e9bb476a9e1b02b1111853">kty::DBString&lt; DataBase &gt;</a>
+: <a class="el" href="classkty_1_1_pool_string.html#a7d7cb0acf9cc8d530f8b061284952a3b">kty::PoolString&lt; Pool &gt;</a>
+, <a class="el" href="classkty_1_1_string_pool.html#aff97f3b5317a5a6627905ea4ee4d0abb">kty::StringPool&lt; N, S &gt;</a>
 </li>
 <li>cleanup_after_command_queue_execute()
 : <a class="el" href="classkty_1_1_interpreter.html#a58b2b292ef900dc44b1048bda4862881">kty::Interpreter&lt; Alloc &gt;</a>
@@ -133,11 +137,11 @@ $(function() {
 
 
 <h3><a id="index_d"></a>- d -</h3><ul>
-<li>DBString()
-: <a class="el" href="classkty_1_1_d_b_string.html#ad88511bd70a2be2ba184ea7faf0b1968">kty::DBString&lt; DataBase &gt;</a>
-</li>
 <li>deallocate()
 : <a class="el" href="classkty_1_1_allocator.html#a6e3d7757d2b9dcdb57b91be684292b88">kty::Allocator&lt; N, B &gt;</a>
+</li>
+<li>deallocate_idx()
+: <a class="el" href="classkty_1_1_string_pool.html#a947c490a8411c4f932f177f64259c562">kty::StringPool&lt; N, S &gt;</a>
 </li>
 <li>debug_str()
 : <a class="el" href="structkty_1_1_device.html#af55314a9ce2c1dbfc3946fe0666ce173">kty::Device</a>
@@ -153,7 +157,7 @@ $(function() {
 </li>
 <li>dump_addresses()
 : <a class="el" href="classkty_1_1_allocator.html#a20a2e5a27354e8eb0f2543210a638361">kty::Allocator&lt; N, B &gt;</a>
-, <a class="el" href="classkty_1_1_string_database.html#acc85dddb59bff796a8476d4dd4401dea">kty::StringDatabase&lt; N, S &gt;</a>
+, <a class="el" href="classkty_1_1_string_pool.html#a32195c18048039281014ea00abbe353d">kty::StringPool&lt; N, S &gt;</a>
 </li>
 </ul>
 
@@ -203,15 +207,12 @@ $(function() {
 
 <h3><a id="index_f"></a>- f -</h3><ul>
 <li>front()
-: <a class="el" href="classkty_1_1_deque.html#afe3f0b8868c3b5e6202c5317fbbaf3fe">kty::Deque&lt; T, Alloc &gt;</a>
+: <a class="el" href="classkty_1_1_deque.html#abbbbe7e010215d939ca19c8942821c8d">kty::Deque&lt; T, Alloc &gt;</a>
 </li>
 </ul>
 
 
 <h3><a id="index_g"></a>- g -</h3><ul>
-<li>get()
-: <a class="el" href="classkty_1_1_string_database.html#a95afa87fc9276bac1d72778599253043">kty::StringDatabase&lt; N, S &gt;</a>
-</li>
 <li>get_additional_arguments()
 : <a class="el" href="classkty_1_1_tokenizer.html#a855f2517060bc0bc6b20e2bfbb20f890">kty::Tokenizer</a>
 </li>
@@ -255,6 +256,9 @@ $(function() {
 <li>has_greater_precedence_than()
 : <a class="el" href="structkty_1_1_token.html#a0f0c5dc0f093bbe47b99e41d1b37aa93">kty::Token</a>
 </li>
+<li>head_
+: <a class="el" href="classkty_1_1_deque.html#ad72f7517849a31803d311363689946d2">kty::Deque&lt; T, Alloc &gt;</a>
+</li>
 </ul>
 
 
@@ -296,7 +300,7 @@ $(function() {
 : <a class="el" href="structkty_1_1_token.html#a18c00c5a8826fe94101abe5cf271beb4">kty::Token</a>
 </li>
 <li>is_empty()
-: <a class="el" href="classkty_1_1_deque.html#a35d000303d5497575d3ac54ccb725cb4">kty::Deque&lt; T, Alloc &gt;</a>
+: <a class="el" href="classkty_1_1_deque.html#a6b737e3e2d01877f79d8381deb089fab">kty::Deque&lt; T, Alloc &gt;</a>
 </li>
 <li>is_function()
 : <a class="el" href="structkty_1_1_token.html#a812a5188d24340bf36880cdf6bf7382c">kty::Token</a>
@@ -352,7 +356,7 @@ $(function() {
 
 <h3><a id="index_m"></a>- m -</h3><ul>
 <li>max_str_len()
-: <a class="el" href="classkty_1_1_string_database.html#a201018a92700218b7051f076facead9d">kty::StringDatabase&lt; N, S &gt;</a>
+: <a class="el" href="classkty_1_1_string_pool.html#a8dbfcce07d38f23ea9dbe4a35928ef79">kty::StringPool&lt; N, S &gt;</a>
 </li>
 </ul>
 
@@ -371,11 +375,17 @@ $(function() {
 
 
 <h3><a id="index_o"></a>- o -</h3><ul>
+<li>operator+=()
+: <a class="el" href="classkty_1_1_pool_string.html#a18ada79975d25c99524ad9498b5f86dc">kty::PoolString&lt; Pool &gt;</a>
+</li>
 <li>operator=()
-: <a class="el" href="classkty_1_1_d_b_string.html#aad6a1a0fc27549e32cb893b42187a8a0">kty::DBString&lt; DataBase &gt;</a>
+: <a class="el" href="classkty_1_1_pool_string.html#a019830b1e662886d68e7331fee40f28b">kty::PoolString&lt; Pool &gt;</a>
+</li>
+<li>operator==()
+: <a class="el" href="classkty_1_1_pool_string.html#a1d507778b56ab4dae4f864bb3c2e22ae">kty::PoolString&lt; Pool &gt;</a>
 </li>
 <li>operator[]()
-: <a class="el" href="classkty_1_1_deque.html#ac1ebf4fe1cb9396bd3849ec05337e2be">kty::Deque&lt; T, Alloc &gt;</a>
+: <a class="el" href="classkty_1_1_deque.html#a1c9ccab052787195352c5368497d8f5b">kty::Deque&lt; T, Alloc &gt;</a>
 </li>
 <li>owns()
 : <a class="el" href="classkty_1_1_allocator.html#aca34452653676f6a04b27f199c0cb550">kty::Allocator&lt; N, B &gt;</a>
@@ -390,11 +400,16 @@ $(function() {
 <li>Parser()
 : <a class="el" href="classkty_1_1_parser.html#a5115769a63354fc79e4f604bb8251159">kty::Parser</a>
 </li>
+<li>PoolString()
+: <a class="el" href="classkty_1_1_pool_string.html#a1179ed35b2ad864333c00be5f67adcdd">kty::PoolString&lt; Pool &gt;</a>
+</li>
 <li>pop_back()
-: <a class="el" href="classkty_1_1_deque.html#a3ebfeaed57a6db654f1eadf11dfbfe13">kty::Deque&lt; T, Alloc &gt;</a>
+: <a class="el" href="classkty_1_1_deque.html#af2e3888a13d29f501ba60b734ffcd74d">kty::Deque&lt; T, Alloc &gt;</a>
+, <a class="el" href="classkty_1_1_string_deque.html#a300d2c2ab43cac013b9e5337c5e88a9e">kty::StringDeque&lt; Alloc, Pool &gt;</a>
 </li>
 <li>pop_front()
-: <a class="el" href="classkty_1_1_deque.html#a3ed6b7646580b1a3424adf503add3e3a">kty::Deque&lt; T, Alloc &gt;</a>
+: <a class="el" href="classkty_1_1_deque.html#ab79bd997919d3ff0fdf6ddb2e5210934">kty::Deque&lt; T, Alloc &gt;</a>
+, <a class="el" href="classkty_1_1_string_deque.html#a5047ff2ef07cd47fe82aa811111ddcf2">kty::StringDeque&lt; Alloc, Pool &gt;</a>
 </li>
 <li>power()
 : <a class="el" href="classkty_1_1_interpreter.html#aff55d79e68ee85ad2b12f02393f3f630">kty::Interpreter&lt; Alloc &gt;</a>
@@ -406,7 +421,7 @@ $(function() {
 : <a class="el" href="structkty_1_1_deque_1_1_node.html#aed6fcdf15ce289fbc3b5632a2e513b75">kty::Deque&lt; T, Alloc &gt;::Node</a>
 </li>
 <li>print_prompt()
-: <a class="el" href="classkty_1_1_interface.html#adbd7f7b5a8dd5ba2d25027837cebb648">kty::Interface</a>
+: <a class="el" href="classkty_1_1_interface.html#a4a22e246ae84c4c56a3bf1489a75b89b">kty::Interface</a>
 </li>
 <li>print_welcome()
 : <a class="el" href="classkty_1_1_interface.html#a09a2c4e06ed0a8f4fd9d17bfa940608c">kty::Interface</a>
@@ -415,10 +430,10 @@ $(function() {
 : <a class="el" href="classkty_1_1_tokenizer.html#a4b57b21d7b14d189cae9d5f1005c3cbe">kty::Tokenizer</a>
 </li>
 <li>push_back()
-: <a class="el" href="classkty_1_1_deque.html#a8eb281479253b9cd83be34e4eab13fe6">kty::Deque&lt; T, Alloc &gt;</a>
+: <a class="el" href="classkty_1_1_deque.html#ad7f355986174ad9b6538afe61c0a60c7">kty::Deque&lt; T, Alloc &gt;</a>
 </li>
 <li>push_front()
-: <a class="el" href="classkty_1_1_deque.html#a4babcfe6e9fbe1218e2afd4cc98d0481">kty::Deque&lt; T, Alloc &gt;</a>
+: <a class="el" href="classkty_1_1_deque.html#a308e7ecb24677a6de99b6295756e6866">kty::Deque&lt; T, Alloc &gt;</a>
 </li>
 </ul>
 
@@ -431,9 +446,6 @@ $(function() {
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
-<li>set()
-: <a class="el" href="classkty_1_1_string_database.html#a010762fbcb2599121cc512976807d052">kty::StringDatabase&lt; N, S &gt;</a>
-</li>
 <li>set_command()
 : <a class="el" href="classkty_1_1_parser.html#ad7558f8709dc127c7011ef67089786ac">kty::Parser</a>
 , <a class="el" href="classkty_1_1_tokenizer.html#a79d99456e5deada2b2856d594774f94a">kty::Tokenizer</a>
@@ -442,7 +454,10 @@ $(function() {
 : <a class="el" href="structkty_1_1_device.html#acef249d9d523cf378cc5f7ba0ada2b8c">kty::Device</a>
 </li>
 <li>size()
-: <a class="el" href="classkty_1_1_deque.html#a9084fe0b1b45288551e8f895eb3030da">kty::Deque&lt; T, Alloc &gt;</a>
+: <a class="el" href="classkty_1_1_deque.html#a27d9d187cc4d59a43fdfb678db284891">kty::Deque&lt; T, Alloc &gt;</a>
+</li>
+<li>size_
+: <a class="el" href="classkty_1_1_deque.html#a6307b76c4249eeb8db41329752ef2f4a">kty::Deque&lt; T, Alloc &gt;</a>
 </li>
 <li>stat()
 : <a class="el" href="classkty_1_1_allocator.html#aef13822d1ca901de045eccda01c0e337">kty::Allocator&lt; N, B &gt;</a>
@@ -450,8 +465,25 @@ $(function() {
 <li>str()
 : <a class="el" href="structkty_1_1_token.html#a16a729293bdab162b496de5646966a43">kty::Token</a>
 </li>
-<li>StringDatabase()
-: <a class="el" href="classkty_1_1_string_database.html#aadf9d0099ebbc1020c51196a64fb078a">kty::StringDatabase&lt; N, S &gt;</a>
+<li>strcat()
+: <a class="el" href="classkty_1_1_pool_string.html#ae48cd24615fe71e239abf08b18a9f17d">kty::PoolString&lt; Pool &gt;</a>
+, <a class="el" href="classkty_1_1_string_pool.html#a3aa702072587c2294b0c8a0c8d339d29">kty::StringPool&lt; N, S &gt;</a>
+</li>
+<li>strcmp()
+: <a class="el" href="classkty_1_1_pool_string.html#ade89ac651a39c99cc809ba987e24d36d">kty::PoolString&lt; Pool &gt;</a>
+</li>
+<li>strcpy()
+: <a class="el" href="classkty_1_1_pool_string.html#a7a11a5517f2f22cd08eec26b057c6002">kty::PoolString&lt; Pool &gt;</a>
+, <a class="el" href="classkty_1_1_string_pool.html#a117f8c918099a9f713df5551c02d64cd">kty::StringPool&lt; N, S &gt;</a>
+</li>
+<li>StringDeque()
+: <a class="el" href="classkty_1_1_string_deque.html#ae3a0631ceb3a75b069270df996825587">kty::StringDeque&lt; Alloc, Pool &gt;</a>
+</li>
+<li>StringPool()
+: <a class="el" href="classkty_1_1_string_pool.html#a00e029bcc56aed1c9bcc874d9877113b">kty::StringPool&lt; N, S &gt;</a>
+</li>
+<li>strlen()
+: <a class="el" href="classkty_1_1_pool_string.html#ad923113aec87c317504ed303a6daf696">kty::PoolString&lt; Pool &gt;</a>
 </li>
 </ul>
 
@@ -493,7 +525,7 @@ $(function() {
 
 <h3><a id="index_0x7e"></a>- ~ -</h3><ul>
 <li>~Deque()
-: <a class="el" href="classkty_1_1_deque.html#aa594cf9b192194917fc9651d9aa90d93">kty::Deque&lt; T, Alloc &gt;</a>
+: <a class="el" href="classkty_1_1_deque.html#aab8fd36ebf384def5eced54fd8d80e9c">kty::Deque&lt; T, Alloc &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->

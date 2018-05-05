@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['c_5fstr',['c_str',['../classkty_1_1_d_b_string.html#a6898dccf80e9bb476a9e1b02b1111853',1,'kty::DBString']]],
+  ['c_5fstr',['c_str',['../classkty_1_1_string_pool.html#aff97f3b5317a5a6627905ea4ee4d0abb',1,'kty::StringPool::c_str()'],['../classkty_1_1_pool_string.html#a7d7cb0acf9cc8d530f8b061284952a3b',1,'kty::PoolString::c_str()']]],
   ['cleanup_5fafter_5fcommand_5fqueue_5fexecute',['cleanup_after_command_queue_execute',['../classkty_1_1_interpreter.html#a58b2b292ef900dc44b1048bda4862881',1,'kty::Interpreter']]],
   ['close_5felse',['close_else',['../classkty_1_1_interpreter.html#abc483d279efd56511584a943e4461129',1,'kty::Interpreter']]],
   ['close_5fgroup',['close_group',['../classkty_1_1_interpreter.html#a830860bb9bceb5d15004cc7ae13991b7',1,'kty::Interpreter']]],

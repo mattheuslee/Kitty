@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['get',['get',['../classkty_1_1_string_database.html#a95afa87fc9276bac1d72778599253043',1,'kty::StringDatabase']]],
   ['get_5fadditional_5farguments',['get_additional_arguments',['../classkty_1_1_tokenizer.html#a855f2517060bc0bc6b20e2bfbb20f890',1,'kty::Tokenizer']]],
   ['get_5fdevice',['get_device',['../classkty_1_1_interpreter.html#a9566241caded91a7780e94e2750926e7',1,'kty::Interpreter']]],
   ['get_5fnext_5fcommand',['get_next_command',['../classkty_1_1_interface.html#adc766aa70c51e513b30b2048297e77cd',1,'kty::Interface']]],

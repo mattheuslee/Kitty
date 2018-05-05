@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['prev',['prev',['../structkty_1_1_deque_1_1_node.html#aed6fcdf15ce289fbc3b5632a2e513b75',1,'kty::Deque::Node']]]
+  ['info',['info',['../structkty_1_1_device.html#a9e6547663cbacc24f109e1ffbb634614',1,'kty::Device']]]
 ];

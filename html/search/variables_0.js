@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['info',['info',['../structkty_1_1_device.html#a9e6547663cbacc24f109e1ffbb634614',1,'kty::Device']]]
+  ['allocator_5f',['allocator_',['../classkty_1_1_deque.html#ac389b9458c171a8fd65d2c911aa862d4',1,'kty::Deque']]]
 ];

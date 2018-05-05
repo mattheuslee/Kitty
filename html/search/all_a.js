@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['max_5fstr_5flen',['max_str_len',['../classkty_1_1_string_database.html#a201018a92700218b7051f076facead9d',1,'kty::StringDatabase']]],
+  ['max_5fstr_5flen',['max_str_len',['../classkty_1_1_string_pool.html#a8dbfcce07d38f23ea9dbe4a35928ef79',1,'kty::StringPool']]],
   ['mockarduinolog',['MockArduinoLog',['../class_mock_arduino_log.html',1,'']]]
 ];

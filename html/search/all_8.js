@@ -13,7 +13,7 @@ var searchData=
   ['is_5fcreation_5fcommand',['is_creation_command',['../structkty_1_1_token.html#aa24e1b6129879278007f9b707260ddf8',1,'kty::Token']]],
   ['is_5felse',['is_else',['../structkty_1_1_token.html#a7e96379dcc21bd5eeb3b66123ccf0746',1,'kty::Token']]],
   ['is_5felse_5fif',['is_else_if',['../structkty_1_1_token.html#a18c00c5a8826fe94101abe5cf271beb4',1,'kty::Token']]],
-  ['is_5fempty',['is_empty',['../classkty_1_1_deque.html#a35d000303d5497575d3ac54ccb725cb4',1,'kty::Deque']]],
+  ['is_5fempty',['is_empty',['../classkty_1_1_deque.html#a6b737e3e2d01877f79d8381deb089fab',1,'kty::Deque']]],
   ['is_5ffunction',['is_function',['../structkty_1_1_token.html#a812a5188d24340bf36880cdf6bf7382c',1,'kty::Token']]],
   ['is_5fgroup',['is_group',['../structkty_1_1_device.html#abf47ae4e66589e54c5387321c0c05a5a',1,'kty::Device']]],
   ['is_5fif',['is_if',['../structkty_1_1_token.html#a4089c40d5991f50ddffc3d06925f2e9f',1,'kty::Token']]],
