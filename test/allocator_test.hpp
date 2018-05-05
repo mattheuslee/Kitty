@@ -18,7 +18,7 @@ test(allocator)
         ints.push_back((int*)alloc.allocate());
         *(ints[i]) = i;
     }
-    assertEqual((unsigned int)alloc.allocate(), (unsigned int)nullptr);
+    assertTrue(alloc.allocate() == nullptr);
 
     for (int i = 0; i < numInts; ++i) {
         assertEqual(*(ints[i]), i, "i = " << i);
