@@ -5,7 +5,7 @@ var searchData=
   ['poolstring',['PoolString',['../classkty_1_1_pool_string.html',1,'kty::PoolString&lt; Pool &gt;'],['../classkty_1_1_pool_string.html#a1179ed35b2ad864333c00be5f67adcdd',1,'kty::PoolString::PoolString()']]],
   ['pop_5fback',['pop_back',['../classkty_1_1_deque.html#af2e3888a13d29f501ba60b734ffcd74d',1,'kty::Deque::pop_back()'],['../classkty_1_1_string_deque.html#a300d2c2ab43cac013b9e5337c5e88a9e',1,'kty::StringDeque::pop_back()']]],
   ['pop_5ffront',['pop_front',['../classkty_1_1_deque.html#ab79bd997919d3ff0fdf6ddb2e5210934',1,'kty::Deque::pop_front()'],['../classkty_1_1_string_deque.html#a5047ff2ef07cd47fe82aa811111ddcf2',1,'kty::StringDeque::pop_front()']]],
-  ['power',['power',['../classkty_1_1_interpreter.html#aff55d79e68ee85ad2b12f02393f3f630',1,'kty::Interpreter']]],
+  ['power',['power',['../classkty_1_1_interpreter.html#a95e21ff12d8858b717ea67a6c4b0753e',1,'kty::Interpreter']]],
   ['preprocess',['preprocess',['../classkty_1_1_parser.html#a7a4a38ccf9d8531de8d43bf2eb23ce53',1,'kty::Parser']]],
   ['prev',['prev',['../structkty_1_1_deque_1_1_node.html#aed6fcdf15ce289fbc3b5632a2e513b75',1,'kty::Deque::Node']]],
   ['print_5fprompt',['print_prompt',['../classkty_1_1_interface.html#adbd7f7b5a8dd5ba2d25027837cebb648',1,'kty::Interface::print_prompt()'],['../classkty_1_1_interface.html#a4a22e246ae84c4c56a3bf1489a75b89b',1,'kty::Interface::print_prompt(std::string const &amp;prefix)']]],

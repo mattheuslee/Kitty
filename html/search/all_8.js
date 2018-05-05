@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['increase_5fnested_5flevel',['increase_nested_level',['../classkty_1_1_interpreter.html#a57a1c74f3fea0686182cf015bd2a38c1',1,'kty::Interpreter']]],
+  ['increase_5fnested_5flevel',['increase_nested_level',['../classkty_1_1_interpreter.html#ae6c63c08ddfd1ea87bf0c93ad6d72cd7',1,'kty::Interpreter']]],
   ['info',['info',['../structkty_1_1_device.html#a9e6547663cbacc24f109e1ffbb634614',1,'kty::Device']]],
   ['info_5fstr',['info_str',['../structkty_1_1_device.html#a7da2a518de4b8b5776218d018938aa9b',1,'kty::Device']]],
   ['interface',['Interface',['../classkty_1_1_interface.html',1,'kty']]],
-  ['interpreter',['Interpreter',['../classkty_1_1_interpreter.html',1,'kty::Interpreter&lt; Alloc &gt;'],['../classkty_1_1_interpreter.html#a5834981370133a0af811559e4f7837ed',1,'kty::Interpreter::Interpreter()']]],
+  ['interpreter',['Interpreter',['../classkty_1_1_interpreter.html',1,'kty::Interpreter&lt; Alloc, StringPool &gt;'],['../classkty_1_1_interpreter.html#ad0d4d349bbd56d8f67e79600f7cb232f',1,'kty::Interpreter::Interpreter()']]],
   ['is_5fcomma',['is_comma',['../structkty_1_1_token.html#af0042b16e0b7a7518c9e7aaa395d4070',1,'kty::Token']]],
   ['is_5fcreate_5fgroup',['is_create_group',['../structkty_1_1_token.html#a8d69af386e4737c2fa2d9288438c6198',1,'kty::Token']]],
   ['is_5fcreate_5fled',['is_create_led',['../structkty_1_1_token.html#adf522306b75a27d369451445044fce06',1,'kty::Token']]],
