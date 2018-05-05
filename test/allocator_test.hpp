@@ -16,6 +16,7 @@ test(allocator)
 
     for (int i = 0; i < numInts; ++i) {
         ints.push_back((int*)alloc.allocate());
+        assertTrue(ints[i] != nullptr);
         *(ints[i]) = i;
     }
     assertTrue(alloc.allocate() == nullptr);
@@ -25,7 +26,9 @@ test(allocator)
     }
 
     for (int i = 0; i < numInts; ++i) {
-        alloc.deallocate(ints[i]);
+        assertTrue(alloc.deallocate(ints[i]), "i = " << i);
         ints[i] = nullptr;
     }
+
+    assertFalse(alloc.deallocate((int*)nullptr));
 }

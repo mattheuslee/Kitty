@@ -55,7 +55,7 @@ public:
     template <typename T>
     bool owns(T* ptr) {
         char* ptr_ = (char*)ptr;
-        return ptr_ - pool_ > 0 && ptr_ - pool_ < N * B;
+        return ptr_ - pool_ >= 0 && ptr_ - pool_ < N * B;
     }
 
     /*!
@@ -86,16 +86,19 @@ public:
 
         @param  ptr
                 A pointer to a block of memory to be returned to the pool.
+
+        @return True if the deallocation was successful, false otherwise.
     */
     template <typename T>
-    void deallocate(T* ptr) {
+    bool deallocate(T* ptr) {
         char* ptr_ = (char*)ptr;
         if (!owns(ptr_)) {
             Log.warning(F("Allocator: Pointer given to deallocate did not come from pool\n"));
-            return;
+            return false;
         }
         taken_[(ptr_ - pool_) / B] = false;
         --numTaken_;
+        return true;
     }
 
 private:
