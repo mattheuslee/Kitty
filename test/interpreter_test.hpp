@@ -15,7 +15,7 @@ test(interpreter_is_number)
 {
     string command = "answer IsNumber(3 + (1 - 5)^2 / 4)";
     interpreter.execute(command);
-    assertTrue(interpreter.get_device("answer").type == DeviceType::NUM);
+    assertEqual(interpreter.get_device("answer").type, DeviceType::NUM);
     assertTrue(interpreter.get_device("answer").info[0] == "7");
     alloc.stat();
 }
@@ -24,7 +24,7 @@ test(interpreter_is_led)
 {
     string command = "light IsLED(13, 25)";
     interpreter.execute(command);
-    assertTrue(interpreter.get_device("light").type == DeviceType::LED);
+    assertEqual(interpreter.get_device("light").type, DeviceType::LED);
     assertTrue(interpreter.get_device("light").info[0] == "13");
     assertTrue(interpreter.get_device("light").info[1] == "25");
     alloc.stat();
