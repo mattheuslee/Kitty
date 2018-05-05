@@ -21,7 +21,7 @@ install:
 script:
    - build_platform mega2560
    - git clone https://github.com/mmurdoch/arduinounit.git
-   - make test
+   - make -B test
    - rm -r -f /home/travis/build/mattheuslee/KittyInterpreter/arduinounit/ 
 
 # Generate and deploy documentation
@@ -29,5 +29,5 @@ after_success:
    - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/library_check.sh)
    - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/doxy_gen_and_deploy.sh)
    - git clone https://github.com/mmurdoch/arduinounit.git
-   - make coverage
+   - make -B coverage
    - coveralls --exclude arduinounit --exclude test --gcov-options '\-lp'
