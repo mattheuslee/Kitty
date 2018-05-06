@@ -80,7 +80,7 @@ public:
                 ++numTaken_;
                 if (numTaken_ > maxNumTaken_) {
                     maxNumTaken_ = numTaken_;
-                    //Log.trace(F("Allocator: new max num taken %d\n"), maxNumTaken_);
+                    //Log.trace(F("Allocator: new maxNumTaken %d\n"), maxNumTaken_);
                 }
                 return (void*)(pool_ + (B * i));
             }
@@ -92,6 +92,8 @@ public:
     /*!
         @brief  Returns a single block of memory to the pool.
                 This does not call the destructor on the data stored at the block.
+                The destructor for the particular data type stored at the memory location
+                should be called before deallocating the memory.
 
         @param  ptr
                 A pointer to a block of memory to be returned to the pool.
