@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['inc_5fref_5fcount',['inc_ref_count',['../classkty_1_1_string_pool.html#aaa30800188f7569eedecc683ff3a9910',1,'kty::StringPool']]],
   ['increase_5fnested_5flevel',['increase_nested_level',['../classkty_1_1_interpreter.html#ae6c63c08ddfd1ea87bf0c93ad6d72cd7',1,'kty::Interpreter']]],
   ['info',['info',['../structkty_1_1_device.html#a9e6547663cbacc24f109e1ffbb634614',1,'kty::Device']]],
   ['info_5fstr',['info_str',['../structkty_1_1_device.html#a7da2a518de4b8b5776218d018938aa9b',1,'kty::Device']]],

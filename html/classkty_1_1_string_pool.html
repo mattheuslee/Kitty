@@ -95,6 +95,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a9c436dd5bde78771e66191c0039e2958"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a9c436dd5bde78771e66191c0039e2958">allocate_idx</a> ()</td></tr>
 <tr class="memdesc:a9c436dd5bde78771e66191c0039e2958"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the next free index for a string.  <a href="#a9c436dd5bde78771e66191c0039e2958">More...</a><br /></td></tr>
 <tr class="separator:a9c436dd5bde78771e66191c0039e2958"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26491e023ca254b419aca60d9410bce9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a26491e023ca254b419aca60d9410bce9">num_ref</a> (int const &amp;idx)</td></tr>
+<tr class="memdesc:a26491e023ca254b419aca60d9410bce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the reference count for an index.  <a href="#a26491e023ca254b419aca60d9410bce9">More...</a><br /></td></tr>
+<tr class="separator:a26491e023ca254b419aca60d9410bce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa30800188f7569eedecc683ff3a9910"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#aaa30800188f7569eedecc683ff3a9910">inc_ref_count</a> (int const &amp;idx)</td></tr>
+<tr class="memdesc:aaa30800188f7569eedecc683ff3a9910"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increases the reference count for an index.  <a href="#aaa30800188f7569eedecc683ff3a9910">More...</a><br /></td></tr>
+<tr class="separator:aaa30800188f7569eedecc683ff3a9910"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a104b4e8a1985bb9caa1c829bff1b3f63"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a104b4e8a1985bb9caa1c829bff1b3f63">dec_ref_count</a> (int const &amp;idx)</td></tr>
+<tr class="memdesc:a104b4e8a1985bb9caa1c829bff1b3f63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decreases the reference count for an index.  <a href="#a104b4e8a1985bb9caa1c829bff1b3f63">More...</a><br /></td></tr>
+<tr class="separator:a104b4e8a1985bb9caa1c829bff1b3f63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03689b24b0bf2528d332c08dbde0c7c7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a03689b24b0bf2528d332c08dbde0c7c7">deallocate_idx</a> (int const &amp;idx)</td></tr>
 <tr class="memdesc:a03689b24b0bf2528d332c08dbde0c7c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string index to the pool.  <a href="#a03689b24b0bf2528d332c08dbde0c7c7">More...</a><br /></td></tr>
 <tr class="separator:a03689b24b0bf2528d332c08dbde0c7c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -174,6 +183,117 @@ template&lt;int N, int S&gt; </div>
 
 <p>Gets the next free index for a string. </p>
 <dl class="section return"><dt>Returns</dt><dd>An index into the pool if there is space, -1 otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a26491e023ca254b419aca60d9410bce9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26491e023ca254b419aca60d9410bce9">&#9670;&nbsp;</a></span>num_ref()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int N, int S&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::num_ref </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>idx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the reference count for an index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">idx</td><td>The index to get the reference count for.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The reference count for the index. If the index is invalid, -1 is returned. </dd></dl>
+
+</div>
+</div>
+<a id="aaa30800188f7569eedecc683ff3a9910"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa30800188f7569eedecc683ff3a9910">&#9670;&nbsp;</a></span>inc_ref_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int N, int S&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::inc_ref_count </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>idx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Increases the reference count for an index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">idx</td><td>The index to increase the reference count for.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the operation was successful, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a104b4e8a1985bb9caa1c829bff1b3f63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a104b4e8a1985bb9caa1c829bff1b3f63">&#9670;&nbsp;</a></span>dec_ref_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int N, int S&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::dec_ref_count </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>idx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Decreases the reference count for an index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">idx</td><td>The index to decrease the reference count for.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the operation was successful, false otherwise. </dd></dl>
 
 </div>
 </div>
