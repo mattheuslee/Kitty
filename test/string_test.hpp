@@ -111,6 +111,33 @@ test(string_deque_of_poolstring)
         str[0] = '0' + i;
         assertTrue(strings[i] == str, "i = " << i);
     }
+
+    for (int i = 0; i < numStrings; ++i) {
+        strings.pop_back();
+    }
+    assertEqual(strings.size(), 0);
+
+    for (int i = 0; i < numStrings; ++i) {
+        strings.push_front(poolstring_t(stringPool));
+        assertTrue(strings[i] == "", "i = " << i);
+        assertEqual(stringPool.num_ref(strings[i].pool_idx()), 1);
+    }
+    assertEqual(strings.size(), numStrings);
+
+    for (int i = 0; i < numStrings; ++i) {
+        str[0] = '0' + i;
+        strings[i] = str;
+    }
+
+    for (int i = 0; i < numStrings; ++i) {
+        str[0] = '0' + i;
+        assertTrue(strings[i] == str, "i = " << i);
+    }
+
+    for (int i = 0; i < numStrings; ++i) {
+        strings.pop_front();
+    }
+    assertEqual(strings.size(), 0);
 }
 
 

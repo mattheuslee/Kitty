@@ -1,5 +1,8 @@
 #pragma once
 
+#include <kty/stl_impl.hpp>
+#include <utility>
+
 #include <kty/containers/allocator.hpp>
 
 namespace kty {
@@ -94,6 +97,26 @@ public:
     }
 
     /*!
+        @brief  Pushes a value to the front of the deque.
+                This version calls the move constructor.
+
+        @param  value
+                The value to push to the front of the deque.
+    */
+    virtual void push_front(T && value) {
+        // Allocate new node
+        Node* toInsert = (Node*)allocator_.allocate();
+        toInsert->value = T((T&&)value);
+        Node* next = head_->next;
+        // Rearrange pointers
+        toInsert->next = next;
+        toInsert->prev = head_;
+        next->prev = toInsert;
+        head_->next = toInsert;
+        ++size_;
+    }
+
+    /*!
         @brief  Pops value from the front of the deque.
                 If there is no value to pop, does nothing.
     */
@@ -112,6 +135,7 @@ public:
 
     /*!
         @brief  Pushes a value to the back of the deque.
+                This version calls the copy constructor.
 
         @param  value
                 The value to push to the back of the deque.
@@ -119,7 +143,27 @@ public:
     virtual void push_back(T const & value) {
         // Allocate new node
         Node* toInsert = (Node*)allocator_.allocate();
-        toInsert->value = value;
+        toInsert->value = T(value);
+        Node* prev = head_->prev;
+        // Rearrange pointers
+        toInsert->next = head_;
+        toInsert->prev = prev;
+        prev->next = toInsert;
+        head_->prev = toInsert;
+        ++size_;
+    }
+
+    /*!
+        @brief  Pushes a value to the back of the deque.
+                This version calls the move constructor.
+
+        @param  value
+                The value to push to the back of the deque.
+    */
+    virtual void push_back(T && value) {
+        // Allocate new node
+        Node* toInsert = (Node*)allocator_.allocate();
+        toInsert->value = T((T&&)value);
         Node* prev = head_->prev;
         // Rearrange pointers
         toInsert->next = head_;
