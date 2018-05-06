@@ -34,6 +34,9 @@ public:
     /*!
         @brief  Mock version of ArduinoLog's trace logging.
 
+        @param  str
+                The main debug string
+
         @param  args
                 Mock arguments.
     */
@@ -47,6 +50,9 @@ public:
 
     /*!
         @brief  Mock version of ArduinoLog's warning logging.
+
+        @param  str
+                The main debug string
 
         @param  args
                 Mock arguments.
