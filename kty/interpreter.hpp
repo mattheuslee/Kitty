@@ -197,7 +197,7 @@ public:
                 String pool for the class to use.
     */
     Interpreter(Alloc& alloc, StringPool& stringPool)
-            : alloc_(alloc), toPopLastIfCondition_(alloc_), lastIfCondition_(alloc_), stringPool_(stringPool), commandBuffer_(alloc_, stringPool_) {
+            : alloc_(alloc), toPopLastIfCondition_(alloc_), lastIfCondition_(alloc_), stringPool_(stringPool), commandQueue_(alloc_, stringPool_), commandBuffer_(alloc_, stringPool_) {
         status_ = InterpreterStatus::NORMAL;
         lastIfCondition_.push_back(-1); // Last if condition is null
     }
@@ -264,8 +264,8 @@ public:
         if (commandQueue_.size() == 0) {
             return;
         }
-        while (!commandQueue_.empty()) {
-            std::string command = commandQueue_.front();
+        while (!commandQueue_.is_empty()) {
+            std::string command(stringPool_.c_str(commandQueue_.front()));
             commandQueue_.pop_front();
             execute(command);
         }
@@ -480,11 +480,18 @@ public:
         Log.trace(F("Running group = %s\n"), name.c_str());
         // Add command for one more call to run the group
         if (numTimes > 1) {
-            commandQueue_.push_front(name + "RunGroup(" + int_to_str(numTimes - 1) + ")");
+            commandQueue_.push_front(stringPool_.allocate_idx());
+            stringPool_.strcpy(commandQueue_.front(), name.c_str());
+            stringPool_.strcat(commandQueue_.front(), "RunGroup(");
+            stringPool_.strcat(commandQueue_.front(), int_to_str(numTimes - 1, stringPool_).c_str());
+            stringPool_.strcat(commandQueue_.front(), ")");
+            // Replaces
+            //commandQueue_.push_front(name + "RunGroup(" + int_to_str(numTimes - 1) + ")");
         }
         for (int j = 0; j < commands.size(); ++j) {
             // Push in reverse order since pushing from the front
-            commandQueue_.push_front(commands[commands.size() - j - 1]);
+            commandQueue_.push_front(stringPool_.allocate_idx());
+            stringPool_.strcpy(commandQueue_.front(), commands[commands.size() - j - 1].c_str());
         }
     }
 
@@ -790,7 +797,10 @@ public:
             // Add commands to commandQueue in reverse order,
             // since pushing from the front
             for (int i = commandBuffer_.size() - 1; i > 0; --i) {
-                commandQueue_.push_front(std::string(stringPool_.c_str(commandBuffer_[i])));
+                commandQueue_.push_front(commandBuffer_[i]);
+                stringPool_.inc_ref_count(commandBuffer_[i]);
+                // Replaces
+                //commandQueue_.push_front(std::string(stringPool_.c_str(commandBuffer_[i])));
             }
             // Push for any commands that might require in nested scope
             lastIfCondition_.push_back(-1);
@@ -858,7 +868,10 @@ public:
             // Add commands to commandQueue in reverse order,
             // since pushing from the front
             for (int i = commandBuffer_.size() - 1; i >= 0; --i) {
-                commandQueue_.push_front(std::string(stringPool_.c_str(commandBuffer_[i])));
+                commandQueue_.push_front(commandBuffer_[i]);
+                stringPool_.inc_ref_count(commandBuffer_[i]);
+                // Replaces
+                //commandQueue_.push_front(std::string(stringPool_.c_str(commandBuffer_[i])));
             }
             // Push for any commands that might require in nested scope
             lastIfCondition_.push_back(-1);
@@ -957,7 +970,7 @@ private:
     Alloc& alloc_;
     StringPool& stringPool_;
 
-    std::deque<std::string> commandQueue_;
+    StringDeque<Alloc, StringPool> commandQueue_;
     std::map<std::string, Device> devices_;
 
     InterpreterStatus status_;
