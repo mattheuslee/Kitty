@@ -40,7 +40,79 @@ test(string_stringpool)
     assertFalse(stringPool.deallocate_idx(-1));
     assertFalse(stringPool.inc_ref_count(-1));
     assertFalse(stringPool.dec_ref_count(-1));
+    assertEqual(stringPool.num_ref(-1), -1);
+    assertTrue(stringPool.c_str(-1) == nullptr);
 }
+
+test(string_poolstring)
+{
+    // Using global string pool
+    PoolString<decltype(stringPool)> string1(stringPool), string2(stringPool);
+    assertEqual(string1.strcmp(""), 0);
+    assertEqual(string2.strcmp(""), 0);
+
+    string1 = "1234567890";
+    assertTrue(string1 == "1234567890");
+
+    string1 = "12345678901234567890";
+    assertTrue(string1 == "12345678901234567890");
+
+    string1 = "1234567890123456789012345678901234567890";
+    assertTrue(string1 == "1234567890123456789012345678901234567890");
+
+    string1 = "12345678901234567890123456789012345678901";
+    assertTrue(string1 == "1234567890123456789012345678901234567890");
+
+    string2 = string1;
+    assertTrue(string1 == "1234567890123456789012345678901234567890");
+
+    string1 = "";
+    string2 = "";
+    assertEqual(string1.strcmp(""), 0);
+    assertEqual(string2.strcmp(""), 0);
+
+    string1.strcat("12345");
+    assertTrue(string1 == "12345");
+
+    string1.strcat("67890");
+    assertTrue(string1 == "1234567890");
+
+    string1 = "";
+    assertTrue(string1 == "");
+
+    string1 += "12345";
+    assertTrue(string1 == "12345");
+
+    string1 += "67890";
+    assertTrue(string1 == "1234567890");
+}
+
+test(string_deque_of_poolstring)
+{
+    // Using global alloc and string pool
+    const int numStrings = 10;
+    using poolstring_t = PoolString<decltype(stringPool)>;
+    Deque<PoolString<decltype(stringPool)>, decltype(alloc)> strings(alloc);
+
+    for (int i = 0; i < numStrings; ++i) {
+        strings.push_back(poolstring_t(stringPool));
+        assertTrue(strings[i] == "", "i = " << i);
+        assertEqual(stringPool.num_ref(strings[i].pool_idx()), 1);
+    }
+    assertEqual(strings.size(), numStrings);
+
+    char str[20] = "";
+    for (int i = 0; i < numStrings; ++i) {
+        str[0] = '0' + i;
+        strings[i] = str;
+    }
+
+    for (int i = 0; i < numStrings; ++i) {
+        str[0] = '0' + i;
+        assertTrue(strings[i] == str, "i = " << i);
+    }
+}
+
 
 test(string_stringpool_string_deque)
 {
@@ -71,42 +143,4 @@ test(string_stringpool_string_deque)
     }
     assertEqual(strings.size(), 0);
     assertEqual(stringPool.available(), numStrings);
-}
-
-test(string_stringpool_poolstring)
-{
-    StringPool<2, 10> stringPool;
-
-    PoolString<decltype(stringPool)> string1(stringPool), string2(stringPool);
-    assertEqual(string1.strcmp(""), 0);
-    assertEqual(string2.strcmp(""), 0);
-
-    string1 = "1234567890";
-    assertEqual(string1.strcmp("1234567890"), 0);
-
-    string1 = "12345678901234567890";
-    assertEqual(string1.strcmp("1234567890"), 0);
-
-    string2 = string1;
-    assertEqual(string2.strcmp("1234567890"), 0);
-
-    string1 = "";
-    string2 = "";
-    assertEqual(string1.strcmp(""), 0);
-    assertEqual(string2.strcmp(""), 0);
-
-    string1.strcat("12345");
-    assertEqual(string1.strcmp("12345"), 0);
-
-    string1.strcat("67890");
-    assertEqual(string1.strcmp("1234567890"), 0);
-
-    string1 = "";
-    assertTrue(string1 == "");
-
-    string1 += "12345";
-    assertTrue(string1 == "12345");
-
-    string1 += "67890";
-    assertTrue(string1 == "1234567890");
 }

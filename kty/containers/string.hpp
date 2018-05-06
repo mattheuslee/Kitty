@@ -68,7 +68,7 @@ public:
                 ++numTaken_;
                 if (numTaken_ > maxNumTaken_) {
                     maxNumTaken_ = numTaken_;
-                    Log.trace(F("StringPool::allocate_idx new max num taken %d\n"), maxNumTaken_);
+                    //Log.trace(F("StringPool::allocate_idx new max num taken %d\n"), maxNumTaken_);
                 }
                 return i;
             }
@@ -147,6 +147,7 @@ public:
             }
             if (taken_[idx] == 0) {
                 --numTaken_;
+                Log.trace(F("StringPool::deallocate_idx Index %d deallocated successfully\n"), idx);                
                 return true;
             }
             else {
@@ -177,7 +178,7 @@ public:
                 The stored string.
     */
     char * c_str(int const & idx) const {
-        if (idx < N) {
+        if (idx >= 0 && idx < N) {
             return const_cast<char*>(pool_) + (idx * (S + 1));
         }
         Log.warning(F("StringPool::c_str Index %d is invalid, index range is [0, %d]\n"), idx, N - 1);
@@ -237,61 +238,9 @@ private:
 typedef int poolstring_t;
 
 /*!
-    @brief  A specialised version of Deque that handles pool strings
-            The main difference between this and a regular deque is that
-            it returns the string to the pool when it is removed from the deque.
-*/
-template <typename Alloc, typename Pool>
-class StringDeque : public Deque<poolstring_t, Alloc> {
-
-public:
-    /*!
-        @brief  Constructor for the string deque.
-
-        @param  allocator
-                The allocator for the deque nodes.
-        
-        @param  pool
-                The pool allocator for the strings.
-    */
-    StringDeque(Alloc & allocator, Pool & pool) : Deque<poolstring_t, Alloc>(allocator), pool_(pool) {
-    }
-
-    /*!
-        @brief  Pops string from the front of the deque.
-                If there is no string to pop, does nothing.
-    */
-    void pop_front() {
-        if (Deque<poolstring_t, Alloc>::is_empty()) {
-            return;
-        }
-        pool_.deallocate_idx(Deque<poolstring_t, Alloc>::head_->next->value);
-        Deque<poolstring_t, Alloc>::pop_front();
-    }
-
-    /*!
-        @brief  Pops string from the front of the deque.
-                If there is no string to pop, does nothing.
-    */
-    virtual void pop_back() {
-        if (Deque<poolstring_t, Alloc>::is_empty()) {
-            return;
-        }
-        pool_.deallocate_idx(Deque<poolstring_t, Alloc>::head_->prev->value);
-        Deque<poolstring_t, Alloc>::pop_back();
-    }
-
-private:
-    Pool & pool_;
-
-};
-
-/*!
-    @brief  Class that interacts with the string pool to produce
-            string-like behaviour.
-            This class should only be used in simplescopes with a 
-            fixed opening and closing, since it does not provide 
-            adequate copy/move facilities.
+    @brief  Thin wrapper class around a poolstring_t that redirects
+            API calls to the string pool, as well as introducing some
+            API shortcuts.
 */
 template <class Pool>
 class PoolString {
@@ -301,19 +250,59 @@ public:
         @brief  Constructor for a pool string.
 
         @param  pool
-                A reference to the pool which this string is using to store the actual values.
+                A reference to the pool which this string is using to 
+                store the actual values.
     */
-    PoolString(Pool & pool) : pool_(pool) {
-        poolIdx_ = pool_.allocate_idx();
+    PoolString(Pool & pool) : pool_(&pool) {
+        poolIdx_ = pool_->allocate_idx();
         *c_str() = '\0';
     }
 
+    /*!
+        @brief  Copy constructor for a pool string.
+                Only copies the contents of the string and the pool used, 
+                such that both this and the other string are pointing to 
+                different memory locations.
+
+        @param  str
+                A reference to the other pool string to copy contents from.
+    */
+    PoolString(PoolString const & str) : pool_(str.pool_) {
+        poolIdx_ = pool_->allocate_idx();
+        operator=(str);
+    }
+
+    /*!
+        @brief  Move constructor for a pool string.
+                Takes over the pool as well as the pool index of the other string.
+
+        @param  str
+                A reference to the other pool string to move contents from.
+    */
+    PoolString(PoolString && str) : pool_(str.pool_) {
+        poolIdx_ = str.poolIdx_;
+        // Ensure that the other string doesn't deallocate ours
+        str.poolIdx_ = -1;
+    }
+
+    /*!
+        @brief  Destructor for a pool string.
+    */
     ~PoolString() {
         // Only return if pool idx is valid
         if (poolIdx_ >= 0) {
             Log.trace(F("Returning %d to the pool\n"), poolIdx_);
-            pool_.deallocate_idx(poolIdx_);
+            pool_->deallocate_idx(poolIdx_);
         }
+    }
+
+    /*!
+        @brief  Get the pool index of this string.
+
+        @return The pool index of this string.
+    */
+    int pool_idx() const {
+        return poolIdx_;
     }
 
     /*!
@@ -323,7 +312,7 @@ public:
         @return A pointer to the first character in the string.
     */
     char* c_str() const {
-        return pool_.c_str(poolIdx_);
+        return pool_->c_str(poolIdx_);
     }
 
     /*!
@@ -333,7 +322,7 @@ public:
                 The string to copy from.
     */
     void strcpy(char const * str) {
-        pool_.strcpy(poolIdx_, str);
+        pool_->strcpy(poolIdx_, str);
     }
 
     /*!
@@ -343,7 +332,7 @@ public:
                 The string to concatenate onto this string.
     */
     void strcat(char const * str) {
-        pool_.strcat(poolIdx_, str);
+        pool_->strcat(poolIdx_, str);
     }
 
     /*!
@@ -376,17 +365,30 @@ public:
                 The string to copy from.
     */
     void operator=(char const * str) {
-        pool_.strcpy(poolIdx_, str);
+        pool_->strcpy(poolIdx_, str);
     }
 
     /*!
-        @brief  Makes this string a copy of another pool string.
+        @brief  Copy assignment operator
 
         @param  str
-                The other pool string to copy the string from
+                The other pool string to copy from.
     */
     void operator=(PoolString const & str) {
-        pool_.strcpy(poolIdx_, str.c_str());
+        pool_->strcpy(poolIdx_, str.c_str());
+    }
+
+    /*!
+        @brief  Move assignment operator
+
+        @param  str
+                The other pool string to move from.
+    */
+    void operator=(PoolString && str) {
+        poolIdx_ = str.poolIdx_;
+        pool_ = str.pool_;
+        // Ensure that the other string doesn't deallocate ours
+        str.poolIdx_ = -1;
     }
 
     /*!
@@ -435,7 +437,57 @@ public:
 
 private:
     int poolIdx_ = -1;
-    Pool& pool_;
+    Pool* pool_;
+
+};
+
+/*!
+    @brief  A specialised version of Deque that handles pool strings
+            The main difference between this and a regular deque is that
+            it returns the string to the pool when it is removed from the deque.
+*/
+template <typename Alloc, typename Pool>
+class StringDeque : public Deque<poolstring_t, Alloc> {
+
+public:
+    /*!
+        @brief  Constructor for the string deque.
+
+        @param  allocator
+                The allocator for the deque nodes.
+        
+        @param  pool
+                The pool allocator for the strings.
+    */
+    StringDeque(Alloc & allocator, Pool & pool) : Deque<poolstring_t, Alloc>(allocator), pool_(pool) {
+    }
+
+    /*!
+        @brief  Pops string from the front of the deque.
+                If there is no string to pop, does nothing.
+    */
+    void pop_front() {
+        if (Deque<poolstring_t, Alloc>::is_empty()) {
+            return;
+        }
+        pool_.deallocate_idx(Deque<poolstring_t, Alloc>::head_->next->value);
+        Deque<poolstring_t, Alloc>::pop_front();
+    }
+
+    /*!
+        @brief  Pops string from the front of the deque.
+                If there is no string to pop, does nothing.
+    */
+    virtual void pop_back() {
+        if (Deque<poolstring_t, Alloc>::is_empty()) {
+            return;
+        }
+        pool_.deallocate_idx(Deque<poolstring_t, Alloc>::head_->prev->value);
+        Deque<poolstring_t, Alloc>::pop_back();
+    }
+
+private:
+    Pool & pool_;
 
 };
 
