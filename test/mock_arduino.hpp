@@ -2,6 +2,11 @@
 
 #if !defined(ARDUINO)
 
+#if defined(F)
+#undef F
+#define F(string) string
+#endif
+
 #define OUTPUT 0
 #define INPUT 1
 #define HIGH 1
