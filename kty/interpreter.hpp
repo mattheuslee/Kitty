@@ -197,7 +197,7 @@ public:
                 String pool for the class to use.
     */
     Interpreter(Alloc& alloc, StringPool& stringPool)
-            : alloc_(alloc), toPopLastIfCondition_(alloc_), lastIfCondition_(alloc_), stringPool_(stringPool), commandQueue_(alloc_), commandBuffer_(alloc_) {
+            : toPopLastIfCondition_(alloc), lastIfCondition_(alloc), commandQueue_(alloc), commandBuffer_(alloc), stringPool_(stringPool) {
         status_ = InterpreterStatus::NORMAL;
         lastIfCondition_.push_back(-1); // Last if condition is null
     }
@@ -976,7 +976,6 @@ public:
     }
 
 private:
-    Alloc& alloc_;
     StringPool& stringPool_;
 
     Deque<PoolString<StringPool>, Alloc> commandQueue_;

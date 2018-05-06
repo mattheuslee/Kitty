@@ -29,11 +29,18 @@ public:
     /*!
         @brief  Prints stats about the string pool.
     */
-    void stat() {
+    void stat() const {
         Serial.print(F("StringPool: num taken = "));
         Serial.print(numTaken_);
         Serial.print(F(", max num taken = "));
         Serial.println(maxNumTaken_);
+    }
+
+    /*!
+        @brief  Resets the stats about the string pool.
+    */
+    void reset_stat() {
+        maxNumTaken_ = numTaken_;
     }
 
     /*!

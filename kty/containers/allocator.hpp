@@ -35,6 +35,13 @@ public:
     }
 
     /*!
+        @brief  Resets the stats about the allocator.
+    */
+    void reset_stat() {
+        maxNumTaken_ = numTaken_;
+    }
+
+    /*!
         @brief  Prints the addresses used by the allocator
     */
     void dump_addresses() {
