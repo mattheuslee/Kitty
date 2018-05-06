@@ -93,6 +93,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:aca34452653676f6a04b27f199c0cb550"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#aca34452653676f6a04b27f199c0cb550">owns</a> (T *ptr)</td></tr>
 <tr class="memdesc:aca34452653676f6a04b27f199c0cb550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if an address is owned by this allocator.  <a href="#aca34452653676f6a04b27f199c0cb550">More...</a><br /></td></tr>
 <tr class="separator:aca34452653676f6a04b27f199c0cb550"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad96e96bf0293452b8541980945cedbb0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#ad96e96bf0293452b8541980945cedbb0">available</a> () const</td></tr>
+<tr class="memdesc:ad96e96bf0293452b8541980945cedbb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the number of available blocks left in the pool.  <a href="#ad96e96bf0293452b8541980945cedbb0">More...</a><br /></td></tr>
+<tr class="separator:ad96e96bf0293452b8541980945cedbb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1dd1b76519b259088bfe5e71e28d7454"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#a1dd1b76519b259088bfe5e71e28d7454">allocate</a> ()</td></tr>
 <tr class="memdesc:a1dd1b76519b259088bfe5e71e28d7454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a single block of memory from the pool.  <a href="#a1dd1b76519b259088bfe5e71e28d7454">More...</a><br /></td></tr>
 <tr class="separator:a1dd1b76519b259088bfe5e71e28d7454"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,6 +146,36 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the address is owned by this allocator, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="ad96e96bf0293452b8541980945cedbb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad96e96bf0293452b8541980945cedbb0">&#9670;&nbsp;</a></span>available()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int N, int B&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classkty_1_1_allocator.html">kty::Allocator</a>&lt; N, B &gt;::available </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check the number of available blocks left in the pool. </p>
+<dl class="section return"><dt>Returns</dt><dd>The number of available blocks left in the pool. </dd></dl>
 
 </div>
 </div>

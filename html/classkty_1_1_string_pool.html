@@ -89,6 +89,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a1045cc3e7f62c5352149054421c9a466">dump_addresses</a> () const</td></tr>
 <tr class="memdesc:a1045cc3e7f62c5352149054421c9a466"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the addresses used by the string database. <br /></td></tr>
 <tr class="separator:a1045cc3e7f62c5352149054421c9a466"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca3d4fc1bfbf835bbdbb731b499bd8b7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#aca3d4fc1bfbf835bbdbb731b499bd8b7">available</a> () const</td></tr>
+<tr class="memdesc:aca3d4fc1bfbf835bbdbb731b499bd8b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the number of available blocks left in the pool.  <a href="#aca3d4fc1bfbf835bbdbb731b499bd8b7">More...</a><br /></td></tr>
+<tr class="separator:aca3d4fc1bfbf835bbdbb731b499bd8b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c436dd5bde78771e66191c0039e2958"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a9c436dd5bde78771e66191c0039e2958">allocate_idx</a> ()</td></tr>
 <tr class="memdesc:a9c436dd5bde78771e66191c0039e2958"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the next free index for a string.  <a href="#a9c436dd5bde78771e66191c0039e2958">More...</a><br /></td></tr>
 <tr class="separator:a9c436dd5bde78771e66191c0039e2958"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,6 +117,36 @@ class kty::StringPool&lt; N, S &gt;</h3>
 
 <p>Class that maintains all the strings in the program. The memory pool is created on the stack to avoid heap fragmentation. Holds enough memory to allocate N strings of at most size S. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aca3d4fc1bfbf835bbdbb731b499bd8b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca3d4fc1bfbf835bbdbb731b499bd8b7">&#9670;&nbsp;</a></span>available()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int N, int S&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::available </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Check the number of available blocks left in the pool. </p>
+<dl class="section return"><dt>Returns</dt><dd>The number of available blocks left in the pool. </dd></dl>
+
+</div>
+</div>
 <a id="a9c436dd5bde78771e66191c0039e2958"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9c436dd5bde78771e66191c0039e2958">&#9670;&nbsp;</a></span>allocate_idx()</h2>
 
