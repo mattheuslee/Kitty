@@ -4,6 +4,9 @@
 #include <cctype>
 #include <sstream>
 #include <string>
+#include <utility>
+
+#include <kty/containers/string.hpp>
 
 namespace kty {
 
@@ -40,6 +43,7 @@ int str_to_int(std::string const & str) {
     }
     return value;
 }
+
 /*! 
     @brief  Converts an integer into its string representation.
 
@@ -52,6 +56,48 @@ std::string int_to_str(int const & i) {
     std::ostringstream oss;
     oss << i;
     return oss.str();
+}
+
+/*! 
+    @brief  Converts an integer into its string representation.
+
+    @param  i
+            The integer to be converted.
+
+    @param  stringPool
+            The pool used to allocate strings.
+
+    @return The string representation of the integer.
+*/
+template <typename StringPool>
+PoolString<StringPool> int_to_str(int i, StringPool & stringPool) {
+    char strChar[2] = "";
+    bool isNegative = false;
+    if (i < 0) {
+        isNegative = true;
+        i *= -1;
+    }
+    PoolString<StringPool> output(stringPool);
+    // output will contain digits in reverse order
+    while (i > 0) {
+        strChar[0] = (char)(i % 10 + '0');
+        output += strChar;
+        i /= 10;
+    }
+    // Reverse digits to correct order
+    int len = output.strlen();
+    char* cstr = output.c_str();
+    for (int j = 0; j < len / 2; ++j) {
+        std::swap(cstr[j], cstr[len - j - 1]);
+    }
+    // Add negative sign if necessary
+    if (isNegative) {
+        for (int j = len + 1; j > 0; --j) {
+            cstr[j] = cstr[j - 1];            
+        }
+        cstr[0] = '-';
+    }
+    return output;
 }
 
 /*! 
