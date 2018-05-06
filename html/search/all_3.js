@@ -7,6 +7,7 @@ var searchData=
   ['decrease_5fnested_5flevel',['decrease_nested_level',['../classkty_1_1_interpreter.html#a9a468750ce4a9e3c02e7f1c29b28fccc',1,'kty::Interpreter']]],
   ['deque',['Deque',['../classkty_1_1_deque.html',1,'kty::Deque&lt; T, Alloc &gt;'],['../classkty_1_1_deque.html#ac501d653978138f8b499a7f4f5d583c5',1,'kty::Deque::Deque()']]],
   ['deque_3c_20int_2c_20alloc_20_3e',['Deque&lt; int, Alloc &gt;',['../classkty_1_1_deque.html',1,'kty']]],
+  ['deque_3c_20kty_3a_3apoolstring_3c_20kty_3a_3astringpool_20_3e_2c_20alloc_20_3e',['Deque&lt; kty::PoolString&lt; kty::StringPool &gt;, Alloc &gt;',['../classkty_1_1_deque.html',1,'kty']]],
   ['deque_3c_20poolstring_5ft_2c_20alloc_20_3e',['Deque&lt; poolstring_t, Alloc &gt;',['../classkty_1_1_deque.html',1,'kty']]],
   ['device',['Device',['../structkty_1_1_device.html',1,'kty::Device'],['../structkty_1_1_device.html#acc7d591157698041f54a3e815eaec3ce',1,'kty::Device::Device()']]],
   ['dump_5faddresses',['dump_addresses',['../classkty_1_1_allocator.html#a20a2e5a27354e8eb0f2543210a638361',1,'kty::Allocator::dump_addresses()'],['../classkty_1_1_string_pool.html#a1045cc3e7f62c5352149054421c9a466',1,'kty::StringPool::dump_addresses()']]]

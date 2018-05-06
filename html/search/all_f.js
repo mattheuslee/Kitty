@@ -10,7 +10,6 @@ var searchData=
   ['strcmp',['strcmp',['../classkty_1_1_pool_string.html#ac4a233561cf171edce8750398b60252a',1,'kty::PoolString']]],
   ['strcpy',['strcpy',['../classkty_1_1_string_pool.html#a4d45f449c4ec790b725b9d427a3b7058',1,'kty::StringPool::strcpy()'],['../classkty_1_1_pool_string.html#a2719c1df2e2c2586f1edc88897a6a893',1,'kty::PoolString::strcpy()']]],
   ['stringdeque',['StringDeque',['../classkty_1_1_string_deque.html',1,'kty::StringDeque&lt; Alloc, Pool &gt;'],['../classkty_1_1_string_deque.html#ae3a0631ceb3a75b069270df996825587',1,'kty::StringDeque::StringDeque()']]],
-  ['stringdeque_3c_20alloc_2c_20kty_3a_3astringpool_20_3e',['StringDeque&lt; Alloc, kty::StringPool &gt;',['../classkty_1_1_string_deque.html',1,'kty']]],
   ['stringpool',['StringPool',['../classkty_1_1_string_pool.html',1,'kty::StringPool&lt; N, S &gt;'],['../classkty_1_1_string_pool.html#a00e029bcc56aed1c9bcc874d9877113b',1,'kty::StringPool::StringPool()']]],
   ['strlen',['strlen',['../classkty_1_1_pool_string.html#ae3faed79fbc17abd40167ce4d47100be',1,'kty::PoolString']]]
 ];
