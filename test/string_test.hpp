@@ -27,6 +27,9 @@ test(string_stringpool)
     assertEqual(stringPool.allocate_idx(), -1);
 
     assertTrue(stringPool.inc_ref_count(stringPoolIndices[0]));
+    assertTrue(stringPool.inc_ref_count(stringPoolIndices[0]));
+    assertEqual(stringPool.num_ref(stringPoolIndices[0]), 3);
+    assertTrue(stringPool.deallocate_idx(stringPoolIndices[0]));
     assertEqual(stringPool.num_ref(stringPoolIndices[0]), 2);
     assertTrue(stringPool.dec_ref_count(stringPoolIndices[0]));
     assertEqual(stringPool.num_ref(stringPoolIndices[0]), 1);
@@ -142,36 +145,4 @@ test(string_deque_of_poolstring)
         strings.pop_front();
     }
     assertEqual(strings.size(), 0);
-}
-
-
-test(string_stringpool_string_deque)
-{
-    const int numStrings = 10;
-    StringPool<numStrings, 20> stringPool;
-
-    StringDeque<decltype(alloc), decltype(stringPool)> strings(alloc, stringPool);
-    for (int i = 0; i < numStrings; ++i) {
-        strings.push_back(stringPool.allocate_idx());
-    }
-    assertEqual(strings.size(), numStrings);
-    assertEqual(stringPool.available(), 0);
-    assertEqual(stringPool.allocate_idx(), -1);
-
-    char str[20] = "";
-    for (int i = 0; i < numStrings; ++i) {
-        str[0] = '0' + i;
-        stringPool.strcpy(i, str);
-    }
-
-    for (int i = 0; i < numStrings; ++i) {
-        str[0] = '0' + i;
-        assertEqual(strcmp(stringPool.c_str(i), str), 0, "i = " << i);
-    }
-
-    for (int i = 0; i < numStrings; ++i) {
-        strings.pop_back();
-    }
-    assertEqual(strings.size(), 0);
-    assertEqual(stringPool.available(), numStrings);
 }
