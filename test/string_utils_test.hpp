@@ -9,13 +9,27 @@
 using namespace std;
 using namespace kty;
 
-test(string_utils_str_to_int)
+test(string_utils_str_to_int_empty_string)
+{
+    assertEqual(str_to_int(""), 0);    
+}
+
+test(string_utils_str_to_int_invalid_string)
+{
+    assertEqual(str_to_int("a"), 0);    
+}
+
+test(string_utils_str_to_int_positive)
 {
     assertEqual(str_to_int("1"), 1);
     assertEqual(str_to_int("12"), 12);
     assertEqual(str_to_int("123"), 123);
     assertEqual(str_to_int("1234"), 1234);
     assertEqual(str_to_int("12345"), 12345);
+}
+
+test(string_utils_str_to_int_negative)
+{
     assertEqual(str_to_int("-1"), -1);
     assertEqual(str_to_int("-12"), -12);
     assertEqual(str_to_int("-123"), -123);
@@ -23,13 +37,17 @@ test(string_utils_str_to_int)
     assertEqual(str_to_int("-12345"), -12345);
 }
 
-test(string_utils_int_to_str)
+test(string_utils_int_to_str_positive)
 {
     assertTrue(int_to_str(1) == "1");
     assertTrue(int_to_str(12) == "12");
     assertTrue(int_to_str(123) == "123");
     assertTrue(int_to_str(1234) == "1234");
     assertTrue(int_to_str(12345) == "12345");
+}
+
+test(string_utils_int_to_str_negative)
+{
     assertTrue(int_to_str(-1) == "-1");
     assertTrue(int_to_str(-12) == "-12");
     assertTrue(int_to_str(-123) == "-123");
@@ -37,7 +55,7 @@ test(string_utils_int_to_str)
     assertTrue(int_to_str(-12345) == "-12345");
 }
 
-test(string_utils_int_to_str2)
+test(string_utils_int_to_str2_positive)
 {
     // Use global string pool
     assertTrue(int_to_str(1, stringPool) == "1");
@@ -45,6 +63,10 @@ test(string_utils_int_to_str2)
     assertTrue(int_to_str(123, stringPool) == "123");
     assertTrue(int_to_str(1234, stringPool) == "1234");
     assertTrue(int_to_str(12345, stringPool) == "12345");
+}
+
+test(string_utils_int_to_str2_negative)
+{
     assertTrue(int_to_str(-1, stringPool) == "-1");
     assertTrue(int_to_str(-12, stringPool) == "-12");
     assertTrue(int_to_str(-123, stringPool) == "-123");
