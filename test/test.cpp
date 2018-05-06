@@ -13,7 +13,7 @@ CppIOStream Serial;
 #include <kitty.hpp>
 #include <test/mock_arduino.hpp>
 #include <test/mock_arduino_log.hpp>
-MockArduinoLog Log;
+MockArduinoLog Log(false, false);
 
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/deque.hpp>
@@ -26,7 +26,7 @@ MockArduinoLog Log;
 using namespace kty;
 
 Allocator<200, sizeof(int) * 8> alloc;
-StringPool<25, 40> stringPool;
+StringPool<50, 40> stringPool;
 
 Interpreter<decltype(alloc), decltype(stringPool)> interpreter(alloc, stringPool);
 Parser parser;

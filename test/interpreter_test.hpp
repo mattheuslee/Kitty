@@ -37,7 +37,7 @@ test(interpreter_if)
     vector<string> commands = {
         "answer IsNumber(42)",
         "If (answer = 42) (",
-        "   answer IsNumber(answer + 10)",
+        "   answer MoveBy(10)",
         ")"
     };
     for (int i = 0; i < commands.size(); ++i) {
