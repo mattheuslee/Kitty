@@ -105,13 +105,19 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memitem:a308e7ecb24677a6de99b6295756e6866"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a308e7ecb24677a6de99b6295756e6866">push_front</a> (T const &amp;value)</td></tr>
 <tr class="memdesc:a308e7ecb24677a6de99b6295756e6866"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a value to the front of the deque.  <a href="#a308e7ecb24677a6de99b6295756e6866">More...</a><br /></td></tr>
 <tr class="separator:a308e7ecb24677a6de99b6295756e6866"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a197fddea6d6d7548bc8ce0d942ee55f5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a197fddea6d6d7548bc8ce0d942ee55f5">push_front</a> (T &amp;&amp;value)</td></tr>
+<tr class="memdesc:a197fddea6d6d7548bc8ce0d942ee55f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a value to the front of the deque. This version calls the move constructor.  <a href="#a197fddea6d6d7548bc8ce0d942ee55f5">More...</a><br /></td></tr>
+<tr class="separator:a197fddea6d6d7548bc8ce0d942ee55f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab79bd997919d3ff0fdf6ddb2e5210934"><td class="memItemLeft" align="right" valign="top"><a id="ab79bd997919d3ff0fdf6ddb2e5210934"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#ab79bd997919d3ff0fdf6ddb2e5210934">pop_front</a> ()</td></tr>
 <tr class="memdesc:ab79bd997919d3ff0fdf6ddb2e5210934"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pops value from the front of the deque. If there is no value to pop, does nothing. <br /></td></tr>
 <tr class="separator:ab79bd997919d3ff0fdf6ddb2e5210934"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad7f355986174ad9b6538afe61c0a60c7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#ad7f355986174ad9b6538afe61c0a60c7">push_back</a> (T const &amp;value)</td></tr>
-<tr class="memdesc:ad7f355986174ad9b6538afe61c0a60c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a value to the back of the deque.  <a href="#ad7f355986174ad9b6538afe61c0a60c7">More...</a><br /></td></tr>
+<tr class="memdesc:ad7f355986174ad9b6538afe61c0a60c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a value to the back of the deque. This version calls the copy constructor.  <a href="#ad7f355986174ad9b6538afe61c0a60c7">More...</a><br /></td></tr>
 <tr class="separator:ad7f355986174ad9b6538afe61c0a60c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a878821b20a405fd13cb30a8743b0c4e7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a878821b20a405fd13cb30a8743b0c4e7">push_back</a> (T &amp;&amp;value)</td></tr>
+<tr class="memdesc:a878821b20a405fd13cb30a8743b0c4e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a value to the back of the deque. This version calls the move constructor.  <a href="#a878821b20a405fd13cb30a8743b0c4e7">More...</a><br /></td></tr>
+<tr class="separator:a878821b20a405fd13cb30a8743b0c4e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2e3888a13d29f501ba60b734ffcd74d"><td class="memItemLeft" align="right" valign="top"><a id="af2e3888a13d29f501ba60b734ffcd74d"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#af2e3888a13d29f501ba60b734ffcd74d">pop_back</a> ()</td></tr>
 <tr class="memdesc:af2e3888a13d29f501ba60b734ffcd74d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pops value from the back of the deque. If there is no value to pop, does nothing. <br /></td></tr>
@@ -239,7 +245,7 @@ template&lt;typename T, typename Alloc&gt; </div>
 </div>
 </div>
 <a id="a308e7ecb24677a6de99b6295756e6866"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a308e7ecb24677a6de99b6295756e6866">&#9670;&nbsp;</a></span>push_front()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a308e7ecb24677a6de99b6295756e6866">&#9670;&nbsp;</a></span>push_front() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -274,8 +280,44 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
+<a id="a197fddea6d6d7548bc8ce0d942ee55f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a197fddea6d6d7548bc8ce0d942ee55f5">&#9670;&nbsp;</a></span>push_front() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::push_front </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pushes a value to the front of the deque. This version calls the move constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The value to push to the front of the deque. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ad7f355986174ad9b6538afe61c0a60c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7f355986174ad9b6538afe61c0a60c7">&#9670;&nbsp;</a></span>push_back()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7f355986174ad9b6538afe61c0a60c7">&#9670;&nbsp;</a></span>push_back() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,7 +342,43 @@ template&lt;typename T, typename Alloc&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Pushes a value to the back of the deque. </p>
+<p>Pushes a value to the back of the deque. This version calls the copy constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The value to push to the back of the deque. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a878821b20a405fd13cb30a8743b0c4e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a878821b20a405fd13cb30a8743b0c4e7">&#9670;&nbsp;</a></span>push_back() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::push_back </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pushes a value to the back of the deque. This version calls the move constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value</td><td>The value to push to the back of the deque. </td></tr>
