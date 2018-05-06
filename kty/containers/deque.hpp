@@ -15,6 +15,17 @@ class Deque {
 
 public:
     /*!
+        @brief  The node structure that makes up the deque.
+    */
+    struct Node {
+        /** The value stored in the node */
+        T value;
+        /** The node after this one */
+        Node* next;
+        /** The node before this one */
+        Node* prev;
+    };
+    /*!
         @brief  Constructor for the deque.
 
         @param  allocator
@@ -173,18 +184,6 @@ public:
     }
 
 protected:
-    /*!
-        @brief  The node structure that makes up the deque.
-    */
-    struct Node {
-        /** The value stored in the node */
-        T value;
-        /** The node after this one */
-        Node* next;
-        /** The node before this one */
-        Node* prev;
-    };
-    
     /** Pointer to the head node of the internal linked list */
     Node* head_;
     /** Current size of the linked list */
