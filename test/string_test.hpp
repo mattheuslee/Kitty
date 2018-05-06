@@ -65,6 +65,10 @@ test(string_poolstring)
 
     string2 = string1;
     assertTrue(string1 == "1234567890123456789012345678901234567890");
+    
+    PoolString<decltype(stringPool)> string3(string1);
+    assertTrue(string3 == "1234567890123456789012345678901234567890");
+    assertNotEqual(string1.pool_idx(), string3.pool_idx());
 
     string1 = "";
     string2 = "";
