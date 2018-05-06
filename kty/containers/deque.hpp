@@ -86,7 +86,7 @@ public:
     virtual void push_front(T const & value) {
         // Allocate new node
         Node* toInsert = (Node*)allocator_.allocate();
-        toInsert->value = value;
+        toInsert->value = T(value);
         Node* next = head_->next;
         // Rearrange pointers
         toInsert->next = next;
@@ -129,6 +129,8 @@ public:
         // Rearrange pointers to bypass node to be removed
         head_->next = next;
         next->prev = head_;
+        // Call destructor before deallocating memory
+        toRemove->value.~T();
         allocator_.deallocate(toRemove);
         --size_;
     }
@@ -186,6 +188,8 @@ public:
         // Rearrange pointers to bypass node to be removed
         head_->prev = prev;
         prev->next = head_;
+        // Call destructor before deallocating memory
+        toRemove->value.~T();
         allocator_.deallocate(toRemove);
         --size_;
     }
