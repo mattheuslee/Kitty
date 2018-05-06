@@ -12,24 +12,34 @@ using namespace kty;
 
 test(string_stringpool)
 {
-    const int numStrings = 100;
+    const int numStrings = 50;
     StringPool<numStrings, 20> stringPool;
     vector<int> stringPoolIndices;
 
+    assertEqual(stringPool.available(), numStrings);
     assertEqual(stringPool.max_str_len(), 20);
     
     for (int i = 0; i < numStrings; ++i) {
         stringPoolIndices.push_back(stringPool.allocate_idx());
         assertMoreOrEqual(stringPoolIndices.back(), 0, "i = " << i);
     }
+    assertEqual(stringPool.available(), 0);
     assertEqual(stringPool.allocate_idx(), -1);
+
+    assertTrue(stringPool.inc_ref_count(stringPoolIndices[0]));
+    assertEqual(stringPool.num_ref(stringPoolIndices[0]), 2);
+    assertTrue(stringPool.dec_ref_count(stringPoolIndices[0]));
+    assertEqual(stringPool.num_ref(stringPoolIndices[0]), 1);
 
     for (int i = 0; i < numStrings; ++i) {
         assertTrue(stringPool.deallocate_idx(stringPoolIndices[i]));
         assertFalse(stringPool.deallocate_idx(stringPoolIndices[i]));
         stringPoolIndices[i] = -1;
     }
+    assertEqual(stringPool.available(), numStrings);
     assertFalse(stringPool.deallocate_idx(-1));
+    assertFalse(stringPool.inc_ref_count(-1));
+    assertFalse(stringPool.dec_ref_count(-1));
 }
 
 test(string_stringpool_string_deque)

@@ -21,7 +21,7 @@ public:
     */
     StringPool() {
         memset((void*)pool_, '\0', N * (S + 1));
-        memset((void*)taken_, false, N);
+        memset((void*)taken_, 0, N * sizeof(int));
         numTaken_ = 0;
         maxNumTaken_ = 0;
     }
@@ -63,18 +63,69 @@ public:
     */
     int allocate_idx() {
         for (int i = 0; i < N; ++i) {
-            if (!taken_[i]) {
-                taken_[i] = true;
+            if (taken_[i] == 0) {
+                ++taken_[i];
                 ++numTaken_;
                 if (numTaken_ > maxNumTaken_) {
-                    Log.trace(F("StringPool: new max num taken %d\n"), maxNumTaken_);
                     maxNumTaken_ = numTaken_;
+                    Log.trace(F("StringPool::allocate_idx new max num taken %d\n"), maxNumTaken_);
                 }
                 return i;
             }
         }
-        Log.warning(F("StringPool: No more string indices to allocate\n"));
+        Log.warning(F("StringPool::allocate_idx No more string indices to allocate\n"));
         return -1;
+    }
+
+    /*!
+        @brief  Returns the reference count for an index.
+
+        @param  idx
+                The index to get the reference count for.
+        
+        @return The reference count for the index. 
+                If the index is invalid, -1 is returned.
+    */
+    int num_ref(int const & idx) {
+        if (idx >=0 && idx < N) {
+            return taken_[idx];
+        }
+        Log.warning(F("StringPool::num_ref: Index %d did not come from pool\n"), idx);
+        return -1;
+    }
+
+    /*!
+        @brief  Increases the reference count for an index.
+
+        @param  idx
+                The index to increase the reference count for.
+        
+        @return True if the operation was successful, false otherwise.
+    */
+    bool inc_ref_count(int const & idx) {
+        if (idx >=0 && idx < N) {
+            ++taken_[idx];
+            return true;
+        }
+        Log.warning(F("StringPool::inc_ref_count: Index %d did not come from pool\n"), idx);
+        return false;
+    }
+
+    /*!
+        @brief  Decreases the reference count for an index.
+
+        @param  idx
+                The index to decrease the reference count for.
+        
+        @return True if the operation was successful, false otherwise.
+    */
+    bool dec_ref_count(int const & idx) {
+        if (idx >=0 && idx < N) {
+            --taken_[idx];
+            return true;
+        }
+        Log.warning(F("StringPool::dec_ref_count: Index %d did not come from pool\n"), idx);
+        return false;
     }
 
     /*!
@@ -87,15 +138,23 @@ public:
     */
     bool deallocate_idx(int const & idx) {
         if (idx >= 0 && idx < N) {
-            if (taken_[idx]) {
-                taken_[idx] = false;
+            if (taken_[idx] > 0) {
+                --taken_[idx];
+            }
+            else {
+                Log.warning(F("StringPool::deallocate_idx Index %d has already been previously deallocated\n"), idx);
+                return false;
+            }
+            if (taken_[idx] == 0) {
                 --numTaken_;
                 return true;
             }
-            Log.warning(F("StringPool: Index given to deallocate has already been previously deallocated\n"));
-            return false;
+            else {
+                Log.trace(F("StringPool::deallocate_idx Index %d is not the last reference\n"), idx);
+                return true;
+            }
         }
-        Log.warning(F("StringPool: Index given to deallocate did not come from pool\n"));
+        Log.warning(F("StringPool::deallocate_idx Index %d did not come from pool\n"), idx);
         return false;
     }
 
@@ -121,7 +180,7 @@ public:
         if (idx < N) {
             return const_cast<char*>(pool_) + (idx * (S + 1));
         }
-        Log.warning(F("StringPool: Attempt to get c_str at index %d, max index possible is %d\n"), idx, N - 1);
+        Log.warning(F("StringPool::c_str Index %d is invalid, index range is [0, %d]\n"), idx, N - 1);
         return nullptr;
     }
 
@@ -168,7 +227,7 @@ public:
 
 private:
     char pool_[N * (S + 1)];
-    bool taken_[N];
+    int taken_[N];
     int numTaken_;
     int maxNumTaken_;
 
@@ -178,7 +237,9 @@ private:
 typedef int poolstring_t;
 
 /*!
-    @brief A specialised version of Deque that handles pool strings
+    @brief  A specialised version of Deque that handles pool strings
+            The main difference between this and a regular deque is that
+            it returns the string to the pool when it is removed from the deque.
 */
 template <typename Alloc, typename Pool>
 class StringDeque : public Deque<poolstring_t, Alloc> {
