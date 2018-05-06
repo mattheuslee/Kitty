@@ -47,6 +47,15 @@ public:
     }
 
     /*!
+        @brief  Check the number of available blocks left in the pool.
+
+        @return The number of available blocks left in the pool.
+    */
+    int available() const {
+        return N - numTaken_;
+    }
+
+    /*!
         @brief  Gets the next free index for a string.
     
         @return An index into the pool if there is space,
@@ -78,9 +87,13 @@ public:
     */
     bool deallocate_idx(int const & idx) {
         if (idx >= 0 && idx < N) {
-            taken_[idx] = false;
-            --numTaken_;
-            return true;
+            if (taken_[idx]) {
+                taken_[idx] = false;
+                --numTaken_;
+                return true;
+            }
+            Log.warning(F("StringPool: Index given to deallocate has already been previously deallocated\n"));
+            return false;
         }
         Log.warning(F("StringPool: Index given to deallocate did not come from pool\n"));
         return false;
@@ -231,6 +244,7 @@ public:
     */
     PoolString(Pool & pool) : pool_(pool) {
         poolIdx_ = pool_.allocate_idx();
+        *c_str() = '\0';
     }
 
     ~PoolString() {
@@ -282,7 +296,7 @@ public:
                 0 if the two strings are identical.
     */
     int strcmp(char const * str) const {
-        return ::strcmp(pool_.c_str(poolIdx_), str);
+        return ::strcmp(c_str(), str);
     }
 
     /*!
@@ -323,7 +337,7 @@ public:
         @return True if the two strings are the same, false otherwise.
     */
     bool operator==(char const * str) const {
-        return ::strcmp(c_str(), str) == 0;
+        return strcmp(str) == 0;
     }
 
     /*!
@@ -335,7 +349,7 @@ public:
         @return True if the two strings are the same, false otherwise.
     */
     bool operator==(PoolString const & str) const {
-        return ::strcmp(c_str(), str.c_str()) == 0;
+        return strcmp(str.c_str()) == 0;
     }
 
     /*!

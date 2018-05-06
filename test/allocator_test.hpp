@@ -27,6 +27,7 @@ test(allocator)
 
     for (int i = 0; i < numInts; ++i) {
         assertTrue(alloc.deallocate(ints[i]), "i = " << i);
+        assertFalse(alloc.deallocate(ints[i]), "i = " << i);
         ints[i] = nullptr;
     }
 

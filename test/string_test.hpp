@@ -26,6 +26,8 @@ test(string_stringpool)
 
     for (int i = 0; i < numStrings; ++i) {
         assertTrue(stringPool.deallocate_idx(stringPoolIndices[i]));
+        assertFalse(stringPool.deallocate_idx(stringPoolIndices[i]));
+        stringPoolIndices[i] = -1;
     }
     assertFalse(stringPool.deallocate_idx(-1));
 }
@@ -39,6 +41,8 @@ test(string_stringpool_string_deque)
     for (int i = 0; i < numStrings; ++i) {
         strings.push_back(stringPool.allocate_idx());
     }
+    assertEqual(strings.size(), numStrings);
+    assertEqual(stringPool.available(), 0);
     assertEqual(stringPool.allocate_idx(), -1);
 
     char str[20] = "";
@@ -51,6 +55,12 @@ test(string_stringpool_string_deque)
         str[0] = '0' + i;
         assertEqual(strcmp(stringPool.c_str(i), str), 0, "i = " << i);
     }
+
+    for (int i = 0; i < numStrings; ++i) {
+        strings.pop_back();
+    }
+    assertEqual(strings.size(), 0);
+    assertEqual(stringPool.available(), numStrings);
 }
 
 test(string_stringpool_poolstring)

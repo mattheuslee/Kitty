@@ -59,6 +59,15 @@ public:
     }
 
     /*!
+        @brief  Check the number of available blocks left in the pool.
+
+        @return The number of available blocks left in the pool.
+    */
+    int available() const {
+        return N - numTaken_;
+    }
+
+    /*!
         @brief  Allocates a single block of memory from the pool.
 
         @return A pointer to a block of memory.
@@ -96,9 +105,13 @@ public:
             Log.warning(F("Allocator: Pointer given to deallocate did not come from pool\n"));
             return false;
         }
-        taken_[(ptr_ - pool_) / B] = false;
-        --numTaken_;
-        return true;
+        if (taken_[(ptr_ - pool_) / B]) {
+            taken_[(ptr_ - pool_) / B] = false;
+            --numTaken_;
+            return true;
+        }
+        Log.warning(F("Allocator: Pointer given to deallocate has already been previously deallocated\n"));
+        return false;
     }
 
 private:
