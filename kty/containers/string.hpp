@@ -68,7 +68,7 @@ public:
                 ++numTaken_;
                 if (numTaken_ > maxNumTaken_) {
                     maxNumTaken_ = numTaken_;
-                    //Log.trace(F("StringPool::allocate_idx new max num taken %d\n"), maxNumTaken_);
+                    //Log.trace(F("StringPool::allocate_idx new maxNumTaken %d\n"), maxNumTaken_);
                 }
                 return i;
             }
@@ -256,6 +256,21 @@ public:
     PoolString(Pool & pool) : pool_(&pool) {
         poolIdx_ = pool_->allocate_idx();
         *c_str() = '\0';
+    }
+
+    /*!
+        @brief  Constructor for a pool string.
+
+        @param  pool
+                A reference to the pool which this string is using to 
+                store the actual values.
+
+        @param  str
+                The initial string to store.
+    */
+    PoolString(Pool & pool, char const * str) : pool_(&pool) {
+        poolIdx_ = pool_->allocate_idx();
+        operator=(str);
     }
 
     /*!
