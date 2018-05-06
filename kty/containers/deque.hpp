@@ -28,6 +28,7 @@ public:
         /** The node before this one */
         Node* prev;
     };
+
     /*!
         @brief  Constructor for the deque.
 
@@ -35,6 +36,7 @@ public:
                 The allocator for the deque nodes.
     */
     Deque(Alloc & allocator) : allocator_(allocator) {
+        static_assert(sizeof(Node) <= (sizeof(int) * 8), "Size of Deque<T, Alloc>::Node can be no larger than 8 times the size of int, due to fixed allocator memory block size.");
         size_ = 0;
         head_ = (Node*)allocator_.allocate();
         head_->next = head_;
