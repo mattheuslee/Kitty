@@ -6,18 +6,20 @@
 
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/deque.hpp>
+#include <kty/containers/deque_of_deque.hpp>
 #include <kty/containers/string.hpp>
+#include <kty/sizes.hpp>
 #include <kty/interface.hpp>
 #include <kty/interpreter.hpp>
 
 using namespace std;
 using namespace kty;
 
-string command;
-Allocator<50, sizeof(int) * 8> alloc;
-StringPool<25, 40> stringPool;
+Allocator<50, Sizes::alloc_size>                   alloc;
+StringPool<25, Sizes::string_length>               stringPool;
+PoolString<decltype(stringPool)>                   command(stringPool);
 
-Interface interface;
+Interface<decltype(stringPool)>                    interface(stringPool);
 Interpreter<decltype(alloc), decltype(stringPool)> interpreter(alloc, stringPool);
 
 void setup() {
