@@ -119,4 +119,26 @@ void remove_str_whitespace(std::string & str) {
     }
 }
 
+/*! 
+    @brief  Removes all whitespace characters from the string.
+            This function modifies the string parameter in place.
+
+    @param  str
+            The string to remove whitespace from.
+*/
+template <typename StringPool>
+void remove_str_whitespace(PoolString<StringPool> & str) {
+    PoolString<StringPool> temp(str);
+    temp = "";
+    char str_[2] = " ";
+    int len = str.strlen();
+    for (int i = 0; i < len; ++i) {
+        if (!isspace(str.c_str()[i])) {
+            str_[0] = str.c_str()[i];
+            temp += str_;
+        }
+    }
+    str = temp;
+}
+
 } // namespace kty
