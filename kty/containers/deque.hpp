@@ -327,6 +327,10 @@ public:
         @return A reference to the element.
     */
     virtual T& back() {
+        Log.trace(F("Deque<%s>::front size = %d\n"), TYPE_STR(T), size());
+        if (size() == 0) {
+            Log.warning(F("Deque<%s>::back but size = 0 (undefined behaviour)\n"), TYPE_STR(T));
+        }        
         return head_->prev->value;
     }
 
