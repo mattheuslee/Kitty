@@ -4,15 +4,29 @@
 #include <cctype>
 #include <string>
 
+#include <kty/containers/string.hpp>
+
 namespace kty {
 
 /*!
     @brief  Class that handles interactions between the user(programmer) 
             and the rest of the program.
 */
+template <typename StringPool>
 class Interface {
 
 public:
+    /** The type of pool string used in the interface */
+    typedef PoolString<StringPool> poolstring_t;
+    /*!
+        @brief  Constructor for the interface.
+
+        @param  stringPool
+                The string pool to use for the interface.
+    */
+    Interface(StringPool & stringPool) : stringPool_(stringPool), command_(stringPool) {
+    }
+
     /*!
         @brief  Prints the welcome screen for the Kitty interpreter,
                 as well as other information.
@@ -65,8 +79,8 @@ public:
         @param  prefix
                 An additional string to be printed before the rest of the prompt.
     */
-    void print_prompt(std::string const & prefix) {
-        if (prefix.size() > 0) {
+    void print_prompt(poolstring_t const & prefix) {
+        if (prefix.strlen() > 0) {
             Serial.print(prefix.c_str());
         }
         print_prompt();
@@ -79,8 +93,9 @@ public:
         
         @return The command string read from the Serial interface.
     */
-    std::string get_next_command() {
-        std::string line;
+    poolstring_t get_next_command() {
+        command_ = "";
+        char str[2] = " "; // To use operator += on command_
         while (true) {
             if (Serial.available()) {
                 char c = Serial.read();
@@ -88,14 +103,12 @@ public:
                     break;
                 }
                 if (!isspace(c)) {
-                    line += c;
+                    str[0] = c;
+                    command_ += str;
                 }
             }
         }
-        if (line[line.size() - 1] == ' ') {
-            line.erase(line.size() - 1);
-        }
-        return line;
+        return command_;
     }
 
     /*!
@@ -104,11 +117,13 @@ public:
         @param  command
                 The command string to be echoed to the user.
     */
-    void echo_command(std::string const & command) {
+    void echo_command(poolstring_t const & command) {
         Serial.println(command.c_str());
     }
 
 private:
+    StringPool & stringPool_;
+    poolstring_t command_;
 
 };
 
