@@ -4,5 +4,5 @@ var searchData=
   ['tokenize',['tokenize',['../classkty_1_1_tokenizer.html#a8e225ee02a6f0c3199b064bfa5575bf1',1,'kty::Tokenizer::tokenize()'],['../classkty_1_1_tokenizer.html#a24bd99d69a4c8355c7b0ba285d174dee',1,'kty::Tokenizer::tokenize(std::string const &amp;command)']]],
   ['tokenizer',['Tokenizer',['../classkty_1_1_tokenizer.html',1,'kty::Tokenizer'],['../classkty_1_1_tokenizer.html#aa285fcbded85b68f504654cac351f5b0',1,'kty::Tokenizer::Tokenizer()'],['../classkty_1_1_tokenizer.html#a6346569516b6f4048a0b2158ce5aabe6',1,'kty::Tokenizer::Tokenizer(std::string const &amp;command)']]],
   ['trace',['trace',['../class_mock_arduino_log.html#ab0fca665dd2e33349b8bbdc1fcfa2b6b',1,'MockArduinoLog']]],
-  ['type',['type',['../structkty_1_1_device.html#ab94356f1444bf401090311c152fa8e98',1,'kty::Device::type()'],['../structkty_1_1_token.html#a87f7fa9be7750eb30d06f05e0b522f11',1,'kty::Token::type()']]]
+  ['type',['type',['../structkty_1_1_token.html#a87f7fa9be7750eb30d06f05e0b522f11',1,'kty::Token']]]
 ];

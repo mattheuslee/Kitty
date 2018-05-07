@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['size_5f',['size_',['../classkty_1_1_deque.html#a6307b76c4249eeb8db41329752ef2f4a',1,'kty::Deque']]]
+  ['type',['type',['../structkty_1_1_token.html#a87f7fa9be7750eb30d06f05e0b522f11',1,'kty::Token']]]
 ];

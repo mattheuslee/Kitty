@@ -81,14 +81,21 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a00e029bcc56aed1c9bcc874d9877113b">StringPool</a> ()</td></tr>
 <tr class="memdesc:a00e029bcc56aed1c9bcc874d9877113b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the string pool. <br /></td></tr>
 <tr class="separator:a00e029bcc56aed1c9bcc874d9877113b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5ac3645e6353906a4e091919fb105d8"><td class="memItemLeft" align="right" valign="top"><a id="aa5ac3645e6353906a4e091919fb105d8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#aa5ac3645e6353906a4e091919fb105d8">stat</a> ()</td></tr>
-<tr class="memdesc:aa5ac3645e6353906a4e091919fb105d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints stats about the string pool. <br /></td></tr>
-<tr class="separator:aa5ac3645e6353906a4e091919fb105d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af25914bd654b8d0a27a447d918395436"><td class="memItemLeft" align="right" valign="top"><a id="af25914bd654b8d0a27a447d918395436"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#af25914bd654b8d0a27a447d918395436">stat</a> () const</td></tr>
+<tr class="memdesc:af25914bd654b8d0a27a447d918395436"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints stats about the string pool. <br /></td></tr>
+<tr class="separator:af25914bd654b8d0a27a447d918395436"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cb8d178b9f7c72734e9b7b5f45992de"><td class="memItemLeft" align="right" valign="top"><a id="a4cb8d178b9f7c72734e9b7b5f45992de"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a4cb8d178b9f7c72734e9b7b5f45992de">reset_stat</a> ()</td></tr>
+<tr class="memdesc:a4cb8d178b9f7c72734e9b7b5f45992de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the stats about the string pool. <br /></td></tr>
+<tr class="separator:a4cb8d178b9f7c72734e9b7b5f45992de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1045cc3e7f62c5352149054421c9a466"><td class="memItemLeft" align="right" valign="top"><a id="a1045cc3e7f62c5352149054421c9a466"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a1045cc3e7f62c5352149054421c9a466">dump_addresses</a> () const</td></tr>
 <tr class="memdesc:a1045cc3e7f62c5352149054421c9a466"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the addresses used by the string database. <br /></td></tr>
 <tr class="separator:a1045cc3e7f62c5352149054421c9a466"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3253baea6a6c5210ef09e086d26bbafb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a3253baea6a6c5210ef09e086d26bbafb">owns</a> (int const &amp;idx)</td></tr>
+<tr class="memdesc:a3253baea6a6c5210ef09e086d26bbafb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if an index is owned by this pool.  <a href="#a3253baea6a6c5210ef09e086d26bbafb">More...</a><br /></td></tr>
+<tr class="separator:a3253baea6a6c5210ef09e086d26bbafb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca3d4fc1bfbf835bbdbb731b499bd8b7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#aca3d4fc1bfbf835bbdbb731b499bd8b7">available</a> () const</td></tr>
 <tr class="memdesc:aca3d4fc1bfbf835bbdbb731b499bd8b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the number of available blocks left in the pool.  <a href="#aca3d4fc1bfbf835bbdbb731b499bd8b7">More...</a><br /></td></tr>
 <tr class="separator:aca3d4fc1bfbf835bbdbb731b499bd8b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,6 +133,43 @@ class kty::StringPool&lt; N, S &gt;</h3>
 
 <p>Class that maintains all the strings in the program. The memory pool is created on the stack to avoid heap fragmentation. Holds enough memory to allocate N strings of at most size S. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3253baea6a6c5210ef09e086d26bbafb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3253baea6a6c5210ef09e086d26bbafb">&#9670;&nbsp;</a></span>owns()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int N, int S&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::owns </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>idx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if an index is owned by this pool. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">idx</td><td>The index to check.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the index is owned by this pool, false otherwise. </dd></dl>
+
+</div>
+</div>
 <a id="aca3d4fc1bfbf835bbdbb731b499bd8b7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aca3d4fc1bfbf835bbdbb731b499bd8b7">&#9670;&nbsp;</a></span>available()</h2>
 

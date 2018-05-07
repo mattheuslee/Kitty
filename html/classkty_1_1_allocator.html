@@ -85,6 +85,10 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#aef13822d1ca901de045eccda01c0e337">stat</a> ()</td></tr>
 <tr class="memdesc:aef13822d1ca901de045eccda01c0e337"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints stats about the allocator. <br /></td></tr>
 <tr class="separator:aef13822d1ca901de045eccda01c0e337"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a689bb98238d68adcfa0bee629b473380"><td class="memItemLeft" align="right" valign="top"><a id="a689bb98238d68adcfa0bee629b473380"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#a689bb98238d68adcfa0bee629b473380">reset_stat</a> ()</td></tr>
+<tr class="memdesc:a689bb98238d68adcfa0bee629b473380"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the stats about the allocator. <br /></td></tr>
+<tr class="separator:a689bb98238d68adcfa0bee629b473380"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20a2e5a27354e8eb0f2543210a638361"><td class="memItemLeft" align="right" valign="top"><a id="a20a2e5a27354e8eb0f2543210a638361"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#a20a2e5a27354e8eb0f2543210a638361">dump_addresses</a> ()</td></tr>
 <tr class="memdesc:a20a2e5a27354e8eb0f2543210a638361"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the addresses used by the allocator. <br /></td></tr>
@@ -97,7 +101,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memdesc:ad96e96bf0293452b8541980945cedbb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the number of available blocks left in the pool.  <a href="#ad96e96bf0293452b8541980945cedbb0">More...</a><br /></td></tr>
 <tr class="separator:ad96e96bf0293452b8541980945cedbb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1dd1b76519b259088bfe5e71e28d7454"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#a1dd1b76519b259088bfe5e71e28d7454">allocate</a> ()</td></tr>
-<tr class="memdesc:a1dd1b76519b259088bfe5e71e28d7454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a single block of memory from the pool.  <a href="#a1dd1b76519b259088bfe5e71e28d7454">More...</a><br /></td></tr>
+<tr class="memdesc:a1dd1b76519b259088bfe5e71e28d7454"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a single block of memory from the pool. Zeroes out memory before handing it out.  <a href="#a1dd1b76519b259088bfe5e71e28d7454">More...</a><br /></td></tr>
 <tr class="separator:a1dd1b76519b259088bfe5e71e28d7454"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51d1b64e7f06d9ccbfb218f9e3cc5bd1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a51d1b64e7f06d9ccbfb218f9e3cc5bd1"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classkty_1_1_allocator.html#a51d1b64e7f06d9ccbfb218f9e3cc5bd1">deallocate</a> (T *ptr)</td></tr>
@@ -204,7 +208,7 @@ template&lt;int N, int B&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Allocates a single block of memory from the pool. </p>
+<p>Allocates a single block of memory from the pool. Zeroes out memory before handing it out. </p>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to a block of memory. If no memory is available, nullptr is returned. </dd></dl>
 
 </div>

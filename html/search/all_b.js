@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['name',['name',['../structkty_1_1_device.html#a080efb0fdf46640036ffba00247d69f5',1,'kty::Device']]],
   ['next',['next',['../structkty_1_1_deque_1_1_node.html#a5e5bb26a4c74d825e959113be712205e',1,'kty::Deque::Node']]],
   ['node',['Node',['../structkty_1_1_deque_1_1_node.html',1,'kty::Deque']]],
+  ['notice',['notice',['../class_mock_arduino_log.html#a76c402c7faa4bec01eba344bca260474',1,'MockArduinoLog']]],
   ['num_5ffunction_5farguments',['num_function_arguments',['../structkty_1_1_token.html#ac022b025c6be94f83f8b064bd501323a',1,'kty::Token']]],
   ['num_5fref',['num_ref',['../classkty_1_1_string_pool.html#a26491e023ca254b419aca60d9410bce9',1,'kty::StringPool']]]
 ];

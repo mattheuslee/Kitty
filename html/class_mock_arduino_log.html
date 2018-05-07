@@ -73,9 +73,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a09937e177d58bc1d34e9b8d79cade6bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mock_arduino_log.html#a09937e177d58bc1d34e9b8d79cade6bf">MockArduinoLog</a> (bool toLogTrace=false, bool toLogWarning=false)</td></tr>
-<tr class="memdesc:a09937e177d58bc1d34e9b8d79cade6bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for mock arduino log.  <a href="#a09937e177d58bc1d34e9b8d79cade6bf">More...</a><br /></td></tr>
-<tr class="separator:a09937e177d58bc1d34e9b8d79cade6bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cc2f47f20c33f0a4590352bfce9eb41"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mock_arduino_log.html#a5cc2f47f20c33f0a4590352bfce9eb41">MockArduinoLog</a> (bool toLogTrace=false, bool toLogNotice=false, bool toLogWarning=false)</td></tr>
+<tr class="memdesc:a5cc2f47f20c33f0a4590352bfce9eb41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for mock arduino log.  <a href="#a5cc2f47f20c33f0a4590352bfce9eb41">More...</a><br /></td></tr>
+<tr class="separator:a5cc2f47f20c33f0a4590352bfce9eb41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac348d044c88b57e5e9818b36a0cd6eeb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mock_arduino_log.html#ac348d044c88b57e5e9818b36a0cd6eeb">begin</a> (int level, CppIOStream *serial)</td></tr>
 <tr class="memdesc:ac348d044c88b57e5e9818b36a0cd6eeb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mock version of ArduinoLog's begin.  <a href="#ac348d044c88b57e5e9818b36a0cd6eeb">More...</a><br /></td></tr>
 <tr class="separator:ac348d044c88b57e5e9818b36a0cd6eeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -83,6 +83,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab0fca665dd2e33349b8bbdc1fcfa2b6b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_mock_arduino_log.html#ab0fca665dd2e33349b8bbdc1fcfa2b6b">trace</a> (char const *str, Args... args)</td></tr>
 <tr class="memdesc:ab0fca665dd2e33349b8bbdc1fcfa2b6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mock version of ArduinoLog's trace logging.  <a href="#ab0fca665dd2e33349b8bbdc1fcfa2b6b">More...</a><br /></td></tr>
 <tr class="separator:ab0fca665dd2e33349b8bbdc1fcfa2b6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76c402c7faa4bec01eba344bca260474"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:a76c402c7faa4bec01eba344bca260474"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_mock_arduino_log.html#a76c402c7faa4bec01eba344bca260474">notice</a> (char const *str, Args... args)</td></tr>
+<tr class="memdesc:a76c402c7faa4bec01eba344bca260474"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mock version of ArduinoLog's notice logging.  <a href="#a76c402c7faa4bec01eba344bca260474">More...</a><br /></td></tr>
+<tr class="separator:a76c402c7faa4bec01eba344bca260474"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72bf4ddc6b7614111df0c94b6c127398"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
 <tr class="memitem:a72bf4ddc6b7614111df0c94b6c127398"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="class_mock_arduino_log.html#a72bf4ddc6b7614111df0c94b6c127398">warning</a> (char const *str, Args... args)</td></tr>
 <tr class="memdesc:a72bf4ddc6b7614111df0c94b6c127398"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mock version of ArduinoLog's warning logging.  <a href="#a72bf4ddc6b7614111df0c94b6c127398">More...</a><br /></td></tr>
@@ -91,8 +95,8 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Mock version of ArduinoLog. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a09937e177d58bc1d34e9b8d79cade6bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09937e177d58bc1d34e9b8d79cade6bf">&#9670;&nbsp;</a></span>MockArduinoLog()</h2>
+<a id="a5cc2f47f20c33f0a4590352bfce9eb41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cc2f47f20c33f0a4590352bfce9eb41">&#9670;&nbsp;</a></span>MockArduinoLog()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -105,6 +109,12 @@ Public Member Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>toLogTrace</em> = <code>false</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>toLogNotice</em> = <code>false</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -129,6 +139,7 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">toLogTrace</td><td>Whether trace outputs should be shown.</td></tr>
+    <tr><td class="paramname">toLogNotice</td><td>Whether notice outputs should be shown.</td></tr>
     <tr><td class="paramname">toLogWarning</td><td>Whether warning outputs should be shown. </td></tr>
   </table>
   </dd>
@@ -219,6 +230,53 @@ template&lt;typename... Args&gt; </div>
 </div><div class="memdoc">
 
 <p>Mock version of ArduinoLog's trace logging. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The main debug string</td></tr>
+    <tr><td class="paramname">args</td><td>Mock arguments. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a76c402c7faa4bec01eba344bca260474"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76c402c7faa4bec01eba344bca260474">&#9670;&nbsp;</a></span>notice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MockArduinoLog::notice </td>
+          <td>(</td>
+          <td class="paramtype">char const *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Args...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mock version of ArduinoLog's notice logging. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">str</td><td>The main debug string</td></tr>

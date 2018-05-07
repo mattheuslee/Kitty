@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>KittyInterpreter: kty::Interface Class Reference</title>
+<title>KittyInterpreter: kty::Interface&lt; StringPool &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,10 +63,11 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classkty_1_1_interface-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">kty::Interface Class Reference</div>  </div>
+<div class="title">kty::Interface&lt; StringPool &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -75,43 +76,111 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="interface_8hpp_source.html">interface.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a2457df214b351414849ecd27c5035403"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interface.html#a2457df214b351414849ecd27c5035403">poolstring_t</a></td></tr>
+<tr class="separator:a2457df214b351414849ecd27c5035403"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a09a2c4e06ed0a8f4fd9d17bfa940608c"><td class="memItemLeft" align="right" valign="top"><a id="a09a2c4e06ed0a8f4fd9d17bfa940608c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interface.html#a09a2c4e06ed0a8f4fd9d17bfa940608c">print_welcome</a> ()</td></tr>
-<tr class="memdesc:a09a2c4e06ed0a8f4fd9d17bfa940608c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the welcome screen for the Kitty interpreter, as well as other information. <br /></td></tr>
-<tr class="separator:a09a2c4e06ed0a8f4fd9d17bfa940608c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaec79b1ca1a1152c9eaa6bbb77a23d9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interface.html#aaec79b1ca1a1152c9eaa6bbb77a23d9a">begin_logging</a> (int logLevel)</td></tr>
-<tr class="memdesc:aaec79b1ca1a1152c9eaa6bbb77a23d9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the logging using ArduinoLog.  <a href="#aaec79b1ca1a1152c9eaa6bbb77a23d9a">More...</a><br /></td></tr>
-<tr class="separator:aaec79b1ca1a1152c9eaa6bbb77a23d9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbd7f7b5a8dd5ba2d25027837cebb648"><td class="memItemLeft" align="right" valign="top"><a id="adbd7f7b5a8dd5ba2d25027837cebb648"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interface.html#adbd7f7b5a8dd5ba2d25027837cebb648">print_prompt</a> ()</td></tr>
-<tr class="memdesc:adbd7f7b5a8dd5ba2d25027837cebb648"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the basic prompt for the user to enter a command. <br /></td></tr>
-<tr class="separator:adbd7f7b5a8dd5ba2d25027837cebb648"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a22e246ae84c4c56a3bf1489a75b89b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interface.html#a4a22e246ae84c4c56a3bf1489a75b89b">print_prompt</a> (std::string const &amp;prefix)</td></tr>
-<tr class="memdesc:a4a22e246ae84c4c56a3bf1489a75b89b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the basic prompt for the user to enter a command, with a prefix string to be printed before the prompt.  <a href="#a4a22e246ae84c4c56a3bf1489a75b89b">More...</a><br /></td></tr>
-<tr class="separator:a4a22e246ae84c4c56a3bf1489a75b89b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc766aa70c51e513b30b2048297e77cd"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interface.html#adc766aa70c51e513b30b2048297e77cd">get_next_command</a> ()</td></tr>
-<tr class="memdesc:adc766aa70c51e513b30b2048297e77cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads in a command string from the Serial interface until the newline character is read. Blocks until a complete command string is read.  <a href="#adc766aa70c51e513b30b2048297e77cd">More...</a><br /></td></tr>
-<tr class="separator:adc766aa70c51e513b30b2048297e77cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa117f951869c3fd772feb132b3992e8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interface.html#aa117f951869c3fd772feb132b3992e8c">echo_command</a> (std::string const &amp;command)</td></tr>
-<tr class="memdesc:aa117f951869c3fd772feb132b3992e8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Echoes a command back to the user through the Serial interface.  <a href="#aa117f951869c3fd772feb132b3992e8c">More...</a><br /></td></tr>
-<tr class="separator:aa117f951869c3fd772feb132b3992e8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeba5699590dca682cdb0f23bf95cd4c3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interface.html#aeba5699590dca682cdb0f23bf95cd4c3">Interface</a> (<a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &amp;stringPool)</td></tr>
+<tr class="memdesc:aeba5699590dca682cdb0f23bf95cd4c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the interface.  <a href="#aeba5699590dca682cdb0f23bf95cd4c3">More...</a><br /></td></tr>
+<tr class="separator:aeba5699590dca682cdb0f23bf95cd4c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accbe1c988326226aba5dd35045fd3632"><td class="memItemLeft" align="right" valign="top"><a id="accbe1c988326226aba5dd35045fd3632"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interface.html#accbe1c988326226aba5dd35045fd3632">print_welcome</a> ()</td></tr>
+<tr class="memdesc:accbe1c988326226aba5dd35045fd3632"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the welcome screen for the Kitty interpreter, as well as other information. <br /></td></tr>
+<tr class="separator:accbe1c988326226aba5dd35045fd3632"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42454b292e373999abf696436c55c961"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interface.html#a42454b292e373999abf696436c55c961">begin_logging</a> (int logLevel)</td></tr>
+<tr class="memdesc:a42454b292e373999abf696436c55c961"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the logging using ArduinoLog.  <a href="#a42454b292e373999abf696436c55c961">More...</a><br /></td></tr>
+<tr class="separator:a42454b292e373999abf696436c55c961"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72bd7a41d64e47ca06e86196cff9edfc"><td class="memItemLeft" align="right" valign="top"><a id="a72bd7a41d64e47ca06e86196cff9edfc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interface.html#a72bd7a41d64e47ca06e86196cff9edfc">print_prompt</a> ()</td></tr>
+<tr class="memdesc:a72bd7a41d64e47ca06e86196cff9edfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the basic prompt for the user to enter a command. <br /></td></tr>
+<tr class="separator:a72bd7a41d64e47ca06e86196cff9edfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c65b29560bd135f8218a479c699e8ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interface.html#a8c65b29560bd135f8218a479c699e8ab">print_prompt</a> (<a class="el" href="classkty_1_1_interface.html#a2457df214b351414849ecd27c5035403">poolstring_t</a> const &amp;prefix)</td></tr>
+<tr class="memdesc:a8c65b29560bd135f8218a479c699e8ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the basic prompt for the user to enter a command, with a prefix string to be printed before the prompt.  <a href="#a8c65b29560bd135f8218a479c699e8ab">More...</a><br /></td></tr>
+<tr class="separator:a8c65b29560bd135f8218a479c699e8ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a632aa2ef23ae5d94d4c68771eb929357"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_interface.html#a2457df214b351414849ecd27c5035403">poolstring_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interface.html#a632aa2ef23ae5d94d4c68771eb929357">get_next_command</a> ()</td></tr>
+<tr class="memdesc:a632aa2ef23ae5d94d4c68771eb929357"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads in a command string from the Serial interface until the newline character is read. Blocks until a complete command string is read.  <a href="#a632aa2ef23ae5d94d4c68771eb929357">More...</a><br /></td></tr>
+<tr class="separator:a632aa2ef23ae5d94d4c68771eb929357"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92adc6713ddd556d503d796b9e7b0ea1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interface.html#a92adc6713ddd556d503d796b9e7b0ea1">echo_command</a> (<a class="el" href="classkty_1_1_interface.html#a2457df214b351414849ecd27c5035403">poolstring_t</a> const &amp;command)</td></tr>
+<tr class="memdesc:a92adc6713ddd556d503d796b9e7b0ea1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Echoes a command back to the user through the Serial interface.  <a href="#a92adc6713ddd556d503d796b9e7b0ea1">More...</a><br /></td></tr>
+<tr class="separator:a92adc6713ddd556d503d796b9e7b0ea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class that handles interactions between the user(programmer) and the rest of the program. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aaec79b1ca1a1152c9eaa6bbb77a23d9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaec79b1ca1a1152c9eaa6bbb77a23d9a">&#9670;&nbsp;</a></span>begin_logging()</h2>
+<div class="textblock"><h3>template&lt;typename StringPool&gt;<br />
+class kty::Interface&lt; StringPool &gt;</h3>
+
+<p>Class that handles interactions between the user(programmer) and the rest of the program. </p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a2457df214b351414849ecd27c5035403"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2457df214b351414849ecd27c5035403">&#9670;&nbsp;</a></span>poolstring_t</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringPool &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt;<a class="el" href="classkty_1_1_string_pool.html">StringPool</a>&gt; <a class="el" href="classkty_1_1_interface.html">kty::Interface</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::<a class="el" href="classkty_1_1_interface.html#a2457df214b351414849ecd27c5035403">poolstring_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The type of pool string used in the interface </p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aeba5699590dca682cdb0f23bf95cd4c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeba5699590dca682cdb0f23bf95cd4c3">&#9670;&nbsp;</a></span>Interface()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringPool &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interface::begin_logging </td>
+          <td class="memname"><a class="el" href="classkty_1_1_interface.html">kty::Interface</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::<a class="el" href="classkty_1_1_interface.html">Interface</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &amp;&#160;</td>
+          <td class="paramname"><em>stringPool</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor for the interface. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stringPool</td><td>The string pool to use for the interface. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a42454b292e373999abf696436c55c961"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42454b292e373999abf696436c55c961">&#9670;&nbsp;</a></span>begin_logging()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringPool &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classkty_1_1_interface.html">kty::Interface</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::begin_logging </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>logLevel</em></td><td>)</td>
@@ -135,19 +204,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a4a22e246ae84c4c56a3bf1489a75b89b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a22e246ae84c4c56a3bf1489a75b89b">&#9670;&nbsp;</a></span>print_prompt()</h2>
+<a id="a8c65b29560bd135f8218a479c699e8ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c65b29560bd135f8218a479c699e8ab">&#9670;&nbsp;</a></span>print_prompt()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringPool &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interface::print_prompt </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interface.html">kty::Interface</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::print_prompt </td>
           <td>(</td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_interface.html#a2457df214b351414849ecd27c5035403">poolstring_t</a> const &amp;&#160;</td>
           <td class="paramname"><em>prefix</em></td><td>)</td>
           <td></td>
         </tr>
@@ -169,17 +240,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="adc766aa70c51e513b30b2048297e77cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc766aa70c51e513b30b2048297e77cd">&#9670;&nbsp;</a></span>get_next_command()</h2>
+<a id="a632aa2ef23ae5d94d4c68771eb929357"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a632aa2ef23ae5d94d4c68771eb929357">&#9670;&nbsp;</a></span>get_next_command()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringPool &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string kty::Interface::get_next_command </td>
+          <td class="memname"><a class="el" href="classkty_1_1_interface.html#a2457df214b351414849ecd27c5035403">poolstring_t</a> <a class="el" href="classkty_1_1_interface.html">kty::Interface</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::get_next_command </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -197,19 +270,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="aa117f951869c3fd772feb132b3992e8c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa117f951869c3fd772feb132b3992e8c">&#9670;&nbsp;</a></span>echo_command()</h2>
+<a id="a92adc6713ddd556d503d796b9e7b0ea1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92adc6713ddd556d503d796b9e7b0ea1">&#9670;&nbsp;</a></span>echo_command()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringPool &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Interface::echo_command </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interface.html">kty::Interface</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::echo_command </td>
           <td>(</td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_interface.html#a2457df214b351414849ecd27c5035403">poolstring_t</a> const &amp;&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
           <td></td>
         </tr>

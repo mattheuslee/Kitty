@@ -86,9 +86,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a34f653350b052bb506627d17009550b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a34f653350b052bb506627d17009550b1">PoolString</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> const &amp;str)</td></tr>
 <tr class="memdesc:a34f653350b052bb506627d17009550b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor for a pool string. Only copies the contents of the string and the pool used, such that both this and the other string are pointing to different memory locations.  <a href="#a34f653350b052bb506627d17009550b1">More...</a><br /></td></tr>
 <tr class="separator:a34f653350b052bb506627d17009550b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f472a7750829ac68d1176e6ff816b33"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a7f472a7750829ac68d1176e6ff816b33">PoolString</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> &amp;&amp;str)</td></tr>
-<tr class="memdesc:a7f472a7750829ac68d1176e6ff816b33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move constructor for a pool string. Takes over the pool as well as the pool index of the other string.  <a href="#a7f472a7750829ac68d1176e6ff816b33">More...</a><br /></td></tr>
-<tr class="separator:a7f472a7750829ac68d1176e6ff816b33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3b5e91e73a44a16bb361d8d0e77c58c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#aa3b5e91e73a44a16bb361d8d0e77c58c">operator=</a> (char const *str)</td></tr>
+<tr class="memdesc:aa3b5e91e73a44a16bb361d8d0e77c58c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies another string to this string.  <a href="#aa3b5e91e73a44a16bb361d8d0e77c58c">More...</a><br /></td></tr>
+<tr class="separator:aa3b5e91e73a44a16bb361d8d0e77c58c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a019830b1e662886d68e7331fee40f28b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a019830b1e662886d68e7331fee40f28b">operator=</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> const &amp;str)</td></tr>
+<tr class="memdesc:a019830b1e662886d68e7331fee40f28b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator.  <a href="#a019830b1e662886d68e7331fee40f28b">More...</a><br /></td></tr>
+<tr class="separator:a019830b1e662886d68e7331fee40f28b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25fab0484ce1469da31116798854334a"><td class="memItemLeft" align="right" valign="top"><a id="a25fab0484ce1469da31116798854334a"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a25fab0484ce1469da31116798854334a">~PoolString</a> ()</td></tr>
 <tr class="memdesc:a25fab0484ce1469da31116798854334a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for a pool string. <br /></td></tr>
@@ -111,15 +114,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae3faed79fbc17abd40167ce4d47100be"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#ae3faed79fbc17abd40167ce4d47100be">strlen</a> () const</td></tr>
 <tr class="memdesc:ae3faed79fbc17abd40167ce4d47100be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the length of the string.  <a href="#ae3faed79fbc17abd40167ce4d47100be">More...</a><br /></td></tr>
 <tr class="separator:ae3faed79fbc17abd40167ce4d47100be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3b5e91e73a44a16bb361d8d0e77c58c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#aa3b5e91e73a44a16bb361d8d0e77c58c">operator=</a> (char const *str)</td></tr>
-<tr class="memdesc:aa3b5e91e73a44a16bb361d8d0e77c58c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies another string to this string.  <a href="#aa3b5e91e73a44a16bb361d8d0e77c58c">More...</a><br /></td></tr>
-<tr class="separator:aa3b5e91e73a44a16bb361d8d0e77c58c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a019830b1e662886d68e7331fee40f28b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a019830b1e662886d68e7331fee40f28b">operator=</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> const &amp;str)</td></tr>
-<tr class="memdesc:a019830b1e662886d68e7331fee40f28b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator.  <a href="#a019830b1e662886d68e7331fee40f28b">More...</a><br /></td></tr>
-<tr class="separator:a019830b1e662886d68e7331fee40f28b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ea3c7a87c6f39c3f42ce1421350c02f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a0ea3c7a87c6f39c3f42ce1421350c02f">operator=</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> &amp;&amp;str)</td></tr>
-<tr class="memdesc:a0ea3c7a87c6f39c3f42ce1421350c02f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment operator.  <a href="#a0ea3c7a87c6f39c3f42ce1421350c02f">More...</a><br /></td></tr>
-<tr class="separator:a0ea3c7a87c6f39c3f42ce1421350c02f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a818092daeaf8e9c8a41dd947d34d3240"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a818092daeaf8e9c8a41dd947d34d3240">operator==</a> (char const *str) const</td></tr>
 <tr class="memdesc:a818092daeaf8e9c8a41dd947d34d3240"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares another string to this string for equality.  <a href="#a818092daeaf8e9c8a41dd947d34d3240">More...</a><br /></td></tr>
 <tr class="separator:a818092daeaf8e9c8a41dd947d34d3240"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,7 +134,7 @@ class kty::PoolString&lt; Pool &gt;</h3>
 <p>Thin wrapper class around a poolstring_t that redirects API calls to the string pool, as well as introducing some API shortcuts. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1179ed35b2ad864333c00be5f67adcdd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1179ed35b2ad864333c00be5f67adcdd">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1179ed35b2ad864333c00be5f67adcdd">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,7 +170,7 @@ template&lt;class Pool&gt; </div>
 </div>
 </div>
 <a id="a0e4538c4363f9b702b88f6a752a3e5c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e4538c4363f9b702b88f6a752a3e5c1">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e4538c4363f9b702b88f6a752a3e5c1">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -223,7 +217,7 @@ template&lt;class Pool&gt; </div>
 </div>
 </div>
 <a id="a34f653350b052bb506627d17009550b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34f653350b052bb506627d17009550b1">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a34f653350b052bb506627d17009550b1">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,8 +252,9 @@ template&lt;class Pool&gt; </div>
 
 </div>
 </div>
-<a id="a7f472a7750829ac68d1176e6ff816b33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f472a7750829ac68d1176e6ff816b33">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[4/4]</span></h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa3b5e91e73a44a16bb361d8d0e77c58c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3b5e91e73a44a16bb361d8d0e77c58c">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -270,9 +265,9 @@ template&lt;class Pool&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; Pool &gt; &amp;&amp;&#160;</td>
+          <td class="paramtype">char const *&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
           <td></td>
         </tr>
@@ -284,17 +279,52 @@ template&lt;class Pool&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Move constructor for a pool string. Takes over the pool as well as the pool index of the other string. </p>
+<p>Copies another string to this string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">str</td><td>A reference to the other pool string to move contents from. </td></tr>
+    <tr><td class="paramname">str</td><td>The string to copy from. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a019830b1e662886d68e7331fee40f28b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a019830b1e662886d68e7331fee40f28b">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; Pool &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copy assignment operator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The other pool string to copy from. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ace544279cf3e77f29a170d41f545c15d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ace544279cf3e77f29a170d41f545c15d">&#9670;&nbsp;</a></span>pool_idx()</h2>
 
@@ -491,114 +521,6 @@ template&lt;class Pool&gt; </div>
 
 <p>Gets the length of the string. </p>
 <dl class="section return"><dt>Returns</dt><dd>The length of the string, in number of characters. </dd></dl>
-
-</div>
-</div>
-<a id="aa3b5e91e73a44a16bb361d8d0e77c58c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3b5e91e73a44a16bb361d8d0e77c58c">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class Pool&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::operator= </td>
-          <td>(</td>
-          <td class="paramtype">char const *&#160;</td>
-          <td class="paramname"><em>str</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Copies another string to this string. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">str</td><td>The string to copy from. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a019830b1e662886d68e7331fee40f28b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a019830b1e662886d68e7331fee40f28b">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class Pool&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::operator= </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; Pool &gt; const &amp;&#160;</td>
-          <td class="paramname"><em>str</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Copy assignment operator. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">str</td><td>The other pool string to copy from. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a0ea3c7a87c6f39c3f42ce1421350c02f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ea3c7a87c6f39c3f42ce1421350c02f">&#9670;&nbsp;</a></span>operator=() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class Pool&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::operator= </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; Pool &gt; &amp;&amp;&#160;</td>
-          <td class="paramname"><em>str</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Move assignment operator. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">str</td><td>The other pool string to move from. </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>

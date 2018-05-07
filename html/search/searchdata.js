@@ -4,8 +4,9 @@ var indexSectionsWithContent =
   1: "adimnpst",
   2: "k",
   3: "abcdefghimnoprstw~",
-  4: "ahinpstv",
-  5: "k"
+  4: "ahnpstv",
+  5: "p",
+  6: "k"
 };
 
 var indexSectionNames =
@@ -15,7 +16,8 @@ var indexSectionNames =
   2: "files",
   3: "functions",
   4: "variables",
-  5: "pages"
+  5: "typedefs",
+  6: "pages"
 };
 
 var indexSectionLabels =
@@ -25,6 +27,7 @@ var indexSectionLabels =
   2: "Files",
   3: "Functions",
   4: "Variables",
-  5: "Pages"
+  5: "Typedefs",
+  6: "Pages"
 };
 
