@@ -9,6 +9,8 @@
 using namespace std;
 using namespace kty;
 
+void tokenizer_check_correct_types_values(Tokenizer & tokenizer, vector<TokenType> & expectedTypes, vector<string> & expectedValues, string comment);
+
 test(tokenizer_token_constructor)
 {
     string value;
@@ -40,16 +42,6 @@ test(tokenizer_token_str)
     value = "42";
     token = Token(TokenType::NUM_VAL, value);
     assertTrue(token.str() == "Token(NUM_VAL, 42)");
-}
-
-void tokenizer_check_correct_types_values(Tokenizer & tokenizer, vector<TokenType> & expectedTypes, vector<string> & expectedValues, string comment) {
-    //Serial.println("");
-    for (int i = 0; i < expectedTypes.size(); ++i) {
-        Token token = tokenizer.get_next_token();
-        //Serial.println(token.str().c_str());
-        assertTrue(token.type == expectedTypes[i], comment.c_str() << ": i = " << i);
-        assertTrue(token.value == expectedValues[i], comment.c_str() << ": i = " << i);
-    }
 }
 
 test(tokenizer_complete_commands)
@@ -371,4 +363,14 @@ test(tokenizer_complete_commands)
     });
     tokenizer_check_correct_types_values(tokenizer, expectedTypes, expectedValues, command); 
 
+}
+
+void tokenizer_check_correct_types_values(Tokenizer & tokenizer, vector<TokenType> & expectedTypes, vector<string> & expectedValues, string comment) {
+    //Serial.println("");
+    for (int i = 0; i < expectedTypes.size(); ++i) {
+        Token token = tokenizer.get_next_token();
+        //Serial.println(token.str().c_str());
+        assertTrue(token.type == expectedTypes[i], comment.c_str() << ": i = " << i);
+        assertTrue(token.value == expectedValues[i], comment.c_str() << ": i = " << i);
+    }
 }

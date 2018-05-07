@@ -7,6 +7,7 @@ using namespace kty;
 
 test(deque)
 {
+    Log.notice(F("Test deque starting\n"));
     const int maxSize = 10;
     Allocator<maxSize + 1, sizeof(int) * 8> alloc;
     Deque<int, decltype(alloc)> deque(alloc);

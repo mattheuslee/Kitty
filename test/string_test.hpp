@@ -12,6 +12,7 @@ using namespace kty;
 
 test(string_stringpool)
 {
+    Log.notice(F("Test string_stringpool starting\n"));
     const int numStrings = 50;
     StringPool<numStrings, 20> stringPool;
     vector<int> stringPoolIndices;
@@ -49,6 +50,7 @@ test(string_stringpool)
 
 test(string_poolstring)
 {
+    Log.notice(F("Test string_poolstring starting\n"));
     // Using global string pool
     PoolString<decltype(stringPool)> string1(stringPool), string2(stringPool);
     assertEqual(string1.strcmp(""), 0);
@@ -96,6 +98,7 @@ test(string_poolstring)
 
 test(string_deque_of_poolstring)
 {
+    Log.notice(F("Test string_deque_of_poolstring starting\n"));
     // Using global alloc and string pool
     const int numStrings = 10;
     using poolstring_t = PoolString<decltype(stringPool)>;

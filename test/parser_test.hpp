@@ -34,6 +34,7 @@ void print_tokens(vector<Token> const & tokens) {
 
 test(parser_arithmetic_expression)
 {
+    Log.notice(F("Test parser_arithmetic_expression starting\n"));
     string command = "3 + (1 - 5)^2^3 / 4";
     Tokenizer tokenizer(command);
     vector<Token> tokens = tokenizer.tokenize();
@@ -58,6 +59,7 @@ test(parser_arithmetic_expression)
 
 test(parser_is_number)
 {
+    Log.notice(F("Test parser_is_number starting\n"));
     string command = "answer IsNumber(42)";
     Tokenizer tokenizer(command);
     vector<Token> tokens = tokenizer.tokenize();
@@ -73,6 +75,7 @@ test(parser_is_number)
 
 test(parser_is_led)
 {
+    Log.notice(F("Test parser_is_led starting\n"));
     string command = "light IsLED(13, 25)";
     Tokenizer tokenizer(command);
     vector<Token> tokens = tokenizer.tokenize();
@@ -89,6 +92,7 @@ test(parser_is_led)
 
 test(parser_is_servo)
 {
+    Log.notice(F("Test parser_is_servo starting\n"));
     string command = "sweeper IsServo(10, 45)";
     Tokenizer tokenizer(command);
     vector<Token> tokens = tokenizer.tokenize();
@@ -105,6 +109,7 @@ test(parser_is_servo)
 
 test(parser_is_group)
 {
+    Log.notice(F("Test parser_is_group starting\n"));
     string command = "blink IsGroup (";
     Tokenizer tokenizer(command);
     vector<Token> tokens = tokenizer.tokenize();
@@ -119,6 +124,7 @@ test(parser_is_group)
 
 test(parser_if)
 {
+    Log.notice(F("Test parser_if starting\n"));
     string command = "If (num % 3 = 0 & num % 5 = 0) (";
     Tokenizer tokenizer(command);
     vector<Token> tokens = tokenizer.tokenize();
@@ -143,6 +149,7 @@ test(parser_if)
 
 test(parser_else)
 {
+    Log.notice(F("Test parser_else starting\n"));
     string command = "Else (";
     Tokenizer tokenizer(command);
     vector<Token> tokens = tokenizer.tokenize();
@@ -156,6 +163,7 @@ test(parser_else)
 
 test(parser_while)
 {
+    Log.notice(F("Test parser_while starting\n"));
     string command = "While (val <= 20) (";
     Tokenizer tokenizer(command);
     vector<Token> tokens = tokenizer.tokenize();
@@ -172,6 +180,7 @@ test(parser_while)
 
 test(parser_move_by)
 {
+    Log.notice(F("Test parser_move_by starting\n"));
     string command = "answer MoveBy(-10)";
     Tokenizer tokenizer(command);
     vector<Token> tokens = tokenizer.tokenize();
@@ -188,6 +197,7 @@ test(parser_move_by)
 
 test(parser_set_to)
 {
+    Log.notice(F("Test parser_set_to starting\n"));
     string command = "light SetTo(75)";
     Tokenizer tokenizer(command);
     vector<Token> tokens = tokenizer.tokenize();
@@ -203,6 +213,7 @@ test(parser_set_to)
 
 test(parser_move_by_for)
 {
+    Log.notice(F("Test parser_move_by_for starting\n"));
     string command = "answer MoveByFor(-10, 1)";
     Tokenizer tokenizer(command);
     vector<Token> tokens = tokenizer.tokenize();
@@ -220,6 +231,7 @@ test(parser_move_by_for)
 
 test(parser_set_to_for)
 {
+    Log.notice(F("Test parser_set_to_for starting\n"));
     string command = "light SetToFor(75, 1)";
     Tokenizer tokenizer(command);
     vector<Token> tokens = tokenizer.tokenize();
