@@ -54,6 +54,18 @@ public:
     }
 
     /*!
+        @brief  Checks if an index is owned by this pool.
+
+        @param  idx
+                The index to check.
+
+        @return True if the index is owned by this pool, false otherwise.
+    */
+    bool owns(int const & idx) {
+        return idx >= 0 && idx < N;
+    }
+
+    /*!
         @brief  Check the number of available blocks left in the pool.
 
         @return The number of available blocks left in the pool.
@@ -77,6 +89,7 @@ public:
                     maxNumTaken_ = numTaken_;
                     //Log.trace(F("StringPool::allocate_idx new maxNumTaken %d\n"), maxNumTaken_);
                 }
+                Log.trace(F("StringPool::allocate_idx Allocating index %d\n"), i);                
                 return i;
             }
         }
@@ -241,9 +254,6 @@ private:
 
 };
 
-/** A poolstring_t is essentially an index into the string pool */
-typedef int poolstring_t;
-
 /*!
     @brief  Thin wrapper class around a poolstring_t that redirects
             API calls to the string pool, as well as introducing some
@@ -264,6 +274,24 @@ public:
         poolIdx_ = pool_->allocate_idx();
         *c_str() = '\0';
     }
+
+#if 0
+    /*!
+        @brief  Constructor for a pool string.
+                Assumes the index given has already been allocated by the pool.
+
+        @param  pool
+                A reference to the pool which this string is using to 
+                store the actual values.
+        
+        @param  idx
+                An already allocated index in the pool for this string.
+    */
+    PoolString(Pool & pool, int const & idx) : pool_(&pool) {
+        poolIdx_ = idx;
+        pool_->inc_ref_count(poolIdx_);
+    }
+#endif
 
     /*!
         @brief  Constructor for a pool string.
@@ -289,11 +317,11 @@ public:
         @param  str
                 A reference to the other pool string to copy contents from.
     */
-    PoolString(PoolString const & str) : pool_(str.pool_) {
-        poolIdx_ = pool_->allocate_idx();
+    PoolString(PoolString const & str) {
         operator=(str);
     }
 
+#if 0
     /*!
         @brief  Move constructor for a pool string.
                 Takes over the pool as well as the pool index of the other string.
@@ -306,6 +334,52 @@ public:
         // Ensure that the other string doesn't deallocate ours
         str.poolIdx_ = -1;
     }
+#endif
+
+    /*!
+        @brief  Copies another string to this string.
+
+        @param  str
+                The string to copy from.
+    */
+    void operator=(char const * str) {
+        pool_->strcpy(poolIdx_, str);
+    }
+
+    /*!
+        @brief  Copy assignment operator
+
+        @param  str
+                The other pool string to copy from.
+    */
+    void operator=(PoolString const & str) {
+        Log.trace(F("PoolString::copy=\n"));        
+        if (pool_ != nullptr && pool_->owns(poolIdx_)) {
+            Log.trace(F("PoolString::copy= properly initialised string\n"));        
+            pool_->deallocate_idx(poolIdx_);
+        }
+        else {
+            Log.trace(F("PoolString::copy= non-properly initialised string\n"));        
+        }
+        pool_ = str.pool_;
+        poolIdx_ = pool_->allocate_idx();
+        pool_->strcpy(poolIdx_, str.c_str());
+    }
+
+#if 0
+    /*!
+        @brief  Move assignment operator
+
+        @param  str
+                The other pool string to move from.
+    */
+    void operator=(PoolString && str) {
+        poolIdx_ = str.poolIdx_;
+        pool_ = str.pool_;
+        // Ensure that the other string doesn't deallocate ours
+        str.poolIdx_ = -1;
+    }
+#endif
 
     /*!
         @brief  Destructor for a pool string.
@@ -381,39 +455,6 @@ public:
     }
 
     /*!
-        @brief  Copies another string to this string.
-
-        @param  str
-                The string to copy from.
-    */
-    void operator=(char const * str) {
-        pool_->strcpy(poolIdx_, str);
-    }
-
-    /*!
-        @brief  Copy assignment operator
-
-        @param  str
-                The other pool string to copy from.
-    */
-    void operator=(PoolString const & str) {
-        pool_->strcpy(poolIdx_, str.c_str());
-    }
-
-    /*!
-        @brief  Move assignment operator
-
-        @param  str
-                The other pool string to move from.
-    */
-    void operator=(PoolString && str) {
-        poolIdx_ = str.poolIdx_;
-        pool_ = str.pool_;
-        // Ensure that the other string doesn't deallocate ours
-        str.poolIdx_ = -1;
-    }
-
-    /*!
         @brief  Compares another string to this string for equality
 
         @param  str
@@ -459,7 +500,7 @@ public:
 
 private:
     int poolIdx_ = -1;
-    Pool* pool_;
+    Pool* pool_ = nullptr;
 
 };
 
