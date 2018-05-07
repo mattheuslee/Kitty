@@ -346,7 +346,6 @@ public:
         }
         Node* curr = head_->next;
         for (int j = 0; j < i; ++j) {
-            Log.trace(F("Deque::ref[%d] j = %d\n"), i, j);
             curr = curr->next;
         }
         Log.trace(F("Deque::ref[%d] returning\n"), i);

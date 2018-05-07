@@ -137,6 +137,7 @@ public:
         str_[0] = char(stringPoolIdx);
         strings_[i] += str_;
         sizes_[i] += 1;
+        Log.trace(F("DequeDequePoolString::push_back %s given stringPoolIdx %d\n"), str.c_str(), stringPoolIdx);
     }
 
 private:

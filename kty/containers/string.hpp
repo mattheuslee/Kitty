@@ -304,6 +304,10 @@ public:
                 The initial string to store.
     */
     PoolString(Pool & pool, char const * str) : pool_(&pool) {
+        Log.trace(F("PoolString::constructor(%s)\n"), str);
+        if (::strlen(str) > pool_->max_str_len()) {
+            Log.warning(F("PoolString::constructor length of str %d is above maximum of %d, will be truncated\n"), ::strlen(str), pool_->max_str_len());
+        }
         poolIdx_ = pool_->allocate_idx();
         operator=(str);
     }
@@ -364,6 +368,7 @@ public:
         pool_ = str.pool_;
         poolIdx_ = pool_->allocate_idx();
         pool_->strcpy(poolIdx_, str.c_str());
+        Log.trace(F("PoolString::copy= done\n"));        
     }
 
 #if 0
@@ -387,7 +392,7 @@ public:
     ~PoolString() {
         // Only return if pool idx is valid
         if (poolIdx_ >= 0) {
-            Log.trace(F("Returning %d to the pool\n"), poolIdx_);
+            Log.trace(F("PoolString::destructor returning %d to the pool\n"), poolIdx_);
             pool_->deallocate_idx(poolIdx_);
         }
     }
