@@ -147,9 +147,6 @@ public:
             clear();
             allocator_->deallocate(head_);
         }
-        else {
-            Log.trace(F("Deque<%s>::destructor non-initialised deque\n"), TYPE_STR(T));            
-        }
     }
 
     /*!

@@ -18,7 +18,7 @@ test(deque)
     for (int i = 0; i < maxSize; ++i) {
         assertEqual(deque[i], i, "i = " << i);
     }
-    assertTrue(deque.size() == maxSize);
+    assertEqual(deque.size(), maxSize);
     for (int i = 0; i < maxSize; ++i) {
         deque.pop_back();
     }
@@ -30,7 +30,7 @@ test(deque)
     for (int i = 0; i < maxSize; ++i) {
         assertEqual(deque[i], i, "i = " << i);
     }
-    assertTrue(deque.size() == maxSize);
+    assertEqual(deque.size(), maxSize);
     for (int i = 0; i < maxSize; ++i) {
         deque.pop_front();
     }
@@ -51,4 +51,11 @@ test(deque)
 
     const Deque<int, decltype(alloc)> deque3(alloc);
     deque3[0]; // Should give undefined behaviour warnings
+
+    deque.clear();
+    assertEqual(deque.size(), 0);
+
+    deque = deque2;
+    assertEqual(deque[0], 1);
+    assertEqual(deque[1], 2);
 }
