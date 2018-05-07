@@ -18,7 +18,7 @@ public:
         @brief  Constructor for the allocator.
     */
     Allocator() {
-        memset((void*)pool_, '\0', N * B);
+        memset((void*)pool_, 0, N * B);
         memset((void*)taken_, false, N);
         numTaken_ = 0;
         maxNumTaken_ = 0;
@@ -76,6 +76,7 @@ public:
 
     /*!
         @brief  Allocates a single block of memory from the pool.
+                Zeroes out memory before handing it out.
 
         @return A pointer to a block of memory.
                 If no memory is available, nullptr is returned.
@@ -89,6 +90,8 @@ public:
                     maxNumTaken_ = numTaken_;
                     //Log.trace(F("Allocator: new maxNumTaken %d\n"), maxNumTaken_);
                 }
+                Log.trace(F("Allocator::allocate %d\n"), i);
+                memset((void*)(pool_ + (B * i)), 0, B);
                 return (void*)(pool_ + (B * i));
             }
         }
@@ -116,6 +119,7 @@ public:
         }
         if (taken_[(ptr_ - pool_) / B]) {
             taken_[(ptr_ - pool_) / B] = false;
+            Log.trace(F("Allocator::deallocate %d\n"), (ptr_ - pool_) / B);
             --numTaken_;
             return true;
         }

@@ -10,6 +10,7 @@ using namespace kty;
 
 test(allocator)
 {
+    Log.notice(F("Test allocator starting\n"));
     const int numInts = 10;
     Allocator<numInts, sizeof(int)> alloc;
     vector<int*> ints;
