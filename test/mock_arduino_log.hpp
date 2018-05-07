@@ -12,12 +12,15 @@ public:
         @brief  Constructor for mock arduino log.
 
         @param  toLogTrace
-                Whether trace outputs should be shown.
+                Whether trace outputs should be shown. 
+
+        @param  toLogNotice
+                Whether notice outputs should be shown.
         
         @param  toLogWarning
                 Whether warning outputs should be shown.
     */
-    MockArduinoLog(bool toLogTrace = false, bool toLogWarning = false) :toLogTrace_(toLogTrace), toLogWarning_(toLogWarning) {
+    MockArduinoLog(bool toLogTrace = false, bool toLogNotice = false, bool toLogWarning = false) : toLogTrace_(toLogTrace), toLogNotice_(toLogNotice), toLogWarning_(toLogWarning) {
     }
 
     /*!
@@ -49,6 +52,23 @@ public:
     }
 
     /*!
+        @brief  Mock version of ArduinoLog's notice logging.
+
+        @param  str
+                The main debug string
+
+        @param  args
+                Mock arguments.
+    */
+    template<typename... Args>
+    void notice(char const * str, Args... args) {
+        if (toLogNotice_) {
+            printf("(NOTICE): ");
+            printf(str, args...);
+        }
+    }
+
+    /*!
         @brief  Mock version of ArduinoLog's warning logging.
 
         @param  str
@@ -67,6 +87,7 @@ public:
 
 private:
     bool toLogTrace_;
+    bool toLogNotice_;
     bool toLogWarning_;
 
 };
