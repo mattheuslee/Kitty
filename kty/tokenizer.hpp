@@ -1,6 +1,7 @@
 #pragma once
 
 #include <kty/stl_impl.hpp>
+#include <map>
 
 #include <algorithm>
 #include <cctype>
