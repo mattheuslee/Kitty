@@ -14,12 +14,17 @@ test(deque_of_deque_dequedequepoolstring)
     PoolString<decltype(stringPool)> str(stringPool);
 
     assertEqual(strings.size(), 0);
+    assertEqual(strings.size(0), -1);
+    assertTrue(strings.get_str(0, 0) == "");
+    strings.clear(0); // Should give undefined behaviour warnings
 
     strings.push_front();
     assertEqual(strings.size(), 1);
     assertEqual(strings.size(0), 0);
+    assertTrue(strings.get_str(0, 0) == "");
     str = "12345";
     strings.push_back(0, str);
+    strings.push_back(1, str); // Should give undefined behaviour warnings
     assertEqual(strings.size(0), 1);
     assertEqual(strings.get_str(0, 0).strlen(), 5);
     assertTrue(strings.get_str(0, 0) == "12345");

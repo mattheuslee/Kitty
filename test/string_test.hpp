@@ -94,6 +94,9 @@ test(string_poolstring)
 
     string1 += "67890";
     assertTrue(string1 == "1234567890");
+
+    PoolString<decltype(stringPool)> string4(stringPool, "12345678901234567890123456789012345678901234567890123456789012345678901234567890");
+    assertTrue(string3 == "12345678901234567890123456789012345678901234567890");
 }
 
 test(string_deque_of_poolstring)

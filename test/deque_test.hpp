@@ -36,8 +36,19 @@ test(deque)
     }
     assertTrue(deque.is_empty());
 
+    deque[0]; // Should give undefined behaviour warnings
+    deque.front(); // Should give undefined behaviour warnings
+    deque.back(); // Should give undefined behaviour warnings
+
     deque.push_front(2);
     deque.push_front(1);
     assertEqual(deque.front(), 1);
     assertEqual(deque.back(), 2);
+
+    const Deque<int, decltype(alloc)> deque2(deque);
+    assertEqual(deque2[0], 1);
+    assertEqual(deque2[1], 2);
+
+    const Deque<int, decltype(alloc)> deque3(alloc);
+    deque3[0]; // Should give undefined behaviour warnings
 }
