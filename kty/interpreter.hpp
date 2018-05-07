@@ -1,7 +1,6 @@
 #pragma once
 
 #include <kty/stl_impl.hpp>
-#include <map>
 #include <queue>
 #include <stack>
 #include <vector>
@@ -11,6 +10,7 @@
 
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/deque.hpp>
+#include <kty/containers/deque_of_deque.hpp>
 #include <kty/containers/string.hpp>
 #include <kty/string_utils.hpp>
 #include <kty/tokenizer.hpp>
@@ -21,7 +21,7 @@ namespace kty {
 /** The various device types possible */
 enum DeviceType {
     NUM,
-    LED, SERVO, GROUP,
+    LED, SERVO,
     UNKNOWN_DEVICE,
 };
 
@@ -42,134 +42,10 @@ std::string device_type_to_str(DeviceType deviceType) {
         return "LED";
     case SERVO:
         return "SERVO";
-    case GROUP:
-        return "GROUP";
     default:
         return "UNKNOWN_DEVICE";
     };
 }
-
-/*!
-    @brief  Class that holds information about a device
-*/
-struct Device {
-
-    /** The type of the device */    
-    DeviceType type;
-    /** The name of the device */    
-    std::string name;
-    /** Information about the device. The format of this member varies depending on the type of the device. */    
-    std::vector<std::string> info;
-
-    #if defined(ARDUINO)
-    /** A servo object to be used if the device is a servo. */    
-    Servo servo;
-    #endif
-
-    /*!
-        @brief  Constructor for device
-
-        @param  _type
-                The type of the device.
-    */
-    explicit Device(DeviceType _type = DeviceType::UNKNOWN_DEVICE) : type(_type) {
-    }
-
-    /*!
-        @brief  Gets a debugging string representation of the device.
-
-        @return The debugging string representation of the device.
-    */
-    std::string debug_str() const {
-        std::string str = "Device(" + device_type_to_str(type) + ")";
-        return str;
-    }
-
-    /*!
-        @brief  Gets an informational string representation of the device.
-                This string is suitable for display to the user.
-
-        @return The informational string representation of the device.
-    */
-    std::string info_str() const {
-        std::string str = name + ": ";
-        switch (type) {
-        case NUM:
-            str += "Number storing " + info[0];
-            break;
-        case LED:
-            str += "LED using pin " + info[0] + " ("+ info[1] + "%)";
-            break;
-        case SERVO:
-            str += "Servo using pin " + info[0] + " ("+ info[1] + " degrees)";
-            break;
-        case GROUP:
-            str += "Command Group containing the command(s):";
-            for (int i = 0; i < info.size(); ++i) {
-                str += "\n    " + info[i];
-            }
-            break;
-        case UNKNOWN_DEVICE:
-        default:
-            return "UNKNOWN_DEVICE";            
-        };
-        return str;
-    }
-
-    /*!
-        @brief  Sets the device to a given number value.
-
-        @param  value
-                The value to set the device to.
-    */
-    void set_to(int const & value) {
-        switch (type) {
-        case NUM:
-            info[0] = int_to_str(value);
-            break;
-        case LED:
-            info[1] = int_to_str(value);
-            analogWrite(str_to_int(info[0]), (int)(value * 2.55));
-            break;
-        };
-    }
-
-    /*!
-        @brief  Checks if this device is a number.
-
-        @return True if this device is a number, false otherwise.
-    */
-    bool is_number() {
-        return type == DeviceType::NUM;
-    }
-
-    /*!
-        @brief  Checks if this device is an LED.
-
-        @return True if this device is an LED, false otherwise.
-    */
-    bool is_led() {
-        return type == DeviceType::LED;
-    }
-
-    /*!
-        @brief  Checks if this device is a servo.
-
-        @return True if this device is a servo, false otherwise.
-    */
-    bool is_servo() {
-        return type == DeviceType::SERVO;
-    }
-
-    /*!
-        @brief  Checks if this device is a group.
-
-        @return True if this device is a group, false otherwise.
-    */
-    bool is_group() {
-        return type == DeviceType::GROUP;
-    }
-};
 
 /** The various status types of the interpreter */
 enum InterpreterStatus {
@@ -187,6 +63,8 @@ template <class Alloc, class StringPool>
 class Interpreter {
 
 public:
+    /** The type of pool string used in the interpreter */
+    typedef PoolString<StringPool> poolstring_t;
     /*!
         @brief  Default interpreter constructor.
 
@@ -197,7 +75,11 @@ public:
                 String pool for the class to use.
     */
     Interpreter(Alloc& alloc, StringPool& stringPool)
-            : toPopLastIfCondition_(alloc), lastIfCondition_(alloc), commandQueue_(alloc), commandBuffer_(alloc), stringPool_(stringPool) {
+            : alloc_(alloc), stringPool_(stringPool),
+              deviceNames_(alloc), deviceTypes_(alloc), deviceInfo_0_(alloc), deviceInfo_1_(alloc), deviceInfo_2_(alloc),
+              lastGroupName_(stringPool), groupNames_(alloc), groupCommands_(stringPool, alloc),
+              toPopLastIfCondition_(alloc), lastIfCondition_(alloc), 
+              commandQueue_(alloc), commandBuffer_(alloc) {
         status_ = InterpreterStatus::NORMAL;
         lastIfCondition_.push_back(-1); // Last if condition is null
     }
@@ -208,19 +90,110 @@ public:
         @return The prefix for the user prompt.
                 If there is no required prefix, an empty string is returned.
     */
-    std::string get_prompt_prefix() {
+    poolstring_t get_prompt_prefix() {
+        poolstring_t prefix(stringPool_);
         switch (status_) {
         case NORMAL:
-            return "";
+            prefix = "";
+            break;
         case CREATING_GROUP:
-            return "(" + std::string(commandBuffer_[0].c_str()) + ") ";
+            prefix = "(";
+            prefix += lastGroupName_;
+            prefix += ") ";
+            break;
         case CREATING_IF:
-            return "(IF) ";
+            prefix = "(IF) ";
+            break;
         case CREATING_ELSE:
-            return "(ELSE) ";
-        default:
-            return "";
+            prefix = "(ELSE) ";
+            break;
         }
+        return prefix;
+    }
+
+    /*!
+        @brief  Checks whether a device exists.
+
+        @param  name
+                The name of the device to search for.
+
+        @return The index of the device in the deques.
+                If the device does not exist, -1 is returned.
+    */
+    int device_exists(poolstring_t const & name) {
+        for (int i = 0; i < deviceNames_.size(); ++i) {
+            if (deviceNames_[i] == name) {
+                Log.trace(F("Interpreter::device_exists found %s at index %d\n"), name.c_str(), i);
+                return i;
+            }
+        }
+        Log.trace(F("Interpreter::device_exists unable to find %s\n"), name.c_str());
+        return -1;
+    }
+
+    /*!
+        @brief  Checks whether a group exists.
+
+        @param  name
+                The name of the group to search for.
+
+        @return The index of the group in the deques.
+                If the group does not exist, -1 is returned.
+    */
+    int group_exists(poolstring_t const & name) {
+        for (int i = 0; i < groupNames_.size(); ++i) {
+            if (groupNames_[i] == name) {
+                Log.trace(F("Interpreter::group_exists found %s at index %d\n"), name.c_str(), i);
+                return i;
+            }
+        }
+        Log.trace(F("Interpreter::group_exists unable to find %s\n"), name.c_str());
+        return -1;
+    }
+
+    /*!
+        @brief  Gets the type of device.
+
+        @param  name
+                The device name.
+        
+        @return The type of the device.
+                Returns an unknown device if it does not exist.
+    */
+    DeviceType get_device_type(poolstring_t const & name) {
+        int deviceIdx = device_exists(name);
+        if (deviceIdx == -1) {
+            return DeviceType::UNKNOWN_DEVICE;
+        }
+        return deviceTypes_[deviceIdx];
+    }
+
+    /*!
+        @brief  Gets the info of device.
+
+        @param  name
+                The device name.
+
+        @param  i
+                The info index.
+        
+        @return The info of the device.
+                Returns -1 if it does not exist.
+    */
+    int get_device_info(poolstring_t const & name, int const & i) {
+        int deviceIdx = device_exists(name);
+        if (deviceIdx == -1) {
+            return -1;
+        }
+        switch (i) {
+        case 0:
+            return deviceInfo_0_[deviceIdx];
+        case 1:
+            return deviceInfo_1_[deviceIdx];
+        case 2:
+            return deviceInfo_2_[deviceIdx];
+        };
+        return -1;
     }
 
     /*!
@@ -230,15 +203,18 @@ public:
         @param  command
                 The raw string command to execute.
     */
-    void execute(std::string command) {
+    void execute(poolstring_t command) {
+        Log.trace(F("Interpreter::execute executing %s\n"), command.c_str());
+        remove_str_whitespace(command);
         // Nothing to execute
-        if (command.size() == 0) {
+        if (command.strlen() == 0) {
+            Log.trace(F("Interpreter::execute no command to execute, done\n"));
             return;
         }
         std::vector<Token> tokens;
         switch (status_) {
         case NORMAL:
-            tokens = tokenizer_.tokenize(command);
+            tokens = tokenizer_.tokenize(std::string(command.c_str()));
             tokens = parser_.parse(tokens);
             execute(tokens);
             break;
@@ -254,6 +230,7 @@ public:
         };
         execute_command_queue();
         cleanup_after_command_queue_execute();
+        Log.trace(F("Interpreter::execute done executing %s\n"), command.c_str());
     }
 
     /*!
@@ -265,8 +242,7 @@ public:
             return;
         }
         while (!commandQueue_.is_empty()) {
-            std::string command(commandQueue_.front().c_str());
-            //std::string command(stringPool_.c_str(commandQueue_.front()));
+            poolstring_t command(commandQueue_.front());
             commandQueue_.pop_front();
             execute(command);
         }
@@ -345,9 +321,14 @@ public:
                 The command to execute.
     */
     void execute_print_info(std::vector<Token> const & command) {
-        std::string name = command[0].value;
-        if (devices_.find(name) != devices_.end()) {
-            Serial.println(devices_.find(name)->second.info_str().c_str());
+        poolstring_t name(stringPool_, command[0].value.c_str());
+        int deviceIdx = device_exists(name);
+        int groupIdx = group_exists(name);
+        if (deviceIdx >= 0) {
+            // Print device info
+        }
+        else if (groupIdx >= 0) {
+            // Print out group commands
         }
         else {
             Serial.print(F("Error: "));
@@ -395,7 +376,7 @@ public:
         for (int i = 0; i < command.size() - 1; ++i) {
             tokenQueue.push(command[i]);
         }
-        std::string name = tokenQueue.front().value;
+        poolstring_t name(stringPool_, tokenQueue.front().value.c_str());
         Token createToken = command[command.size() - 1];
         tokenQueue.pop();
 
@@ -424,18 +405,20 @@ public:
         for (int i = 0; i < command.size() - 1; ++i) {
             tokenQueue.push(command[i]);
         }
-        std::string name = tokenQueue.front().value;
+        poolstring_t name(stringPool_, tokenQueue.front().value.c_str());
         // Nothing to move
-        if (devices_.find(name) == devices_.end()) {
+        int deviceIdx = device_exists(name);
+        if (deviceIdx == -1) {
             Serial.print(F("Error: "));
             Serial.print(name.c_str());
             Serial.println(F(" does not exist"));
             return;
         }
         // Cannot be moved
-        if (!devices_.find(name)->second.is_number() &&
-            !devices_.find(name)->second.is_led() &&
-            !devices_.find(name)->second.is_servo()) {
+        DeviceType deviceType = deviceTypes_[deviceIdx];
+        if (deviceType != DeviceType::NUM &&
+            deviceType != DeviceType::LED &&
+            deviceType != DeviceType::SERVO) {
             Serial.print(F("Error: move command is not valid for"));
             Serial.println(name.c_str());
             return;
@@ -453,11 +436,27 @@ public:
         }
         displacement = str_to_int(result.top().value);
 
-        int originalValue = str_to_int(devices_.find(name)->second.info.back());
-        devices_.find(name)->second.set_to(originalValue + displacement);
+        // Execute move
+        int & deviceInfo1 = deviceInfo_1_[deviceIdx];
+        int & deviceInfo2 = deviceInfo_2_[deviceIdx];
+        deviceInfo2 += displacement;
+        switch (deviceType) {
+        case NUM:
+            break;
+        case LED:
+            analogWrite(deviceInfo1, deviceInfo2 * 2.55);
+            break;
+        };
         if (command.back().is_move_by_for()) {
             delay(durationMs);
-            devices_.find(name)->second.set_to(originalValue);
+            deviceInfo2 -= displacement;
+            switch (deviceType) {
+            case NUM:
+                break;
+            case LED:
+                analogWrite(deviceInfo1, deviceInfo2 * 2.55);
+                break;
+            };
         }
     }
 
@@ -474,26 +473,34 @@ public:
         for (int i = 0; i < command.size() - 1; ++i) {
             tokenQueue.push(command[i]);
         }
-        std::string name = tokenQueue.front().value;
+        // Extract name of group and check if it exists
+        poolstring_t name(stringPool_, tokenQueue.front().value.c_str());
+        int groupIdx = group_exists(name);
+        if (groupIdx == -1) {
+            Log.warning(F("Interpreter::execute_run_group %s does not exist\n"), name.c_str());
+            return;
+        }
+        // Extract number of times to run group
         std::stack<Token> result = evaluate_postfix(tokenQueue);
         int numTimes = str_to_int(result.top().value);
-        std::vector<std::string> commands = get_device(name).info;
-        Log.trace(F("Running group = %s\n"), name.c_str());
-        // Add command for one more call to run the group
+        Log.trace(F("Running group = %s, %d times\n"), name.c_str(), numTimes);
+        // Push command for one more call to run the group
         if (numTimes > 1) {
-            commandQueue_.push_front(PoolString<StringPool>(stringPool_));
-            commandQueue_.front() = name.c_str();
-            commandQueue_.front() += "RunGroup(";
-            commandQueue_.front() += int_to_str(numTimes - 1, stringPool_);
-            commandQueue_.front() += ")";
-            // Replaces
-            //commandQueue_.push_front(name + "RunGroup(" + int_to_str(numTimes - 1) + ")");
+            poolstring_t repeatGroupCommand(stringPool_);
+            repeatGroupCommand += name.c_str();
+            repeatGroupCommand += "RunGroup(";
+            repeatGroupCommand += int_to_str(numTimes - 1, stringPool_);
+            repeatGroupCommand += ")";
+            commandQueue_.push_front(repeatGroupCommand);
+            Log.trace(F("Interpreter::execute_run_group pushing %s to the front of the command queue for next round\n"), repeatGroupCommand.c_str());
         }
-        for (int j = 0; j < commands.size(); ++j) {
-            // Push in reverse order since pushing from the front
-            commandQueue_.push_front(PoolString<StringPool>(stringPool_, commands[commands.size() - j - 1].c_str()));
-            //commandQueue_.push_front(stringPool_.allocate_idx());
-            //stringPool_.strcpy(commandQueue_.front(), commands[commands.size() - j - 1].c_str());
+        // Push commands from group to command queue
+        int numGroupCommands = groupCommands_.size(groupIdx);
+        Log.trace(F("Interpreter::execute_run_group %d commands to add to command queue\n"), numGroupCommands);
+        for (int i = numGroupCommands - 1; i >= 0; --i) {
+            poolstring_t commandString = groupCommands_.get_str(groupIdx, i);
+            Log.trace(F("Interpreter::execute_run_group pushing %s to front of command queue\n"), commandString.c_str());
+            commandQueue_.push_front(commandString);
         }
     }
 
@@ -505,23 +512,6 @@ public:
     */
     void execute_print_string(std::vector<Token> const & command) {
         Serial.println(command[0].value.c_str());
-    }
-
-    /*!
-        @brief  Retrieves a device by name.
-
-        @param  name
-                The name of the device to retrieve.
-
-        @return The found device.
-                If no device is found with the given name, 
-                a placeholder unknown device is returned.
-    */
-    Device get_device(std::string const & name) {
-        if (devices_.find(name) == devices_.end()) {
-            return Device(DeviceType::UNKNOWN_DEVICE);
-        }
-        return devices_[name];
     }
 
     /*!
@@ -690,15 +680,10 @@ public:
             return str_to_int(token.value);
         }
         else if (token.is_name()) {
-            Device device = devices_[token.value];
-            if (device.is_number()) {
-                return str_to_int(device.info[0]);
-            }
-            else if (device.is_led()) {
-                return str_to_int(device.info[1]);
-            }
-            else if (device.is_servo()) {
-                return str_to_int(device.info[2]);
+            poolstring_t name(stringPool_, token.value.c_str());
+            int deviceIdx = device_exists(name);
+            if (deviceIdx >= 0) {
+                return deviceInfo_2_[deviceIdx];
             }
         }
         return 0;
@@ -714,12 +699,29 @@ public:
                 The information about the number.
                 The number value is expected to be the top token of the stack.
     */
-    void create_number(std::string const & name, std::stack<Token> & info) {
-        Device number(DeviceType::NUM);
-        number.name = name;
-        number.info.push_back(info.top().value);
-        devices_[name] = number;
-        Log.trace(F("Creating number %s\n"), info.top().value.c_str());
+    void create_number(poolstring_t const & name, std::stack<Token> & info) {
+        int deviceIdx = device_exists(name);
+        int value = str_to_int(info.top().value);
+        Log.trace(F("Interpreter::create_number %s = %d\n"), name.c_str(), value);
+        // Create new device
+        if (deviceIdx == -1) {
+            Log.trace(F("Interpreter::create_number creating new device\n"));
+            deviceNames_.push_front(name);
+            deviceTypes_.push_front(DeviceType::NUM);
+            deviceInfo_0_.push_front(0);
+            deviceInfo_1_.push_front(0);
+            deviceInfo_2_.push_front(value);
+        }
+        // Modify existing device
+        else {
+            Log.trace(F("Interpreter::create_number modifying existing device, index %d\n"), deviceIdx);
+            deviceNames_[deviceIdx] = name;
+            deviceTypes_[deviceIdx] = DeviceType::NUM;
+            deviceInfo_0_[deviceIdx] = 0;
+            deviceInfo_1_[deviceIdx] = 0;
+            deviceInfo_2_[deviceIdx] = value;
+        }
+        Log.trace(F("Interpreter::create_number created\n"));        
     }
 
     /*!
@@ -733,18 +735,28 @@ public:
                 The LED brightness value is expected to be the top token of the stack,
                 and the LED pin number is expected to be the second token from the top.
     */
-    void create_led(std::string const & name, std::stack<Token> & info) {
-        Device number(DeviceType::LED);
-        number.name = name;
+    void create_led(PoolString<StringPool> const & name, std::stack<Token> & info) {
+        int deviceIdx = device_exists(name);
         int brightness = str_to_int(info.top().value);
         info.pop();
         int pinNumber = str_to_int(info.top().value);
         pinMode(pinNumber, OUTPUT);
         analogWrite(pinNumber, (int)(brightness * 2.55));
-        number.info.push_back(int_to_str(pinNumber));
-        number.info.push_back(int_to_str(brightness));
-        devices_[name] = number;
-        Log.trace(F("Creating LED, pin %d brightness %d\n"), pinNumber, brightness);
+        Log.trace(F("Interpreter::create_led %s = pin %d brightness %d\n"), name.c_str(), pinNumber, brightness);
+        if (deviceIdx == -1) {
+            deviceNames_.push_front(name);
+            deviceTypes_.push_front(DeviceType::LED);
+            deviceInfo_0_.push_front(0);
+            deviceInfo_1_.push_front(pinNumber);
+            deviceInfo_2_.push_front(brightness);
+        }
+        else {
+            deviceNames_[deviceIdx] = name;
+            deviceTypes_[deviceIdx] = DeviceType::LED;
+            deviceInfo_0_[deviceIdx] = 0;
+            deviceInfo_1_[deviceIdx] = pinNumber;
+            deviceInfo_2_[deviceIdx] = brightness;
+        }
     }
 
     /*!
@@ -755,10 +767,9 @@ public:
     */
     void create_if(std::string const & condition) {
         increase_nested_level(InterpreterStatus::CREATING_IF);
-        commandBuffer_.push_back(PoolString<StringPool>(stringPool_, condition.c_str()));       
-        //commandBuffer_.push_back(stringPool_.allocate_idx());
-        //stringPool_.strcpy(commandBuffer_.back(), condition.c_str());
-        Log.trace(F("Creating if\n"));
+        poolstring_t cond(stringPool_, condition.c_str());
+        commandBuffer_.push_back(cond);       
+        Log.trace(F("Interpreter::create_if condition = %s\n"), cond.c_str());
     }
 
     /*!
@@ -767,17 +778,15 @@ public:
         @param  command
                 The command to add to the if command group.
     */
-    void add_to_if(std::string const & command) {
-        std::vector<Token> tokens = tokenizer_.tokenize(command);
+    void add_to_if(poolstring_t const & command) {
+        std::vector<Token> tokens = tokenizer_.tokenize(std::string(command.c_str()));
         // Group is closed
         if (bracketParity_ == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
             close_if();
         }
         // Add command to group
         else {
-            commandBuffer_.push_back(PoolString<StringPool>(stringPool_, command.c_str()));            
-            //commandBuffer_.push_back(stringPool_.allocate_idx());
-            //stringPool_.strcpy(commandBuffer_.back(), command.c_str());
+            commandBuffer_.push_back(command);
             // Check if command introduces a '('
             if (tokens[tokens.size() - 2].is_left_bracket()) {
                 ++bracketParity_;
@@ -797,21 +806,18 @@ public:
         bool evaluatedCondition = *(commandBuffer_[0].c_str()) == '1';
         lastIfCondition_.back() = evaluatedCondition;
         if (evaluatedCondition) {
-            Log.trace(F("If condition is true\n"));
+            Log.trace(F("Interpreter::close_if condition is true\n"));
             // Add commands to commandQueue in reverse order,
             // since pushing from the front
             for (int i = commandBuffer_.size() - 1; i > 0; --i) {
                 commandQueue_.push_front(commandBuffer_[i]);
-                //stringPool_.inc_ref_count(commandBuffer_[i]);
-                // Replaces
-                //commandQueue_.push_front(std::string(stringPool_.c_str(commandBuffer_[i])));
             }
             // Push for any commands that might require in nested scope
             lastIfCondition_.push_back(-1);
             toPopLastIfCondition_.push_back(true);
         }
         decrease_nested_level();
-        Log.trace(F("Closing if\n"));
+        Log.trace(F("Interpreter::close_if closing\n"));
     }
 
     /*!
@@ -819,17 +825,20 @@ public:
     */
     void create_else() {
         increase_nested_level(InterpreterStatus::CREATING_ELSE);
-        Log.trace(F("Creating else\n"));
+        Log.trace(F("Interpreter::create_else\n"));
         // Only execute else block if last if condition was false
+        poolstring_t ourCondition(stringPool_);
         if (lastIfCondition_.back() == 0) {
-            commandBuffer_.push_back(PoolString<StringPool>(stringPool_, "1"));
-            //commandBuffer_.push_back(stringPool_.allocate_idx());
-            //stringPool_.strcpy(commandBuffer_.back(), "1");
+            // We should execute this else
+            Log.trace(F("Interpreter::create_else should execute\n"));
+            ourCondition = "1";
+            commandBuffer_.push_back(ourCondition);
         }
         else {
-            commandBuffer_.push_back(PoolString<StringPool>(stringPool_, "0"));
-            //commandBuffer_.push_back(stringPool_.allocate_idx());
-            //stringPool_.strcpy(commandBuffer_.back(), "0");
+            // We should not execute this else
+            Log.trace(F("Interpreter::create_else should not execute\n"));
+            ourCondition = "0";
+            commandBuffer_.push_back(ourCondition);
         }
     }
 
@@ -839,15 +848,15 @@ public:
         @param  command
                 The command to add to the else command group.
     */
-    void add_to_else(std::string const & command) {
-        std::vector<Token> tokens = tokenizer_.tokenize(command);
+    void add_to_else(poolstring_t const & command) {
+        std::vector<Token> tokens = tokenizer_.tokenize(std::string(command.c_str()));
         // Group is closed
         if (bracketParity_ == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
             close_else();
         }
         // Add command to group
         else {
-            commandBuffer_.push_back(PoolString<StringPool>(stringPool_, command.c_str()));
+            commandBuffer_.push_back(command);
             //commandBuffer_.push_back(stringPool_.allocate_idx());
             //stringPool_.strcpy(commandBuffer_.back(), command.c_str());
             // Check if command introduces a '('
@@ -871,21 +880,18 @@ public:
         // Definitely no else after this
         lastIfCondition_.back() = -1;
         if (evaluatedCondition) {
-            Log.trace(F("Else commands will be executed\n"));
+            Log.trace(F("Interpreter::close_else will be executed\n"));
             // Add commands to commandQueue in reverse order,
             // since pushing from the front
             for (int i = commandBuffer_.size() - 1; i >= 0; --i) {
                 commandQueue_.push_front(commandBuffer_[i]);
-                //stringPool_.inc_ref_count(commandBuffer_[i]);
-                // Replaces
-                //commandQueue_.push_front(std::string(stringPool_.c_str(commandBuffer_[i])));
             }
             // Push for any commands that might require in nested scope
             lastIfCondition_.push_back(-1);
             toPopLastIfCondition_.push_back(true);
         }
         decrease_nested_level();
-        Log.trace(F("Closing else\n"));
+        Log.trace(F("Interpreter::close_else closing\n"));
     }
 
     /*!
@@ -894,12 +900,20 @@ public:
         @param  name
                 The name of the command group to be created.
     */
-    void create_group(std::string const & name) {
+    void create_group(poolstring_t const & name) {
         increase_nested_level(InterpreterStatus::CREATING_GROUP);
-        commandBuffer_.push_back(PoolString<StringPool>(stringPool_, name.c_str()));        
-        //commandBuffer_.push_back(stringPool_.allocate_idx());
-        //stringPool_.strcpy(commandBuffer_.back(), name.c_str());
-        Log.trace(F("Creating group\n"));
+        int groupIdx = group_exists(name);
+        if (groupIdx == -1) {
+            Log.trace(F("Interpreter::create_group new group %s\n"), name.c_str());
+            groupNames_.push_front(name);
+            groupCommands_.push_front();
+        }
+        else {
+            Log.trace(F("Interpreter::create_group modifying existing group %s\n"), name.c_str());
+            groupNames_[groupIdx] = name;
+            groupCommands_.clear(groupIdx);
+        }
+        lastGroupName_ = name;
     }
 
     /*!
@@ -908,23 +922,19 @@ public:
         @param  command
                 The command to add to the command group.
     */
-    void add_to_group(std::string const & command) {
-        std::vector<Token> tokens = tokenizer_.tokenize(command);
+    void add_to_group(poolstring_t const & command) {
+        Log.trace(F("Interpreter::add_to_group(%s)\n"), command.c_str());
+        std::vector<Token> tokens = tokenizer_.tokenize(std::string(command.c_str()));
         // Group is closed
         if (bracketParity_ == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
-            std::vector<std::string> commands;
-            for (int i = 0; i < commandBuffer_.size(); ++i) {
-                commands.push_back(std::string(commandBuffer_[i].c_str()));
-            }
-            std::string name = commands[0];
-            commands.erase(commands.begin()); // Remove name
-            close_group(name, commands);
+            Log.trace(F("Interpreter::add_to_group group will be closed\n"));
+            close_group();
         }
         // Add command to group
         else {
-            commandBuffer_.push_back(PoolString<StringPool>(stringPool_, command.c_str()));
-            //commandBuffer_.push_back(stringPool_.allocate_idx());
-            //stringPool_.strcpy(commandBuffer_.back(), command.c_str());
+            Log.trace(F("Interpreter::add_to_group adding %s to group %s\n"), command.c_str(), lastGroupName_.c_str());
+            int groupIdx = group_exists(lastGroupName_);
+            groupCommands_.push_back(groupIdx, command);
             // Check if command introduces a '('
             if (tokens[tokens.size() - 2].is_left_bracket()) {
                 ++bracketParity_;
@@ -933,28 +943,17 @@ public:
             else if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
                 --bracketParity_;
             }
+            Log.trace(F("Interpreter::add_to_group bracket parity %d\n"), bracketParity_);
         }
     }
 
     /*!
         @brief  Finishes the creation of a command group.
-
-        @param  name
-                The name of the command group to be created.
-        
-        @param  commands
-                The commands that make up the command group.
     */
-    void close_group(std::string const & name, std::vector<std::string> & commands) {
-        Device group(DeviceType::GROUP);
-        group.name = name;
-        group.info = commands;
-        devices_[name] = group;
-        // Push for any commands that might require in nested scope
-        lastIfCondition_.push_back(-1);
-        toPopLastIfCondition_.push_back(true);
+    void close_group() {
+        Log.trace(F("Interpreter::close_group closing %s\n"), lastGroupName_.c_str());
+        lastGroupName_ = "";
         decrease_nested_level();
-        Log.trace(F("Closing group: %s\n"), name.c_str());
     }
 
     /*!
@@ -976,12 +975,21 @@ public:
     }
 
 private:
+    Alloc& alloc_;
     StringPool& stringPool_;
 
-    Deque<PoolString<StringPool>, Alloc> commandQueue_;
-    Deque<PoolString<StringPool>, Alloc> commandBuffer_;
+    Deque<poolstring_t, Alloc> commandQueue_;
+    Deque<poolstring_t, Alloc> commandBuffer_;
 
-    std::map<std::string, Device> devices_;
+    Deque<poolstring_t, Alloc> deviceNames_;
+    Deque<DeviceType, Alloc>   deviceTypes_;
+    Deque<int, Alloc>          deviceInfo_0_;
+    Deque<int, Alloc>          deviceInfo_1_;
+    Deque<int, Alloc>          deviceInfo_2_;
+
+    poolstring_t                             lastGroupName_;
+    Deque<poolstring_t, Alloc>               groupNames_;
+    DequeDequePoolString<StringPool, Alloc>  groupCommands_;
 
     InterpreterStatus status_;
 

@@ -1,9 +1,8 @@
 #pragma once
 
 #include <kty/stl_impl.hpp>
-#include <string>
-#include <vector>
 
+#include <kty/containers/string.hpp>
 #include <kty/interpreter.hpp>
 #include <kty/parser.hpp>
 #include <kty/tokenizer.hpp>
@@ -13,10 +12,12 @@ using namespace kty;
 
 test(interpreter_is_number)
 {
-    string command = "answer IsNumber(3 + (1 - 5)^2 / 4)";
+    Log.notice(F("Test interpreter_is_number starting\n"));
+    PoolString<decltype(stringPool)> name(stringPool, "answer");
+    PoolString<decltype(stringPool)> command(stringPool, "answer IsNumber(3 + (1 - 5)^2 / 4)");
     interpreter.execute(command);
-    assertEqual(interpreter.get_device("answer").type, DeviceType::NUM);
-    assertTrue(interpreter.get_device("answer").info[0] == "7");
+    assertEqual(interpreter.get_device_type(name), DeviceType::NUM);
+    assertEqual(interpreter.get_device_info(name, 2), 7);
     alloc.stat();
     stringPool.stat();
     alloc.reset_stat();
@@ -25,11 +26,13 @@ test(interpreter_is_number)
 
 test(interpreter_is_led)
 {
-    string command = "light IsLED(13, 25)";
+    Log.notice(F("Test interpreter_is_led starting\n"));
+    PoolString<decltype(stringPool)> name(stringPool, "light");
+    PoolString<decltype(stringPool)> command(stringPool, "light IsLED(13, 25)");
     interpreter.execute(command);
-    assertEqual(interpreter.get_device("light").type, DeviceType::LED);
-    assertTrue(interpreter.get_device("light").info[0] == "13");
-    assertTrue(interpreter.get_device("light").info[1] == "25");
+    assertEqual(interpreter.get_device_type(name), DeviceType::LED);
+    assertTrue(interpreter.get_device_info(name, 1) == 13);
+    assertTrue(interpreter.get_device_info(name, 2) == 25);
     alloc.stat();
     stringPool.stat();
     alloc.reset_stat();
@@ -38,29 +41,31 @@ test(interpreter_is_led)
 
 test(interpreter_if)
 {
-    vector<string> commands = {
-        "answer IsNumber(42)",
-        "If (answer = 42) (",
-        "   answer MoveBy(10)",
-        ")"
-    };
-    for (int i = 0; i < commands.size(); ++i) {
-        interpreter.execute(commands[i]);
-    }
-    assertTrue(interpreter.get_device("answer").type == DeviceType::NUM);
-    assertTrue(interpreter.get_device("answer").info[0] == "52");
+    Log.notice(F("Test interpreter_if starting\n"));
+    PoolString<decltype(stringPool)> name(stringPool, "answer");
+    Deque<PoolString<decltype(stringPool)>, decltype(alloc)> commands(alloc);
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "answer IsNumber(42)"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "If (answer = 42) ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    answer MoveBy(10)"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, ")"));
 
-    commands = {
-        "answer IsNumber(42)",
-        "If (~(answer = 0)) (",
-        "   answer IsNumber(0)",
-        ")"
-    };
     for (int i = 0; i < commands.size(); ++i) {
         interpreter.execute(commands[i]);
     }
-    assertTrue(interpreter.get_device("answer").type == DeviceType::NUM);
-    assertTrue(interpreter.get_device("answer").info[0] == "0");
+    assertEqual(interpreter.get_device_type(name), DeviceType::NUM);
+    assertEqual(interpreter.get_device_info(name, 2), 52);
+
+    commands.clear();
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "answer IsNumber(42)"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "If (~(answer = 0)) ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    answer IsNumber(0)"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, ")"));
+
+    for (int i = 0; i < commands.size(); ++i) {
+        interpreter.execute(commands[i]);
+    }
+    assertEqual(interpreter.get_device_type(name), DeviceType::NUM);
+    assertEqual(interpreter.get_device_info(name, 2), 0);
     alloc.stat();
     stringPool.stat();
     alloc.reset_stat();
@@ -69,20 +74,22 @@ test(interpreter_if)
 
 test(interpreter_if_group)
 {
-    vector<string> commands = {
-        "make_answer_zero IsGroup (",
-        "   If (answer > 0) (",
-        "       answer IsNumber(0)",
-        "   )",
-        ")",
-        "answer IsNumber(42)",
-        "make_answer_zero RunGroup()"
-    };
+    Log.notice(F("Test interpreter_if_group starting\n"));
+    PoolString<decltype(stringPool)> name(stringPool, "answer");
+    Deque<PoolString<decltype(stringPool)>, decltype(alloc)> commands(alloc);
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "make_answer_zero IsGroup ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    If (answer > 0) ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        answer IsNumber(0)"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    )"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, ")"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "answer IsNumber(42)"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "make_answer_zero RunGroup()"));
+
     for (int i = 0; i < commands.size(); ++i) {
         interpreter.execute(commands[i]);
     }
-    assertTrue(interpreter.get_device("answer").type == DeviceType::NUM);
-    assertTrue(interpreter.get_device("answer").info[0] == "0");
+    assertEqual(interpreter.get_device_type(name), DeviceType::NUM);
+    assertEqual(interpreter.get_device_info(name, 2), 0);
     alloc.stat();
     stringPool.stat();
     alloc.reset_stat();
@@ -91,66 +98,69 @@ test(interpreter_if_group)
 
 test(interpreter_fizz_buzz_1)
 {
-    vector<string> commands = {
-        "fizzbuzz IsGroup (",
-            "If (num % 3 = 0 & num % 5 = 0) (",
-            "    'FizzBuzz'",
-            ")",
-            "If (num % 3 = 0 & ~(num % 5 = 0)) (",
-            "    'Fizz'",
-            ")",
-            "If (~(num % 3 = 0) & num % 5 = 0) (",
-            "    'Buzz'",
-            ")",
-            "If (~(num % 3 = 0) & ~(num % 5 = 0)) (",
-                "num",
-            ")",
-            "num MoveBy(1)",
-        ")",
-        "num IsNumber(1)",
-        "fizzbuzz RunGroup(20)"
-    };
+    Log.notice(F("Test interpreter_fizz_buzz_1 starting\n"));
+    PoolString<decltype(stringPool)> name(stringPool, "num");
+    Deque<PoolString<decltype(stringPool)>, decltype(alloc)> commands(alloc);
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "fizzbuzz IsGroup ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    If (num % 3 = 0 & num % 5 = 0) ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        'FizzBuzz'"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    )"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    If (num % 3 = 0 & ~(num % 5 = 0)) ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        'Fizz'"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    )"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    If (~(num % 3 = 0) & num % 5 = 0) ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        'Buzz'"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    )"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    If (~(num % 3 = 0) & ~(num % 5 = 0)) ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        num"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    )"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    num MoveBy(1)"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, ")"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "num IsNumber(1)"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "fizzbuzz RunGroup(20)"));
     for (int i = 0; i < commands.size(); ++i) {
         interpreter.execute(commands[i]);
     }
-    assertTrue(interpreter.get_device("num").type == DeviceType::NUM);
-    assertTrue(interpreter.get_device("num").info[0] == "21");
+    assertEqual(interpreter.get_device_type(name), DeviceType::NUM);
+    assertEqual(interpreter.get_device_info(name, 2), 21);
     alloc.stat();
     stringPool.stat();
     alloc.reset_stat();
     stringPool.reset_stat();
 }
 
+
 test(interpreter_fizz_buzz_2)
 {
-    vector<string> commands = {
-        "fizzbuzz IsGroup (",
-            "If (num % 3 = 0 & num % 5 = 0) (",
-                "'FizzBuzz'",
-            ")",
-            "Else (",
-                "If (num % 3 = 0) (",
-                    "'Fizz'",
-                ")",
-                "Else (",
-                    "If (num % 5 = 0) (",
-                        "'Buzz'",
-                    ")",
-                    "Else (",
-                        "num",
-                    ")",
-                ")",
-            ")",
-            "num MoveBy(1)",
-        ")",
-        "num IsNumber(1)",
-        "fizzbuzz RunGroup(20)"
-    };
+    Log.notice(F("Test interpreter_fizz_buzz_2 starting\n"));
+    PoolString<decltype(stringPool)> name(stringPool, "num");
+    Deque<PoolString<decltype(stringPool)>, decltype(alloc)> commands(alloc);
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "fizzbuzz IsGroup ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    If (num % 3 = 0 & num % 5 = 0) ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        'FizzBuzz'"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    )"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    Else ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        If (num % 3 = 0) ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            'Fizz'"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        )"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        Else ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            If (num % 5 = 0) ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "                'Buzz'"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            )"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            Else ("));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "                num"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            )"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        )"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    )"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    num MoveBy(1)"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, ")"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "num IsNumber(1)"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "fizzbuzz RunGroup(20)"));
     for (int i = 0; i < commands.size(); ++i) {
         interpreter.execute(commands[i]);
     }
-    assertTrue(interpreter.get_device("num").type == DeviceType::NUM);
-    assertTrue(interpreter.get_device("num").info[0] == "21");
+    assertEqual(interpreter.get_device_type(name), DeviceType::NUM);
+    assertEqual(interpreter.get_device_info(name, 2), 21);
     alloc.stat();
     stringPool.stat();
     alloc.reset_stat();
