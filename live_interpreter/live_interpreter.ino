@@ -16,7 +16,7 @@ using namespace std;
 using namespace kty;
 
 Allocator<50, Sizes::alloc_size>                   alloc;
-StringPool<25, Sizes::string_length>               stringPool;
+StringPool<50, Sizes::string_length>               stringPool;
 PoolString<decltype(stringPool)>                   command(stringPool);
 
 Interface<decltype(stringPool)>                    interface(stringPool);
@@ -24,10 +24,13 @@ Interpreter<decltype(alloc), decltype(stringPool)> interpreter(alloc, stringPool
 
 void setup() {
     interface.print_welcome();
-    interface.begin_logging(LOG_LEVEL_TRACE);
+
+    interface.begin_logging(LOG_LEVEL_WARNING);
+    //interface.begin_logging(LOG_LEVEL_TRACE);
     //interface.begin_logging(LOG_LEVEL_SILENT);
-    alloc.dump_addresses();
-    stringPool.dump_addresses();
+
+    //alloc.dump_addresses();
+    //stringPool.dump_addresses();
     interface.print_prompt();
 }
 

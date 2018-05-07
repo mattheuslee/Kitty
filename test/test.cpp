@@ -29,12 +29,12 @@ MockArduinoLog Log(false,  // Log trace
 
 using namespace kty;
 
-Allocator<200, Sizes::alloc_size> alloc;
-StringPool<50, Sizes::string_length> stringPool;
+Allocator<200, Sizes::alloc_size>                  alloc;
+StringPool<2000, Sizes::string_length>             stringPool;
 
 Interpreter<decltype(alloc), decltype(stringPool)> interpreter(alloc, stringPool);
-Parser parser;
-Tokenizer tokenizer;
+Parser                                             parser;
+Tokenizer                                          tokenizer;
 
 #include <test/allocator_test.hpp>
 #include <test/deque_test.hpp>
