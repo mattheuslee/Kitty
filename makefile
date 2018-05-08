@@ -19,5 +19,7 @@ coverage : ./test/test.cpp
 	rm -f coverage*
 
 console : ./console/console.cpp
-	$(CC) -isystem ${ARDUINO_UNIT_SRC_DIR} -isystem ${KITTY_SRC_DIR} -o console_exec $< ${ARDUINO_UNIT_SRC} ${ARDUINO_UNIT_MOCK} $(NON_COV_CFLAGS)
+	$(CC) -isystem ${ARDUINO_UNIT_SRC_DIR} -isystem ${KITTY_SRC_DIR} -o console_exec $< ${ARDUINO_UNIT_SRC} ${ARDUINO_UNIT_MOCK} $(NON_COV_CFLAGS) -g
+
+run_console : console
 	./console_exec
