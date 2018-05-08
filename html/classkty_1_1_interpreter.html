@@ -102,16 +102,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ab71265a848d14c04ad0f048840340b0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the info of device.  <a href="#ab71265a848d14c04ad0f048840340b0d">More...</a><br /></td></tr>
 <tr class="separator:ab71265a848d14c04ad0f048840340b0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5153a39e72217d70206cfd34d53a456d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a5153a39e72217d70206cfd34d53a456d">execute</a> (<a class="el" href="classkty_1_1_interpreter.html#ab6aa7de2d493cc9140f02b13f4a2c634">poolstring_t</a> command)</td></tr>
-<tr class="memdesc:a5153a39e72217d70206cfd34d53a456d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command. This method takes the current interpreter status into account.  <a href="#a5153a39e72217d70206cfd34d53a456d">More...</a><br /></td></tr>
+<tr class="memdesc:a5153a39e72217d70206cfd34d53a456d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command, as well as the commands in the command queue afterwards if necessary. This should be the command execute function called from outside.  <a href="#a5153a39e72217d70206cfd34d53a456d">More...</a><br /></td></tr>
 <tr class="separator:a5153a39e72217d70206cfd34d53a456d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb27be181dccb66dcbcbea8730f98119"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#acb27be181dccb66dcbcbea8730f98119">execute_just_command</a> (<a class="el" href="classkty_1_1_interpreter.html#ab6aa7de2d493cc9140f02b13f4a2c634">poolstring_t</a> const &amp;command)</td></tr>
+<tr class="memdesc:acb27be181dccb66dcbcbea8730f98119"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes just the given command. This method takes the current interpreter status into account. If the result of this command is to add other commands to the command queue, those commands will not be run yet. <a class="el" href="classkty_1_1_interpreter.html#ae67a80d34c3d706af211c94b2fe532e8" title="Executes all the commands still in the command queue, if any. ">execute_command_queue()</a> must be called after this to run those commands.  <a href="#acb27be181dccb66dcbcbea8730f98119">More...</a><br /></td></tr>
+<tr class="separator:acb27be181dccb66dcbcbea8730f98119"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae67a80d34c3d706af211c94b2fe532e8"><td class="memItemLeft" align="right" valign="top"><a id="ae67a80d34c3d706af211c94b2fe532e8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ae67a80d34c3d706af211c94b2fe532e8">execute_command_queue</a> ()</td></tr>
 <tr class="memdesc:ae67a80d34c3d706af211c94b2fe532e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes all the commands still in the command queue, if any. <br /></td></tr>
 <tr class="separator:ae67a80d34c3d706af211c94b2fe532e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa44008a5ea36c5f158bad9235fd20a3"><td class="memItemLeft" align="right" valign="top"><a id="aaa44008a5ea36c5f158bad9235fd20a3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#aaa44008a5ea36c5f158bad9235fd20a3">cleanup_after_command_queue_execute</a> ()</td></tr>
-<tr class="memdesc:aaa44008a5ea36c5f158bad9235fd20a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes all the cleanup for internal state after executing the commands in the command queue. <br /></td></tr>
-<tr class="separator:aaa44008a5ea36c5f158bad9235fd20a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf73c995ba91eba7d5e7ab09b2b93cc1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#acf73c995ba91eba7d5e7ab09b2b93cc1">execute</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
 <tr class="memdesc:acf73c995ba91eba7d5e7ab09b2b93cc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes a given command.  <a href="#acf73c995ba91eba7d5e7ab09b2b93cc1">More...</a><br /></td></tr>
 <tr class="separator:acf73c995ba91eba7d5e7ab09b2b93cc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,9 +156,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a29c537edb1e413cea7271e7084184bc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a29c537edb1e413cea7271e7084184bc2">create_led</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt; const &amp;name, std::stack&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; &amp;info)</td></tr>
 <tr class="memdesc:a29c537edb1e413cea7271e7084184bc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an LED using the name and information given.  <a href="#a29c537edb1e413cea7271e7084184bc2">More...</a><br /></td></tr>
 <tr class="separator:a29c537edb1e413cea7271e7084184bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78e0e3a9e501478fd2f2d91def6d313a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a78e0e3a9e501478fd2f2d91def6d313a">create_if</a> (std::string const &amp;condition)</td></tr>
-<tr class="memdesc:a78e0e3a9e501478fd2f2d91def6d313a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the creation of an if command group.  <a href="#a78e0e3a9e501478fd2f2d91def6d313a">More...</a><br /></td></tr>
-<tr class="separator:a78e0e3a9e501478fd2f2d91def6d313a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7523a3010aca72dea38b9c9695db03c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a7523a3010aca72dea38b9c9695db03c9">create_if</a> (int const &amp;condition)</td></tr>
+<tr class="memdesc:a7523a3010aca72dea38b9c9695db03c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins the creation of an if command group.  <a href="#a7523a3010aca72dea38b9c9695db03c9">More...</a><br /></td></tr>
+<tr class="separator:a7523a3010aca72dea38b9c9695db03c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a982949fee3c6eeac20ca1a458252725d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a982949fee3c6eeac20ca1a458252725d">add_to_if</a> (<a class="el" href="classkty_1_1_interpreter.html#ab6aa7de2d493cc9140f02b13f4a2c634">poolstring_t</a> const &amp;command)</td></tr>
 <tr class="memdesc:a982949fee3c6eeac20ca1a458252725d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a command to the if command group that is currently being created.  <a href="#a982949fee3c6eeac20ca1a458252725d">More...</a><br /></td></tr>
 <tr class="separator:a982949fee3c6eeac20ca1a458252725d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -188,13 +187,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ae1e50422579c716112629e74a54ef2df">close_group</a> ()</td></tr>
 <tr class="memdesc:ae1e50422579c716112629e74a54ef2df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finishes the creation of a command group. <br /></td></tr>
 <tr class="separator:ae1e50422579c716112629e74a54ef2df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6c63c08ddfd1ea87bf0c93ad6d72cd7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ae6c63c08ddfd1ea87bf0c93ad6d72cd7">increase_nested_level</a> (InterpreterStatus status)</td></tr>
-<tr class="memdesc:ae6c63c08ddfd1ea87bf0c93ad6d72cd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increases the nested level of the interpreter.  <a href="#ae6c63c08ddfd1ea87bf0c93ad6d72cd7">More...</a><br /></td></tr>
-<tr class="separator:ae6c63c08ddfd1ea87bf0c93ad6d72cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a468750ce4a9e3c02e7f1c29b28fccc"><td class="memItemLeft" align="right" valign="top"><a id="a9a468750ce4a9e3c02e7f1c29b28fccc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a9a468750ce4a9e3c02e7f1c29b28fccc">decrease_nested_level</a> ()</td></tr>
-<tr class="memdesc:a9a468750ce4a9e3c02e7f1c29b28fccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decreases the nested level of the interpreter. <br /></td></tr>
-<tr class="separator:a9a468750ce4a9e3c02e7f1c29b28fccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b199c69be54a3da78368c3a8fb4b09f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a7b199c69be54a3da78368c3a8fb4b09f">enter_scope</a> (InterpreterStatus status)</td></tr>
+<tr class="memdesc:a7b199c69be54a3da78368c3a8fb4b09f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the interpreter to enter a scope.  <a href="#a7b199c69be54a3da78368c3a8fb4b09f">More...</a><br /></td></tr>
+<tr class="separator:a7b199c69be54a3da78368c3a8fb4b09f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2700bb1543b263c5fa5d5015c0968bae"><td class="memItemLeft" align="right" valign="top"><a id="a2700bb1543b263c5fa5d5015c0968bae"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a2700bb1543b263c5fa5d5015c0968bae">exit_scope</a> ()</td></tr>
+<tr class="memdesc:a2700bb1543b263c5fa5d5015c0968bae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exits the current scope of the interpreter. <br /></td></tr>
+<tr class="separator:a2700bb1543b263c5fa5d5015c0968bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;class Alloc, class StringPool&gt;<br />
@@ -483,10 +482,46 @@ template&lt;class Alloc , class StringPool &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Executes a given command. This method takes the current interpreter status into account. </p>
+<p>Executes a given command, as well as the commands in the command queue afterwards if necessary. This should be the command execute function called from outside. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">command</td><td>The raw string command to execute. </td></tr>
+    <tr><td class="paramname">command</td><td>The command to execute. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acb27be181dccb66dcbcbea8730f98119"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb27be181dccb66dcbcbea8730f98119">&#9670;&nbsp;</a></span>execute_just_command()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Alloc , class StringPool &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc, <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::execute_just_command </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_interpreter.html#ab6aa7de2d493cc9140f02b13f4a2c634">poolstring_t</a> const &amp;&#160;</td>
+          <td class="paramname"><em>command</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Executes just the given command. This method takes the current interpreter status into account. If the result of this command is to add other commands to the command queue, those commands will not be run yet. <a class="el" href="classkty_1_1_interpreter.html#ae67a80d34c3d706af211c94b2fe532e8" title="Executes all the commands still in the command queue, if any. ">execute_command_queue()</a> must be called after this to run those commands. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>The command to execute. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1100,8 +1135,8 @@ template&lt;class Alloc , class StringPool &gt; </div>
 
 </div>
 </div>
-<a id="a78e0e3a9e501478fd2f2d91def6d313a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78e0e3a9e501478fd2f2d91def6d313a">&#9670;&nbsp;</a></span>create_if()</h2>
+<a id="a7523a3010aca72dea38b9c9695db03c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7523a3010aca72dea38b9c9695db03c9">&#9670;&nbsp;</a></span>create_if()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1114,7 +1149,7 @@ template&lt;class Alloc , class StringPool &gt; </div>
         <tr>
           <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc, <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::create_if </td>
           <td>(</td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramtype">int const &amp;&#160;</td>
           <td class="paramname"><em>condition</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1280,8 +1315,8 @@ template&lt;class Alloc , class StringPool &gt; </div>
 
 </div>
 </div>
-<a id="ae6c63c08ddfd1ea87bf0c93ad6d72cd7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6c63c08ddfd1ea87bf0c93ad6d72cd7">&#9670;&nbsp;</a></span>increase_nested_level()</h2>
+<a id="a7b199c69be54a3da78368c3a8fb4b09f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b199c69be54a3da78368c3a8fb4b09f">&#9670;&nbsp;</a></span>enter_scope()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1292,7 +1327,7 @@ template&lt;class Alloc , class StringPool &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc, <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::increase_nested_level </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; Alloc, <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::enter_scope </td>
           <td>(</td>
           <td class="paramtype">InterpreterStatus&#160;</td>
           <td class="paramname"><em>status</em></td><td>)</td>
@@ -1306,7 +1341,7 @@ template&lt;class Alloc , class StringPool &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Increases the nested level of the interpreter. </p>
+<p>Sets the interpreter to enter a scope. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">status</td><td>The new status of the interpreter. </td></tr>

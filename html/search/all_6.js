@@ -12,6 +12,7 @@ var searchData=
   ['get_5fnext_5ftoken',['get_next_token',['../classkty_1_1_tokenizer.html#ac60061f3623aa66f87e689f16e41ff29',1,'kty::Tokenizer']]],
   ['get_5fprompt_5fprefix',['get_prompt_prefix',['../classkty_1_1_interpreter.html#a061ae6d91c7b28e2a76d6dc6c78fa8a4',1,'kty::Interpreter']]],
   ['get_5fstr',['get_str',['../classkty_1_1_deque_deque_pool_string.html#ac5095ee94da217468ede25a884601e6e',1,'kty::DequeDequePoolString']]],
+  ['get_5fstr_5fidx',['get_str_idx',['../classkty_1_1_deque_deque_pool_string.html#a55bb5ed722cb7e6c523ea28c1e37d145',1,'kty::DequeDequePoolString']]],
   ['get_5ftoken_5fvalue',['get_token_value',['../classkty_1_1_interpreter.html#aa67a4196f2a472e7bc515b03aaf48809',1,'kty::Interpreter']]],
   ['group_5fexists',['group_exists',['../classkty_1_1_interpreter.html#a6cce2c1b8a57ed17f278b04200325e55',1,'kty::Interpreter']]]
 ];

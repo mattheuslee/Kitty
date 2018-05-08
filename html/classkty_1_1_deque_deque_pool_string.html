@@ -99,6 +99,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:ac5095ee94da217468ede25a884601e6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#ac49106bcfa2129696b99df6415e38d5e">poolstring_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#ac5095ee94da217468ede25a884601e6e">get_str</a> (int const &amp;i, int const &amp;j)</td></tr>
 <tr class="memdesc:ac5095ee94da217468ede25a884601e6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the jth string of the ith deque.  <a href="#ac5095ee94da217468ede25a884601e6e">More...</a><br /></td></tr>
 <tr class="separator:ac5095ee94da217468ede25a884601e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55bb5ed722cb7e6c523ea28c1e37d145"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#a55bb5ed722cb7e6c523ea28c1e37d145">get_str_idx</a> (int const &amp;i, int const &amp;j)</td></tr>
+<tr class="memdesc:a55bb5ed722cb7e6c523ea28c1e37d145"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the string pool index of the jth string of the ith deque.  <a href="#a55bb5ed722cb7e6c523ea28c1e37d145">More...</a><br /></td></tr>
+<tr class="separator:a55bb5ed722cb7e6c523ea28c1e37d145"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0a06dfbe740b74e3f33bf0c1e514136"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#aa0a06dfbe740b74e3f33bf0c1e514136">clear</a> (int const &amp;i)</td></tr>
 <tr class="memdesc:aa0a06dfbe740b74e3f33bf0c1e514136"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all strings from the ith deque.  <a href="#aa0a06dfbe740b74e3f33bf0c1e514136">More...</a><br /></td></tr>
 <tr class="separator:aa0a06dfbe740b74e3f33bf0c1e514136"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -290,6 +293,54 @@ template&lt;typename StringPool, typename Alloc&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The string. This string is a copy of the string stored in the deque. An empty sting is returned if i or j are invalid. </dd></dl>
+
+</div>
+</div>
+<a id="a55bb5ed722cb7e6c523ea28c1e37d145"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55bb5ed722cb7e6c523ea28c1e37d145">&#9670;&nbsp;</a></span>get_str_idx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename StringPool, typename Alloc&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a>, Alloc &gt;::get_str_idx </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>j</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the string pool index of the jth string of the ith deque. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The deque index.</td></tr>
+    <tr><td class="paramname">j</td><td>The string index within the deque.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The string pool index. -1 is returned if i or j are invalid. </dd></dl>
 
 </div>
 </div>

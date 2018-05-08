@@ -1,7 +1,6 @@
 var searchData=
 [
   ['inc_5fref_5fcount',['inc_ref_count',['../classkty_1_1_string_pool.html#aaa30800188f7569eedecc683ff3a9910',1,'kty::StringPool']]],
-  ['increase_5fnested_5flevel',['increase_nested_level',['../classkty_1_1_interpreter.html#ae6c63c08ddfd1ea87bf0c93ad6d72cd7',1,'kty::Interpreter']]],
   ['interface',['Interface',['../classkty_1_1_interface.html',1,'kty::Interface&lt; StringPool &gt;'],['../classkty_1_1_interface.html#aeba5699590dca682cdb0f23bf95cd4c3',1,'kty::Interface::Interface()']]],
   ['interpreter',['Interpreter',['../classkty_1_1_interpreter.html',1,'kty::Interpreter&lt; Alloc, StringPool &gt;'],['../classkty_1_1_interpreter.html#ad0d4d349bbd56d8f67e79600f7cb232f',1,'kty::Interpreter::Interpreter()']]],
   ['is_5fcomma',['is_comma',['../structkty_1_1_token.html#af0042b16e0b7a7518c9e7aaa395d4070',1,'kty::Token']]],
