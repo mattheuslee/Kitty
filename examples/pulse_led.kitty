@@ -1,18 +1,11 @@
-change is 2
-light is led using 13
+pulse IsGroup (
+    light MoveBy(change)
+    If (light = 100 | light = 0) (
+        change IsNumber(change * -1)
+    )
+)
 
-create reverse_down
-change is -2
-done
+light IsLED(13, 0)
+change IsNumber(5)
 
-create reverse_up
-change is 2
-done
-
-create pulse
-move light by change
-run reverse_down if light equals 100
-run reverse_up if light equals 0
-done
-
-run pulse forever
+pulse RunGroup(-1)

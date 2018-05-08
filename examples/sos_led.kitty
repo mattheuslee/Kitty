@@ -1,20 +1,20 @@
-light is led using 13
+long IsGroup (
+    light MoveByFor(100, 500)
+    light MoveByFor(0, 500)
+)
 
-create long_blink
-set light to 100 for 500ms
-wait 500ms
-done
+short IsGroup (
+    light MoveByFor(100, 200)
+    light MoveByFor(0, 200)
+)
 
-create short_blink
-set light to 100 for 200ms
-wait 200ms
-done
+sos IsGroup (
+    short RunGroup(3)
+    long RunGroup(3)
+    short RunGroup(3)
+    light MoveByFor(0, 1000)
+)
 
-create sos
-run short_blink 3 times
-run long_blink 3 times
-run short_blink 3 times
-wait 1s
-done
+light IsLED(13, 0)
 
-run sos forever
+sos RunGroup(-1)

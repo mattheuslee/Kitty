@@ -1,8 +1,8 @@
-light is led using 13
+blink IsGroup (
+    light MoveByFor(100, 1000)
+    light MoveByFor(0, 1000)
+)
 
-create blink
-set light to 100 for 1s
-wait 1s
-done
+light IsLED(13, 0)
 
-run blink forever
+blink RunGroup(-1)
