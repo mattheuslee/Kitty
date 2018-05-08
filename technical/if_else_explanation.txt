@@ -1,0 +1,28 @@
+if(a) (                                     Opening if,     scope level 0->1,   last condition at scope level 0 = a
+    if (aa) (                               Opening if,     scope level 1->2,   last condition at scope level 1 = aa
+        xxxx                                Run command at  scope level 2,      last condition at scope level 2 = null
+    )                                       Closing if,     scope level 2->1    check the last condition at scope level 1 = aa
+    else (                                  Opening else,   scope level 1->2,
+        xxxx                                Run command at  scope level 2,      last condition at scope level 2 = null
+    )                                       Closing else,   scope level 2->1,   check the last condition at scope level 1 = aa, last condition at scope level 1 = null
+)                                           Closing if,     scope level 1->0,   check the last condition at scope level 0 = a
+else (                                      Opening else,   scope level 0->1,   check the last condition at scope level 0 = a,  last condition at scope level 0 = null
+    if (bb) (                               Opening if,     scope level 1->2,   last condition at scope level 1 = bb
+        xxxx                                Run command at  scope level 2,      last condition at scope level 2 = null
+    )                                       Closing if,     scope level 2->1
+    else (                                  Opening else,   scope level 1->2,
+        xxxx                                Run command at  scope level 2,      last condition at scope level 2 = null
+    )                                       Closing else,   scope level 2->1    check the last condition at scope level 1 = bb, last condition at scope level 1 = null
+)                                           Closing else,   scope level 1->0
+
+if(b) (                                     Opening if,     scope level 0->1,   last condition at scope level 0 = a
+    xxxx                                    Run command at  scope level 1                        
+)                                           Closing if,     scope level 1->0
+xxxx                                        Run command at  scope level 0,      last condition at scope level 0 = null
+
+else doesn't modify condition when opening
+else always checks and resets last condition when closing
+
+if always modifies conditions when opening
+if always checks last condition when closing
+if doesn't reset conditions
