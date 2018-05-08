@@ -8,7 +8,9 @@
 #if defined(ARDUINO)
 /** No type string representation for Arduino */
 #define TYPE_STR(x) ""
+#define PRINT_FUNC ""
 #else
 /** String representation of type */
 #define TYPE_STR(x) typeid(x).name()
+#define PRINT_FUNC __FUNCTION__
 #endif
