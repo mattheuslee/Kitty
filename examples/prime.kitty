@@ -1,0 +1,31 @@
+check_div IsGroup (
+    If (num % div = 0) (
+        can_div IsNumber(1)
+    )
+    div MoveBy(1)
+)
+
+check_prime IsGroup (
+    num
+    can_div IsNumber(0)
+    div IsNumber(2)
+    If (div < num) (
+        check_div RunGroup(num / 2)
+    )
+    If (can_div) (
+        'Not prime'
+    )
+    Else (
+        'Prime'
+    )
+)
+
+loop_nums IsGroup (
+    check_prime RunGroup()
+    num MoveBy(1)
+)
+
+num IsNumber(1)
+nun_times IsNumber(10)
+
+loop_nums RunGroup(nun_times)
