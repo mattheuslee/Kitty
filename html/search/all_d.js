@@ -14,6 +14,6 @@ var searchData=
   ['print_5fprompt',['print_prompt',['../classkty_1_1_interface.html#a72bd7a41d64e47ca06e86196cff9edfc',1,'kty::Interface::print_prompt()'],['../classkty_1_1_interface.html#a8c65b29560bd135f8218a479c699e8ab',1,'kty::Interface::print_prompt(poolstring_t const &amp;prefix)']]],
   ['print_5fwelcome',['print_welcome',['../classkty_1_1_interface.html#accbe1c988326226aba5dd35045fd3632',1,'kty::Interface']]],
   ['process_5fmath_5ftokens',['process_math_tokens',['../classkty_1_1_tokenizer.html#a4b57b21d7b14d189cae9d5f1005c3cbe',1,'kty::Tokenizer']]],
-  ['push_5fback',['push_back',['../classkty_1_1_deque.html#ad7f355986174ad9b6538afe61c0a60c7',1,'kty::Deque::push_back()'],['../classkty_1_1_deque_deque_pool_string.html#ad6f461aba14891303e77d3b68019c754',1,'kty::DequeDequePoolString::push_back()']]],
-  ['push_5ffront',['push_front',['../classkty_1_1_deque.html#a308e7ecb24677a6de99b6295756e6866',1,'kty::Deque::push_front()'],['../classkty_1_1_deque_deque_pool_string.html#afcbf9f7c4f71360f2b947359040136ba',1,'kty::DequeDequePoolString::push_front()']]]
+  ['push_5fback',['push_back',['../classkty_1_1_deque.html#ac1696a520b8a1d5be238853e20def8ae',1,'kty::Deque::push_back()'],['../classkty_1_1_deque_deque_pool_string.html#ad6f461aba14891303e77d3b68019c754',1,'kty::DequeDequePoolString::push_back()']]],
+  ['push_5ffront',['push_front',['../classkty_1_1_deque.html#a89e493c95028ab1a7932393e3d0fb2c6',1,'kty::Deque::push_front()'],['../classkty_1_1_deque_deque_pool_string.html#afcbf9f7c4f71360f2b947359040136ba',1,'kty::DequeDequePoolString::push_front()']]]
 ];
