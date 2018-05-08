@@ -1,7 +1,5 @@
 #if !defined(ARDUINO)
 
-#include <iostream>
-
 #include <stdlib.h>
 #include <sys/time.h>
 #include <time.h>
@@ -14,7 +12,7 @@ CppIOStream Serial;
 #include <test/mock_arduino.hpp>
 #include <test/mock_arduino_log.hpp>
 MockArduinoLog Log(false,  // Log trace
-                   false,  // Log notice
+                   true,  // Log notice
                    false); // Log warning
 
 #include <kty/containers/allocator.hpp>
@@ -30,7 +28,7 @@ MockArduinoLog Log(false,  // Log trace
 using namespace kty;
 
 Allocator<200, Sizes::alloc_size>                  alloc;
-StringPool<2000, Sizes::string_length>             stringPool;
+StringPool<100, Sizes::string_length>              stringPool;
 
 Interpreter<decltype(alloc), decltype(stringPool)> interpreter(alloc, stringPool);
 Parser                                             parser;

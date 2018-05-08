@@ -8,16 +8,17 @@
 #include <kty/containers/deque.hpp>
 #include <kty/containers/deque_of_deque.hpp>
 #include <kty/containers/string.hpp>
-#include <kty/sizes.hpp>
 #include <kty/interface.hpp>
 #include <kty/interpreter.hpp>
+#include <kty/sizes.hpp>
 
 using namespace std;
 using namespace kty;
 
-Allocator<50, Sizes::alloc_size>                   alloc;
-StringPool<50, Sizes::string_length>               stringPool;
+Allocator<200, Sizes::alloc_size>                  alloc;
+StringPool<75, Sizes::string_length>               stringPool;
 PoolString<decltype(stringPool)>                   command(stringPool);
+PoolString<decltype(stringPool)>                   prefix(stringPool);
 
 Interface<decltype(stringPool)>                    interface(stringPool);
 Interpreter<decltype(alloc), decltype(stringPool)> interpreter(alloc, stringPool);
@@ -29,14 +30,16 @@ void setup() {
     //interface.begin_logging(LOG_LEVEL_TRACE);
     //interface.begin_logging(LOG_LEVEL_SILENT);
 
-    //alloc.dump_addresses();
-    //stringPool.dump_addresses();
-    interface.print_prompt();
+    alloc.dump_addresses();
+    stringPool.dump_addresses();
 }
 
 void loop() {
+    prefix = interpreter.get_prompt_prefix();
+    interface.print_prompt(prefix);
     command = interface.get_next_command();
     interface.echo_command(command);
-    interpreter.execute(command);
-    interface.print_prompt(interpreter.get_prompt_prefix());
+    interpreter.execute_just_command(command);
+    interpreter.execute_command_queue();
+    prefix = interpreter.get_prompt_prefix();
 }
