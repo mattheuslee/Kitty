@@ -511,7 +511,7 @@ public:
         }
         // Extract number of times to run group
         std::stack<Token> result = evaluate_postfix(tokenQueue);
-        int numTimes = str_to_int(result.top().value);
+        int numTimes = get_token_value(result.top());
         Log.trace(F("%s: Running group %s %d times\n"), PRINT_FUNC, name.c_str(), numTimes);
         // Push command for one more call to run the group
         if (numTimes > 1) {
@@ -531,14 +531,17 @@ public:
             commandQueue_.front() += ")";
             Log.trace(F("%s: pushed %s to the front of the command queue\n"), PRINT_FUNC, commandQueue_.front().c_str());
         }
-        // Push commands from group to command queue
-        int numGroupCommands = groupCommands_.size(groupIdx);
-        Log.trace(F("%s: %d commands to add to command queue\n"), PRINT_FUNC, numGroupCommands);
-        for (int i = numGroupCommands - 1; i >= 0; --i) {
-            int commandStringPoolIdx = groupCommands_.get_str_idx(groupIdx, i);
-            poolstring_t commandString(stringPool_, commandStringPoolIdx);
-            Log.trace(F("%s: pushing %s to front of command queue\n"), PRINT_FUNC, commandString.c_str());
-            commandQueue_.push_front(commandString);
+        // Could get the instruction to run the group 0 times
+        if (numTimes == -1 || numTimes > 0) {
+            // Push commands from group to command queue
+            int numGroupCommands = groupCommands_.size(groupIdx);
+            Log.trace(F("%s: %d commands to add to command queue\n"), PRINT_FUNC, numGroupCommands);
+            for (int i = numGroupCommands - 1; i >= 0; --i) {
+                int commandStringPoolIdx = groupCommands_.get_str_idx(groupIdx, i);
+                poolstring_t commandString(stringPool_, commandStringPoolIdx);
+                Log.trace(F("%s: pushing %s to front of command queue\n"), PRINT_FUNC, commandString.c_str());
+                commandQueue_.push_front(commandString);
+            }
         }
     }
 
