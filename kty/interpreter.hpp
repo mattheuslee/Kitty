@@ -12,9 +12,10 @@
 #include <kty/containers/deque.hpp>
 #include <kty/containers/deque_of_deque.hpp>
 #include <kty/containers/string.hpp>
+#include <kty/parser.hpp>
 #include <kty/string_utils.hpp>
 #include <kty/tokenizer.hpp>
-#include <kty/parser.hpp>
+#include <kty/types.hpp>
 
 namespace kty {
 
@@ -78,10 +79,11 @@ public:
             : alloc_(alloc), stringPool_(stringPool),
               deviceNames_(alloc), deviceTypes_(alloc), deviceInfo_0_(alloc), deviceInfo_1_(alloc), deviceInfo_2_(alloc),
               lastGroupName_(stringPool), groupNames_(alloc), groupCommands_(stringPool, alloc),
-              toPopLastIfCondition_(alloc), lastIfCondition_(alloc), 
+              lastCondition_(alloc), 
               commandQueue_(alloc), commandBuffer_(alloc) {
         status_ = InterpreterStatus::NORMAL;
-        lastIfCondition_.push_back(-1); // Last if condition is null
+        currScopeLevel_ = 0;          // Start at scope level 0
+        lastCondition_.push_back(-1); // Last condition at scope level 0 = null
     }
 
     /*!
@@ -123,11 +125,11 @@ public:
     int device_exists(poolstring_t const & name) {
         for (int i = 0; i < deviceNames_.size(); ++i) {
             if (deviceNames_[i] == name) {
-                Log.trace(F("Interpreter::device_exists found %s at index %d\n"), name.c_str(), i);
+                Log.trace(F("%s: found %s at index %d\n"), PRINT_FUNC, name.c_str(), i);
                 return i;
             }
         }
-        Log.trace(F("Interpreter::device_exists unable to find %s\n"), name.c_str());
+        Log.trace(F("%s: unable to find %s\n"), PRINT_FUNC, name.c_str());
         return -1;
     }
 
@@ -143,11 +145,11 @@ public:
     int group_exists(poolstring_t const & name) {
         for (int i = 0; i < groupNames_.size(); ++i) {
             if (groupNames_[i] == name) {
-                Log.trace(F("Interpreter::group_exists found %s at index %d\n"), name.c_str(), i);
+                Log.trace(F("%s: found %s at index %d\n"), PRINT_FUNC, name.c_str(), i);
                 return i;
             }
         }
-        Log.trace(F("Interpreter::group_exists unable to find %s\n"), name.c_str());
+        Log.trace(F("%s: unable to find %s\n"), PRINT_FUNC, name.c_str());
         return -1;
     }
 
@@ -197,18 +199,42 @@ public:
     }
 
     /*!
-        @brief  Executes a given command. 
-                This method takes the current interpreter status into account.
+        @brief  Executes a given command, as well as the commands in the command
+                queue afterwards if necessary.
+                This should be the command execute function called from outside.
 
         @param  command
-                The raw string command to execute.
+                The command to execute.
     */
     void execute(poolstring_t command) {
-        Log.trace(F("Interpreter::execute executing %s\n"), command.c_str());
         remove_str_whitespace(command);
+        commandQueue_.push_back(command);
+        //execute_just_command(command);
+        execute_command_queue();
+    }
+
+    /*!
+        @brief  Executes just the given command. 
+                This method takes the current interpreter status into account.
+                If the result of this command is to add other commands to the 
+                command queue, those commands will not be run yet.
+                execute_command_queue() must be called after this to run those
+                commands.
+
+        @param  command
+                The command to execute.
+    */
+    void execute_just_command(poolstring_t const & command) {
+        Log.trace(F("%s: executing %s\n"), PRINT_FUNC, command.c_str());
         // Nothing to execute
         if (command.strlen() == 0) {
-            Log.trace(F("Interpreter::execute no command to execute, done\n"));
+            Log.trace(F("%s: empty command\n"), PRINT_FUNC);
+            return;
+        }
+        // Check for special interpreter-only commands
+        if (command == "DecreaseScopeLevel") {
+            Log.trace(F("%s: scope level %d->%d\n"), PRINT_FUNC, currScopeLevel_, currScopeLevel_ - 1);
+            --currScopeLevel_;
             return;
         }
         std::vector<Token> tokens;
@@ -228,40 +254,26 @@ public:
             add_to_group(command);
             break;
         };
-        execute_command_queue();
-        cleanup_after_command_queue_execute();
-        Log.trace(F("Interpreter::execute done executing %s\n"), command.c_str());
+        Log.trace(F("%s: done executing %s\n"), PRINT_FUNC, command.c_str());
     }
 
     /*!
         @brief  Executes all the commands still in the command queue, if any.
     */
     void execute_command_queue() {
+        Log.trace(F("%s\n"), PRINT_FUNC);
         // No commands to execute
         if (commandQueue_.size() == 0) {
             return;
         }
         while (!commandQueue_.is_empty()) {
+            for (int i = 0; i < commandQueue_.size(); ++i) {
+                Log.trace(F("Command Queue: %s\n"), commandQueue_[i].c_str());
+            }
+            Log.trace(F("%s: executing %s\n"), PRINT_FUNC, commandQueue_.front().c_str());
             poolstring_t command(commandQueue_.front());
             commandQueue_.pop_front();
-            execute(command);
-        }
-    }
-
-    /*!
-        @brief  Executes all the cleanup for internal state after executing 
-                the commands in the command queue.
-    */
-    void cleanup_after_command_queue_execute() {
-        //Serial.print("cleanup size ");
-        //Serial.print(toPopLastIfCondition_.size());
-        //Serial.print(" ");
-        //Serial.println(lastIfCondition_.size());
-        if (!toPopLastIfCondition_.is_empty()) {
-            if (toPopLastIfCondition_.back()) {
-                lastIfCondition_.pop_back();
-            }
-            toPopLastIfCondition_.pop_back();
+            execute_just_command(command);
         }
     }
 
@@ -284,8 +296,8 @@ public:
             execute_else(command);
         }
         else {
-            // Everything other than if and else, last if condition is no longer valid
-            lastIfCondition_.back() = -1;
+            // For every other command, last condition at this scope level becomes null
+            lastCondition_[currScopeLevel_] = -1;
             if (command[0].is_name()) {
                 // Printing information
                 if (command.size() == 1) {
@@ -308,7 +320,6 @@ public:
                 }
             }
             else if (command[0].is_string()) {
-                lastIfCondition_.back() = -1;
                 execute_print_string(command);
             }
         }
@@ -325,10 +336,30 @@ public:
         int deviceIdx = device_exists(name);
         int groupIdx = group_exists(name);
         if (deviceIdx >= 0) {
-            // Print device info
+            DeviceType deviceType = deviceTypes_[deviceIdx];
+            switch (deviceType) {
+            case NUM:
+                Serial.print(name.c_str());
+                Serial.print(F(": number storing "));
+                Serial.println(deviceInfo_2_[deviceType]);
+                break;
+            case LED:
+                Serial.print(name.c_str());
+                Serial.print(F(": LED using pin "));
+                Serial.print(deviceInfo_1_[deviceType]);
+                Serial.print(F(" at "));
+                Serial.print(deviceInfo_2_[deviceType]);
+                Serial.print(F("%"));
+                break;
+            };
         }
         else if (groupIdx >= 0) {
-            // Print out group commands
+            Serial.print(name.c_str());
+            Serial.println(F(": group containing the commands "));
+            for (int i = 0; i < groupCommands_.size(groupIdx); ++i) {
+                Serial.print(F("    "));
+                Serial.println(groupCommands_.get_str(groupIdx, i).c_str());
+            }
         }
         else {
             Serial.print(F("Error: "));
@@ -350,7 +381,7 @@ public:
             tokenQueue.push(command[i]);
         }
         std::stack<Token> result = evaluate_postfix(tokenQueue);
-        create_if(result.top().value);
+        create_if(get_token_value(result.top()));
     }
 
     /*!
@@ -423,8 +454,7 @@ public:
             Serial.println(name.c_str());
             return;
         }
-        Token createToken = command[command.size() - 1];
-        tokenQueue.pop();
+        tokenQueue.pop(); // Pop off move by command
 
         std::stack<Token> result = evaluate_postfix(tokenQueue);
 
@@ -477,29 +507,29 @@ public:
         poolstring_t name(stringPool_, tokenQueue.front().value.c_str());
         int groupIdx = group_exists(name);
         if (groupIdx == -1) {
-            Log.warning(F("Interpreter::execute_run_group %s does not exist\n"), name.c_str());
+            Log.warning(F("%s: %s does not exist\n"), PRINT_FUNC, name.c_str());
             return;
         }
         // Extract number of times to run group
         std::stack<Token> result = evaluate_postfix(tokenQueue);
         int numTimes = str_to_int(result.top().value);
-        Log.trace(F("Running group = %s, %d times\n"), name.c_str(), numTimes);
+        Log.trace(F("%s: Running group %s %d times\n"), PRINT_FUNC, name.c_str(), numTimes);
         // Push command for one more call to run the group
         if (numTimes > 1) {
-            poolstring_t repeatGroupCommand(stringPool_);
-            repeatGroupCommand += name.c_str();
-            repeatGroupCommand += "RunGroup(";
-            repeatGroupCommand += int_to_str(numTimes - 1, stringPool_);
-            repeatGroupCommand += ")";
-            commandQueue_.push_front(repeatGroupCommand);
-            Log.trace(F("Interpreter::execute_run_group pushing %s to the front of the command queue for next round\n"), repeatGroupCommand.c_str());
+            commandQueue_.push_front(poolstring_t(stringPool_));
+            commandQueue_.front() += name.c_str();
+            commandQueue_.front() += "RunGroup(";
+            commandQueue_.front() += int_to_str(numTimes - 1, stringPool_);
+            commandQueue_.front() += ")";
+            Log.trace(F("%s: pushed %s to the front of the command queue\n"), PRINT_FUNC, commandQueue_.front().c_str());
         }
         // Push commands from group to command queue
         int numGroupCommands = groupCommands_.size(groupIdx);
-        Log.trace(F("Interpreter::execute_run_group %d commands to add to command queue\n"), numGroupCommands);
+        Log.trace(F("%s: %d commands to add to command queue\n"), PRINT_FUNC, numGroupCommands);
         for (int i = numGroupCommands - 1; i >= 0; --i) {
-            poolstring_t commandString = groupCommands_.get_str(groupIdx, i);
-            Log.trace(F("Interpreter::execute_run_group pushing %s to front of command queue\n"), commandString.c_str());
+            int commandStringPoolIdx = groupCommands_.get_str_idx(groupIdx, i);
+            poolstring_t commandString(stringPool_, commandStringPoolIdx);
+            Log.trace(F("%s: pushing %s to front of command queue\n"), PRINT_FUNC, commandString.c_str());
             commandQueue_.push_front(commandString);
         }
     }
@@ -702,10 +732,10 @@ public:
     void create_number(poolstring_t const & name, std::stack<Token> & info) {
         int deviceIdx = device_exists(name);
         int value = str_to_int(info.top().value);
-        Log.trace(F("Interpreter::create_number %s = %d\n"), name.c_str(), value);
+        Log.trace(F("%s: %s = %d\n"), PRINT_FUNC, name.c_str(), value);
         // Create new device
         if (deviceIdx == -1) {
-            Log.trace(F("Interpreter::create_number creating new device\n"));
+            Log.trace(F("%s: new number\n"), PRINT_FUNC);
             deviceNames_.push_front(name);
             deviceTypes_.push_front(DeviceType::NUM);
             deviceInfo_0_.push_front(0);
@@ -714,14 +744,14 @@ public:
         }
         // Modify existing device
         else {
-            Log.trace(F("Interpreter::create_number modifying existing device, index %d\n"), deviceIdx);
+            Log.trace(F("%s: modifying existing number at %d\n"), PRINT_FUNC, deviceIdx);
             deviceNames_[deviceIdx] = name;
             deviceTypes_[deviceIdx] = DeviceType::NUM;
             deviceInfo_0_[deviceIdx] = 0;
             deviceInfo_1_[deviceIdx] = 0;
             deviceInfo_2_[deviceIdx] = value;
         }
-        Log.trace(F("Interpreter::create_number created\n"));        
+        Log.trace(F("%s: done\n"), PRINT_FUNC);        
     }
 
     /*!
@@ -742,8 +772,9 @@ public:
         int pinNumber = str_to_int(info.top().value);
         pinMode(pinNumber, OUTPUT);
         analogWrite(pinNumber, (int)(brightness * 2.55));
-        Log.trace(F("Interpreter::create_led %s = pin %d brightness %d\n"), name.c_str(), pinNumber, brightness);
+        Log.trace(F("%s: %s = pin %d brightness %d\n"), PRINT_FUNC, name.c_str(), pinNumber, brightness);
         if (deviceIdx == -1) {
+            Log.trace(F("%s: new LED\n"), PRINT_FUNC);
             deviceNames_.push_front(name);
             deviceTypes_.push_front(DeviceType::LED);
             deviceInfo_0_.push_front(0);
@@ -751,6 +782,7 @@ public:
             deviceInfo_2_.push_front(brightness);
         }
         else {
+            Log.trace(F("%s: modifying existing LED at %d\n"), PRINT_FUNC, deviceIdx);
             deviceNames_[deviceIdx] = name;
             deviceTypes_[deviceIdx] = DeviceType::LED;
             deviceInfo_0_[deviceIdx] = 0;
@@ -765,11 +797,16 @@ public:
         @param  condition
                 The result of evaluating the condition.
     */
-    void create_if(std::string const & condition) {
-        increase_nested_level(InterpreterStatus::CREATING_IF);
-        poolstring_t cond(stringPool_, condition.c_str());
-        commandBuffer_.push_back(cond);       
-        Log.trace(F("Interpreter::create_if condition = %s\n"), cond.c_str());
+    void create_if(int const & condition) {
+        enter_scope(InterpreterStatus::CREATING_IF);
+        Log.trace(F("%s: condition = %d\n"), PRINT_FUNC, !!condition);
+        // Expand lastCondition_ if necessary
+        while (lastCondition_.size() <= currScopeLevel_ + 1) {
+            lastCondition_.push_back(-1);
+        }
+        lastCondition_[currScopeLevel_] = !!condition;
+        ++currScopeLevel_;
+        Log.trace(F("%s: scope level %d->%d, condition = %d\n"), PRINT_FUNC, currScopeLevel_ - 1, currScopeLevel_, !!condition);
     }
 
     /*!
@@ -803,43 +840,37 @@ public:
                 and adds its commands to the commandQueue if the condition is true.
     */
     void close_if() {
-        bool evaluatedCondition = *(commandBuffer_[0].c_str()) == '1';
-        lastIfCondition_.back() = evaluatedCondition;
-        if (evaluatedCondition) {
-            Log.trace(F("Interpreter::close_if condition is true\n"));
+        int condition = lastCondition_[currScopeLevel_ - 1];
+        if (condition) {
+            Log.trace(F("%s: condition is true\n"), PRINT_FUNC);
+            // Special interpreter-only command to ensure we decrease scope level
+            // after all the instructions in the if block are done
+            commandQueue_.push_front(poolstring_t(stringPool_, "DecreaseScopeLevel"));
             // Add commands to commandQueue in reverse order,
             // since pushing from the front
-            for (int i = commandBuffer_.size() - 1; i > 0; --i) {
-                commandQueue_.push_front(commandBuffer_[i]);
+            while (!commandBuffer_.is_empty()) {
+                commandQueue_.push_front(commandBuffer_.back());
+                commandBuffer_.pop_back();
             }
-            // Push for any commands that might require in nested scope
-            lastIfCondition_.push_back(-1);
-            toPopLastIfCondition_.push_back(true);
         }
-        decrease_nested_level();
-        Log.trace(F("Interpreter::close_if closing\n"));
+        else {
+            --currScopeLevel_;
+        }
+        exit_scope();
+        Log.trace(F("%s: closed\n"), PRINT_FUNC);
     }
 
     /*!
         @brief  Begins the creation of an else command group.
     */
     void create_else() {
-        increase_nested_level(InterpreterStatus::CREATING_ELSE);
-        Log.trace(F("Interpreter::create_else\n"));
-        // Only execute else block if last if condition was false
-        poolstring_t ourCondition(stringPool_);
-        if (lastIfCondition_.back() == 0) {
-            // We should execute this else
-            Log.trace(F("Interpreter::create_else should execute\n"));
-            ourCondition = "1";
-            commandBuffer_.push_back(ourCondition);
+        enter_scope(InterpreterStatus::CREATING_ELSE);
+        Log.trace(F("%s\n"), PRINT_FUNC);
+        // Expand lastCondition_ if necessary
+        while (lastCondition_.size() <= currScopeLevel_ + 1) {
+            lastCondition_.push_back(-1);
         }
-        else {
-            // We should not execute this else
-            Log.trace(F("Interpreter::create_else should not execute\n"));
-            ourCondition = "0";
-            commandBuffer_.push_back(ourCondition);
-        }
+        ++currScopeLevel_;
     }
 
     /*!
@@ -857,8 +888,6 @@ public:
         // Add command to group
         else {
             commandBuffer_.push_back(command);
-            //commandBuffer_.push_back(stringPool_.allocate_idx());
-            //stringPool_.strcpy(commandBuffer_.back(), command.c_str());
             // Check if command introduces a '('
             if (tokens[tokens.size() - 2].is_left_bracket()) {
                 ++bracketParity_;
@@ -876,22 +905,27 @@ public:
                 directly follows an if that had a condition which was false.
     */
     void close_else() {
-        bool evaluatedCondition = *(commandBuffer_[0].c_str()) == '1';
-        // Definitely no else after this
-        lastIfCondition_.back() = -1;
-        if (evaluatedCondition) {
-            Log.trace(F("Interpreter::close_else will be executed\n"));
+        int condition = lastCondition_[currScopeLevel_ - 1];
+        // No else should be run after this
+        lastCondition_[currScopeLevel_ - 1] = -1;
+        // Only run if last condition was false
+        if (condition == 0) {
+            Log.trace(F("%s: will be executed\n"),  PRINT_FUNC);
+            // Special interpreter-only command to ensure we decrease scope level
+            // after all the instructions in the if block are done
+            commandQueue_.push_front(poolstring_t(stringPool_, "DecreaseScopeLevel"));
             // Add commands to commandQueue in reverse order,
             // since pushing from the front
-            for (int i = commandBuffer_.size() - 1; i >= 0; --i) {
-                commandQueue_.push_front(commandBuffer_[i]);
+            while (!commandBuffer_.is_empty()) {
+                commandQueue_.push_front(commandBuffer_.back());
+                commandBuffer_.pop_back();
             }
-            // Push for any commands that might require in nested scope
-            lastIfCondition_.push_back(-1);
-            toPopLastIfCondition_.push_back(true);
         }
-        decrease_nested_level();
-        Log.trace(F("Interpreter::close_else closing\n"));
+        else {
+            --currScopeLevel_;
+        }
+        exit_scope();
+        Log.trace(F("%s: closed\n"), PRINT_FUNC);
     }
 
     /*!
@@ -901,15 +935,15 @@ public:
                 The name of the command group to be created.
     */
     void create_group(poolstring_t const & name) {
-        increase_nested_level(InterpreterStatus::CREATING_GROUP);
+        enter_scope(InterpreterStatus::CREATING_GROUP);
         int groupIdx = group_exists(name);
         if (groupIdx == -1) {
-            Log.trace(F("Interpreter::create_group new group %s\n"), name.c_str());
+            Log.trace(F("%s: new group %s\n"), PRINT_FUNC, name.c_str());
             groupNames_.push_front(name);
             groupCommands_.push_front();
         }
         else {
-            Log.trace(F("Interpreter::create_group modifying existing group %s\n"), name.c_str());
+            Log.trace(F("%s: modifying existing group %s\n"), PRINT_FUNC, name.c_str());
             groupNames_[groupIdx] = name;
             groupCommands_.clear(groupIdx);
         }
@@ -923,16 +957,16 @@ public:
                 The command to add to the command group.
     */
     void add_to_group(poolstring_t const & command) {
-        Log.trace(F("Interpreter::add_to_group(%s)\n"), command.c_str());
+        Log.trace(F("%s: adding %s\n"), PRINT_FUNC, command.c_str());
         std::vector<Token> tokens = tokenizer_.tokenize(std::string(command.c_str()));
         // Group is closed
         if (bracketParity_ == 0 && tokens.size() == 2 && tokens[0].is_right_bracket()) {
-            Log.trace(F("Interpreter::add_to_group group will be closed\n"));
+            Log.trace(F("%s: group will be closed\n"), PRINT_FUNC);
             close_group();
         }
         // Add command to group
         else {
-            Log.trace(F("Interpreter::add_to_group adding %s to group %s\n"), command.c_str(), lastGroupName_.c_str());
+            Log.trace(F("%s: adding %s to group %s\n"), PRINT_FUNC, command.c_str(), lastGroupName_.c_str());
             int groupIdx = group_exists(lastGroupName_);
             groupCommands_.push_back(groupIdx, command);
             // Check if command introduces a '('
@@ -943,7 +977,7 @@ public:
             else if (tokens.size() == 2 && tokens[0].is_right_bracket()) {
                 --bracketParity_;
             }
-            Log.trace(F("Interpreter::add_to_group bracket parity %d\n"), bracketParity_);
+            Log.trace(F("%s: bracket parity %d\n"), PRINT_FUNC, bracketParity_);
         }
     }
 
@@ -951,25 +985,25 @@ public:
         @brief  Finishes the creation of a command group.
     */
     void close_group() {
-        Log.trace(F("Interpreter::close_group closing %s\n"), lastGroupName_.c_str());
+        Log.trace(F("%s: closing %s\n"), PRINT_FUNC, lastGroupName_.c_str());
         lastGroupName_ = "";
-        decrease_nested_level();
+        exit_scope();
     }
 
     /*!
-        @brief  Increases the nested level of the interpreter.
+        @brief  Sets the interpreter to enter a scope.
 
         @param  status
                 The new status of the interpreter.
     */
-    void increase_nested_level(InterpreterStatus status) {
+    void enter_scope(InterpreterStatus status) {
         status_ = status;
     }
 
     /*!
-        @brief  Decreases the nested level of the interpreter
+        @brief  Exits the current scope of the interpreter.
     */
-    void decrease_nested_level() {
+    void exit_scope() {
         status_ = InterpreterStatus::NORMAL;
         commandBuffer_.clear();
     }
@@ -994,8 +1028,9 @@ private:
     InterpreterStatus status_;
 
     /** Used to check for else/elseif blocks */
-    Deque<int, Alloc> lastIfCondition_;
-    Deque<int, Alloc> toPopLastIfCondition_;
+    int               currScopeLevel_ = 0;
+    Deque<int, Alloc> lastCondition_;
+
     int bracketParity_;
 
     Parser parser_;
