@@ -340,7 +340,7 @@ public:
             case NUM:
                 Serial.print(name.c_str());
                 Serial.print(F(": number storing "));
-                Serial.println(deviceInfo_2_[deviceType]);
+                Serial.println(deviceInfo_2_[deviceIdx]);
                 break;
             case LED:
                 Serial.print(name.c_str());
@@ -348,7 +348,7 @@ public:
                 Serial.print(deviceInfo_1_[deviceType]);
                 Serial.print(F(" at "));
                 Serial.print(deviceInfo_2_[deviceType]);
-                Serial.print(F("%"));
+                Serial.println(F("%"));
                 break;
             };
         }
@@ -519,6 +519,15 @@ public:
             commandQueue_.front() += name.c_str();
             commandQueue_.front() += "RunGroup(";
             commandQueue_.front() += int_to_str(numTimes - 1, stringPool_);
+            commandQueue_.front() += ")";
+            Log.trace(F("%s: pushed %s to the front of the command queue\n"), PRINT_FUNC, commandQueue_.front().c_str());
+        }
+        // Continuously run the group
+        else if (numTimes == -1) {
+            commandQueue_.push_front(poolstring_t(stringPool_));
+            commandQueue_.front() += name.c_str();
+            commandQueue_.front() += "RunGroup(";
+            commandQueue_.front() += "-1";
             commandQueue_.front() += ")";
             Log.trace(F("%s: pushed %s to the front of the command queue\n"), PRINT_FUNC, commandQueue_.front().c_str());
         }
