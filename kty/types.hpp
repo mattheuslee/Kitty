@@ -12,5 +12,5 @@
 #else
 /** String representation of type */
 #define TYPE_STR(x) typeid(x).name()
-#define PRINT_FUNC __FUNCTION__
+#define PRINT_FUNC __PRETTY_FUNCTION__
 #endif
