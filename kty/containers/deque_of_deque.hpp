@@ -76,16 +76,16 @@ public:
         @return The string.
                 This string is a copy of the string stored in the deque.
                 An empty sting is returned if i or j are invalid.
-    */                
+    */
     poolstring_t get_str(int const & i, int const & j) {
         poolstring_t str(*stringPool_);
         Log.trace(F("DequeDequePoolString::get_str(%d, %d)\n"), i, j);
         if (i < 0 || i >= size()) {
-            Log.warning(F("DequeDequePoolString::get_str accessing index i = %d when size is %d (undefined behaviour)\n"), i, size());
+            Log.warning(F("DequeDequePoolString::get_str accessing index i = %d when size is %d\n"), i, size());
             return str;
         }
         if (j < 0 || j >= size(i)) {
-            Log.warning(F("DequeDequePoolString::get_str accessing index j = %d when size[%d] is %d (undefined behaviour)\n"), j, i, size(i));            
+            Log.warning(F("DequeDequePoolString::get_str accessing index j = %d when size[%d] is %d\n"), j, i, size(i));            
             return str;
         }
         int stringPoolIdx = (int)(strings_[i].c_str()[j]);
@@ -95,15 +95,42 @@ public:
     }
 
     /*!
+        @brief  Gets the string pool index of the jth string of the ith deque.
+
+        @param  i
+                The deque index.
+        
+        @param  j
+                The string index within the deque.
+        
+        @return The string pool index.
+                -1 is returned if i or j are invalid.
+    */
+    int get_str_idx(int const & i, int const & j) {
+        Log.trace(F("%s: (%d, %d)\n"), PRINT_FUNC, i, j);
+        if (i < 0 || i >= size()) {
+            Log.warning(F("%s: accessing index i = %d when size is %d\n"), PRINT_FUNC, i, size());
+            return -1;
+        }
+        if (j < 0 || j >= size(i)) {
+            Log.warning(F("%s: accessing index j = %d when size[%d] is %d\n"), PRINT_FUNC, j, i, size(i));            
+            return -1;
+        }
+        int stringPoolIdx = (int)(strings_[i].c_str()[j]);
+        Log.trace(F("%s: idx is %d\n"), PRINT_FUNC, stringPoolIdx);
+        return stringPoolIdx;
+    }
+
+    /*!
         @brief  Removes all strings from the ith deque
 
         @param  i
                 The deque index.
     */
     void clear(int const & i) {
-        Log.trace(F("DequeDequePoolString::clear(%d)\n"), i);
+        Log.trace(F("%s: (%d)\n"), PRINT_FUNC, i);
         if (i < 0 || i >= size()) {
-            Log.warning(F("DequeDequePoolString::clear accessing index i = %d when size is %d\n"), i, size());
+            Log.warning(F("%s: accessing index i = %d when size is %d\n"), PRINT_FUNC, i, size());
             return;
         }
         char* stringPoolIndices = strings_[i].c_str();
