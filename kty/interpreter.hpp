@@ -345,9 +345,9 @@ public:
             case LED:
                 Serial.print(name.c_str());
                 Serial.print(F(": LED using pin "));
-                Serial.print(deviceInfo_1_[deviceType]);
+                Serial.print(deviceInfo_1_[deviceIdx]);
                 Serial.print(F(" at "));
-                Serial.print(deviceInfo_2_[deviceType]);
+                Serial.print(deviceInfo_2_[deviceIdx]);
                 Serial.println(F("%"));
                 break;
             };
@@ -460,10 +460,10 @@ public:
         int displacement, durationMs = 0;
         // There will be an additional argument if it is move by for
         if (result.size() > 1) {
-            durationMs = str_to_int(result.top().value);
+            durationMs = get_token_value(result.top());
             result.pop();
         }
-        displacement = str_to_int(result.top().value);
+        displacement = get_token_value(result.top());
 
         // Execute move
         int & deviceInfo1 = deviceInfo_1_[deviceIdx];
