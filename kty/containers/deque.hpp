@@ -193,14 +193,16 @@ public:
 
         @param  value
                 The value to push to the front of the deque.
+
+        @return True if the push was successful, false otherwise.
     */
-    virtual void push_front(T const & value) {
+    virtual bool push_front(T const & value) {
         Log.trace(F("%s:\n"), PRINT_FUNC);
         // Allocate new node
         Node* toInsert = (Node*)(allocator_->allocate());
         if (toInsert == nullptr) {
             Log.warning(F("%s: Unable to push back due to invalid allocated address\n"), PRINT_FUNC);
-            return;
+            return false;
         }
         toInsert->value = value;
         Node* next = head_->next;
@@ -211,6 +213,7 @@ public:
         head_->next = toInsert;
         ++size_;
         Log.trace(F("%s: done\n"), PRINT_FUNC);
+        return true;
     }
 
 #if 0
@@ -263,14 +266,16 @@ public:
 
         @param  value
                 The value to push to the back of the deque.
+
+        @return True if the push was successful, false otherwise.
     */
-    virtual void push_back(T const & value) {
+    virtual bool push_back(T const & value) {
         Log.trace(F("%s:\n"), PRINT_FUNC);
         // Allocate new node
         Node* toInsert = (Node*)(allocator_->allocate());
         if (toInsert == nullptr) {
             Log.warning(F("%s: Unable to push back due to invalid allocated address\n"), PRINT_FUNC);
-            return;
+            return false;
         }
         toInsert->value = T(value);
         Node* prev = head_->prev;
@@ -281,6 +286,7 @@ public:
         head_->prev = toInsert;
         ++size_;
         Log.trace(F("%s: done\n"), PRINT_FUNC);
+        return true;
     }
 
 #if 0
