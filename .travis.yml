@@ -23,6 +23,7 @@ script:
    - git clone https://github.com/mmurdoch/arduinounit.git
    - make -B test
    - make -B console
+   - make -B preloaded_console
 
 # Generate and deploy documentation
 after_success:

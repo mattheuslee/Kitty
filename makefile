@@ -23,3 +23,9 @@ console : ./console/console.cpp
 
 run_console : console
 	./console_exec
+
+preloaded_console : ./console/preloaded_console.cpp
+	$(CC) -isystem ${ARDUINO_UNIT_SRC_DIR} -isystem ${KITTY_SRC_DIR} -o preloaded_console_exec $< ${ARDUINO_UNIT_SRC} ${ARDUINO_UNIT_MOCK} $(NON_COV_CFLAGS) -g
+
+run_preloaded_console : preloaded_console
+	./preloaded_console_exec
