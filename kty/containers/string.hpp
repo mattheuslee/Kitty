@@ -2,8 +2,14 @@
 
 #include <kty/stl_impl.hpp>
 #include <cstring>
+#if defined(ARDUINO)
+#define intptr_t unsigned int
+#else
+#include <cstdint>
+#endif
 
 #include <kty/containers/deque.hpp>
+#include <kty/types.hpp>
 
 namespace kty {
 
@@ -30,10 +36,7 @@ public:
         @brief  Prints stats about the string pool.
     */
     void stat() const {
-        Serial.print(F("StringPool: num taken = "));
-        Serial.print(numTaken_);
-        Serial.print(F(", max num taken = "));
-        Serial.println(maxNumTaken_);
+        Log.notice(F("%s: num taken = %d, max num taken = %d\n"), PRINT_FUNC, numTaken_, maxNumTaken_);
     }
 
     /*!
@@ -47,10 +50,7 @@ public:
         @brief  Prints the addresses used by the string database
     */
     void dump_addresses() const {
-        Serial.print(F("StringPool: Pool addresses = "));
-        Serial.print((unsigned int)pool_);
-        Serial.print(F(" to "));
-        Serial.println((unsigned int)(pool_ + N * (S + 1) - 1));
+        Log.notice(F("%s: Pool addresses = %d to %d\n"), PRINT_FUNC, (intptr_t)pool_, (intptr_t)(pool_ + N * (S + 1) - 1));
     }
 
     /*!
@@ -85,15 +85,15 @@ public:
             if (taken_[i] == 0) {
                 ++taken_[i];
                 ++numTaken_;
+                Log.trace(F("%s: Allocating index %d\n"), PRINT_FUNC, i);                
                 if (numTaken_ > maxNumTaken_) {
                     maxNumTaken_ = numTaken_;
-                    //Log.trace(F("StringPool::allocate_idx new maxNumTaken %d\n"), maxNumTaken_);
+                    Log.trace(F("%s: new maxNumTaken %d\n"), PRINT_FUNC, maxNumTaken_);
                 }
-                Log.trace(F("StringPool::allocate_idx Allocating index %d\n"), i);                
                 return i;
             }
         }
-        Log.warning(F("StringPool::allocate_idx No more string indices to allocate\n"));
+        Log.warning(F("%s: No more string indices to allocate\n"), PRINT_FUNC);
         return -1;
     }
 
@@ -110,7 +110,7 @@ public:
         if (idx >=0 && idx < N) {
             return taken_[idx];
         }
-        Log.warning(F("StringPool::num_ref: Index %d did not come from pool\n"), idx);
+        Log.warning(F("%s: Index %d did not come from pool\n"), PRINT_FUNC, idx);
         return -1;
     }
 
@@ -127,7 +127,7 @@ public:
             ++taken_[idx];
             return true;
         }
-        Log.warning(F("StringPool::inc_ref_count: Index %d did not come from pool\n"), idx);
+        Log.warning(F("%s: Index %d did not come from pool\n"), PRINT_FUNC, idx);
         return false;
     }
 
@@ -144,7 +144,7 @@ public:
             --taken_[idx];
             return true;
         }
-        Log.warning(F("StringPool::dec_ref_count: Index %d did not come from pool\n"), idx);
+        Log.warning(F("%s: Index %d did not come from pool\n"), PRINT_FUNC, idx);
         return false;
     }
 
@@ -157,26 +157,26 @@ public:
         @return True if the deallocation was successful, false otherwise.
     */
     bool deallocate_idx(int const & idx) {
-        if (idx >= 0 && idx < N) {
-            if (taken_[idx] > 0) {
-                --taken_[idx];
-            }
-            else {
-                Log.warning(F("StringPool::deallocate_idx Index %d has already been previously deallocated\n"), idx);
-                return false;
-            }
-            if (taken_[idx] == 0) {
-                --numTaken_;
-                Log.trace(F("StringPool::deallocate_idx Index %d deallocated successfully\n"), idx);                
-                return true;
-            }
-            else {
-                Log.trace(F("StringPool::deallocate_idx Index %d is not the last reference\n"), idx);
-                return true;
-            }
+        if (idx < 0 || idx >= N) {
+            Log.warning(F("%s: Index %d did not come from pool\n"), PRINT_FUNC, idx);
+            return false;
         }
-        Log.warning(F("StringPool::deallocate_idx Index %d did not come from pool\n"), idx);
-        return false;
+        if (taken_[idx] > 0) {
+            --taken_[idx];
+        }
+        else {
+            Log.warning(F("%s: Index %d has already been previously deallocated\n"), PRINT_FUNC, idx);
+            return false;
+        }
+        if (taken_[idx] == 0) {
+            --numTaken_;
+            Log.trace(F("%s: Index %d deallocated successfully\n"), PRINT_FUNC, idx);                
+            return true;
+        }
+        else {
+            Log.trace(F("%s: Index %d is not the last reference\n"), PRINT_FUNC, idx);
+            return true;
+        }
     }
 
     /*!
@@ -201,7 +201,7 @@ public:
         if (idx >= 0 && idx < N) {
             return const_cast<char*>(pool_) + (idx * (S + 1));
         }
-        Log.warning(F("StringPool::c_str Index %d is invalid, index range is [0, %d]\n"), idx, N - 1);
+        Log.warning(F("%s: Index %d is invalid, index range is [0, %d]\n"), PRINT_FUNC, idx, N - 1);
         return nullptr;
     }
 
@@ -275,7 +275,6 @@ public:
         *c_str() = '\0';
     }
 
-#if 0
     /*!
         @brief  Constructor for a pool string.
                 Assumes the index given has already been allocated by the pool.
@@ -291,7 +290,6 @@ public:
         poolIdx_ = idx;
         pool_->inc_ref_count(poolIdx_);
     }
-#endif
 
     /*!
         @brief  Constructor for a pool string.
@@ -304,9 +302,9 @@ public:
                 The initial string to store.
     */
     PoolString(Pool & pool, char const * str) : pool_(&pool) {
-        Log.trace(F("PoolString::constructor(%s)\n"), str);
+        Log.trace(F("%s: str = \n"), PRINT_FUNC, str);
         if (::strlen(str) > pool_->max_str_len()) {
-            Log.warning(F("PoolString::constructor length of str %d is above maximum of %d, will be truncated\n"), ::strlen(str), pool_->max_str_len());
+            Log.warning(F("%s: length of str %d is above maximum of %d, will be truncated\n"), PRINT_FUNC, ::strlen(str), pool_->max_str_len());
         }
         poolIdx_ = pool_->allocate_idx();
         operator=(str);
@@ -357,18 +355,18 @@ public:
                 The other pool string to copy from.
     */
     void operator=(PoolString const & str) {
-        Log.trace(F("PoolString::copy=\n"));        
+        Log.trace(F("%s: str = %s\n"), PRINT_FUNC, str.c_str());        
         if (pool_ != nullptr && pool_->owns(poolIdx_)) {
-            Log.trace(F("PoolString::copy= properly initialised string\n"));        
+            Log.trace(F("%s: properly initialised string\n"), PRINT_FUNC);        
             pool_->deallocate_idx(poolIdx_);
         }
         else {
-            Log.trace(F("PoolString::copy= non-properly initialised string\n"));        
+            Log.trace(F("%s: non-properly initialised string\n"), PRINT_FUNC);        
         }
         pool_ = str.pool_;
         poolIdx_ = pool_->allocate_idx();
         pool_->strcpy(poolIdx_, str.c_str());
-        Log.trace(F("PoolString::copy= done\n"));        
+        Log.trace(F("%s: done\n"), PRINT_FUNC);        
     }
 
 #if 0
@@ -392,7 +390,7 @@ public:
     ~PoolString() {
         // Only return if pool idx is valid
         if (poolIdx_ >= 0) {
-            Log.trace(F("PoolString::destructor returning %d to the pool\n"), poolIdx_);
+            Log.trace(F("%s: returning %d: %s to the pool\n"), PRINT_FUNC, poolIdx_, c_str());
             pool_->deallocate_idx(poolIdx_);
         }
     }
