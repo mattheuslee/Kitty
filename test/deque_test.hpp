@@ -19,6 +19,9 @@ test(deque)
         assertEqual(deque[i], i, "i = " << i);
     }
     assertEqual(deque.size(), maxSize);
+    assertFalse(deque.push_front(1));
+    assertFalse(deque.push_back(1));
+
     for (int i = 0; i < maxSize; ++i) {
         deque.pop_back();
     }

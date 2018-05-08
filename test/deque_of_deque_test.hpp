@@ -47,6 +47,9 @@ test(deque_of_deque_dequedequepoolstring)
     strings.clear(0);
     assertEqual(strings.size(0), 0);
     assertEqual(strings.size(1), 2);
+    assertEqual(strings.get_str_idx(0, 0), -1); // Invalid i
+    assertEqual(strings.get_str_idx(1, 2), -1); // Invalid j
+
     strings.clear(1);
     assertEqual(strings.size(0), 0);
     assertEqual(strings.size(1), 0);

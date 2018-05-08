@@ -137,15 +137,15 @@ test(interpreter_fizz_buzz_2)
     Deque<PoolString<decltype(stringPool)>, decltype(alloc)> commands(alloc);
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "fizzbuzz IsGroup ("));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    If (num % 3 = 0 & num % 5 = 0) ("));
-    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        'FizzBuzz'"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        \"FizzBuzz\""));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    )"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    Else ("));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        If (num % 3 = 0) ("));
-    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            'Fizz'"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            \"Fizz\""));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        )"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        Else ("));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            If (num % 5 = 0) ("));
-    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "                'Buzz'"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "                \"Buzz\""));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            )"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            Else ("));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "                num"));
