@@ -1,7 +1,14 @@
 #pragma once
 
 #include <kty/stl_impl.hpp>
+#if defined(ARDUINO)
+#define intptr_t unsigned int
+#else
+#include <cstdint>
+#endif
 #include <cstring>
+
+#include <kty/types.hpp>
 
 namespace kty {
 
@@ -19,7 +26,7 @@ public:
     */
     Allocator() {
         memset((void*)pool_, 0, N * B);
-        memset((void*)taken_, false, N);
+        memset((void*)taken_, false, N * sizeof(int));
         numTaken_ = 0;
         maxNumTaken_ = 0;
     }
@@ -27,11 +34,8 @@ public:
     /*!
         @brief  Prints stats about the allocator.
     */
-    void stat() {
-        Serial.print(F("Allocator: num taken = "));
-        Serial.print(numTaken_);
-        Serial.print(F(", max num taken = "));
-        Serial.println(maxNumTaken_);
+    void stat() const {
+        Log.notice(F("%s: num taken = %d, max num taken = %d\n"), PRINT_FUNC, numTaken_, maxNumTaken_);
     }
 
     /*!
@@ -44,11 +48,8 @@ public:
     /*!
         @brief  Prints the addresses used by the allocator
     */
-    void dump_addresses() {
-        Serial.print(F("Allocator: Pool addresses = "));
-        Serial.print((unsigned int)pool_);
-        Serial.print(F(" to "));
-        Serial.println((unsigned int)(pool_ + N * B - 1));
+    void dump_addresses() const {
+        Log.notice(F("%s: Pool addresses = %d to %d\n"), PRINT_FUNC, (intptr_t)pool_, (intptr_t)(pool_ + N * B - 1));
     }
 
     /*!
@@ -60,7 +61,7 @@ public:
         @return True if the address is owned by this allocator, false otherwise.
     */
     template <typename T>
-    bool owns(T* ptr) {
+    bool owns(T* ptr) const {
         char* ptr_ = (char*)ptr;
         return ptr_ - pool_ >= 0 && ptr_ - pool_ < N * B;
     }
@@ -82,21 +83,23 @@ public:
                 If no memory is available, nullptr is returned.
     */
     void* allocate() {
+        if (numTaken_ == N) {
+            Log.warning(F("%s: Could not allocate new block from pool\n"), PRINT_FUNC);
+            return nullptr;
+        }
         for (int i = 0; i < N; ++i) {
-            if (!taken_[i]) {
-                taken_[i] = true;
+            if (taken_[i] == 0) {
+                ++taken_[i];
                 ++numTaken_;
+                Log.trace(F("%s: Allocating %d\n"), PRINT_FUNC, i);
                 if (numTaken_ > maxNumTaken_) {
                     maxNumTaken_ = numTaken_;
-                    //Log.trace(F("Allocator: new maxNumTaken %d\n"), maxNumTaken_);
+                    Log.trace(F("%s: new maxNumTaken %d\n"), PRINT_FUNC, maxNumTaken_);
                 }
-                Log.trace(F("Allocator::allocate %d\n"), i);
                 memset((void*)(pool_ + (B * i)), 0, B);
                 return (void*)(pool_ + (B * i));
             }
         }
-        Log.warning(F("Allocator: Could not allocate new block from pool\n"));
-        return nullptr;
     }
 
     /*!
@@ -114,22 +117,31 @@ public:
     bool deallocate(T* ptr) {
         char* ptr_ = (char*)ptr;
         if (!owns(ptr_)) {
-            Log.warning(F("Allocator: Pointer given to deallocate did not come from pool\n"));
+            Log.warning(F("%s: %d given to deallocate did not come from pool\n"), PRINT_FUNC, (ptr_ - pool_) / B);
             return false;
         }
-        if (taken_[(ptr_ - pool_) / B]) {
-            taken_[(ptr_ - pool_) / B] = false;
-            Log.trace(F("Allocator::deallocate %d\n"), (ptr_ - pool_) / B);
+        int idx = (ptr_ - pool_) / B;
+        if (taken_[idx] > 0) {
+            --taken_[idx];
+        }
+        else {
+            Log.warning(F("%s: %d given to deallocate has already been previously deallocated\n"), PRINT_FUNC, (ptr_ - pool_) / B);
+            return false;
+        }
+        if (taken_[idx] == 0) {
             --numTaken_;
+            Log.trace(F("%s: deallocated %d successfully\n"), PRINT_FUNC, (ptr_ - pool_) / B);
             return true;
         }
-        Log.warning(F("Allocator: Pointer given to deallocate has already been previously deallocated\n"));
-        return false;
+        else {
+            Log.trace(F("%s: %d is not the last reference\n"), PRINT_FUNC, (ptr_ - pool_) / B);
+            return true;
+        }
     }
 
 private:
     char pool_[N * B];
-    bool taken_[N];
+    int taken_[N];
     int numTaken_;
     int maxNumTaken_;
 
