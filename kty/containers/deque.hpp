@@ -38,7 +38,7 @@ public:
                 The allocator for the deque nodes.
     */
     Deque(Alloc & allocator) : allocator_(&allocator) {
-        Log.trace(F("Deque<%s>::constructor\n"), TYPE_STR(T));
+        Log.trace(F("%s:\n"), PRINT_FUNC);
         static_assert(sizeof(Node) <= Sizes::alloc_size, "Size of Deque<T, Alloc>::Node can be no larger than kty::Sizes::alloc_size, due to fixed allocator memory block size.");
         size_ = 0;
         head_ = (Node*)(allocator_->allocate());
@@ -60,6 +60,7 @@ public:
     }
 #endif
 
+#if 0
     /*!
         @brief  Copy constructor for the deque.
 
@@ -67,10 +68,18 @@ public:
                 The other deque to copy from.
     */
     Deque(Deque<T, Alloc> const & other) : allocator_(other.allocator_) {
-        Log.trace(F("Deque<%s>::copy constructor\n"), TYPE_STR(T));
+        Log.trace(F("%s\n"), PRINT_FUNC);
         static_assert(sizeof(Node) <= Sizes::alloc_size, "Size of Deque<T, Alloc>::Node can be no larger than kty::Sizes::alloc_size, due to fixed allocator memory block size.");
-        operator=(other);
+        size_ = 0;
+        head_ = (Node*)(allocator_->allocate());
+        head_->next = head_;
+        head_->prev = head_;
+        // Create list by copying from other list
+        for (int i = 0; i < other.size(); ++i) {
+            push_back(other[i]);
+        }
     }
+#endif
 
 #if 0
     /*!
@@ -102,6 +111,7 @@ public:
     }
 #endif
 
+#if 0
     /*!
         @brief  Copy assignment operator for deque
                 Will perform copy construction on all elements.
@@ -110,15 +120,15 @@ public:
                 The deque to copy elements from.
     */
     void operator=(Deque<T, Alloc> const & other) {
-        Log.trace(F("Deque<%s>::copy=\n"), TYPE_STR(T));
+        Log.trace(F("%s:\n"), PRINT_FUNC);
         // Only clear if we are starting with a properly initialised deque
         if (size_ >= 0 && allocator_ != nullptr && allocator_->owns(head_)) {
-            Log.trace(F("Deque<%s>::copy= properly initialised deque\n"), TYPE_STR(T));
+            Log.trace(F("%s: properly initialised deque\n"), PRINT_FUNC);
             clear();
             allocator_->deallocate(head_);
         }
         else {
-            Log.trace(F("Deque<%s>::copy= non-initialised deque\n"), TYPE_STR(T));            
+            Log.trace(F("%s: non-initialised deque\n"), PRINT_FUNC);            
         }
         // Reset
         size_ = 0;
@@ -130,20 +140,20 @@ public:
         head_->prev = head_;
         // Create list by copying from other list
         for (int i = 0; i < other.size(); ++i) {
-            Log.trace(F("Deque<%s>::copy= i = %d\n"), TYPE_STR(T), i);
             push_back(other[i]);
         }
-        Log.trace(F("Deque<%s>::copy= done, size = %d\n"), TYPE_STR(T), size_);
+        Log.trace(F("%s: done, size = %d\n"), PRINT_FUNC, size_);
     }
+#endif
 
     /*!
         @brief  Destructor for the deque.
     */
     virtual ~Deque() {
-        Log.trace(F("Deque<%s>::destructor\n"), TYPE_STR(T));
+        Log.trace(F("%s\n"), PRINT_FUNC);
         // Only clear if we are starting with a properly initialised deque
         if (size_ >= 0 && allocator_ != nullptr && allocator_->owns(head_)) {
-            Log.trace(F("Deque<%s>::destructor properly initialised deque\n"), TYPE_STR(T));
+            Log.trace(F("%s: properly initialised deque\n"), PRINT_FUNC);
             clear();
             allocator_->deallocate(head_);
         }
@@ -155,7 +165,7 @@ public:
         @return The number of elements in the deque.
     */
     virtual int size() const {
-        Log.trace(F("Deque<%s>::size = %d\n"), TYPE_STR(T), size_);
+        //Log.trace(F("%s: size = %d\n"), PRINT_FUNC, size_);
         return size_;
     }
 
@@ -172,7 +182,7 @@ public:
         @brief  Clears all elements in the deque, leaving it empty.
     */
     virtual void clear() {
-        Log.trace(F("Deque<%s>::clear\n"), TYPE_STR(T));
+        Log.trace(F("%s:\n"), PRINT_FUNC);
         while (!is_empty()) {
             pop_front();
         }
@@ -185,10 +195,13 @@ public:
                 The value to push to the front of the deque.
     */
     virtual void push_front(T const & value) {
-        Log.trace(F("Deque<%s>::push_front copy\n"), TYPE_STR(T));
-        //Log.trace(F("Deque::push_front copy\n"));
+        Log.trace(F("%s:\n"), PRINT_FUNC);
         // Allocate new node
         Node* toInsert = (Node*)(allocator_->allocate());
+        if (toInsert == nullptr) {
+            Log.warning(F("%s: Unable to push back due to invalid allocated address\n"), PRINT_FUNC);
+            return;
+        }
         toInsert->value = value;
         Node* next = head_->next;
         // Rearrange pointers
@@ -197,7 +210,7 @@ public:
         next->prev = toInsert;
         head_->next = toInsert;
         ++size_;
-        Log.trace(F("Deque<%s>::push_front copy done\n"), TYPE_STR(T));
+        Log.trace(F("%s: done\n"), PRINT_FUNC);
     }
 
 #if 0
@@ -228,6 +241,7 @@ public:
                 If there is no value to pop, does nothing.
     */
     virtual void pop_front() {
+        Log.trace(F("%s:\n"), PRINT_FUNC);
         if (is_empty()) {
             return;
         }
@@ -240,6 +254,7 @@ public:
         toRemove->value.~T();
         allocator_->deallocate(toRemove);
         --size_;
+        Log.trace(F("%s: done\n"), PRINT_FUNC);
     }
 
     /*!
@@ -250,8 +265,13 @@ public:
                 The value to push to the back of the deque.
     */
     virtual void push_back(T const & value) {
+        Log.trace(F("%s:\n"), PRINT_FUNC);
         // Allocate new node
         Node* toInsert = (Node*)(allocator_->allocate());
+        if (toInsert == nullptr) {
+            Log.warning(F("%s: Unable to push back due to invalid allocated address\n"), PRINT_FUNC);
+            return;
+        }
         toInsert->value = T(value);
         Node* prev = head_->prev;
         // Rearrange pointers
@@ -260,6 +280,7 @@ public:
         prev->next = toInsert;
         head_->prev = toInsert;
         ++size_;
+        Log.trace(F("%s: done\n"), PRINT_FUNC);
     }
 
 #if 0
@@ -289,6 +310,7 @@ public:
                 If there is no value to pop, does nothing.
     */
     virtual void pop_back() {
+        Log.trace(F("%s:\n"), PRINT_FUNC);
         if (is_empty()) {
             return;
         }
@@ -301,6 +323,7 @@ public:
         toRemove->value.~T();
         allocator_->deallocate(toRemove);
         --size_;
+        Log.trace(F("%s: done\n"), PRINT_FUNC);
     }
 
     /*!
@@ -310,9 +333,9 @@ public:
         @return A reference to the element.
     */
     virtual T& front() {
-        Log.trace(F("Deque<%s>::front size = %d\n"), TYPE_STR(T), size());
+        Log.trace(F("%s:\n"), PRINT_FUNC);
         if (size() == 0) {
-            Log.warning(F("Deque<%s>::front but size = 0 (undefined behaviour)\n"), TYPE_STR(T));
+            Log.warning(F("%s: size = 0 (undefined behaviour)\n"), PRINT_FUNC);
         }
         return head_->next->value;
     }
@@ -324,9 +347,9 @@ public:
         @return A reference to the element.
     */
     virtual T& back() {
-        Log.trace(F("Deque<%s>::front size = %d\n"), TYPE_STR(T), size());
+        Log.trace(F("%s:\n"), PRINT_FUNC);
         if (size() == 0) {
-            Log.warning(F("Deque<%s>::back but size = 0 (undefined behaviour)\n"), TYPE_STR(T));
+            Log.warning(F("%s: size = 0 (undefined behaviour)\n"), PRINT_FUNC);
         }        
         return head_->prev->value;
     }
@@ -341,18 +364,19 @@ public:
         @return A reference to the element.
     */
     virtual T& operator[](int const & i) {
-        Log.trace(F("Deque::ref[%d]\n"), i);
+        //Log.trace(F("%s:\n"), PRINT_FUNC, i);
         if (i < 0 || i >= size_) {
-            Log.warning(F("Deque::ref[] accessing index %d when size is %d (undefined behaviour)\n"), i, size_);
+            Log.warning(F("%s: accessing index %d when size is %d (undefined behaviour)\n"), PRINT_FUNC, i, i, size_);
         }
         Node* curr = head_->next;
         for (int j = 0; j < i; ++j) {
             curr = curr->next;
         }
-        Log.trace(F("Deque::ref[%d] returning\n"), i);
+        //Log.trace(F("%s: returning\n"), PRINT_FUNC, i);
         return curr->value;
     }
 
+#if 0
     /*!
         @brief  Returns a copy to the ith-indexed element of the deque.
                 Has undefined behaviour if the deque has less than i elements. 
@@ -363,16 +387,18 @@ public:
         @return A reference to the element.
     */
     virtual T operator[](int const & i) const {
-        Log.trace(F("Deque::copy[%d]\n"), i);
+        //Log.trace(F("%s:\n"), PRINT_FUNC, i);
         if (i < 0 || i >= size_) {
-            Log.warning(F("Deque::copy[] accessing index %d when size if %d (undefined behaviour)\n"), i, size_);
+            Log.warning(F("%s: accessing index %d when size if %d (undefined behaviour)\n"), PRINT_FUNC, i, i, size_);
         }
         Node* curr = head_->next;
         for (int j = 0; j < i; ++j) {
             curr = curr->next;
         }
+        //Log.trace(F("%s: returning\n"), PRINT_FUNC, i);
         return curr->value;
     }
+#endif
 
 protected:
     /** Pointer to the head node of the internal linked list */

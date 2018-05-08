@@ -45,7 +45,7 @@ test(deque)
     assertEqual(deque.front(), 1);
     assertEqual(deque.back(), 2);
 
-    const Deque<int, decltype(alloc)> deque2(deque);
+    /*const Deque<int, decltype(alloc)> deque2(deque);
     assertEqual(deque2[0], 1);
     assertEqual(deque2[1], 2);
 
@@ -57,5 +57,5 @@ test(deque)
 
     deque = deque2;
     assertEqual(deque[0], 1);
-    assertEqual(deque[1], 2);
+    assertEqual(deque[1], 2);*/
 }
