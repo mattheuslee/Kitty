@@ -209,7 +209,6 @@ public:
     void execute(poolstring_t command) {
         remove_str_whitespace(command);
         commandQueue_.push_back(command);
-        //execute_just_command(command);
         execute_command_queue();
     }
 

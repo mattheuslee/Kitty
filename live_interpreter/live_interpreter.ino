@@ -39,7 +39,6 @@ void loop() {
     interface.print_prompt(prefix);
     command = interface.get_next_command();
     interface.echo_command(command);
-    interpreter.execute_just_command(command);
-    interpreter.execute_command_queue();
+    interpreter.execute(command);
     prefix = interpreter.get_prompt_prefix();
 }
