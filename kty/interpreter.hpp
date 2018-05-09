@@ -85,6 +85,7 @@ public:
         status_ = InterpreterStatus::NORMAL;
         currScopeLevel_ = 0;          // Start at scope level 0
         lastCondition_.push_back(-1); // Last condition at scope level 0 = null
+        bracketParity_ = 0;
     }
 
     /*!

@@ -270,7 +270,7 @@ public:
                 A reference to the pool which this string is using to 
                 store the actual values.
     */
-    PoolString(Pool & pool) : pool_(&pool) {
+    explicit PoolString(Pool & pool) : pool_(&pool) {
         poolIdx_ = pool_->allocate_idx();
         *c_str() = '\0';
     }
@@ -354,7 +354,7 @@ public:
         @param  str
                 The other pool string to copy from.
     */
-    void operator=(PoolString const & str) {
+    PoolString& operator=(PoolString const & str) {
         Log.trace(F("%s: str = %s\n"), PRINT_FUNC, str.c_str());        
         if (pool_ != nullptr && pool_->owns(poolIdx_)) {
             Log.trace(F("%s: properly initialised string\n"), PRINT_FUNC);        
@@ -366,7 +366,8 @@ public:
         pool_ = str.pool_;
         poolIdx_ = pool_->allocate_idx();
         pool_->strcpy(poolIdx_, str.c_str());
-        Log.trace(F("%s: done\n"), PRINT_FUNC);        
+        Log.trace(F("%s: done\n"), PRINT_FUNC);
+        return *this;        
     }
 
 #if 0

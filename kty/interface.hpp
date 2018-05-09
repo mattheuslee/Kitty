@@ -24,7 +24,7 @@ public:
         @param  stringPool
                 The string pool to use for the interface.
     */
-    Interface(StringPool & stringPool) : stringPool_(stringPool), command_(stringPool) {
+    explicit Interface(StringPool & stringPool) : stringPool_(stringPool), command_(stringPool) {
     }
 
     /*!

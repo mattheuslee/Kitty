@@ -37,11 +37,11 @@ public:
         @param  allocator
                 The allocator for the deque nodes.
     */
-    Deque(Alloc & allocator) : allocator_(&allocator) {
+    explicit Deque(Alloc & allocator) : allocator_(&allocator) {
         Log.trace(F("%s:\n"), PRINT_FUNC);
         static_assert(sizeof(Node) <= Sizes::alloc_size, "Size of Deque<T, Alloc>::Node can be no larger than kty::Sizes::alloc_size, due to fixed allocator memory block size.");
         size_ = 0;
-        head_ = (Node*)(allocator_->allocate());
+        head_ = static_cast<Node*>(allocator_->allocate());
         head_->next = head_;
         head_->prev = head_;
     }
@@ -199,7 +199,7 @@ public:
     virtual bool push_front(T const & value) {
         Log.trace(F("%s:\n"), PRINT_FUNC);
         // Allocate new node
-        Node* toInsert = (Node*)(allocator_->allocate());
+        Node* toInsert = static_cast<Node*>(allocator_->allocate());
         if (toInsert == nullptr) {
             Log.warning(F("%s: Unable to push back due to invalid allocated address\n"), PRINT_FUNC);
             return false;
@@ -272,7 +272,7 @@ public:
     virtual bool push_back(T const & value) {
         Log.trace(F("%s:\n"), PRINT_FUNC);
         // Allocate new node
-        Node* toInsert = (Node*)(allocator_->allocate());
+        Node* toInsert = static_cast<Node*>(allocator_->allocate());
         if (toInsert == nullptr) {
             Log.warning(F("%s: Unable to push back due to invalid allocated address\n"), PRINT_FUNC);
             return false;
