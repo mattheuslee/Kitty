@@ -146,9 +146,10 @@ public:
                 If the device does not exist, -1 is returned.
     */
     int device_exists(poolstring_t const & name) {
-        for (int i = 0; i < deviceNames_.size(); ++i) {
-            if (deviceNames_[i] == name) {
-                Log.trace(F("%s: found %s at index %d\n"), PRINT_FUNC, name.c_str(), i);
+        int i = 0;
+        for (typename Deque<poolstring_t, Alloc>::Iterator iter = deviceNames_.begin(); iter != deviceNames_.end(); ++iter, ++i) {
+            if (*iter == name) {
+                Log.trace(F("%s: found %s at index %d\n"), PRINT_FUNC, name.c_str(), i);                
                 return i;
             }
         }
@@ -166,9 +167,10 @@ public:
                 If the group does not exist, -1 is returned.
     */
     int group_exists(poolstring_t const & name) {
-        for (int i = 0; i < groupNames_.size(); ++i) {
-            if (groupNames_[i] == name) {
-                Log.trace(F("%s: found %s at index %d\n"), PRINT_FUNC, name.c_str(), i);
+        int i = 0;
+        for (typename Deque<poolstring_t, Alloc>::Iterator iter = groupNames_.begin(); iter != groupNames_.end(); ++iter, ++i) {
+            if (*iter == name) {
+                Log.trace(F("%s: found %s at index %d\n"), PRINT_FUNC, name.c_str(), i);                
                 return i;
             }
         }
@@ -291,10 +293,6 @@ public:
             return;
         }
         while (!commandQueue_.is_empty()) {
-            for (int i = 0; i < commandQueue_.size(); ++i) {
-                Log.trace(F("Command Queue: %s\n"), commandQueue_[i].c_str());
-            }
-            Log.trace(F("%s: executing %s\n"), PRINT_FUNC, commandQueue_.front().c_str());
             poolstring_t command(commandQueue_.front());
             commandQueue_.pop_front();
             execute_just_command(command);
