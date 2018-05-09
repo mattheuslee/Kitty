@@ -92,9 +92,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa3b5e91e73a44a16bb361d8d0e77c58c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#aa3b5e91e73a44a16bb361d8d0e77c58c">operator=</a> (char const *str)</td></tr>
 <tr class="memdesc:aa3b5e91e73a44a16bb361d8d0e77c58c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies another string to this string.  <a href="#aa3b5e91e73a44a16bb361d8d0e77c58c">More...</a><br /></td></tr>
 <tr class="separator:aa3b5e91e73a44a16bb361d8d0e77c58c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a019830b1e662886d68e7331fee40f28b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a019830b1e662886d68e7331fee40f28b">operator=</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> const &amp;str)</td></tr>
-<tr class="memdesc:a019830b1e662886d68e7331fee40f28b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator.  <a href="#a019830b1e662886d68e7331fee40f28b">More...</a><br /></td></tr>
-<tr class="separator:a019830b1e662886d68e7331fee40f28b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7407fe2844e57ea12c3e6fb80cc4e6b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a7407fe2844e57ea12c3e6fb80cc4e6b5">operator=</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> const &amp;str)</td></tr>
+<tr class="memdesc:a7407fe2844e57ea12c3e6fb80cc4e6b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator.  <a href="#a7407fe2844e57ea12c3e6fb80cc4e6b5">More...</a><br /></td></tr>
+<tr class="separator:a7407fe2844e57ea12c3e6fb80cc4e6b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a25fab0484ce1469da31116798854334a"><td class="memItemLeft" align="right" valign="top"><a id="a25fab0484ce1469da31116798854334a"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a25fab0484ce1469da31116798854334a">~PoolString</a> ()</td></tr>
 <tr class="memdesc:a25fab0484ce1469da31116798854334a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for a pool string. <br /></td></tr>
@@ -157,7 +157,7 @@ template&lt;class Pool&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -339,8 +339,8 @@ template&lt;class Pool&gt; </div>
 
 </div>
 </div>
-<a id="a019830b1e662886d68e7331fee40f28b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a019830b1e662886d68e7331fee40f28b">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+<a id="a7407fe2844e57ea12c3e6fb80cc4e6b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7407fe2844e57ea12c3e6fb80cc4e6b5">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -351,7 +351,7 @@ template&lt;class Pool&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::operator= </td>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&amp; <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::operator= </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; Pool &gt; const &amp;&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
@@ -368,10 +368,11 @@ template&lt;class Pool&gt; </div>
 <p>Copy assignment operator. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">str</td><td>The other pool string to copy from. </td></tr>
+    <tr><td class="paramname">str</td><td>The other pool string to copy from.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string, after the copying has been performed. </dd></dl>
 
 </div>
 </div>
