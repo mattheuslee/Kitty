@@ -66,6 +66,7 @@ class Interpreter {
 public:
     /** The type of pool string used in the interpreter */
     typedef PoolString<StringPool> poolstring_t;
+
     /*!
         @brief  Default interpreter constructor.
 
@@ -84,6 +85,27 @@ public:
         status_ = InterpreterStatus::NORMAL;
         currScopeLevel_ = 0;          // Start at scope level 0
         lastCondition_.push_back(-1); // Last condition at scope level 0 = null
+    }
+
+    /*!
+        @brief  Resets the internal interpreter state and memory.
+                Essentially starting the interpreter from the beginning.
+    */
+    void reset() {
+        status_ = InterpreterStatus::NORMAL;
+        currScopeLevel_ = 0;
+        lastCondition_[currScopeLevel_] = -1;
+        commandQueue_.clear();
+        commandBuffer_.clear();
+        deviceNames_.clear();
+        deviceTypes_.clear();
+        deviceInfo_0_.clear();
+        deviceInfo_1_.clear();
+        deviceInfo_2_.clear();
+        lastGroupName_ = "";
+        groupNames_.clear();
+        groupCommands_.clear();
+        bracketParity_ = 0;
     }
 
     /*!
@@ -165,6 +187,7 @@ public:
     DeviceType get_device_type(poolstring_t const & name) {
         int deviceIdx = device_exists(name);
         if (deviceIdx == -1) {
+            Log.warning(F("%s: %s does not exist\n"), PRINT_FUNC, name.c_str());
             return DeviceType::UNKNOWN_DEVICE;
         }
         return deviceTypes_[deviceIdx];
@@ -185,6 +208,7 @@ public:
     int get_device_info(poolstring_t const & name, int const & i) {
         int deviceIdx = device_exists(name);
         if (deviceIdx == -1) {
+            Log.warning(F("%s: %s does not exist\n"), PRINT_FUNC, name.c_str());
             return -1;
         }
         switch (i) {

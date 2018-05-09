@@ -122,6 +122,18 @@ public:
     }
 
     /*!
+        @brief  Removes all deques.
+    */
+    void clear() {
+        Log.trace(F("%s\n"), PRINT_FUNC);
+        for (int i = 0; i < size(); ++i) {
+            clear(i);
+        }
+        strings_.clear();
+        sizes_.clear();
+    }
+
+    /*!
         @brief  Removes all strings from the ith deque
 
         @param  i
