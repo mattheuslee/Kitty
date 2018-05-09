@@ -353,6 +353,9 @@ public:
 
         @param  str
                 The other pool string to copy from.
+
+        @return A reference to this string, after the copying
+                has been performed.
     */
     PoolString& operator=(PoolString const & str) {
         Log.trace(F("%s: str = %s\n"), PRINT_FUNC, str.c_str());        
