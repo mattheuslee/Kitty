@@ -154,13 +154,14 @@ test(interpreter_fizz_buzz_2)
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "                buzz_num MoveBy(1)"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            )"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            Else ("));
-    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "                num"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "                num_num MoveBy(1)"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            )"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        )"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    )"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    num MoveBy(1)"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, ")"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "num IsNumber(1)"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "num_num IsNumber(0)"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "fizz_num IsNumber(0)"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "buzz_num IsNumber(0)"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "fizzbuzz_num IsNumber(0)"));
@@ -170,6 +171,9 @@ test(interpreter_fizz_buzz_2)
     }
     assertEqual(interpreter.get_device_type(name), DeviceType::NUM);
     assertEqual(interpreter.get_device_info(name, 2), 21);
+    name = "num_num";
+    assertEqual(interpreter.get_device_type(name), DeviceType::NUM);
+    assertEqual(interpreter.get_device_info(name, 2), 11);
     name = "fizz_num";
     assertEqual(interpreter.get_device_type(name), DeviceType::NUM);
     assertEqual(interpreter.get_device_info(name, 2), 5);
@@ -205,12 +209,13 @@ test(interpreter_fizz_buzz_3)
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            buzz_num MoveBy(1)"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        )"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        Else ("));
-    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            num"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "            num_num MoveBy(1)"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "        )"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    )"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "    num MoveBy(1)"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, ")"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "num IsNumber(1)"));
+    commands.push_back(PoolString<decltype(stringPool)>(stringPool, "num_num IsNumber(0)"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "fizz_num IsNumber(0)"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "buzz_num IsNumber(0)"));
     commands.push_back(PoolString<decltype(stringPool)>(stringPool, "fizzbuzz_num IsNumber(0)"));
@@ -220,6 +225,9 @@ test(interpreter_fizz_buzz_3)
     }
     assertEqual(interpreter.get_device_type(name), DeviceType::NUM);
     assertEqual(interpreter.get_device_info(name, 2), 21);
+    name = "num_num";
+    assertEqual(interpreter.get_device_type(name), DeviceType::NUM);
+    assertEqual(interpreter.get_device_info(name, 2), 11);
     name = "fizz_num";
     assertEqual(interpreter.get_device_type(name), DeviceType::NUM);
     assertEqual(interpreter.get_device_info(name, 2), 5);
