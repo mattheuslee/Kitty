@@ -32,6 +32,108 @@ public:
     };
 
     /*!
+        @brief  The iterator class for the deque.
+    */
+    class Iterator {
+    
+    public:
+        /*!
+            @brief  Constructor.
+
+            @param  ptr
+                    The pointer to store in the iterator.
+        */
+        Iterator(Node * & ptr) {
+            ptr_ = ptr;
+            if (ptr == nullptr) {
+                Log.warning(F("%s: given nullptr\n"), PRINT_FUNC);
+            }
+        }
+
+        /*!
+            @brief  Pre-decrement operator.
+
+            @return A reference to the the iterator after decrementing.
+        */
+        Iterator& operator--() {
+            ptr_ = ptr_->prev;
+            return *this;
+        }
+
+        /*!
+            @brief  Post-decrement operator.
+
+            @return A copy of the iterator in its pre-decremented state.
+        */
+        Iterator operator--(int) {
+            Iterator temp(ptr_);
+            ptr_ = ptr_->prev;
+            return temp;
+        }
+
+        /*!
+            @brief  Pre-increment operator.
+                    Stops once it exceeds the end of the deque.
+
+            @return A reference to the the iterator after incrementing.
+        */
+        Iterator& operator++() {
+            ptr_ = ptr_->next;
+            return *this;
+        }
+
+        /*!
+            @brief  Post-increment operator.
+                    Stops once it exceeds the end of the deque.
+
+            @return A copy of the iterator in its pre-incremented state.
+        */
+        Iterator operator++(int) {
+            Iterator temp(ptr_);
+            ptr_ = ptr_->next;
+            return temp;
+        }
+
+        /*!
+            @brief  Dereference operator.
+
+            @return A reference to the value pointed to by the iterator.
+        */
+        T& operator*() {
+            return ptr_->value;
+        }
+
+        /*!
+            @brief  Equality comparison operator.
+
+            @param  other
+                    The other iterator to compare to.
+
+            @return True if this and the other iterator point to the same value,
+                    false otherwise.
+        */
+        bool operator==(Iterator const & other) {
+            return ptr_ == other.ptr_;
+        }
+
+        /*!
+            @brief  Non-equality comparison operator.
+
+            @param  other
+                    The other iterator to compare to.
+
+            @return True if this and the other iterator point to different values,
+                    false otherwise.
+        */
+        bool operator!=(Iterator const & other) {
+            return !operator==(other);
+        }
+
+    private:
+        Node* ptr_;
+    };
+
+    /*!
         @brief  Constructor for the deque.
 
         @param  allocator
@@ -213,6 +315,26 @@ public:
             Log.warning(F("%s: size = 0 (undefined behaviour)\n"), PRINT_FUNC);
         }        
         return head_->prev->value;
+    }
+
+    /*!
+        @brief  Returns an iterator to the first element of the deque.
+
+        @return An iterator to the first element.
+    */
+    virtual Iterator begin() {
+        return Iterator(head_->next);
+    }
+
+    /*!
+        @brief  Returns an iterator to one past the last element of the deque.
+                Since this is a circular deque, one past the last element is the
+                dummy head node.
+
+        @return An iterator to one past the last element.
+    */
+    virtual Iterator end() {
+        return Iterator(head_);
     }
 
     /*!
