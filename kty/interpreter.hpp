@@ -377,9 +377,14 @@ public:
         }
         else if (groupIdx >= 0) {
             Serial.print(name.c_str());
-            Serial.println(F(": group containing the commands "));
+            Serial.println(F(": group containing the command(s) "));
+            int nameLen = name.strlen();
             for (int i = 0; i < groupCommands_.size(groupIdx); ++i) {
-                Serial.print(F("    "));
+                // Print out enough spaces to line up vertically with the end of
+                // the name of the group
+                for (int j = 0; j < nameLen; ++j) {
+                    Serial.print(F(" "));
+                }
                 Serial.println(groupCommands_.get_str(groupIdx, i).c_str());
             }
         }
@@ -608,7 +613,8 @@ public:
                 tokenStack.push(result);
             }
             else if (token.is_operand()) {
-                tokenStack.push(token);
+                // Instantly evaluate
+                tokenStack.push(Token(TokenType::NUM_VAL, int_to_str(get_token_value(token))));
             }
             else if (token.is_function()) {
                 tokenStack.push(token);
