@@ -14,10 +14,14 @@ Everything created in Kitty must be given its own name.
 The most basic thing we can work with in Kitty is numbers.  
 The `IsNumber` command creates numbers. There are a few versions of this command:  
 To create a number called `answer` that contains the value 0(which is the default):
-> `>>> answer IsNumber()`  
+```
+>>> answer IsNumber()
+```
 
 To create a number called `answer` that contains the value 42 instead:  
-> `>>> answer IsNumber(42)` 
+```
+>>> answer IsNumber(42)
+```
 
 ## External Devices  
 Kitty allows us to use external devices like LEDs and servos.   
@@ -27,84 +31,84 @@ __LEDs__
 LEDs have 2 pins: the shorter pin goes to the Arduino GND(ground) pin, and the longer pin goes to an Arduino pin of our choice, through a 220 ohm resistor.  
 Pin 13 on the Arduino already has an inbuilt LED, which we'll use for this example.  
 The `IsLED` command creates LEDs. There are a few versions of this command:  
-To create an LED called `light` that uses pin 13 and starts at 50% brightness(which is the default:  
-> `>>> light IsLED(13)`  
+To create an LED called `light` that uses pin 13 and starts at 50% brightness(which is the default):  
+```
+>>> light IsLED(13)
+```
 
 To create an LED called `light` that uses pin 13 and starts at 25% brightness instead:
-> `>>> light IsLED(13, 25)`  
-
-__Servos__  
-Servos have 3 wires: the red wire goes to the Arduino 5V pin, the black wire goes to the Arduino GND pin, and the orange wire goes to an Arduino pin of our choice. 
-The `IsServo` command creates servos. There are a few versions of this command:  
-To create a servo called `sweeper` that uses pin 10 and starts at 90 degrees(which is the default):  
-> `>>> sweeper IsServo(10)`  
-
-To create a servo called `sweeper` using pin 10 that starts at 45 degrees instead:
-> `>>> sweeper IsServo(10, 45)`  
+```
+>>> light IsLED(13, 25)
+``` 
 
 ## Name Clashes
 
-The same name can only be used once. For example, after the following commands are run, `thing` will refer to the servo, and not the LED:  
-> `>>> thing IsLED(13)`  
-> `>>> thing IsServo(10)`  
+The same name can only be used once. For example, after the following commands are run, `thing` will refer to the number, and not the LED:  
+```
+>>> thing IsLED(13)
+>>> thing IsNumber(10)
+```
 
 If at this point we still want to work with the LED at pin 13, then we'll need to give it another name, for example:  
-> `>>> light_thing IsLED(13)`  
+```
+>>> light_thing IsLED(13)
+```
 
 ## Displaying  
 To display information about something, just type in its name, and its information will be displayed.  
-> `>>> answer IsNumber(42)`  
-> `>>> answer`  
-> `answer: Number storing 42`  
+```
+>>> answer IsNumber(42)
+>>> answer
+answer: number storing 42
+```
 
-> `>>> light IsLED(13)`  
-> `>>> light`  
-> `light: LED using pin 13 (50%)`  
+```
+>>> light IsLED(13)
+>>> light
+light: LED using pin 13 (50%)
+```
 
-> `>>> sweeper IsServo(10)`  
-> `>>> sweeper`  
-> `sweeper: Servo using pin 10 (90 degrees)`
-
-We can also display all numbers, LEDs or servos using the `AllNumbers`, `AllLEDs` and `AllServos` commands. We can also display everything that we've created so far using the `All` command.
-
-> `>>> answer_a IsNumber(42)`  
-> `>>> answer_b IsNumber(43)`  
-> `>>> AllNumbers`  
-> `answer_a: Number storing 42`  
-> `answer_b: Number storing 43`  
-
-> `>>> answer_a IsNumber(42)`  
-> `>>> answer_b IsNumber(43)`   
-> `>>> light_a IsLED(13)`  
-> `>>> light_b IsLED(14)`  
-> `>>> All`  
-> `answer_a: Number storing 42`  
-> `answer_b: Number storing 43`  
-> `light_a: LED using pin 13 (50%)`  
-> `light_b: LED using pin 14 (50%)`  
+We can also display words directly to the screen, using either `'` or `"` to enclose the words:
+```
+>>> 'hello!'
+hello!
+>>> "hello!"
+hello!
+```
 
 ## Modification  
-For numbers, LEDs and servos, there are two commands that we can use to modify them:  
+For numbers and LEDs, there are two commands that we can use to modify them:  
 * `MoveBy`
 * `SetTo`
 
 __`MoveBy`__  
 The `MoveBy` command executes a relative movement.  
 To increase a number value called `answer` by 10:  
-> `>>> answer MoveBy(10)`
+```
+>>> answer MoveBy(10)
+```
 
 The modification commands work with negative numbers as well.  
 To decrease a number value called `answer` by 10:  
-> `>>> answer MoveBy(-10)`
+```
+>>> answer MoveBy(-10)
+```
 
 The `MoveBy` command works to increase and decrease an LED brightness as well.  
 To increase the brightness of an LED called `light` by 10%:  
-> `>>> light MoveBy(10)`
+```
+>>> light MoveBy(10)
+```
 
-The `MoveBy` command also works to increase and decrease a servo angle.  
-To decrease the angle of a servo called `sweeper` by 10 degrees:  
-> `>>> sweeper MoveBy(-10)`
+There is also a version of `MoveBy` that only lasts for a specific amount of time - `MoveByFor`.  
+To increase the brightness of an LED called `light` by 50% for 1 second(1000 milliseconds), and then back to its original brightness after that time:  
+```
+>>> light MoveByFor(50, 1000)
+```
 
+Note that since the amount of time to wait is in milliseconds, you can have wait times that are less than 1 second, like half a second(500 milliseconds).
+
+<!--
 __`SetTo`__  
 The `SetTo` command executes a movement to an absolute value.  
 To set a number value called `answer` to 101:  
@@ -133,153 +137,219 @@ To cause a program to wait for 0.25 seconds before continuing:
 
 To cause a program to wait for 250 milliseconds(0.25 seconds) before continuing:
 > `>>> Wait(250ms)`  
+-->
 
 ## Command Groups  
-We can create command groups which contain one or more command.  
+Sometimes we don't want to keep typing the same commands throughout our program. Command groups allow us to group multiple commands together under a single group name.   
 To start creating a command group called `blink`:  
-> `>>> blink IsGroup (`  
-> `(blink)>>> `  
+```
+>>> blink IsGroup (
+(blink) >>> 
+```
 
-Notice that the prompt changes to `(blink)>>> `, which means that we are currently entering commands that will be part of the `blink` group.  
-Also, notice that we only include `(` after the `IsGroup` command. Once we're done entering commands for the group, entering `)` closes the group and saves it:  
-> `(blink)>>> light SetTo 100 For 1s`  
-> `(blink)>>> )`  
-> `>>> blink`  
-> `blink: Command Group containing the command(s):`  
-> `light SetTo 100 For 1s`
+Notice that the prompt changes to `(blink) >>> `, which means that we are currently entering commands that will be part of the `blink` group. As long as the prompt still shows `(blink) >>>`, all of the commands that we enter will go directly to be stored in the group, and will not be immediately executed.  
+Also, notice that we only include `(` after the `IsGroup` command. Once we're done entering commands for the group, entering `)` closes the group and saves it, and the prompt goes back to the original `>>>`:  
+```
+(blink) >>> light MoveByFor(100, 1000)
+(blink) >>> )
+>>> blink
+blink: group containing the command(s)
+     light MoveByFor(100, 1000)
+```
 
 When creating a command group, each command within the group must be on its own line.  
-Also note that when entering the commands which will be in the command group, none of the commands will be executed until the `RunGroup` command is used.
 
 Once we have created the command group `blink`, we can run its commands using the `RunGroup` command:  
-> `>>> blink RunGroup()`  
+```
+>>> blink RunGroup()
+```
 
-Running a command group once is exactly the same as if we were to execute all the commands in that group, one by one.  
+Running a command group once is exactly the same as if we were to execute all the commands in that group, one by one. So doing this:  
+```
+>>> blink RunGroup()
+```
+Has the same effect as doing this:
+```
+>>> light MoveByFor(100, 1000)
+```
 
-We can also run a command group multiple times.  
+By default, if there are no numbers between the brackets of the `RunGroup` command, the group is run once.  
+If we want to run the group multiple times, we can provide the number of times the group should run.  
 To run the command group `blink` 10 times:  
-> `>>> blink RunGroup(10)`  
+```
+>>> blink RunGroup(10)
+```
+We can also run a command group continuously(forever):
+```
+>>> blink RunGroup(-1)
+```
 
 ## Expressions
-+, -, *, /, %, ^, etc...
+| Symbol      | Meaning                                             | Example       |  
+|:-----------:|:----------------------------------------------------|:-------------:|  
+| +           | Add two values                                      | 1 + 2 gives 3 |  
+| -           | Subtract one value from another                     | 3 - 2 gives 1 |  
+| *           | Multiply one value with another                     | 3 * 2 gives 6 |  
+| /           | Divide one value by another, giving the quotient    | 6 / 2 gives 3 |  
+|             |                                                     | 5 / 2 gives 2 |
+| %           | Divide one value by another, giving the remainder   | 6 % 2 gives 0 |  
+|             |                                                     | 5 % 2 gives 1 |
+| %           | The first value to the power of the second value,   | 2 ^ 3 gives 8 |  
+|             | or the first value multiplied by itself for a       | 3 ^ 1 gives 3 |  
+|             | number of times equal to the second value.          | 3 ^ 2 gives 9 |  
 
 ## Conditions  
 Conditions are what allows us to select between several choices, depending on whether our specified conditions are met or not.  
-The most basic conditions are `True` and `False`, and all other conditions will always be evaluated to result in either `True` or `False`.  
+The most basic conditions are true and false, and all other conditions will always be evaluated to result in either true or false.  
 
 __Comparing Values__  
 Values can be compared to check if they are:  
 * equal (`=`)
-  * `10 = 10` is `True`
-  * `11 = 10` is `False`
+  * `10 = 10` is true
+  * `11 = 10` is false
 * less than (`<`)
-  * `5 < 10` is `True`
-  * `10 < 5` is `False`
+  * `5 < 10` is true
+  * `10 < 5` is false
 * greater than (`>`)
-  * `10 > 5` is `True`
-  * `5 > 10` is `False`
+  * `10 > 5` is true
+  * `5 > 10` is false
 * less than or equal to (`<=`)
-  * `5 <= 10` is `True`
-  * `10 <= 10` is `True`
+  * `5 <= 10` is true
+  * `10 <= 10` is true
 * greater than or equal to (`>=`)
-  * `10 >= 5` is `True`
-  * `10 >= 10` is `True`
+  * `10 >= 5` is true
+  * `10 >= 10` is true
 
 Besides using raw numbers, the values in Numbers, LEDs and Servos can also be used in comparisons. For example:  
-`>>> answer IsNumber(42)`  
-`>>> light IsLED(13, 42)`  
-* `answer = 42` is `True`
-* `light = 42` is `True`
-* `light = 50` is `False`
-* `answer = light` is `True`
+```
+>>> answer IsNumber(42)
+>>> light IsLED(13, 42)
+```
+* `answer = 42` is true
+* `light = 42` is true
+* `light = 50` is false
+* `answer = light` is true
+
+In addition, the value of a number or LED can be used directly as a condition. If used this way, any value other than 0 is true, and only the value of 0 is false.  We will be using `1` and `0` in the next section to show this.
 
 __Combining Conditions__  
 There are a few ways to combine conditions together:  
-* `And` - if both conditions are `True`, then the combination is `True`
-  * `True And True` is `True`
-  * `False And False` is `False`
-* `Or` - if either condition, or both conditions are `True`, then the combination is `True`
-  * `True Or False` is `True`
-  * `False Or False` is `False`
-* `Xor` - if either one condition, but not both, is `True`, then the combination is `True`
-  * `True Xor False` is `True`
-  * `True Xor True` is `False`
-* `Not` - turns `True` into `False` and `False` into `True`  
-  * `Not True` is `False`
-  * `Not False` is `True`
+* & (and) - if both conditions are true, then the combination is true
+  * `1 & 1` is true
+  * `1 & 0` is false
+* | (or) - if either condition, or both conditions are true, then the combination is true
+  * `1 | 0` is true
+  * `0 | 0` is false
+* ! (xor) - if either one condition, but not both, is true, then the combination is true
+  * `1 ! 0` is true
+  * `1 ! 1` is false
+* ~ (not) - turns true into false and false into true  
+  * `~ 1` is false
+  * `~ 0` is true
 
 When combining multiple conditions together, we should use brackets `( )` to enclose conditions that we want to evaluate together.  
-If no brackets are present, the conditions will be evaluated from left to right, which might produce different results than expected:  
-* `(True Or False) Or (False Xor True)` is `True`
-* `True Or False Or False Xor True` is `False`
+If no brackets are present, the conditions will be evaluated from left to right, which might produce different results than expected, even though the only difference may be the brackets:  
+* `(1 | 0) | (0 ! 1)` is true
+* `1 | 0 | 0 ! 1` is false  
 
-__`If` Command__   
-The `If` command runs its commands once, only if the condition is evaluated to be `True`.  
-We want to create an LED called `light` using the pin number stored in `pin`, if that number is 20 or less.
-> `>>> pin IsNumber(15)`  
-> `>>> light IsLED(13)`  
-> `>>> If (pin <= 20) (`  
-> `>>> light IsLED(pin)`  
-> `>>> )`  
-> `>>> light`  
-> `light: LED using pin 15 (50%)`  
+__`If` and `Else` Commands__   
+We've previously seen the `IsGroup` command that can create command groups for us to run later.  
+The `If` and `Else` commands also create command groups, with some big differences:  
+* These command groups are run immediately when they're closed, unlike `IsGroup` command groups.
+* These groups have no name, since they are meant to run immediately.
+* These groups only run if certain conditions are met.
 
-When using the `If` command, the condition must be on the same line as the `If`, and each of the commands contained within must be each on their own line.  
-`(` and `)` are used here in a similar way as in command groups, to indicate the start and end of the groups which make up the `If` command.
+The `If` command runs its commands once, only if its condition is evaluated to be true.  
+```
+>>> answer IsNumber(42)
+>>> If (answer = 42) (
+(IF) >>> answer MoveBy(10)
+>>> )
+>>> answer
+answer: number storing 52
+```
 
-Here's an example where the condition is `False`:  
-> `>>> pin IsNumber(25)`  
-> `>>> light IsLED(13)`  
-> `>>> If (pin <= 20) (`  
-> `>>> light IsLED(pin)`  
-> `>>> )`  
-> `>>> light`  
-> `light: LED using pin 13 (50%)`  
+When using the `If` command, the condition must be on the same line as the `If`, and each of the commands contained within must be each on their own line. You will notice that other aspects are quite similar to the `IsGroup` command, like the use of `(` and `)`.  
 
-We can see here that since the condition `pin <= 20` is `False`, none of the commands within the `If` command are run, and so `light` is still referring to the LED using pin 13.
+Here's an example where the condition is false, and thus the commands inside the `If` are not run:  
+```
+>>> answer IsNumber(42)
+>>> If (answer < 42) (
+(IF) >>> answer MoveBy(10)
+(IF) >>> )
+>>> answer
+answer: number storing 42
+```
 
-Take note that all the commands within the `If` section are only run once the section has been closed with `)`, and only if the condition is `True`.
+Sometimes when we have an `If` command that runs several commands if a condition is true, we also want to be able to run some other commands if that condition is false instead, giving us two possible paths for our program.  
 
-__`Else` Command__   
-Sometimes when we have an `If` command that runs several commands if a condition is `True`, we also want to be able to run some other commands if that condition is `False` instead.  
+```
+>>> answer IsNumber(42)
+>>> If (answer < 42) (
+(IF) >>> answer MoveBy(10)
+(IF) >>> )
+>>> Else (
+(ELSE) >>> answer IsNumber(0)
+(ELSE) >>> )
+>>> answer
+answer: number storing 0
+```
 
-We want to create an LED called `light` using the pin number stored in `pin`, if that number is 20 or less. If it is more than 20, then we want to create an LED called `light` using pin 13 instead:  
-> `>>> pin IsNumber(15)`  
-> `>>> If (pin <= 20) (`  
-> `>>> light IsLED(pin)`  
-> `>>> )`  
-> `>>> Else (`  
-> `>>> light IsLED(13)`  
-> `>>> )`  
-> `>>> light`  
-> `light: LED using pin 15 (50%)`  
+The commands in an `Else` are only run if the `Else` comes immediately after the closing `)` line of an `If` command, and that the condition for that `If` command was false.
 
-And here's the alternative scenario:  
-> `>>> pin IsNumber(25)`  
-> `>>> If (pin <= 20) (`  
-> `>>> light IsLED(pin)`  
-> `>>> )`  
-> `>>> Else (`  
-> `>>> light IsLED(13)`  
-> `>>> )`
-> `>>> light`  
-> `light: LED using pin 13 (50%)`  
+__Basic Programs__   
+This program prints out `num`, for values 1 to 10.  
+```
+>>> print_num IsGroup (
+(print_num) >>> num
+(print_num) >>> num MoveBy(1)
+(print_num) >>> )
+>>> num IsNumber(1)
+>>> print_num RunGroup(10)
+num: number storing 1
+num: number storing 2
+num: number storing 3
+num: number storing 4
+num: number storing 5
+num: number storing 6
+num: number storing 7
+num: number storing 8
+num: number storing 9
+num: number storing 10
+```
 
-If there is an `Else` command, it must be in the line immediately after the `)` of the `If` command.
-
-__`While` Command__   
-The `While` command keeps running its commands as long as the condition is still evaluated to be `True`.  
-We want to count from 1 to 5, using a number stored in `num`:  
-> `>>> num IsNumber(1)`  
-> `>>> While (num <= 5) (`  
-> `>>> num`  
-> `>>> num MoveBy(1)`  
-> `>>> )`  
-> `num: Number storing 1`  
-> `num: Number storing 2`  
-> `num: Number storing 3`  
-> `num: Number storing 4`  
-> `num: Number storing 5`  
-
-We can see here that the value stored in `num` will keep increasing one step at a time, until it reaches 6.  
-When it reaches 6, then `num <= 5` is `False`, and the `While` command stops repeating its commands.  
+This program runs through the same values 1 to 10, but every time num is even it prints `'even'`, and every time num is odd it prints `'odd'`.  
+```
+>>> odd_even IsGroup (
+(odd_even) >>> num
+(odd_even) >>> If (num % 2 = 0) (
+(odd_even) >>> 'even'
+(odd_even) >>> )
+(odd_even) >>> Else (
+(odd_even) >>> 'odd'
+(odd_even) >>> )
+(odd_even) >>> num MoveBy(1)
+(odd_even) >>> )
+>>> num IsNumber(1)
+>>> odd_even RunGroup(10)
+num: number storing 1
+odd
+num: number storing 2
+even
+num: number storing 3
+odd
+num: number storing 4
+even
+num: number storing 5
+odd
+num: number storing 6
+even
+num: number storing 7
+odd
+num: number storing 8
+even
+num: number storing 9
+odd
+num: number storing 10
+even
+```
