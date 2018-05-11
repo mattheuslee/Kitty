@@ -31,43 +31,25 @@ using namespace std;
 using namespace kty;
 
 /*!
-    Fill in preloaded commands here,
-    one on each line, and each line separated
-    with a comma.
+    Fill in commands here.
 */
-char COMMANDS[][Sizes::string_length] = {
-"check_div IsGroup (",
-"    If (num % div = 0) (",
-"        can_div IsNumber(1)",
-"    )",
-"    div MoveBy(1)",
-")",
-
-"check_prime IsGroup (",
-"    num",
-"    can_div IsNumber(0)",
-"    div IsNumber(2)",
-"    If (div < num) (",
-"        check_div RunGroup(num / 2)",
-"    )",
-"    If (can_div) (",
-"        'Not prime'",
-"    )",
-"    Else (",
-"        'Prime'",
-"    )",
-")",
-
-"loop_nums IsGroup (",
-"    check_prime RunGroup()",
-"    num MoveBy(1)",
-")",
-
-"num IsNumber(1)",
-"nun_times IsNumber(10)",
-
-"loop_nums RunGroup(nun_times)",
-};
+char COMMANDS[] = R"(
+    test IsGroup (
+        If (num % 2 = 0) (
+            num
+        )
+        Else (
+            'odd'
+        )
+        If (num < end) (
+            num MoveBy(1)
+            test RunGroup()
+        )
+    )
+    numIsNumber(0)
+    end IsNumber(11)
+    testRunGroup()
+)";
     
 Allocator<1000, Sizes::alloc_size>                 alloc;
 StringPool<500, Sizes::string_length>              stringPool;
@@ -77,15 +59,50 @@ PoolString<decltype(stringPool)>                   prefix(stringPool);
 
 Interpreter<decltype(alloc), decltype(stringPool)> interpreter(alloc, stringPool);
 
+/*! 
+    @brief  Reads characters from the buffer until it has a full command, 
+            then saves it in the variable command.
+            Starts reading from the startIdx. 
+    
+    @param  buffer
+            The character buffer to read from.
+
+    @param  startIdx
+            The first index in the buffer to start reading from.
+    
+    @param  command
+            Where to save the full command.
+
+    @return The index to start reading from for the next command.
+*/
+int get_next_command(char const * buffer, int const & startIdx, PoolString<decltype(stringPool)> & command) {
+    command = "";
+    char c;
+    char str_[2] = " "; // To use operator += on command
+    int i = startIdx;
+    for (i = startIdx; ; ++i) {
+        c = *(buffer + i);
+        if (c == '\n') { // Finished reading one line
+            ++i;
+            break;
+        }
+        if (!isspace(c)) { // Add to current command
+            str_[0] = c;
+            command += str_;
+        }
+    }
+    return i;
+}
+
 int main(void) {
     alloc.dump_addresses();
     stringPool.dump_addresses();
 
-    int numInstructions = sizeof(COMMANDS) / sizeof(COMMANDS[0]);
-    for (int i = 0; i < numInstructions; ++i) {
+    int startIdx = 0;
+    while (COMMANDS[startIdx] != '\0') {
         prefix = interpreter.get_prompt_prefix();
-        cout << prefix.c_str() << ">>> " << COMMANDS[i] << endl;
-        command = COMMANDS[i];
+        startIdx = get_next_command(COMMANDS, startIdx, command);
+        cout << prefix.c_str() << ">>> " << command.c_str() << endl;
         interpreter.execute(command);
     }
 
