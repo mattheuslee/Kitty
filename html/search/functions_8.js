@@ -24,5 +24,6 @@ var searchData=
   ['is_5foperator',['is_operator',['../structkty_1_1_token.html#ad17545b6b50cffec429a2d5aed8e3267',1,'kty::Token']]],
   ['is_5fright_5fbracket',['is_right_bracket',['../structkty_1_1_token.html#a196a4b15d973ab70b1e7c62dd0833f9a',1,'kty::Token']]],
   ['is_5fstring',['is_string',['../structkty_1_1_token.html#aad87655119160c2c092385168380f12e',1,'kty::Token']]],
-  ['is_5funary_5foperator',['is_unary_operator',['../structkty_1_1_token.html#a0fc22e94ebb5f1b5e5543b3b1419008f',1,'kty::Token']]]
+  ['is_5funary_5foperator',['is_unary_operator',['../structkty_1_1_token.html#a0fc22e94ebb5f1b5e5543b3b1419008f',1,'kty::Token']]],
+  ['iterator',['Iterator',['../classkty_1_1_deque_1_1_iterator.html#a13497cbf9d2b58f1978f070871f6098c',1,'kty::Deque::Iterator']]]
 ];

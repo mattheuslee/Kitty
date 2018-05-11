@@ -79,6 +79,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The iterator class for the deque.  <a href="classkty_1_1_deque_1_1_iterator.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The node structure that makes up the deque.  <a href="structkty_1_1_deque_1_1_node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,6 +125,12 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="memitem:a9c680353f9d1fac4fff51cecbd605d81"><td class="memItemLeft" align="right" valign="top">virtual T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a9c680353f9d1fac4fff51cecbd605d81">back</a> ()</td></tr>
 <tr class="memdesc:a9c680353f9d1fac4fff51cecbd605d81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the back element of the deque. Has undefined behaviour if the deque is empty.  <a href="#a9c680353f9d1fac4fff51cecbd605d81">More...</a><br /></td></tr>
 <tr class="separator:a9c680353f9d1fac4fff51cecbd605d81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6342ca532515af650fd62e501fcef049"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a6342ca532515af650fd62e501fcef049">begin</a> ()</td></tr>
+<tr class="memdesc:a6342ca532515af650fd62e501fcef049"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the first element of the deque.  <a href="#a6342ca532515af650fd62e501fcef049">More...</a><br /></td></tr>
+<tr class="separator:a6342ca532515af650fd62e501fcef049"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0895f020b0c93d758e68f5b708a515c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#ab0895f020b0c93d758e68f5b708a515c">end</a> ()</td></tr>
+<tr class="memdesc:ab0895f020b0c93d758e68f5b708a515c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to one past the last element of the deque. Since this is a circular deque, one past the last element is the dummy head node.  <a href="#ab0895f020b0c93d758e68f5b708a515c">More...</a><br /></td></tr>
+<tr class="separator:ab0895f020b0c93d758e68f5b708a515c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c9ccab052787195352c5368497d8f5b"><td class="memItemLeft" align="right" valign="top">virtual T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a1c9ccab052787195352c5368497d8f5b">operator[]</a> (int const &amp;i)</td></tr>
 <tr class="memdesc:a1c9ccab052787195352c5368497d8f5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the ith-indexed element of the deque. Has undefined behaviour if the deque has less than i elements.  <a href="#a1c9ccab052787195352c5368497d8f5b">More...</a><br /></td></tr>
 <tr class="separator:a1c9ccab052787195352c5368497d8f5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -369,6 +378,66 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 <p>Returns a reference to the back element of the deque. Has undefined behaviour if the deque is empty. </p>
 <dl class="section return"><dt>Returns</dt><dd>A reference to the element. </dd></dl>
+
+</div>
+</div>
+<a id="a6342ca532515af650fd62e501fcef049"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6342ca532515af650fd62e501fcef049">&#9670;&nbsp;</a></span>begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::begin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns an iterator to the first element of the deque. </p>
+<dl class="section return"><dt>Returns</dt><dd>An iterator to the first element. </dd></dl>
+
+</div>
+</div>
+<a id="ab0895f020b0c93d758e68f5b708a515c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0895f020b0c93d758e68f5b708a515c">&#9670;&nbsp;</a></span>end()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::end </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns an iterator to one past the last element of the deque. Since this is a circular deque, one past the last element is the dummy head node. </p>
+<dl class="section return"><dt>Returns</dt><dd>An iterator to one past the last element. </dd></dl>
 
 </div>
 </div>

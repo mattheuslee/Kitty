@@ -1,6 +1,7 @@
 var searchData=
 [
   ['echo_5fcommand',['echo_command',['../classkty_1_1_interface.html#a92adc6713ddd556d503d796b9e7b0ea1',1,'kty::Interface']]],
+  ['end',['end',['../classkty_1_1_deque.html#ab0895f020b0c93d758e68f5b708a515c',1,'kty::Deque']]],
   ['enter_5fscope',['enter_scope',['../classkty_1_1_interpreter.html#a7b199c69be54a3da78368c3a8fb4b09f',1,'kty::Interpreter']]],
   ['evaluate_5foperation',['evaluate_operation',['../classkty_1_1_interpreter.html#a7e94147b7be47485e14608625bac13c6',1,'kty::Interpreter']]],
   ['evaluate_5fpostfix',['evaluate_postfix',['../classkty_1_1_interpreter.html#a1d8dda52d89c7cdc1ee46ec4b5a09f7c',1,'kty::Interpreter']]],
