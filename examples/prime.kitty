@@ -26,6 +26,6 @@ loop_nums IsGroup (
 )
 
 num IsNumber(1)
-nun_times IsNumber(10)
+num_times IsNumber(10)
 
-loop_nums RunGroup(nun_times)
+loop_nums RunGroup(num_times)
