@@ -505,6 +505,153 @@ public:
         strcat(str.c_str());
     }
 
+    /*!
+        @brief  Gets the character stored at an index.
+
+        @param  i
+                The index.
+        
+        @return A reference to the character stored at that index.
+    */
+    char& operator[](int const & i) {
+        return c_str()[i];
+    }
+
+    /*!
+        @brief  Searches for a character within this string.
+
+        @param  c
+                The character to search for.
+
+        @param  start
+                The index to start searching. Optional parameter, default is 0.
+
+        @return The index where the character can be found, 
+                or -1 if it cannot be found.
+    */
+    int find(char const & c, int const & start = 0) {
+        int len = strlen();
+        char * ptr = c_str();
+        for (int i = start; i < len; ++i) {
+            if (ptr[i] == c) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /*!
+        @brief  Searches for another string within this string.
+
+        @param  str
+                The string to search for.
+
+        @param  start
+                The index to start searching. Optional parameter, default is 0.
+
+        @return The starting index where the string can be found, 
+                or -1 if it cannot be found.
+    */
+    int find(char const * str, int const & start = 0) {
+        int len = strlen();
+        int otherLen = ::strlen(str);
+        char * ptr = c_str();
+        for (int startIdx = start; startIdx < len - otherLen; ++startIdx) {
+            bool matches = true;
+            for (int i = 0; i < otherLen; ++i) {
+                if (ptr[startIdx + i] != str[i]) {
+                    matches = false;
+                    break;
+                }
+            }
+            if (matches) {
+                return startIdx;
+            }
+        }
+        return -1;
+    }
+
+    /*!
+        @brief  Counts the number of occurences of a character in this string.
+
+        @param  c
+                The character to count.
+
+        @param  start
+                The index to start looking from. Default is 0 to start from the beginning.
+        
+        @param  end
+                One past the last index to stop looking. Default is strlen() to stop at the end.
+        
+        @return The number of times the character appears.
+    */
+    int count(char const & c, int const & start = 0, int const & end = strlen()) {
+        int counter = 0;
+        char * str = c_str();
+        for (int i = start; i < end; ++i) {
+            if (str[i] == c) {
+                ++counter;
+            }
+        }
+        return counter;
+    }
+
+    /*!
+        @brief  Inserts a string into this string at the specified location.
+
+        @param  str
+                The string to insert.
+        
+        @param  pos
+                The position to insert the string into.
+    */
+    void insert(char const * str, int const & pos = 0) {
+        char buffer[pool_->max_str_len() + 1];
+        // Copy all characters after the insert position to the buffer
+        ::strcpy(buffer, c_str() + pos);
+        // Insert characters
+        c_str()[pos] = '\0';
+        operator+=(str);
+        // Put back characters after inserted string
+        operator+=(buffer);
+    }
+
+    /*!
+        @brief  Generates a substring of this string.
+                The substring is specified by its starting index
+                and its length.
+
+        @param  begin
+                The starting index of the substring.
+        
+        @param  length
+                The length of the substring.
+
+        @return The generated substring.
+    */
+    PoolString<Pool> substr_il(int const & begin = 0, int const & length = strlen()) {
+        char buffer[pool_->max_str_len()];
+        ::strncpy(buffer, c_str() + begin, length);
+        PoolString<Pool> substring(*pool_, buffer);
+        return substring;
+    }
+
+    /*!
+        @brief  Generates a substring of this string.
+                The substring is specified by its indices.
+
+        @param  begin
+                The starting index of the substring.
+        
+        @param  end
+                One past the ending index of the substring.
+
+        @return The generated substring.
+    */
+    PoolString<Pool> substr_i(int const & begin = 0, int const & end = strlen()) {
+        return substr_il(begin, end - begin);
+    }
+
 private:
     int poolIdx_ = -1;
     Pool* pool_ = nullptr;
