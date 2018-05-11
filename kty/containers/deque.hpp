@@ -37,6 +37,9 @@ public:
     class Iterator {
     
     public:
+        /** Friend class declaration such that deque can access internal pointers */
+        friend class Deque<T, Alloc>;
+
         /*!
             @brief  Constructor.
 
@@ -335,6 +338,50 @@ public:
     */
     virtual Iterator end() {
         return Iterator(head_);
+    }
+
+    /*!
+        @brief  Erases the node at index.
+        
+        @param  idx
+                The index of the node to erase.
+    */
+    virtual void erase(int const & idx) {
+        Node* toRemove = head_->next;
+        for (int i = 0; i < idx; ++i) {
+            toRemove = toRemove->next;
+        }
+        Node* prev = toRemove->prev;
+        Node* next = toRemove->next;
+        // Redirect pointers
+        prev->next = next;
+        next->prev = prev;
+        toRemove->value.~T();
+        allocator_->deallocate(toRemove);
+        --size_;
+    }
+
+    /*!
+        @brief  Erases the node at the iterator, and returns an iterator to the
+                node after the one which was erased.
+        
+        @param  it
+                The iterator to the node to erase.
+                This iterator will no longer be valid after this method call.
+        
+        @return An iterator to the node after the one which was erased.
+    */
+    virtual Iterator erase(Iterator const & it) {
+        Node* toRemove = it.ptr_;
+        Node* prev = toRemove->prev;
+        Node* next = toRemove->next;
+        // Redirect pointers
+        prev->next = next;
+        next->prev = prev;
+        toRemove->value.~T();
+        allocator_->deallocate(toRemove);
+        --size_;
+        return Iterator(next);
     }
 
     /*!
