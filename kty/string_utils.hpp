@@ -2,11 +2,9 @@
 
 #include <kty/stl_impl.hpp>
 #include <cctype>
-#include <sstream>
-#include <string>
-#include <utility>
 
 #include <kty/containers/string.hpp>
+#include <kty/types.hpp>
 
 namespace kty {
 
@@ -20,42 +18,36 @@ namespace kty {
     @return The int represented in the string.
             If the string is invalid, 0 is returned.
 */
-int str_to_int(std::string const & str) {
-    if (str.empty()) {
+template <typename StringPool>
+int str_to_int(PoolString<StringPool> const & str) {
+    Log.verbose(F("%s\n"), PRINT_FUNC);
+    int len = str.strlen();
+    if (len == 0) {
         return 0;
     }
-    for (int i = 0; i < str.size(); ++i) {
-        if (!isdigit(str[i]) && str[i] != '-') {
+    if (!isdigit(str[0]) && str[0] != '-') {
+        return 0;
+    }
+    for (int i = 1; i < len; ++i) {
+        if (!isdigit(str[i])) {
             return 0;
         }
     }
-    std::istringstream iss(str);
-    bool isNegativeValue = false;
-    if (iss.str()[0] == '-') {
-        isNegativeValue = true;
-        char c;
-        iss >> c; // Eat '-'
+    int result = 0;
+    bool isNegative = false;
+    int startIdx = 0;
+    if (str[0] == '-') {
+        isNegative = true;
+        startIdx = 1;
     }
-    int value = 0;
-    iss >> value;
-    if (isNegativeValue) {
-        value *= -1;
+    for (int i = startIdx; i < len; ++i) {
+        result *= 10;
+        result += (int)(str[i] - '0');
     }
-    return value;
-}
-
-/*! 
-    @brief  Converts an integer into its string representation.
-
-    @param  i
-            The integer to be converted.
-
-    @return The string representation of the integer.
-*/
-std::string int_to_str(int const & i) {
-    std::ostringstream oss;
-    oss << i;
-    return oss.str();
+    if (isNegative) {
+        result *= -1;
+    }
+    return result;
 }
 
 /*! 
@@ -71,6 +63,7 @@ std::string int_to_str(int const & i) {
 */
 template <typename StringPool>
 PoolString<StringPool> int_to_str(int i, StringPool & stringPool) {
+    Log.verbose(F("%s\n"), PRINT_FUNC);
     char strChar[2] = "";
     bool isNegative = false;
     if (i < 0) {
@@ -107,27 +100,9 @@ PoolString<StringPool> int_to_str(int i, StringPool & stringPool) {
     @param  str
             The string to remove whitespace from.
 */
-void remove_str_whitespace(std::string & str) {
-    std::string::iterator i = str.begin();
-    while (i != str.end()) {
-        if (isspace(*i)) {
-            i = str.erase(i);
-        }
-        else {
-            ++i;
-        }
-    }
-}
-
-/*! 
-    @brief  Removes all whitespace characters from the string.
-            This function modifies the string parameter in place.
-
-    @param  str
-            The string to remove whitespace from.
-*/
 template <typename StringPool>
 void remove_str_whitespace(PoolString<StringPool> & str) {
+    Log.verbose(F("%s\n"), PRINT_FUNC);
     PoolString<StringPool> temp(str);
     temp = "";
     char str_[2] = " ";
@@ -136,6 +111,38 @@ void remove_str_whitespace(PoolString<StringPool> & str) {
         if (!isspace(str.c_str()[i])) {
             str_[0] = str.c_str()[i];
             temp += str_;
+        }
+    }
+    str = temp;
+}
+
+/*! 
+    @brief  Removes multiple whitespace characters from the string,
+            replacing them with a single whitespace character.
+            This function modifies the string parameter in place.
+
+    @param  str
+            The string to remove whitespace from.
+*/
+template <typename StringPool>
+void remove_str_multiple_whitespace(PoolString<StringPool> & str) {
+    Log.verbose(F("%s\n"), PRINT_FUNC);
+    PoolString<StringPool> temp(str);
+    temp = "";
+    char str_[2] = " ";
+    int len = str.strlen();
+    int i = 0;
+    while (i < len) {
+        str_[0] = str[i];
+        temp += str_;
+        if (isspace(str[i])) {
+            // Skip forward until non-whitespace
+            while (i < len && isspace(str[i])) {
+                ++i;
+            }
+        }
+        else {
+            ++i;
         }
     }
     str = temp;

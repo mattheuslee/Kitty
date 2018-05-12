@@ -9,106 +9,68 @@
 using namespace std;
 using namespace kty;
 
-test(string_utils_str_to_int_empty_string)
+test(string_utils_str_to_int)
 {
-    Log.notice(F("Test string_utils_str_to_int_empty_string starting\n"));
-    assertEqual(str_to_int(""), 0);
+    int prevTestVerbosity = Test::min_verbosity;
+
+    Serial.println("Test string_utils_str_to_int starting.");
+    PoolString<stringpool_t> str(stringPool);
+    str = "";
+    assertEqual(str_to_int(str), 0);
+    str = "b";
+    assertEqual(str_to_int(str), 0);
+    str = "0x";
+    assertEqual(str_to_int(str), 0);
+    str = "0";
+    assertEqual(str_to_int(str), 0);
+    str = "1";
+    assertEqual(str_to_int(str), 1);
+    str = "12";
+    assertEqual(str_to_int(str), 12);
+    str = "123";
+    assertEqual(str_to_int(str), 123);
+    str = "1234";
+    assertEqual(str_to_int(str), 1234);
+    str = "12345";
+    assertEqual(str_to_int(str), 12345);
+    str = "-1";
+    assertEqual(str_to_int(str), -1);
+    str = "-12";
+    assertEqual(str_to_int(str), -12);
+    str = "-123";
+    assertEqual(str_to_int(str), -123);
+    str = "-1234";
+    assertEqual(str_to_int(str), -1234);
+    str = "-12345";
+    assertEqual(str_to_int(str), -12345);
+
+    Test::min_verbosity = prevTestVerbosity;
 }
 
-test(string_utils_str_to_int_invalid_string)
+test(string_utils_int_to_str)
 {
-    Log.notice(F("Test string_utils_str_to_int_invalid_string starting\n"));
-    assertEqual(str_to_int("a"), 0);
-}
+    int prevTestVerbosity = Test::min_verbosity;
 
-test(string_utils_str_to_int_positive)
-{
-    Log.notice(F("Test string_utils_str_to_int_positive starting\n"));
-    assertEqual(str_to_int("1"), 1);
-    assertEqual(str_to_int("12"), 12);
-    assertEqual(str_to_int("123"), 123);
-    assertEqual(str_to_int("1234"), 1234);
-    assertEqual(str_to_int("12345"), 12345);
-}
+    Serial.println("Test string_utils_int_to_str starting.");
+    assertEqual(int_to_str(1, stringPool).c_str(), "1");
+    assertEqual(int_to_str(12, stringPool).c_str(), "12");
+    assertEqual(int_to_str(123, stringPool).c_str(), "123");
+    assertEqual(int_to_str(1234, stringPool).c_str(), "1234");
+    assertEqual(int_to_str(12345, stringPool).c_str(), "12345");
+    assertEqual(int_to_str(-1, stringPool).c_str(), "-1");
+    assertEqual(int_to_str(-12, stringPool).c_str(), "-12");
+    assertEqual(int_to_str(-123, stringPool).c_str(), "-123");
+    assertEqual(int_to_str(-1234, stringPool).c_str(), "-1234");
+    assertEqual(int_to_str(-12345, stringPool).c_str(), "-12345");
 
-test(string_utils_str_to_int_negative)
-{
-    Log.notice(F("Test string_utils_str_to_int_negative starting\n"));
-    assertEqual(str_to_int("-1"), -1);
-    assertEqual(str_to_int("-12"), -12);
-    assertEqual(str_to_int("-123"), -123);
-    assertEqual(str_to_int("-1234"), -1234);
-    assertEqual(str_to_int("-12345"), -12345);
-}
-
-test(string_utils_int_to_str_positive)
-{
-    Log.notice(F("Test string_utils_int_to_str_positive starting\n"));
-    assertTrue(int_to_str(1) == "1");
-    assertTrue(int_to_str(12) == "12");
-    assertTrue(int_to_str(123) == "123");
-    assertTrue(int_to_str(1234) == "1234");
-    assertTrue(int_to_str(12345) == "12345");
-}
-
-test(string_utils_int_to_str_negative)
-{
-    Log.notice(F("Test string_utils_int_to_str_negative starting\n"));
-    assertTrue(int_to_str(-1) == "-1");
-    assertTrue(int_to_str(-12) == "-12");
-    assertTrue(int_to_str(-123) == "-123");
-    assertTrue(int_to_str(-1234) == "-1234");
-    assertTrue(int_to_str(-12345) == "-12345");
-}
-
-test(string_utils_int_to_str2_positive)
-{
-    Log.notice(F("Test string_utils_int_to_str2_positive starting\n"));
-    // Use global string pool
-    assertTrue(int_to_str(1, stringPool) == "1");
-    assertTrue(int_to_str(12, stringPool) == "12");
-    assertTrue(int_to_str(123, stringPool) == "123");
-    assertTrue(int_to_str(1234, stringPool) == "1234");
-    assertTrue(int_to_str(12345, stringPool) == "12345");
-}
-
-test(string_utils_int_to_str2_negative)
-{
-    Log.notice(F("Test string_utils_int_to_str2_negative starting\n"));
-    assertTrue(int_to_str(-1, stringPool) == "-1");
-    assertTrue(int_to_str(-12, stringPool) == "-12");
-    assertTrue(int_to_str(-123, stringPool) == "-123");
-    assertTrue(int_to_str(-1234, stringPool) == "-1234");
-    assertTrue(int_to_str(-12345, stringPool) == "-12345");
+    Test::min_verbosity = prevTestVerbosity;
 }
 
 test(string_utils_remove_str_whitespace)
 {
-    Log.notice(F("Test string_utils_remove_str_whitespace starting\n"));
-    string str;
-    str = " a";
-    remove_str_whitespace(str);
-    assertTrue(str == "a");
-    str = "a ";
-    remove_str_whitespace(str);
-    assertTrue(str == "a");
-    str = "a b";
-    remove_str_whitespace(str);
-    assertTrue(str == "ab");
-    str = " a   b";
-    remove_str_whitespace(str);
-    assertTrue(str == "ab");
-    str = "a b  ";
-    remove_str_whitespace(str);
-    assertTrue(str == "ab");
-    str = " a   b   ";
-    remove_str_whitespace(str);
-    assertTrue(str == "ab");
-}
+    int prevTestVerbosity = Test::min_verbosity;
 
-test(string_utils_remove_str_whitespace2)
-{
-    Log.notice(F("Test string_utils_remove_str_whitespace2 starting\n"));
+    Serial.println("Test string_utils_remove_str_whitespace starting.");
     PoolString<decltype(stringPool)> str(stringPool);
     str = " a";
     remove_str_whitespace(str);
@@ -128,4 +90,34 @@ test(string_utils_remove_str_whitespace2)
     str = " a   b   ";
     remove_str_whitespace(str);
     assertTrue(str == "ab");
+
+    Test::min_verbosity = prevTestVerbosity;
+}
+
+test(string_utils_remove_str_multiple_whitespace)
+{
+    int prevTestVerbosity = Test::min_verbosity;
+
+    Serial.println("Test string_utils_remove_str_multiple_whitespace starting.");
+    PoolString<decltype(stringPool)> str(stringPool);
+    str = "  a";
+    remove_str_multiple_whitespace(str);
+    assertEqual(str.c_str(), " a");
+    str = "a  ";
+    remove_str_multiple_whitespace(str);
+    assertEqual(str.c_str(), "a ");
+    str = "a  b";
+    remove_str_multiple_whitespace(str);
+    assertEqual(str.c_str(), "a b");
+    str = "  a   b";
+    remove_str_multiple_whitespace(str);
+    assertEqual(str.c_str(), " a b");
+    str = "a  b  ";
+    remove_str_multiple_whitespace(str);
+    assertEqual(str.c_str(), "a b ");
+    str = " a   b   ";
+    remove_str_multiple_whitespace(str);
+    assertEqual(str.c_str(), " a b ");
+
+    Test::min_verbosity = prevTestVerbosity;
 }
