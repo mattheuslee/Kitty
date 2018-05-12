@@ -4,6 +4,7 @@
 #include <cstring>
 
 #include <kty/containers/string.hpp>
+#include <kty/types.hpp>
 
 namespace kty {
 
@@ -38,6 +39,7 @@ public:
     */
     Token(StringPool & stringPool)
         : value_(stringPool) {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         type_ = TokenType::UNKNOWN_TOKEN;
     }
 
@@ -52,6 +54,7 @@ public:
     */
     Token(TokenType type, StringPool & stringPool) 
         : value_(stringPool) {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         type_ = type;
     }
 
@@ -69,6 +72,7 @@ public:
     */
     Token(TokenType type, StringPool & stringPool, PoolString<StringPool> const & value) 
         : value_(stringPool) {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         type_ = type;
         value_ = value;
     }
@@ -87,6 +91,7 @@ public:
     */
     Token(TokenType type, StringPool & stringPool, char const * value) 
         : value_(stringPool) {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         type_ = type;
         value_ = value;
     }
@@ -98,6 +103,7 @@ public:
                 The type to set to.
     */
     void set_type(TokenType type) {
+        Log.verbose(F("%s: setting to %d\n"), PRINT_FUNC, type);
         type_ = type;
     }
 
@@ -107,6 +113,7 @@ public:
         @return The type of the token.
     */
     TokenType get_type() const {
+        Log.verbose(F("%s: getting %d\n"), PRINT_FUNC, type_);
         return type_;
     }
 
@@ -117,6 +124,7 @@ public:
                 The value to set to.
     */
     void set_value(PoolString<StringPool> const & value) {
+        Log.verbose(F("%s: setting to %s\n"), PRINT_FUNC, value.c_str());
         value_ = value;
     }
 
@@ -126,6 +134,7 @@ public:
         @return A copy of the value of the token.
     */
     PoolString<StringPool> get_value() const {
+        Log.verbose(F("%s: getting %s\n"), PRINT_FUNC, value_.c_str());
         return value_;
     }
 
@@ -135,6 +144,7 @@ public:
         @return The string representaion of the token.
     */
     PoolString<StringPool> str() const {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         // Copy assignment so we don't need to store the pool
         PoolString<StringPool> result = value_;
         result = "Token(";
@@ -142,6 +152,7 @@ public:
         result += ", ";
         result += value_;
         result += ")";
+        Log.verbose(F("%s: result %s\n"), PRINT_FUNC, result.c_str());
         return result;
     }
 
@@ -151,6 +162,7 @@ public:
         @return The string representation of the type of the token.
     */
     char const * type_as_c_str() const {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         static const char lookup[][14] = {
             "CREATE_NUM",
             "CREATE_LED",
@@ -188,6 +200,7 @@ public:
             "UNKNOWN_TOKEN",
         };
         static const int numTypes = sizeof(lookup) / sizeof(lookup[0]);
+        Log.verbose(F("%s: %s\n"), PRINT_FUNC, lookup[static_cast<int>(type_)]);
         return lookup[static_cast<int>(type_)];
     }
 
@@ -198,6 +211,7 @@ public:
                 If the token is not an operator, 0 is returned.
     */
     int precedence_level() const {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         static const int lookup[] = {
             0, // CREATE_NUM
             0, // CREATE_LED
@@ -235,6 +249,7 @@ public:
             0, // UNKNOWN_TOKEN,
         };
         static const int numTypes = sizeof(lookup) / sizeof(lookup[0]);
+        Log.verbose(F("%s: %d\n"), PRINT_FUNC, lookup[static_cast<int>(type_)]);
         return lookup[static_cast<int>(type_)];
     }
 
@@ -245,6 +260,7 @@ public:
                 If this token is not a function, returns 0.
     */
     int num_function_arguments() const {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         static const int lookup[] = {
             1, // CREATE_NUM
             2, // CREATE_LED
@@ -282,6 +298,7 @@ public:
             0, // UNKNOWN_TOKEN,
         };
         static const int numTypes = sizeof(lookup) / sizeof(lookup[0]);
+        Log.verbose(F("%s: %d\n"), PRINT_FUNC, lookup[static_cast<int>(type_)]);
         return lookup[static_cast<int>(type_)];
     }
 
@@ -611,7 +628,7 @@ public:
 
         @return True if this is a UNKNOWN_TOKEN token, false otherwise.
     */
-    bool is_UNKNOWN_TOKEN() const {
+    bool is_unknown_token() const {
         return type_ == TokenType::UNKNOWN_TOKEN;
     }
 
@@ -725,13 +742,15 @@ private:
             If the parameter is not a valid command word,
             the unknown token type is returned.
 */
-template <typename StringPool>
-TokenType command_str_to_token_type(PoolString<StringPool> const & str) {
-    if (str.strlen() == 0) {
+TokenType command_str_to_token_type(char const * str) {
+    Log.verbose(F("%s\n"), PRINT_FUNC);
+    TokenType tokenType = TokenType::UNKNOWN_TOKEN;
+    if (::strlen(str) == 0) {
+        Log.warning(F("%s: empty string\n"), PRINT_FUNC);
         return TokenType::UNKNOWN_TOKEN;
     }
     static const char lookup[][10] = {
-        "IsNum",
+        "IsNumber",
         "IsLED",
         "IsGroup",
         "RunGroup",
@@ -744,34 +763,18 @@ TokenType command_str_to_token_type(PoolString<StringPool> const & str) {
         "",
         "If",
         "Else",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
     };
     static const int numTypes = sizeof(lookup) / sizeof(lookup[0]);
     for (int i = 0; i < numTypes; ++i) {
-        if (str == lookup[i]) {
-            return static_cast<TokenType>(i);
+        if (std::strcmp(str, lookup[i]) == 0) {
+            Log.verbose(F("%s: %d\n"), PRINT_FUNC, static_cast<TokenType>(i));
+            tokenType = static_cast<TokenType>(i);
         }
     }
+    if (tokenType == TokenType::UNKNOWN_TOKEN) {
+        Log.warning(F("%s: unknown command string %s\n"), PRINT_FUNC, str);
+    }
+    return tokenType;
 }
 
 /*!
@@ -784,12 +787,18 @@ TokenType command_str_to_token_type(PoolString<StringPool> const & str) {
             If the parameter is not a valid command word,
             the unknown token type is returned.
 */
-TokenType command_str_to_token_type(char const * str) {
-    if (::strlen(str) == 0) {
+template <typename StringPool>
+TokenType command_str_to_token_type(PoolString<StringPool> const & str) {
+    Log.verbose(F("%s\n"), PRINT_FUNC);
+    return command_str_to_token_type(str.c_str());
+
+    TokenType tokenType = TokenType::UNKNOWN_TOKEN;
+    if (str.strlen() == 0) {
+        Log.warning(F("%s: empty string\n"), PRINT_FUNC);
         return TokenType::UNKNOWN_TOKEN;
     }
     static const char lookup[][10] = {
-        "IsNum",
+        "IsNumber",
         "IsLED",
         "IsGroup",
         "RunGroup",
@@ -802,34 +811,18 @@ TokenType command_str_to_token_type(char const * str) {
         "",
         "If",
         "Else",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
     };
     static const int numTypes = sizeof(lookup) / sizeof(lookup[0]);
     for (int i = 0; i < numTypes; ++i) {
-        if (std::strcmp(str, lookup[i]) == 0) {
-            return static_cast<TokenType>(i);
+        if (str == lookup[i]) {
+            Log.verbose(F("%s: %d\n"), PRINT_FUNC, static_cast<TokenType>(i));
+            tokenType = static_cast<TokenType>(i);
         }
     }
+    if (tokenType == TokenType::UNKNOWN_TOKEN) {
+        Log.warning(F("%s: unknown command string %s\n"), PRINT_FUNC, str.c_str());
+    }
+    return tokenType;
 }
 
 /*!
@@ -843,6 +836,7 @@ TokenType command_str_to_token_type(char const * str) {
             the unknown token type is returned.
 */
 TokenType punctuation_char_to_token_type(char const & ch) {
+    Log.verbose(F("%s\n"), PRINT_FUNC);
     switch (ch) {
     case '(':
         return TokenType::OP_PAREN;
@@ -876,9 +870,9 @@ TokenType punctuation_char_to_token_type(char const & ch) {
         return TokenType::LOGI_XOR;
     case '~':
         return TokenType::LOGI_NOT;
-    default:
-        return TokenType::UNKNOWN_TOKEN;
     };
+    Log.warning(F("%s: unknown token %c\n"), PRINT_FUNC, ch);
+    return TokenType::UNKNOWN_TOKEN;
 }
 
 } // namespace kty
