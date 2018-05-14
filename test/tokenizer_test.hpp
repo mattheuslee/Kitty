@@ -516,3 +516,8 @@ void tokenizer_check_tokens_match(Deque<Token<stringpool_t>, alloc_t> & generate
         ++i;
     }
 }
+
+void tokenizer_print_tokens(Deque<Token<stringpool_t>, alloc_t> const & tokens) {
+    for (auto & token: tokens)
+        Serial.println(token.str().c_str());
+}
