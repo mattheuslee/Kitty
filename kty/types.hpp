@@ -14,3 +14,10 @@
 #define TYPE_STR(x) typeid(x).name()
 #define PRINT_FUNC __PRETTY_FUNCTION__
 #endif
+
+#if defined(ARDUINO)
+/** No specific int pointer type */
+#define intptr_t unsigned int
+#else
+#include <cstdint>
+#endif
