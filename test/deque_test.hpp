@@ -2,63 +2,144 @@
 
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/deque.hpp>
+#include <kty/sizes.hpp>
 
 using namespace kty;
 
-test(deque)
-{
-    Log.notice(F("Test deque starting\n"));
-    const int maxSize = 10;
-    Allocator<maxSize + 1, sizeof(int) * 8> alloc;
+test(deque_constructors) {
+    int prevTestVerbosity = Test::min_verbosity;
+    
+    Serial.println("Test deque_constructors starting.");
+
+    Deque<int> deque1;
+    Deque<int> deque2(alloc);
+    deque2.push_back(1);
+    Deque<int> deque3(deque2);
+    deque3 = deque2;
+
+    Test::min_verbosity = prevTestVerbosity;
+}
+
+test(deque_front) {
+    int prevTestVerbosity = Test::min_verbosity;
+    
+    Serial.println("Test deque_front starting.");
+
+    const int numInts = 10;
+    Allocator<numInts + 1, Sizes::alloc_block_size> alloc;
     Deque<int, decltype(alloc)> deque(alloc);
-
-    for (int i = 0; i < maxSize; ++i) {
-        deque.push_back(i);
+    assertNotEqual(deque.front(), -1);
+    for (int i = 0; i < numInts; ++i) {
+        assertTrue(deque.push_front(i), "i = " << i);
+        assertEqual(deque.size(), i + 1, "i = " << i);
     }
-    for (int i = 0; i < maxSize; ++i) {
+    assertFalse(deque.push_front(0));
+
+    for (int i = 0; i < numInts; ++i) {
+        assertEqual(deque.front(), numInts - 1 - i, "i = " << i);
+        assertTrue(deque.pop_front(), "i = " << i);
+        assertEqual(deque.size(), numInts - 1 - i, "i = " << i);
+    }
+    assertFalse(deque.pop_front());
+
+    Test::min_verbosity = prevTestVerbosity;
+}
+
+test(deque_back) {
+    int prevTestVerbosity = Test::min_verbosity;
+    
+    Serial.println("Test deque_back starting.");
+    const int numInts = 10;
+    Allocator<numInts + 1, Sizes::alloc_block_size> alloc;
+    Deque<int, decltype(alloc)> deque(alloc);
+    assertNotEqual(deque.back(), -1);
+    for (int i = 0; i < numInts; ++i) {
+        assertTrue(deque.push_back(i), "i = " << i);
+        assertEqual(deque.size(), i + 1, "i = " << i);
+    }
+    assertFalse(deque.push_back(0));
+
+    for (int i = 0; i < numInts; ++i) {
+        assertEqual(deque.back(), numInts - 1 - i, "i = " << i);
+        assertTrue(deque.pop_back(), "i = " << i);
+        assertEqual(deque.size(), numInts - 1 - i, "i = " << i);
+    }
+    assertFalse(deque.pop_back());
+
+    Test::min_verbosity = prevTestVerbosity;
+}
+
+test(deque_iterators_and_access) {
+    int prevTestVerbosity = Test::min_verbosity;
+
+    Serial.println("Test deque_iterators_and_access starting.");
+    const int numInts = 10;
+    Deque<int> deque;
+    assertNotEqual(deque[0], -1);
+    for (int i = 0; i < numInts; ++i) {
+        assertTrue(deque.push_back(i), "i = " << i);
+    }
+    int i = 0;
+    for (Deque<int>::Iterator it = deque.begin(); it != deque.end(); ++it, ++i) {
+        assertEqual(*it, i, "i = " << i);
+    }
+    i = numInts - 1;
+    for (Deque<int>::Iterator it = deque.end(); it != deque.begin(); ) {
+        --it;
+        assertEqual(*it, i, "i = " << i);
+        --i;
+    }
+
+    i = 0;
+    for (Deque<int>::ConstIterator it = deque.cbegin(); it != deque.cend(); ++it, ++i) {
+        assertEqual(*it, i, "i = " << i);
+    }
+    i = numInts - 1;
+    for (Deque<int>::ConstIterator it = deque.cend(); it != deque.cbegin(); ) {
+        --it;
+        assertEqual(*it, i, "i = " << i);
+        --i;
+    }
+    
+    const Deque<int> deque2(deque);
+    i = 0;
+    for (Deque<int>::ConstIterator it = deque2.begin(); it != deque2.end(); ++it, ++i) {
+        assertEqual(*it, i, "i = " << i);
+    }
+
+    for (int i = 0; i < numInts; ++i) {
         assertEqual(deque[i], i, "i = " << i);
     }
-    assertEqual(deque.size(), maxSize);
-    assertFalse(deque.push_front(1));
-    assertFalse(deque.push_back(1));
+    
+    Test::min_verbosity = prevTestVerbosity;
+}
 
-    for (int i = 0; i < maxSize; ++i) {
-        deque.pop_back();
-    }
-    assertTrue(deque.is_empty());
+test(deque_erase) {
+    int prevTestVerbosity = Test::min_verbosity;
+    
+    Serial.println("Test deque_iterators_and_access starting.");
+    Deque<int> deque;
 
-    for (int i = 0; i < maxSize; ++i) {
-        deque.push_front(maxSize - i - 1);
-    }
-    for (int i = 0; i < maxSize; ++i) {
-        assertEqual(deque[i], i, "i = " << i);
-    }
-    assertEqual(deque.size(), maxSize);
-    for (int i = 0; i < maxSize; ++i) {
-        deque.pop_front();
-    }
-    assertTrue(deque.is_empty());
-
-    deque[0]; // Should give undefined behaviour warnings
-    deque.front(); // Should give undefined behaviour warnings
-    deque.back(); // Should give undefined behaviour warnings
-
-    deque.push_front(2);
-    deque.push_front(1);
-    assertEqual(deque.front(), 1);
-    assertEqual(deque.back(), 2);
-
-    /*const Deque<int, decltype(alloc)> deque2(deque);
-    assertEqual(deque2[0], 1);
-    assertEqual(deque2[1], 2);
-
-    const Deque<int, decltype(alloc)> deque3(alloc);
-    deque3[0]; // Should give undefined behaviour warnings
-
-    deque.clear();
+    assertEqual(deque.size(), 0);
+    assertTrue(deque.push_back(1));
+    assertTrue(deque.push_back(2));
+    assertEqual(deque.size(), 2);
+    assertTrue(deque.erase(1));
+    assertEqual(deque.size(), 1);
+    assertEqual(deque[0], 1);
+    assertFalse(deque.erase(1));
+    assertTrue(deque.erase(0));
     assertEqual(deque.size(), 0);
 
-    deque = deque2;
-    assertEqual(deque[0], 1);
-    assertEqual(deque[1], 2);*/
+    assertTrue(deque.push_back(1));
+    assertTrue(deque.push_back(2));
+    Deque<int>::Iterator it = deque.begin();
+    it = deque.erase(it);
+    assertEqual(deque.size(), 1);
+    assertEqual(deque[0], 2);
+    assertEqual(*it, 2);
+    it = deque.erase(it);
+    assertEqual(deque.size(), 0);
+
+    Test::min_verbosity = prevTestVerbosity;
 }

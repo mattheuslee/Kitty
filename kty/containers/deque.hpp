@@ -1,8 +1,5 @@
 #pragma once
 
-#include <kty/stl_impl.hpp>
-#include <utility>
-
 #include <kty/containers/allocator.hpp>
 #include <kty/sizes.hpp>
 #include <kty/types.hpp>
@@ -15,16 +12,19 @@ namespace kty {
             but at the expense of slow random access. 
             Implemented as a circular doubly linked list with a dummy head node.
 */
-template <typename T, typename Alloc>
+template <typename T, typename Alloc = Allocator<Sizes::alloc_size, Sizes::alloc_block_size>, typename GetAllocFunc = decltype(get_alloc)>
 class Deque {
 
 public:
+    /** The type of value stored in the deque */
+    typedef T value_t;
+
     /*!
         @brief  The node structure that makes up the deque.
     */
     struct Node {
         /** The value stored in the node */
-        T value;
+        value_t value;
         /** The node after this one */
         Node* next;
         /** The node before this one */
@@ -37,8 +37,8 @@ public:
     class Iterator {
     
     public:
-        /** Friend class declaration such that deque can access internal pointers */
-        friend class Deque<T, Alloc>;
+        /** Friend class declaration such that deque can access its internal pointers */
+        friend class Deque<value_t, Alloc>;
 
         /*!
             @brief  Constructor.
@@ -46,11 +46,8 @@ public:
             @param  ptr
                     The pointer to store in the iterator.
         */
-        Iterator(Node * & ptr) {
-            ptr_ = ptr;
-            if (ptr == nullptr) {
-                Log.warning(F("%s: given nullptr\n"), PRINT_FUNC);
-            }
+        Iterator(Node * ptr)
+            : ptr_(ptr) {
         }
 
         /*!
@@ -102,8 +99,17 @@ public:
 
             @return A reference to the value pointed to by the iterator.
         */
-        T& operator*() {
+        value_t & operator*() {
             return ptr_->value;
+        }
+
+        /*!
+            @brief  Arrow operator.
+
+            @return A pointer to the value pointed to by the iterator.
+        */
+        value_t * operator->() {
+            return &(ptr_->value);
         }
 
         /*!
@@ -115,7 +121,7 @@ public:
             @return True if this and the other iterator point to the same value,
                     false otherwise.
         */
-        bool operator==(Iterator const & other) {
+        bool operator==(Iterator const & other) const {
             return ptr_ == other.ptr_;
         }
 
@@ -128,7 +134,120 @@ public:
             @return True if this and the other iterator point to different values,
                     false otherwise.
         */
-        bool operator!=(Iterator const & other) {
+        bool operator!=(Iterator const & other) const {
+            return !operator==(other);
+        }
+
+    private:
+        Node* ptr_;
+    };
+
+    /*!
+        @brief  The constant iterator class for the deque.
+                This behaves similarly to a regular iterator, but
+                the values it points to cannot be changed.
+    */
+    class ConstIterator {
+    
+    public:
+        /** Friend class declaration such that deque can access internal pointers */
+        friend class Deque<value_t, Alloc>;
+
+        /*!
+            @brief  Constructor.
+
+            @param  ptr
+                    The pointer to store in the iterator.
+        */
+        ConstIterator(Node const * ptr)
+            : ptr_(const_cast<Node *>(ptr)) {
+        }
+
+        /*!
+            @brief  Pre-decrement operator.
+
+            @return A reference to the the iterator after decrementing.
+        */
+        ConstIterator& operator--() {
+            ptr_ = ptr_->prev;
+            return *this;
+        }
+
+        /*!
+            @brief  Post-decrement operator.
+
+            @return A copy of the iterator in its pre-decremented state.
+        */
+        ConstIterator operator--(int) {
+            Iterator temp(ptr_);
+            ptr_ = ptr_->prev;
+            return temp;
+        }
+
+        /*!
+            @brief  Pre-increment operator.
+                    Stops once it exceeds the end of the deque.
+
+            @return A reference to the the iterator after incrementing.
+        */
+        ConstIterator& operator++() {
+            ptr_ = ptr_->next;
+            return *this;
+        }
+
+        /*!
+            @brief  Post-increment operator.
+                    Stops once it exceeds the end of the deque.
+
+            @return A copy of the iterator in its pre-incremented state.
+        */
+        ConstIterator operator++(int) {
+            Iterator temp(ptr_);
+            ptr_ = ptr_->next;
+            return temp;
+        }
+
+        /*!
+            @brief  Dereference operator.
+
+            @return A const reference to the value pointed to by the iterator.
+        */
+        value_t const & operator*() const {
+            return ptr_->value;
+        }
+
+        /*!
+            @brief  Arrow operator.
+
+            @return A const pointer to the value pointed to by the iterator.
+        */
+        value_t const * operator->() const {
+            return &(ptr_->value);
+        }
+
+        /*!
+            @brief  Equality comparison operator.
+
+            @param  other
+                    The other iterator to compare to.
+
+            @return True if this and the other iterator point to the same value,
+                    false otherwise.
+        */
+        bool operator==(ConstIterator const & other) const {
+            return ptr_ == other.ptr_;
+        }
+
+        /*!
+            @brief  Non-equality comparison operator.
+
+            @param  other
+                    The other iterator to compare to.
+
+            @return True if this and the other iterator point to different values,
+                    false otherwise.
+        */
+        bool operator!=(ConstIterator const & other) const {
             return !operator==(other);
         }
 
@@ -138,29 +257,132 @@ public:
 
     /*!
         @brief  Constructor for the deque.
+                This constructor sets up the deque to use an allocator.
 
         @param  allocator
                 The allocator for the deque nodes.
     */
-    explicit Deque(Alloc & allocator) : allocator_(&allocator) {
-        Log.trace(F("%s:\n"), PRINT_FUNC);
-        static_assert(sizeof(Node) <= Sizes::alloc_size, "Size of Deque<T, Alloc>::Node can be no larger than kty::Sizes::alloc_size, due to fixed allocator memory block size.");
+    explicit Deque(Alloc & allocator)
+        : allocator_(&allocator) {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
+        static_assert(sizeof(Node) <= Sizes::alloc_block_size, "Size of Deque<T, Alloc>::Node can be no larger than kty::Sizes::alloc_block_size, due to fixed allocator memory block size.");
         size_ = 0;
-        head_ = static_cast<Node*>(allocator_->allocate());
+        head_ = alloc();
         head_->next = head_;
         head_->prev = head_;
+    }
+
+    /*!
+        @brief  Constructor for the deque.
+                This constructor sets up the deque to use allocating functions.
+
+        @param  getAllocFunc
+                A function that returns a allocator pointer when called.
+    */
+    Deque(GetAllocFunc & getAllocFunc = get_alloc) 
+        : getAllocFunc_(&getAllocFunc) {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
+        static_assert(sizeof(Node) <= Sizes::alloc_block_size, "Size of Deque<T, Alloc>::Node can be no larger than kty::Sizes::alloc_block_size, due to fixed allocator memory block size.");
+        size_ = 0;
+        head_ = alloc();
+        head_->next = head_;
+        head_->prev = head_;
+    }
+
+    /*!
+        @brief  Copy constructor for the deque.
+
+        @param  other
+                The deque to copy from.
+    */
+    Deque(Deque<value_t, Alloc> const & other) 
+        : allocator_(other.allocator_), getAllocFunc_(other.getAllocFunc_) {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
+        static_assert(sizeof(Node) <= Sizes::alloc_block_size, "Size of Deque<T, Alloc>::Node can be no larger than kty::Sizes::alloc_block_size, due to fixed allocator memory block size.");
+        size_ = 0;
+        head_ = alloc();
+        head_->next = head_;
+        head_->prev = head_;
+        // Copy over nodes from other deque
+        for (ConstIterator it = other.begin(); it != other.end(); ++it) {
+            push_back(*it);
+        }
+    }
+
+    /*!
+        @brief  Copy assignment operator for the deque.
+
+        @param  other
+                The deque to copy from.
+
+        @return A reference to this deque after the copy.
+    */
+    Deque<value_t, Alloc> & operator=(Deque<value_t, Alloc> const & other) {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
+        // Clear our own nodes
+        clear();
+        dalloc(head_);
+        // Restart our deque
+        allocator_ = other.allocator_;
+        getAllocFunc_ = other.getAllocFunc_;
+        size_ = 0;
+        head_ = alloc();
+        head_->next = head_;
+        head_->prev = head_;
+        // Copy over nodes from other deque
+        for (ConstIterator it = other.begin(); it != other.end(); ++it) {
+            push_back(*it);
+        }
+        return *this;
     }
 
     /*!
         @brief  Destructor for the deque.
     */
     virtual ~Deque() {
-        Log.trace(F("%s\n"), PRINT_FUNC);
-        // Only clear if we are starting with a properly initialised deque
-        if (size_ >= 0 && allocator_ != nullptr && allocator_->owns(head_)) {
-            Log.trace(F("%s: properly initialised deque\n"), PRINT_FUNC);
-            clear();
-            allocator_->deallocate(head_);
+        Log.verbose(F("%s\n"), PRINT_FUNC);
+        clear();
+        dalloc(head_);
+    }
+
+    /*!
+        @brief  Performs the correct allocation depending on whether
+                an allocator object is given, or if a function to get
+                an allocator object is given.
+        
+        @return A pointer to the allocated node.
+    */
+    Node * alloc() {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
+        if (allocator_ != nullptr) {
+            Log.verbose(F("%s: allocator\n"), PRINT_FUNC);
+            return (Node *)(allocator_->allocate());
+        }
+        else {
+            Log.verbose(F("%s: getAllocFunc\n"), PRINT_FUNC);
+            return (Node *)((*getAllocFunc_)(nullptr)->allocate());
+        }
+    }
+
+    /*!
+        @brief  Performs the correct deallocation depending on whether
+                an allocator object is given, or if a function to get
+                an allocator object is given.
+        
+        @param  ptr
+                The pointer to deallocate.
+
+        @return True if the deallocation was successful, false otherwise.
+    */
+    bool dalloc(Node * ptr) {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
+        if (allocator_ != nullptr) {
+            Log.verbose(F("%s: allocator\n"), PRINT_FUNC);
+            return allocator_->deallocate(ptr);
+        }
+        else {
+            Log.verbose(F("%s: getAllocFunc\n"), PRINT_FUNC);
+            return (*getAllocFunc_)(nullptr)->deallocate(ptr);
         }
     }
 
@@ -170,7 +392,6 @@ public:
         @return The number of elements in the deque.
     */
     virtual int size() const {
-        //Log.trace(F("%s: size = %d\n"), PRINT_FUNC, size_);
         return size_;
     }
 
@@ -187,7 +408,7 @@ public:
         @brief  Clears all elements in the deque, leaving it empty.
     */
     virtual void clear() {
-        Log.trace(F("%s:\n"), PRINT_FUNC);
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         while (!is_empty()) {
             pop_front();
         }
@@ -201,10 +422,10 @@ public:
 
         @return True if the push was successful, false otherwise.
     */
-    virtual bool push_front(T const & value) {
-        Log.trace(F("%s:\n"), PRINT_FUNC);
+    virtual bool push_front(value_t const & value) {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         // Allocate new node
-        Node* toInsert = static_cast<Node*>(allocator_->allocate());
+        Node* toInsert = alloc();
         if (toInsert == nullptr) {
             Log.warning(F("%s: Unable to push back due to invalid allocated address\n"), PRINT_FUNC);
             return false;
@@ -217,18 +438,20 @@ public:
         next->prev = toInsert;
         head_->next = toInsert;
         ++size_;
-        Log.trace(F("%s: done\n"), PRINT_FUNC);
+        Log.verbose(F("%s: done\n"), PRINT_FUNC);
         return true;
     }
 
     /*!
         @brief  Pops value from the front of the deque.
                 If there is no value to pop, does nothing.
+
+        @return True if the push was successful, false otherwise.
     */
-    virtual void pop_front() {
-        Log.trace(F("%s:\n"), PRINT_FUNC);
+    virtual bool pop_front() {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         if (is_empty()) {
-            return;
+            return false;
         }
         Node* toRemove = head_->next;
         Node* next = toRemove->next;
@@ -236,10 +459,11 @@ public:
         head_->next = next;
         next->prev = head_;
         // Call destructor before deallocating memory
-        toRemove->value.~T();
-        allocator_->deallocate(toRemove);
+        toRemove->value.~value_t();
+        bool result = dalloc(toRemove);
         --size_;
-        Log.trace(F("%s: done\n"), PRINT_FUNC);
+        Log.verbose(F("%s: done\n"), PRINT_FUNC);
+        return result;
     }
 
     /*!
@@ -251,15 +475,15 @@ public:
 
         @return True if the push was successful, false otherwise.
     */
-    virtual bool push_back(T const & value) {
-        Log.trace(F("%s:\n"), PRINT_FUNC);
+    virtual bool push_back(value_t const & value) {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         // Allocate new node
-        Node* toInsert = static_cast<Node*>(allocator_->allocate());
+        Node* toInsert = alloc();
         if (toInsert == nullptr) {
             Log.warning(F("%s: Unable to push back due to invalid allocated address\n"), PRINT_FUNC);
             return false;
         }
-        toInsert->value = T(value);
+        toInsert->value = value_t(value);
         Node* prev = head_->prev;
         // Rearrange pointers
         toInsert->next = head_;
@@ -267,18 +491,20 @@ public:
         prev->next = toInsert;
         head_->prev = toInsert;
         ++size_;
-        Log.trace(F("%s: done\n"), PRINT_FUNC);
+        Log.verbose(F("%s: done\n"), PRINT_FUNC);
         return true;
     }
 
     /*!
         @brief  Pops value from the back of the deque.
                 If there is no value to pop, does nothing.
+
+        @return True if the push was successful, false otherwise.
     */
-    virtual void pop_back() {
-        Log.trace(F("%s:\n"), PRINT_FUNC);
+    virtual bool pop_back() {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         if (is_empty()) {
-            return;
+            return false;
         }
         Node* toRemove = head_->prev;
         Node* prev = toRemove->prev;
@@ -286,10 +512,11 @@ public:
         head_->prev = prev;
         prev->next = head_;
         // Call destructor before deallocating memory
-        toRemove->value.~T();
-        allocator_->deallocate(toRemove);
+        toRemove->value.~value_t();
+        bool result = dalloc(toRemove);
         --size_;
-        Log.trace(F("%s: done\n"), PRINT_FUNC);
+        Log.verbose(F("%s: done\n"), PRINT_FUNC);
+        return result;
     }
 
     /*!
@@ -298,8 +525,8 @@ public:
                 
         @return A reference to the element.
     */
-    virtual T& front() {
-        Log.trace(F("%s:\n"), PRINT_FUNC);
+    virtual value_t & front() {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         if (size() == 0) {
             Log.warning(F("%s: size = 0 (undefined behaviour)\n"), PRINT_FUNC);
         }
@@ -312,8 +539,8 @@ public:
 
         @return A reference to the element.
     */
-    virtual T& back() {
-        Log.trace(F("%s:\n"), PRINT_FUNC);
+    virtual value_t & back() {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         if (size() == 0) {
             Log.warning(F("%s: size = 0 (undefined behaviour)\n"), PRINT_FUNC);
         }        
@@ -330,6 +557,24 @@ public:
     }
 
     /*!
+        @brief  Returns a const iterator to the first element of the deque.
+
+        @return A const iterator to the first element.
+    */
+    virtual ConstIterator begin() const {
+        return ConstIterator(head_->next);
+    }
+
+    /*!
+        @brief  Returns a const iterator to the first element of the deque.
+
+        @return A const iterator to the first element.
+    */
+    virtual ConstIterator cbegin() const {
+        return ConstIterator(head_->next);
+    }
+
+    /*!
         @brief  Returns an iterator to one past the last element of the deque.
                 Since this is a circular deque, one past the last element is the
                 dummy head node.
@@ -341,12 +586,40 @@ public:
     }
 
     /*!
+        @brief  Returns a const iterator to one past the last element of the deque.
+                Since this is a circular deque, one past the last element is the
+                dummy head node.
+
+        @return A const iterator to one past the last element.
+    */
+    virtual ConstIterator end() const {
+        return ConstIterator(head_);
+    }
+
+    /*!
+        @brief  Returns a const iterator to one past the last element of the deque.
+                Since this is a circular deque, one past the last element is the
+                dummy head node.
+
+        @return A const iterator to one past the last element.
+    */
+    virtual ConstIterator cend() const {
+        return ConstIterator(head_);
+    }
+
+    /*!
         @brief  Erases the node at index.
         
         @param  idx
                 The index of the node to erase.
+
+        @return True if the erase was successful, false otherwise.
     */
-    virtual void erase(int const & idx) {
+    virtual bool erase(int const & idx) {
+        if (idx >= size_) {
+            Log.warning(F("%s: invalid idx %d to erase, size is %d\n"), PRINT_FUNC, idx, size_);
+            return false;
+        }
         Node* toRemove = head_->next;
         for (int i = 0; i < idx; ++i) {
             toRemove = toRemove->next;
@@ -356,9 +629,10 @@ public:
         // Redirect pointers
         prev->next = next;
         next->prev = prev;
-        toRemove->value.~T();
-        allocator_->deallocate(toRemove);
+        toRemove->value.~value_t();
+        dalloc(toRemove);
         --size_;
+        return true;
     }
 
     /*!
@@ -378,8 +652,8 @@ public:
         // Redirect pointers
         prev->next = next;
         next->prev = prev;
-        toRemove->value.~T();
-        allocator_->deallocate(toRemove);
+        toRemove->value.~value_t();
+        dalloc(toRemove);
         --size_;
         return Iterator(next);
     }
@@ -393,8 +667,8 @@ public:
 
         @return A reference to the element.
     */
-    virtual T& operator[](int const & i) {
-        //Log.trace(F("%s:\n"), PRINT_FUNC, i);
+    virtual value_t & operator[](int const & i) {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
         if (i < 0 || i >= size_) {
             Log.warning(F("%s: accessing index %d when size is %d (undefined behaviour)\n"), PRINT_FUNC, i, i, size_);
         }
@@ -402,7 +676,7 @@ public:
         for (int j = 0; j < i; ++j) {
             curr = curr->next;
         }
-        //Log.trace(F("%s: returning\n"), PRINT_FUNC, i);
+        Log.verbose(F("%s: returning\n"), PRINT_FUNC);
         return curr->value;
     }
 
@@ -412,8 +686,10 @@ protected:
     /** Current size of the linked list */
     int size_ = 0;
 
-    /** Reference to the allocator used to allocate new nodes */
-    Alloc* allocator_;
+    /** Pointer to the allocator used to allocate new nodes */
+    Alloc * allocator_ = nullptr;
+    /** Pointer to the function to get the allocator */
+    GetAllocFunc * getAllocFunc_ = nullptr;
 
 };
 
