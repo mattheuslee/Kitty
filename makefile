@@ -19,6 +19,9 @@ coverage : ./test/test.cpp
 	./coverage
 	rm -f coverage*
 
+run_coverage : coverage
+	gcov test.cpp
+
 console : ./console/console.cpp
 	$(CC) -isystem ${ARDUINO_UNIT_SRC_DIR} -isystem ${KITTY_SRC_DIR} -o console_exec $< ${ARDUINO_UNIT_SRC} ${ARDUINO_UNIT_MOCK} $(CONSOLE_CFLAGS)
 
