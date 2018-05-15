@@ -264,4 +264,25 @@ Allocator<Sizes::alloc_size, Sizes::alloc_block_size> * get_alloc(Allocator<Size
     return alloc;
 }
 
+/*!
+    @brief  Class to perform setup of the get_alloc function at the global scope.
+*/
+template <typename Alloc = Allocator<Sizes::alloc_size, Sizes::alloc_block_size>>
+class GetAllocInit {
+
+public:
+    /*!
+        @brief  Executes the setup call to get_alloc with the given allocator.
+
+        @param  alloc
+                The allocator to setup get_alloc with.
+    */
+    GetAllocInit(Alloc & alloc) {
+        get_alloc(&alloc);
+    }
+
+private:
+
+};
+
 } // namespace kty
