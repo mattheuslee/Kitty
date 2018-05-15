@@ -289,17 +289,17 @@ StringPool<Sizes::stringpool_size, Sizes::string_length> * get_stringpool(String
 }
 
 /*!
-    @brief  Class to perform setup of the get_alloc function at the global scope.
+    @brief  Class to perform setup of the get_stringpool function at the global scope.
 */
 template <typename StringPool = StringPool<Sizes::stringpool_size, Sizes::string_length>>
 class GetStringPoolInit {
 
 public:
     /*!
-        @brief  Executes the setup call to get_alloc with the given allocator.
+        @brief  Executes the setup call to get_stringpool with the given string pool.
 
-        @param  alloc
-                The allocator to setup get_alloc with.
+        @param  stringPool
+                The string pool to setup get_stringpool with.
     */
     GetStringPoolInit(StringPool & stringPool) {
         get_stringpool(&stringPool);

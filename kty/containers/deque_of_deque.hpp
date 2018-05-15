@@ -23,11 +23,11 @@ public:
     /*!
         @brief  Constructor for the deque.
 
-        @param  stringPool
-                The string pool to use.
-        
-        @param  alloc
-                The allocator to use.
+        @param  getAllocFunc
+                A function that returns an allocator pointer when called.
+
+        @param  getPoolFunc
+                A function that returns a pointer to a string pool when called.
     */
     DequeDequePoolString(GetAllocFunc & getAllocFunc = get_alloc, GetPoolFunc & getPoolFunc = get_stringpool) 
         : getAllocFunc_(&getAllocFunc), getPoolFunc_(&getPoolFunc), strings_(getAllocFunc), sizes_(getAllocFunc) {
