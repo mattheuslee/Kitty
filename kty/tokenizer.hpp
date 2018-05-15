@@ -7,8 +7,10 @@
 #include <cctype>
 #include <sstream>
 
+#include <kty/containers/allocator.hpp>
 #include <kty/containers/deque.hpp>
 #include <kty/containers/string.hpp>
+#include <kty/containers/stringpool.hpp>
 #include <kty/string_utils.hpp>
 #include <kty/token.hpp>
 #include <kty/types.hpp>
@@ -18,7 +20,7 @@ namespace kty {
 /*!
     @brief  Class that tokenizes commands.
 */
-template <typename Alloc, typename StringPool>
+template <typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename Token = Token<>, typename PoolString = PoolString<>>
 class Tokenizer {
 
 public:
@@ -26,33 +28,33 @@ public:
     /*!
         @brief  Constructor for tokenizer.
 
-        @param  alloc
-                The allocator to use.
+        @param  getAllocFunc
+                A function that returns a allocator pointer when called.
 
-        @param  stringPool
-                The string pool to use.
+        @param  getPoolFunc
+                A function that returns a pointer to a string pool when called.
     */
-    Tokenizer(Alloc & alloc, StringPool & stringPool) 
-        : alloc_(alloc), stringPool_(stringPool), command_(stringPool),
-          validPunctuation_(stringPool, "(),=<>+-*/%^&|!~") {
+    Tokenizer(GetAllocFunc & getAllocFunc = get_alloc, GetPoolFunc & getPoolFunc = get_stringpool) 
+        : getAllocFunc_(&getAllocFunc), getPoolFunc_(&getPoolFunc), command_(getPoolFunc),
+          validPunctuation_(get_stringpool, "(),=<>+-*/%^&|!~") {
         Log.verbose(F("%s\n"), PRINT_FUNC);
     }
 
     /*!
         @brief  Constructor for tokenizer that takes in command to tokenize.
 
-        @param  alloc
-                The allocator to use.
+        @param  getAllocFunc
+                A function that returns a allocator pointer when called.
 
-        @param  stringPool
-                The string pool to use.
+        @param  getPoolFunc
+                A function that returns a pointer to a string pool when called.
 
         @param  command
                 The command to tokenize.
     */
-    Tokenizer(Alloc & alloc, StringPool & stringPool, PoolString<StringPool> const & command) 
-        : alloc_(alloc), stringPool_(stringPool), command_(stringPool),
-          validPunctuation_(stringPool, "(),=<>+-*/%^&|!~") {
+    Tokenizer(GetAllocFunc & getAllocFunc, GetPoolFunc & getPoolFunc, PoolString const & command) 
+        : getAllocFunc_(&getAllocFunc), getPoolFunc_(&getPoolFunc), command_(getPoolFunc),
+          validPunctuation_(getPoolFunc, "(),=<>+-*/%^&|!~") {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         set_command(command);
     }
@@ -63,7 +65,7 @@ public:
         @param  command
                 The command to tokenize.
     */
-    void set_command(PoolString<StringPool> const & command) {
+    void set_command(PoolString const & command) {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         command_ = command;
         remove_str_whitespace(command_);
@@ -76,11 +78,11 @@ public:
 
         @return The tokenized command.
     */
-    Deque<Token<StringPool>, Alloc> tokenize() {
+    Deque<Token> tokenize() {
         Log.verbose(F("%s\n"), PRINT_FUNC);
-        Deque<Token<StringPool>, Alloc> tokens(alloc_);
+        Deque<Token> tokens(*getAllocFunc_);
         tokens.clear();
-        Token<StringPool> token(TokenType::UNKNOWN_TOKEN, stringPool_);
+        Token token(TokenType::UNKNOWN_TOKEN, *getPoolFunc_);
         do {
             token = get_next_token();
             Log.verbose(F("%s: next token is %s\n"), PRINT_FUNC, token.str().c_str());
@@ -100,7 +102,7 @@ public:
 
         @return The tokenized command.
     */
-    Deque<Token<StringPool>, Alloc> tokenize(PoolString<StringPool> const & command) {
+    Deque<Token> tokenize(PoolString const & command) {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         set_command(command);
         return tokenize();
@@ -113,12 +115,12 @@ public:
         @param  tokens
                 The tokenized command.
     */
-    void process_math_tokens(Deque<Token<StringPool>, Alloc> & tokens) {
+    void process_math_tokens(Deque<Token> & tokens) {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         // Compresses '<' + '=' into '<=' and '>' + '=' into '>='
-        typename Deque<Token<StringPool>, Alloc>::Iterator iter = tokens.begin();
+        typename Deque<Token>::Iterator iter = tokens.begin();
         while (iter != tokens.end()) {
-            typename Deque<Token<StringPool>, Alloc>::Iterator next = iter;
+            typename Deque<Token>::Iterator next = iter;
             ++next;
             if (next != tokens.end()) {
                 if (iter->is_less() && next->is_equals()) {
@@ -138,7 +140,7 @@ public:
         // Detects unary '-' tokens
         for (iter = tokens.begin(); iter != tokens.end(); ++iter) {
             if (iter->is_math_sub()) {
-                typename Deque<Token<StringPool>, Alloc>::Iterator prev = iter;
+                typename Deque<Token>::Iterator prev = iter;
                 --prev;
                 if (iter == tokens.begin() ||
                     prev->is_operator() ||
@@ -155,11 +157,11 @@ public:
 
         @return The next token from the stored command.
     */
-    Token<StringPool> get_next_token() {
+    Token get_next_token() {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         // No more tokens
         if (tokenStartIdx_ >= command_.strlen()) {
-            return Token<StringPool>(TokenType::CMD_END, stringPool_);
+            return Token(TokenType::CMD_END, *getPoolFunc_);
         }
         // Next token is command word
         if (isupper(command_[tokenStartIdx_])) {
@@ -186,7 +188,7 @@ public:
         }
         ++tokenStartIdx_;
         Log.warning(F("%s: unknown token %c\n"), PRINT_FUNC, command_[tokenStartIdx_ - 1]);
-        return Token<StringPool>(TokenType::UNKNOWN_TOKEN, stringPool_);
+        return Token(TokenType::UNKNOWN_TOKEN, *getPoolFunc_);
     }
 
     /*!
@@ -195,9 +197,9 @@ public:
         @return The next command token.
                 If the next token is not a command, an unknown token is returned.
     */
-    Token<StringPool> get_next_command_token() {
+    Token get_next_command_token() {
         Log.verbose(F("%s\n"), PRINT_FUNC);
-        Token<StringPool> token(TokenType::UNKNOWN_TOKEN, stringPool_);
+        Token token(TokenType::UNKNOWN_TOKEN, *getPoolFunc_);
         for (int i = 0; i < commandLookupSize_; ++i) {
             if (command_.find(get_command_lookup()[i], tokenStartIdx_) == tokenStartIdx_) {
                 tokenStartIdx_ += ::strlen(get_command_lookup()[i]);
@@ -218,14 +220,13 @@ public:
         @return The next name token.
                 If the next token is not a name, an unknown token is returned.
     */
-    Token<StringPool> get_next_name_token() {
+    Token get_next_name_token() {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         int currIdx = tokenStartIdx_;
         while (currIdx < command_.strlen() && (islower(command_[currIdx]) || command_[currIdx] == '_')) {
             ++currIdx;
         }
-        PoolString<StringPool> value = command_.substr_i(tokenStartIdx_, currIdx);
-        Token<StringPool> result(TokenType::NAME, stringPool_, value);
+        Token result(TokenType::NAME, command_.substr_ii(tokenStartIdx_, currIdx));
         tokenStartIdx_ = currIdx;
         return result;
     }
@@ -236,14 +237,13 @@ public:
         @return The next number token.
                 If the next token is not a number, an unknown token is returned.
     */
-    Token<StringPool> get_next_number_token() {
+    Token get_next_number_token() {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         int currIdx = tokenStartIdx_;
         while (currIdx < command_.strlen() && isdigit(command_[currIdx])) {
             ++currIdx;
         }
-        PoolString<StringPool> value = command_.substr_i(tokenStartIdx_, currIdx);
-        Token<StringPool> result(TokenType::NUM_VAL, stringPool_, value);
+        Token result(TokenType::NUM_VAL, command_.substr_ii(tokenStartIdx_, currIdx));
         tokenStartIdx_ = currIdx;
         return result;
     }
@@ -258,11 +258,11 @@ public:
         @return The next string token.
                 If the next token is not a string, an unknown token is returned.
     */
-    Token<StringPool> get_next_string_token(char const & open) {
+    Token get_next_string_token(char const & open) {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         int endIdx = command_.find(open, tokenStartIdx_ + 1);
         // Only take substr of the string, without quotes
-        Token<StringPool> result(TokenType::STRING, stringPool_, command_.substr_i(tokenStartIdx_ + 1, endIdx));
+        Token result(TokenType::STRING, command_.substr_ii(tokenStartIdx_ + 1, endIdx));
         tokenStartIdx_ = endIdx + 1;
         return result;
     }
@@ -273,9 +273,9 @@ public:
         @return The next punctuation token.
                 If the next token is not punctuation, an unknown token is returned.
     */
-    Token<StringPool> get_next_punctuation_token() {
+    Token get_next_punctuation_token() {
         Log.verbose(F("%s\n"), PRINT_FUNC);
-        Token<StringPool> result(punctuation_char_to_token_type(command_[tokenStartIdx_]), stringPool_);
+        Token result(punctuation_char_to_token_type(command_[tokenStartIdx_]), *getPoolFunc_);
         ++tokenStartIdx_;
         return result;    
     }
@@ -291,9 +291,9 @@ public:
 
         @return The remaining missing arguments, if any.
     */
-    PoolString<StringPool> get_additional_arguments(TokenType tokenType, int const & numArguments) {
+    PoolString get_additional_arguments(TokenType tokenType, int const & numArguments) {
         Log.verbose(F("%s\n"), PRINT_FUNC);
-        PoolString<StringPool> arguments(stringPool_);
+        PoolString arguments(*getPoolFunc_);
         switch (tokenType) {
         case TokenType::CREATE_NUM:
             if (numArguments < 1) {
@@ -336,9 +336,9 @@ public:
             }
             // Need to fill up arguments
             TokenType tokenType = command_str_to_token_type(get_command_lookup()[i]);
-            int requiredArguments = Token<StringPool>(tokenType, stringPool_).num_function_arguments();
+            int requiredArguments = Token(tokenType, *getPoolFunc_).num_function_arguments();
             if (numArguments < requiredArguments) {
-                PoolString<StringPool> additionalArguments = get_additional_arguments(tokenType, numArguments);
+                PoolString additionalArguments(get_additional_arguments(tokenType, numArguments));
                 command_.insert(additionalArguments.c_str(), clParenIdx);
             }
         }
@@ -371,14 +371,14 @@ public:
     }
 
 private:
-    StringPool & stringPool_;
-    Alloc & alloc_;
+    GetAllocFunc * getAllocFunc_;
+    GetPoolFunc * getPoolFunc_;
 
-    PoolString<StringPool> command_;
+    PoolString command_;
     int tokenStartIdx_ = 0;
 
     const int commandLookupSize_ = 13;
-    PoolString<StringPool> validPunctuation_;
+    PoolString validPunctuation_;
 };
 
 } // namespace kty

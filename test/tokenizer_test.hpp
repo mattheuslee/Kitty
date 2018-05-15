@@ -6,46 +6,48 @@
 
 using namespace kty;
 
-void tokenizer_check_tokens_match(Deque<Token<stringpool_t>, alloc_t> & generatedTokens, 
-                                  Deque<Token<stringpool_t>, alloc_t> & expectedTokens, 
+void tokenizer_check_tokens_match(Deque<Token<>> & generatedTokens, 
+                                  Deque<Token<>> & expectedTokens, 
                                   char const * comment);
+
+void tokenizer_print_tokens(Deque<Token<>> const & tokens);
 
 test(tokenizer_process_math_tokens)
 {
     int prevTestVerbosity = Test::min_verbosity;
 
     Serial.println("Test tokenizer_process_math_tokens starting.");
-    Deque<Token<stringpool_t>, alloc_t> tokens(alloc);
-    tokens.push_back(Token<stringpool_t>(TokenType::LESS, stringPool));
-    tokens.push_back(Token<stringpool_t>(TokenType::EQUALS, stringPool));
+    Deque<Token<>> tokens(alloc);
+    tokens.push_back(Token<>(TokenType::LESS));
+    tokens.push_back(Token<>(TokenType::EQUALS));
     tokenizer.process_math_tokens(tokens);
     assertEqual(tokens.front().get_type(), TokenType::L_EQUALS);
     tokens.pop_front();
     assertEqual(tokens.size(), 0);
 
-    tokens.push_back(Token<stringpool_t>(TokenType::GREATER, stringPool));
-    tokens.push_back(Token<stringpool_t>(TokenType::EQUALS, stringPool));
+    tokens.push_back(Token<>(TokenType::GREATER));
+    tokens.push_back(Token<>(TokenType::EQUALS));
     tokenizer.process_math_tokens(tokens);
     assertEqual(tokens.front().get_type(), TokenType::G_EQUALS);
     tokens.pop_front();
     assertEqual(tokens.size(), 0);
 
-    tokens.push_back(Token<stringpool_t>(TokenType::MATH_SUB, stringPool));
+    tokens.push_back(Token<>(TokenType::MATH_SUB));
     tokenizer.process_math_tokens(tokens);
     assertEqual(tokens.front().get_type(), TokenType::UNARY_NEG);
     tokens.pop_front();
     assertEqual(tokens.size(), 0);
 
-    tokens.push_back(Token<stringpool_t>(TokenType::MATH_ADD, stringPool));
-    tokens.push_back(Token<stringpool_t>(TokenType::MATH_SUB, stringPool));
+    tokens.push_back(Token<>(TokenType::MATH_ADD));
+    tokens.push_back(Token<>(TokenType::MATH_SUB));
     tokenizer.process_math_tokens(tokens);
     tokens.pop_front();
     assertEqual(tokens.front().get_type(), TokenType::UNARY_NEG);
     tokens.pop_front();
     assertEqual(tokens.size(), 0);
 
-    tokens.push_back(Token<stringpool_t>(TokenType::OP_PAREN, stringPool));
-    tokens.push_back(Token<stringpool_t>(TokenType::MATH_SUB, stringPool));
+    tokens.push_back(Token<>(TokenType::OP_PAREN));
+    tokens.push_back(Token<>(TokenType::MATH_SUB));
     tokenizer.process_math_tokens(tokens);
     tokens.pop_front();
     assertEqual(tokens.front().get_type(), TokenType::UNARY_NEG);
@@ -78,8 +80,9 @@ test(tokenizer_constructors)
     int prevTestVerbosity = Test::min_verbosity;
 
     Serial.println("Test tokenizer_constructors starting.");
-    Tokenizer<alloc_t, stringpool_t> tokenizer(alloc, stringPool);
-    Tokenizer<alloc_t, stringpool_t> tokenizer2(alloc, stringPool, PoolString<stringpool_t>(stringPool));
+    Tokenizer<> tokenizer1;
+    Tokenizer<> tokenizer2(PoolString<>());
+    Tokenizer<> tokenizer3(get_alloc, get_stringpool, PoolString<>());
 
     Test::min_verbosity = prevTestVerbosity;
 }
@@ -87,17 +90,16 @@ test(tokenizer_constructors)
 test(tokenizer_unknown_token)
 {
     int prevTestVerbosity = Test::min_verbosity;
-    PoolString<stringpool_t> testName(stringPool, "tokenizer_unknown_token");    
+    PoolString<> testName(stringPool, "tokenizer_unknown_token");    
     
     Serial.println("Test tokenizer_unknown_token starting.");
-    typedef Token<stringpool_t> token_t;
-    Deque<token_t, alloc_t> expectedTokens(alloc);
-    Deque<token_t, alloc_t> generatedTokens(alloc);
-    PoolString<stringpool_t> command(stringPool);
+    Deque<Token<>> expectedTokens;
+    Deque<Token<>> generatedTokens;
+    PoolString<> command(stringPool);
 
     command = "Blah";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -107,7 +109,7 @@ test(tokenizer_unknown_token)
     
     command = "$#";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -121,22 +123,21 @@ test(tokenizer_unknown_token)
 test(tokenizer_tokenize_missing_function_arguments)
 {
     int prevTestVerbosity = Test::min_verbosity;
-    PoolString<stringpool_t> testName(stringPool, "tokenizer_tokenize_missing_function_arguments");    
+    PoolString<> testName(stringPool, "tokenizer_tokenize_missing_function_arguments");    
 
     Serial.println("Test tokenizer_tokenize_missing_function_arguments starting.");
-    typedef Token<stringpool_t> token_t;
-    Deque<token_t, alloc_t> expectedTokens(alloc);
-    Deque<token_t, alloc_t> generatedTokens(alloc);
-    PoolString<stringpool_t> command(stringPool);
+    Deque<Token<>> expectedTokens;
+    Deque<Token<>> generatedTokens;
+    PoolString<> command(stringPool);
 
     command = "answer IsNumber()";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "answer"));
-    expectedTokens.push_back(token_t(TokenType::CREATE_NUM, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "0"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "answer"));
+    expectedTokens.push_back(Token<>(TokenType::CREATE_NUM));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "0"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -146,12 +147,12 @@ test(tokenizer_tokenize_missing_function_arguments)
 
     command = "answer IsNumber(42)";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "answer"));
-    expectedTokens.push_back(token_t(TokenType::CREATE_NUM, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "42"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "answer"));
+    expectedTokens.push_back(Token<>(TokenType::CREATE_NUM));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "42"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -161,14 +162,14 @@ test(tokenizer_tokenize_missing_function_arguments)
 
     command = "light IsLED()";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "light"));
-    expectedTokens.push_back(token_t(TokenType::CREATE_LED, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "13"));
-    expectedTokens.push_back(token_t(TokenType::COMMA, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "50"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "light"));
+    expectedTokens.push_back(Token<>(TokenType::CREATE_LED));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "13"));
+    expectedTokens.push_back(Token<>(TokenType::COMMA));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "50"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -178,14 +179,14 @@ test(tokenizer_tokenize_missing_function_arguments)
 
     command = "light IsLED(15)";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "light"));
-    expectedTokens.push_back(token_t(TokenType::CREATE_LED, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "15"));
-    expectedTokens.push_back(token_t(TokenType::COMMA, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "50"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "light"));
+    expectedTokens.push_back(Token<>(TokenType::CREATE_LED));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "15"));
+    expectedTokens.push_back(Token<>(TokenType::COMMA));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "50"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -195,14 +196,14 @@ test(tokenizer_tokenize_missing_function_arguments)
 
     command = "light IsLED(15, 25)";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "light"));
-    expectedTokens.push_back(token_t(TokenType::CREATE_LED, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "15"));
-    expectedTokens.push_back(token_t(TokenType::COMMA, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "25"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "light"));
+    expectedTokens.push_back(Token<>(TokenType::CREATE_LED));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "15"));
+    expectedTokens.push_back(Token<>(TokenType::COMMA));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "25"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -212,12 +213,12 @@ test(tokenizer_tokenize_missing_function_arguments)
 
     command = "blink RunGroup()";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "blink"));
-    expectedTokens.push_back(token_t(TokenType::RUN_GROUP, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "1"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "blink"));
+    expectedTokens.push_back(Token<>(TokenType::RUN_GROUP));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "1"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -227,13 +228,13 @@ test(tokenizer_tokenize_missing_function_arguments)
 
     command = "blink RunGroup(-1)";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "blink"));
-    expectedTokens.push_back(token_t(TokenType::RUN_GROUP, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::UNARY_NEG, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "1"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "blink"));
+    expectedTokens.push_back(Token<>(TokenType::RUN_GROUP));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::UNARY_NEG));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "1"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -243,12 +244,12 @@ test(tokenizer_tokenize_missing_function_arguments)
 
     command = "blink RunGroup(10)";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "blink"));
-    expectedTokens.push_back(token_t(TokenType::RUN_GROUP, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "10"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "blink"));
+    expectedTokens.push_back(Token<>(TokenType::RUN_GROUP));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "10"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -262,22 +263,21 @@ test(tokenizer_tokenize_missing_function_arguments)
 test(tokenizer_tokenize_functions)
 {
     int prevTestVerbosity = Test::min_verbosity;
-    PoolString<stringpool_t> testName(stringPool, "tokenizer_tokenize_functions");    
+    PoolString<> testName(stringPool, "tokenizer_tokenize_functions");    
 
     Serial.println("Test tokenizer_tokenize_functions starting.");
-    typedef Token<stringpool_t> token_t;
-    Deque<token_t, alloc_t> expectedTokens(alloc);
-    Deque<token_t, alloc_t> generatedTokens(alloc);
-    PoolString<stringpool_t> command(stringPool);
+    Deque<Token<>> expectedTokens;
+    Deque<Token<>> generatedTokens;
+    PoolString<> command(stringPool);
 
     command = "answer IsNumber(42)";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "answer"));
-    expectedTokens.push_back(token_t(TokenType::CREATE_NUM, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "42"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "answer"));
+    expectedTokens.push_back(Token<>(TokenType::CREATE_NUM));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "42"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -287,14 +287,14 @@ test(tokenizer_tokenize_functions)
 
     command = "light IsLED(13, 25)";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "light"));
-    expectedTokens.push_back(token_t(TokenType::CREATE_LED, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "13"));
-    expectedTokens.push_back(token_t(TokenType::COMMA, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "25"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "light"));
+    expectedTokens.push_back(Token<>(TokenType::CREATE_LED));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "13"));
+    expectedTokens.push_back(Token<>(TokenType::COMMA));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "25"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -304,10 +304,10 @@ test(tokenizer_tokenize_functions)
 
     command = "blink IsGroup (";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "blink"));
-    expectedTokens.push_back(token_t(TokenType::CREATE_GROUP, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "blink"));
+    expectedTokens.push_back(Token<>(TokenType::CREATE_GROUP));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -317,12 +317,12 @@ test(tokenizer_tokenize_functions)
 
     command = "blink RunGroup(10)";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "blink"));
-    expectedTokens.push_back(token_t(TokenType::RUN_GROUP, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "10"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "blink"));
+    expectedTokens.push_back(Token<>(TokenType::RUN_GROUP));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "10"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -332,14 +332,14 @@ test(tokenizer_tokenize_functions)
 
     command = "light MoveByFor(100, 1000)";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "light"));
-    expectedTokens.push_back(token_t(TokenType::MOVE_BY_FOR, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "100"));
-    expectedTokens.push_back(token_t(TokenType::COMMA, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "1000"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "light"));
+    expectedTokens.push_back(Token<>(TokenType::MOVE_BY_FOR));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "100"));
+    expectedTokens.push_back(Token<>(TokenType::COMMA));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "1000"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -349,12 +349,12 @@ test(tokenizer_tokenize_functions)
 
     command = "light MoveBy(100)";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "light"));
-    expectedTokens.push_back(token_t(TokenType::MOVE_BY, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "100"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "light"));
+    expectedTokens.push_back(Token<>(TokenType::MOVE_BY));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "100"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -364,14 +364,14 @@ test(tokenizer_tokenize_functions)
 
     command = "light SetToFor(100, 1000)";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "light"));
-    expectedTokens.push_back(token_t(TokenType::SET_TO_FOR, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "100"));
-    expectedTokens.push_back(token_t(TokenType::COMMA, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "1000"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "light"));
+    expectedTokens.push_back(Token<>(TokenType::SET_TO_FOR));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "100"));
+    expectedTokens.push_back(Token<>(TokenType::COMMA));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "1000"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -381,12 +381,12 @@ test(tokenizer_tokenize_functions)
 
     command = "light SetTo(100)";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "light"));
-    expectedTokens.push_back(token_t(TokenType::SET_TO, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "100"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "light"));
+    expectedTokens.push_back(Token<>(TokenType::SET_TO));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "100"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -396,14 +396,14 @@ test(tokenizer_tokenize_functions)
 
     command = "If (answer < 100) (";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::IF, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NAME, stringPool, "answer"));
-    expectedTokens.push_back(token_t(TokenType::LESS, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "100"));
-    expectedTokens.push_back(token_t(TokenType::CL_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::IF));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "answer"));
+    expectedTokens.push_back(Token<>(TokenType::LESS));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "100"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -413,9 +413,9 @@ test(tokenizer_tokenize_functions)
 
     command = "Else (";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::ELSE, stringPool));
-    expectedTokens.push_back(token_t(TokenType::OP_PAREN, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::ELSE));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -429,18 +429,17 @@ test(tokenizer_tokenize_functions)
 test(tokenizer_tokenize_string)
 {
     int prevTestVerbosity = Test::min_verbosity;
-    PoolString<stringpool_t> testName(stringPool, "tokenizer_tokenize_string");    
+    PoolString<> testName(stringPool, "tokenizer_tokenize_string");    
 
     Serial.println("Test tokenizer_tokenize_string starting.");
-    typedef Token<stringpool_t> token_t;
-    Deque<token_t, alloc_t> expectedTokens(alloc);
-    Deque<token_t, alloc_t> generatedTokens(alloc);
-    PoolString<stringpool_t> command(stringPool);
+    Deque<Token<>> expectedTokens;
+    Deque<Token<>> generatedTokens;
+    PoolString<> command(stringPool);
 
     command = "'hello!'";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::STRING, stringPool, "hello!"));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::STRING, "hello!"));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -450,8 +449,8 @@ test(tokenizer_tokenize_string)
 
     command = "\"hello!\"";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::STRING, stringPool, "hello!"));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::STRING, "hello!"));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -465,32 +464,31 @@ test(tokenizer_tokenize_string)
 test(tokenizer_tokenize_math_expression)
 {
     int prevTestVerbosity = Test::min_verbosity;
-    PoolString<stringpool_t> testName(stringPool, "tokenizer_tokenize_math_expression");    
+    PoolString<> testName(stringPool, "tokenizer_tokenize_math_expression");    
 
     Serial.println("Test tokenizer_tokenize_math_expression starting.");
-    typedef Token<stringpool_t> token_t;
-    Deque<token_t, alloc_t> expectedTokens(alloc);
-    Deque<token_t, alloc_t> generatedTokens(alloc);
-    PoolString<stringpool_t> command(stringPool);
+    Deque<Token<>> expectedTokens;
+    Deque<Token<>> generatedTokens;
+    PoolString<> command(stringPool);
 
     // 3 is to ensure we get sub and not unary neg
     command = "=<>+3-*/%^&|!~";
     expectedTokens.clear();
-    expectedTokens.push_back(token_t(TokenType::EQUALS, stringPool));
-    expectedTokens.push_back(token_t(TokenType::LESS, stringPool));
-    expectedTokens.push_back(token_t(TokenType::GREATER, stringPool));
-    expectedTokens.push_back(token_t(TokenType::MATH_ADD, stringPool));
-    expectedTokens.push_back(token_t(TokenType::NUM_VAL, stringPool, "3"));
-    expectedTokens.push_back(token_t(TokenType::MATH_SUB, stringPool));
-    expectedTokens.push_back(token_t(TokenType::MATH_MUL, stringPool));
-    expectedTokens.push_back(token_t(TokenType::MATH_DIV, stringPool));
-    expectedTokens.push_back(token_t(TokenType::MATH_MOD, stringPool));
-    expectedTokens.push_back(token_t(TokenType::MATH_POW, stringPool));
-    expectedTokens.push_back(token_t(TokenType::LOGI_AND, stringPool));
-    expectedTokens.push_back(token_t(TokenType::LOGI_OR, stringPool));
-    expectedTokens.push_back(token_t(TokenType::LOGI_XOR, stringPool));
-    expectedTokens.push_back(token_t(TokenType::LOGI_NOT, stringPool));
-    expectedTokens.push_back(token_t(TokenType::CMD_END, stringPool));
+    expectedTokens.push_back(Token<>(TokenType::EQUALS));
+    expectedTokens.push_back(Token<>(TokenType::LESS));
+    expectedTokens.push_back(Token<>(TokenType::GREATER));
+    expectedTokens.push_back(Token<>(TokenType::MATH_ADD));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "3"));
+    expectedTokens.push_back(Token<>(TokenType::MATH_SUB));
+    expectedTokens.push_back(Token<>(TokenType::MATH_MUL));
+    expectedTokens.push_back(Token<>(TokenType::MATH_DIV));
+    expectedTokens.push_back(Token<>(TokenType::MATH_MOD));
+    expectedTokens.push_back(Token<>(TokenType::MATH_POW));
+    expectedTokens.push_back(Token<>(TokenType::LOGI_AND));
+    expectedTokens.push_back(Token<>(TokenType::LOGI_OR));
+    expectedTokens.push_back(Token<>(TokenType::LOGI_XOR));
+    expectedTokens.push_back(Token<>(TokenType::LOGI_NOT));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
     tokenizer.set_command(command);
     generatedTokens = tokenizer.tokenize();
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
@@ -501,12 +499,12 @@ test(tokenizer_tokenize_math_expression)
     Test::min_verbosity = prevTestVerbosity;
 }
 
-void tokenizer_check_tokens_match(Deque<Token<stringpool_t>, alloc_t> & generatedTokens, 
-                                  Deque<Token<stringpool_t>, alloc_t> & expectedTokens, 
+void tokenizer_check_tokens_match(Deque<Token<>> & generatedTokens, 
+                                  Deque<Token<>> & expectedTokens, 
                                   char const * comment) {
     assertEqual(generatedTokens.size(), expectedTokens.size(), comment);
-    Deque<Token<stringpool_t>, alloc_t>::Iterator genIter = generatedTokens.begin();
-    Deque<Token<stringpool_t>, alloc_t>::Iterator expIter = expectedTokens.begin();
+    Deque<Token<>>::Iterator genIter = generatedTokens.begin();
+    Deque<Token<>>::Iterator expIter = expectedTokens.begin();
     int i = 0;
     while (genIter != generatedTokens.end() && expIter != expectedTokens.end()) {
         assertEqual(genIter->get_type(), expIter->get_type(), "i = " << i << ": " << comment);
@@ -517,7 +515,7 @@ void tokenizer_check_tokens_match(Deque<Token<stringpool_t>, alloc_t> & generate
     }
 }
 
-void tokenizer_print_tokens(Deque<Token<stringpool_t>, alloc_t> const & tokens) {
+void tokenizer_print_tokens(Deque<Token<>> const & tokens) {
     for (auto & token: tokens)
         Serial.println(token.str().c_str());
 }
