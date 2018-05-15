@@ -4,6 +4,7 @@
 #include <cstring>
 
 #include <kty/containers/string.hpp>
+#include <kty/containers/stringpool.hpp>
 #include <kty/types.hpp>
 
 namespace kty {
@@ -27,18 +28,18 @@ enum TokenType {
 /*!
     @brief  Class that contains all the information about a token.
 */
-template <typename StringPool>
+template <typename GetPoolFunc = decltype(get_stringpool)>
 class Token {
 
 public:
     /*!
         @brief  The constructor for a token.
 
-        @param  stringPool
-                The string pool to use.
+        @param  getPoolFunc
+                A function that returns a pointer to a string pool when called.
     */
-    Token(StringPool & stringPool)
-        : value_(stringPool) {
+    Token(GetPoolFunc & getPoolFunc = get_stringpool)
+        : value_(getPoolFunc) {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         type_ = TokenType::UNKNOWN_TOKEN;
     }
@@ -49,11 +50,11 @@ public:
         @param  type
                 The type of token.
 
-        @param  stringPool
-                The string pool to use.
+        @param  getPoolFunc
+                A function that returns a pointer to a string pool when called.
     */
-    Token(TokenType type, StringPool & stringPool) 
-        : value_(stringPool) {
+    Token(TokenType type, GetPoolFunc & getPoolFunc = get_stringpool) 
+        : value_(getPoolFunc) {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         type_ = type;
     }
@@ -63,15 +64,12 @@ public:
 
         @param  type
                 The type of token.
-
-        @param  stringPool
-                The string pool to use.
         
         @param  value
-                The value to store in the token. Optional parameter.
+                The value to store in the token.
     */
-    Token(TokenType type, StringPool & stringPool, PoolString<StringPool> const & value) 
-        : value_(stringPool) {
+    Token(TokenType type, PoolString<> const & value) 
+        : value_(value) {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         type_ = type;
         value_ = value;
@@ -82,15 +80,15 @@ public:
 
         @param  type
                 The type of token.
-
-        @param  stringPool
-                The string pool to use.
         
         @param  value
                 The value to store in the token.
+        
+        @param  getPoolFunc
+                A function that returns a pointer to a string pool when called.
     */
-    Token(TokenType type, StringPool & stringPool, char const * value) 
-        : value_(stringPool) {
+    Token(TokenType type, char const * value, GetPoolFunc & getPoolFunc = get_stringpool) 
+        : value_(getPoolFunc) {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         type_ = type;
         value_ = value;
@@ -123,7 +121,7 @@ public:
         @param  value
                 The value to set to.
     */
-    void set_value(PoolString<StringPool> const & value) {
+    void set_value(PoolString<> const & value) {
         Log.verbose(F("%s: setting to %s\n"), PRINT_FUNC, value.c_str());
         value_ = value;
     }
@@ -133,7 +131,7 @@ public:
 
         @return A copy of the value of the token.
     */
-    PoolString<StringPool> get_value() const {
+    PoolString<> get_value() const {
         Log.verbose(F("%s: getting %s\n"), PRINT_FUNC, value_.c_str());
         return value_;
     }
@@ -143,10 +141,10 @@ public:
 
         @return The string representaion of the token.
     */
-    PoolString<StringPool> str() const {
+    PoolString<> str() const {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         // Copy assignment so we don't need to store the pool
-        PoolString<StringPool> result = value_;
+        PoolString<> result(value_);
         result = "Token(";
         result += type_as_c_str();
         result += ", ";
@@ -728,7 +726,7 @@ public:
 
 private:
     TokenType type_;
-    PoolString<StringPool> value_;
+    PoolString<> value_;
 
 };
 
@@ -787,8 +785,7 @@ TokenType command_str_to_token_type(char const * str) {
             If the parameter is not a valid command word,
             the unknown token type is returned.
 */
-template <typename StringPool>
-TokenType command_str_to_token_type(PoolString<StringPool> const & str) {
+TokenType command_str_to_token_type(PoolString<> const & str) {
     Log.verbose(F("%s\n"), PRINT_FUNC);
     return command_str_to_token_type(str.c_str());
 

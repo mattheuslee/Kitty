@@ -12,28 +12,27 @@ test(token_constructor)
     int prevTestVerbosity = Test::min_verbosity;
 
     Serial.println("Test token_constructor starting.");
-    typedef Token<stringpool_t> token_t;
 
     /** First constructor type */
-    token_t token(stringPool);
-    assertEqual(token.get_type(), TokenType::UNKNOWN_TOKEN);
-    assertEqual(token.get_value().c_str(), "");
+    Token<> token1;
+    assertEqual(token1.get_type(), TokenType::UNKNOWN_TOKEN);
+    assertEqual(token1.get_value().c_str(), "");
 
     /** Second constructor type */
-    token = token_t(TokenType::CREATE_NUM, stringPool);
-    assertEqual(token.get_type(), TokenType::CREATE_NUM);
-    assertEqual(token.get_value().c_str(), "");
+    Token<> token2(TokenType::CREATE_NUM);
+    assertEqual(token2.get_type(), TokenType::CREATE_NUM);
+    assertEqual(token2.get_value().c_str(), "");
 
     /** Third constructor type */
-    PoolString<stringpool_t> value(stringPool, "answer");
-    token = token_t(TokenType::NAME, stringPool, value);
-    assertEqual(token.get_type(), TokenType::NAME);
-    assertEqual(token.get_value().c_str(), "answer");
+    PoolString<> value("answer");
+    Token<> token3(TokenType::NAME, value);
+    assertEqual(token3.get_type(), TokenType::NAME);
+    assertEqual(token3.get_value().c_str(), "answer");
 
     value = "42";
-    token = token_t(TokenType::NUM_VAL, stringPool, value);
-    assertEqual(token.get_type(), TokenType::NUM_VAL);
-    assertEqual(token.get_value().c_str(), "42");
+    Token<> token4(TokenType::NUM_VAL, value);
+    assertEqual(token4.get_type(), TokenType::NUM_VAL);
+    assertEqual(token4.get_value().c_str(), "42");
 
     Test::min_verbosity = prevTestVerbosity;
 }
@@ -43,9 +42,8 @@ test(token_getters_setters)
     int prevTestVerbosity = Test::min_verbosity;
 
     Serial.println("Test token_getters_setters starting.");
-    typedef Token<stringpool_t> token_t;
-    PoolString<stringpool_t> value(stringPool);
-    token_t token(stringPool);
+    PoolString<> value;
+    Token<> token;
 
     assertEqual(token.get_type(), TokenType::UNKNOWN_TOKEN);
     assertEqual(token.get_value().c_str(), "");
@@ -70,19 +68,20 @@ test(token_str)
     int prevTestVerbosity = Test::min_verbosity;
 
     Serial.println("Test token_str starting.");
-    typedef Token<stringpool_t> token_t;
-    PoolString<stringpool_t> value(stringPool);
+    PoolString<> value;
 
-    /** No value string */
-    token_t token(TokenType::CREATE_NUM, stringPool, value);
+    /** Empty value string */
+    Token<> token(TokenType::CREATE_NUM, value);
     assertEqual(token.str().c_str(), "Token(CREATE_NUM, )");
 
     /** With value string */
     value = "answer";
-    token = token_t(TokenType::NAME, stringPool, value);
+    token.set_type(TokenType::NAME);
+    token.set_value(value);
     assertEqual(token.str().c_str(), "Token(NAME, answer)");
     value = "42";
-    token = token_t(TokenType::NUM_VAL, stringPool, value);
+    token.set_type(TokenType::NUM_VAL);
+    token.set_value(value);
     assertEqual(token.str().c_str(), "Token(NUM_VAL, 42)");
 
     Test::min_verbosity = prevTestVerbosity;
@@ -93,7 +92,7 @@ test(token_type_as_c_str)
     int prevTestVerbosity = Test::min_verbosity;
 
     Serial.println("Test token_type_as_c_str starting.");
-    Token<stringpool_t> token(stringPool);
+    Token<> token;
 
     token.set_type(TokenType::CREATE_NUM);
     assertEqual(token.type_as_c_str(), "CREATE_NUM");
@@ -172,7 +171,7 @@ test(token_precedence_level)
     int prevTestVerbosity = Test::min_verbosity;
 
     Serial.println("Test token_precedence_level starting.");
-    Token<stringpool_t> token(stringPool);
+    Token<> token;
 
     token.set_type(TokenType::CREATE_NUM);
     assertEqual(token.precedence_level(), 0, token.str().c_str());
@@ -251,7 +250,7 @@ test(token_num_function_arguments)
     int prevTestVerbosity = Test::min_verbosity;
 
     Serial.println("Test token_num_function_arguments starting.");
-    Token<stringpool_t> token(stringPool);
+    Token<> token;
 
     token.set_type(TokenType::CREATE_NUM);
     assertEqual(token.num_function_arguments(), 1, token.str().c_str());
@@ -330,8 +329,8 @@ test(token_precedence_comparisons)
     int prevTestVerbosity = Test::min_verbosity;
 
     Serial.println("Test token_precedence_comparisons starting.");
-    Token<stringpool_t> token1(stringPool);
-    Token<stringpool_t> token2(stringPool);
+    Token<> token1;
+    Token<> token2;
 
     /** Level 6 vs Level 6 */
     token1.set_type(TokenType::UNARY_NEG);
@@ -544,7 +543,7 @@ test(token_type_checkers)
     int prevTestVerbosity = Test::min_verbosity;
 
     Serial.println("Test token_type_checkers starting.");
-    Token<stringpool_t> token(stringPool);
+    Token<> token;
 
     token.set_type(TokenType::CREATE_NUM);
     assertTrue(token.is_create_num(), token.str().c_str());
@@ -690,7 +689,7 @@ test(token_command_str_to_token_type)
     int prevTestVerbosity = Test::min_verbosity;
 
     Serial.println("Test token_command_str_to_token_type starting.");
-    PoolString<stringpool_t> str(stringPool);
+    PoolString<> str;
 
     str = "IsNumber";
     assertEqual(command_str_to_token_type(str), TokenType::CREATE_NUM, str.c_str());
