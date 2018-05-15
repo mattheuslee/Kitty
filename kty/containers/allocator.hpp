@@ -10,7 +10,7 @@ namespace kty {
             The memory pool is created on the stack to avoid heap fragmentation.
             Holds enough memory to allocate N instances of B bytes.
 */
-template <int N, int B>
+template <int N = Sizes::alloc_size, int B = Sizes::alloc_block_size>
 class Allocator {
 
 public:

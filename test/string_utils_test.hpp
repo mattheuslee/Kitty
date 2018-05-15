@@ -14,7 +14,7 @@ test(string_utils_str_to_int)
     int prevTestVerbosity = Test::min_verbosity;
 
     Serial.println("Test string_utils_str_to_int starting.");
-    PoolString<stringpool_t> str(stringPool);
+    PoolString<> str(stringPool);
     str = "";
     assertEqual(str_to_int(str), 0);
     str = "b";
@@ -71,7 +71,7 @@ test(string_utils_remove_str_whitespace)
     int prevTestVerbosity = Test::min_verbosity;
 
     Serial.println("Test string_utils_remove_str_whitespace starting.");
-    PoolString<decltype(stringPool)> str(stringPool);
+    PoolString<> str;
     str = " a";
     remove_str_whitespace(str);
     assertTrue(str == "a");
@@ -99,7 +99,7 @@ test(string_utils_remove_str_multiple_whitespace)
     int prevTestVerbosity = Test::min_verbosity;
 
     Serial.println("Test string_utils_remove_str_multiple_whitespace starting.");
-    PoolString<decltype(stringPool)> str(stringPool);
+    PoolString<> str;
     str = "  a";
     remove_str_multiple_whitespace(str);
     assertEqual(str.c_str(), " a");

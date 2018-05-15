@@ -4,6 +4,7 @@
 #include <cctype>
 
 #include <kty/containers/string.hpp>
+#include <kty/containers/stringpool.hpp>
 #include <kty/types.hpp>
 
 namespace kty {
@@ -18,8 +19,8 @@ namespace kty {
     @return The int represented in the string.
             If the string is invalid, 0 is returned.
 */
-template <typename StringPool>
-int str_to_int(PoolString<StringPool> const & str) {
+template <typename PoolString = PoolString<>>
+int str_to_int(PoolString const & str) {
     Log.verbose(F("%s\n"), PRINT_FUNC);
     int len = str.strlen();
     if (len == 0) {
@@ -61,8 +62,8 @@ int str_to_int(PoolString<StringPool> const & str) {
 
     @return The string representation of the integer.
 */
-template <typename StringPool>
-PoolString<StringPool> int_to_str(int i, StringPool & stringPool) {
+template <typename GetPoolFunc = decltype(get_stringpool), typename PoolString = PoolString<>>
+PoolString int_to_str(int i, GetPoolFunc & getPoolFunc = get_stringpool) {
     Log.verbose(F("%s\n"), PRINT_FUNC);
     char strChar[2] = "";
     bool isNegative = false;
@@ -70,7 +71,7 @@ PoolString<StringPool> int_to_str(int i, StringPool & stringPool) {
         isNegative = true;
         i *= -1;
     }
-    PoolString<StringPool> output(stringPool);
+    PoolString output(getPoolFunc);
     // output will contain digits in reverse order
     while (i > 0) {
         strChar[0] = (char)(i % 10 + '0');
@@ -100,10 +101,10 @@ PoolString<StringPool> int_to_str(int i, StringPool & stringPool) {
     @param  str
             The string to remove whitespace from.
 */
-template <typename StringPool>
-void remove_str_whitespace(PoolString<StringPool> & str) {
+template <typename PoolString = PoolString<>>
+void remove_str_whitespace(PoolString & str) {
     Log.verbose(F("%s\n"), PRINT_FUNC);
-    PoolString<StringPool> temp(str);
+    PoolString temp(str);
     temp = "";
     char str_[2] = " ";
     int len = str.strlen();
@@ -124,10 +125,10 @@ void remove_str_whitespace(PoolString<StringPool> & str) {
     @param  str
             The string to remove whitespace from.
 */
-template <typename StringPool>
-void remove_str_multiple_whitespace(PoolString<StringPool> & str) {
+template <typename PoolString = PoolString<>>
+void remove_str_multiple_whitespace(PoolString & str) {
     Log.verbose(F("%s\n"), PRINT_FUNC);
-    PoolString<StringPool> temp(str);
+    PoolString temp(str);
     temp = "";
     char str_[2] = " ";
     int len = str.strlen();

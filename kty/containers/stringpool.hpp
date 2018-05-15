@@ -5,6 +5,7 @@ using namespace std;
 #include <kty/stl_impl.hpp>
 #include <cstring>
 
+#include <kty/sizes.hpp>
 #include <kty/types.hpp>
 
 namespace kty {
@@ -14,7 +15,7 @@ namespace kty {
             The memory pool is created on the stack to avoid heap fragmentation.
             Holds enough memory to allocate N strings of at most length S.            
 */
-template <int N, int S>
+template <int N = Sizes::stringpool_size, int S = Sizes::string_length>
 class StringPool {
 
 public:
