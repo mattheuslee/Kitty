@@ -1,247 +1,246 @@
 #pragma once
 
-#include <kty/stl_impl.hpp>
-#include <string>
-#include <utility>
-#include <vector>
-
 #include <kty/parser.hpp>
-#include <kty/tokenizer.hpp>
+#include <kty/token.hpp>
 
-using namespace std;
 using namespace kty;
 
-void parser_check_correct_types_values(vector<Token> const & tokens, vector<TokenType> const & expectedTypes, vector<string> const & expectedValues, string const & comment) {
-    for (int i = 0; i < tokens.size(); ++i) {
-        //Serial.println(tokens[i].str().c_str());
-        assertTrue(tokens[i].type == expectedTypes[i], comment.c_str() << ": i = " << i);
-        assertTrue(tokens[i].value == expectedValues[i], comment.c_str() << ": i = " << i);
-    }
+void parser_check_tokens_match(Deque<Token<>> & generatedTokens, 
+                               Deque<Token<>> & expectedTokens, 
+                               char const * comment);
+
+void parser_print_tokens(Deque<Token<>> const & tokens);
+
+test(parser_constructors)
+{
+    int prevTestVerbosity = Test::min_verbosity;
+
+    Serial.println("Test parser_constructors starting.");
+    Parser<> parser1;
+    Parser<> parser2(Deque<Token<>>());
+    Parser<> parser3(get_alloc, get_stringpool, Deque<Token<>>());
+
+    Test::min_verbosity = prevTestVerbosity;
 }
 
-void parser_check_correct_tokens(vector<Token> const & tokens, vector<Token> const & expectedTokens, string const & comment) {
-    for (int i = 0; i < tokens.size(); ++i) {
-        //Serial.println(tokens[i].str().c_str());
-        assertTrue(tokens[i].type == expectedTokens[i].type, comment.c_str() << ": i = " << i);
-        assertTrue(tokens[i].value == expectedTokens[i].value, comment.c_str() << ": i = " << i);
-    }
-}
+test(parser_parse_functions)
+{
+    int prevTestVerbosity = Test::min_verbosity;
+    PoolString<> testName("parser_parse_functions");
 
-void print_tokens(vector<Token> const & tokens) {
-    for (auto & token: tokens)
-        Serial.println(token.str().c_str());
+    Serial.println("Test parser_parse_functions starting.");
+    Deque<Token<>> expectedTokens;
+    Deque<Token<>> generatedTokens;
+    PoolString<> command;
+    Deque<Token<>> tokenizedCommand;
+
+    command = "answer IsNumber(42)";
+    expectedTokens.clear();
+    expectedTokens.push_back(Token<>(TokenType::NAME, "answer"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "42"));
+    expectedTokens.push_back(Token<>(TokenType::CREATE_NUM));
+    tokenizedCommand = tokenizer.tokenize(command);
+    parser.set_command(tokenizedCommand);
+    generatedTokens = parser.parse();
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
+    generatedTokens.clear();
+    generatedTokens = parser.parse(tokenizedCommand);
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
+
+    command = "light IsLED(13, 25)";
+    expectedTokens.clear();
+    expectedTokens.push_back(Token<>(TokenType::NAME, "light"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "13"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "25"));
+    expectedTokens.push_back(Token<>(TokenType::CREATE_LED));
+    tokenizedCommand = tokenizer.tokenize(command);
+    parser.set_command(tokenizedCommand);
+    generatedTokens = parser.parse();
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
+    generatedTokens.clear();
+    generatedTokens = parser.parse(tokenizedCommand);
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
+
+    command = "blink IsGroup (";
+    expectedTokens.clear();
+    expectedTokens.push_back(Token<>(TokenType::NAME, "blink"));
+    expectedTokens.push_back(Token<>(TokenType::CREATE_GROUP));
+    tokenizedCommand = tokenizer.tokenize(command);
+    parser.set_command(tokenizedCommand);
+    generatedTokens = parser.parse();
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
+    generatedTokens.clear();
+    generatedTokens = parser.parse(tokenizedCommand);
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
+
+    command = "blink RunGroup(10)";
+    expectedTokens.clear();
+    expectedTokens.push_back(Token<>(TokenType::NAME, "blink"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "10"));
+    expectedTokens.push_back(Token<>(TokenType::RUN_GROUP));
+    tokenizedCommand = tokenizer.tokenize(command);
+    parser.set_command(tokenizedCommand);
+    generatedTokens = parser.parse();
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
+    generatedTokens.clear();
+    generatedTokens = parser.parse(tokenizedCommand);
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
+    
+    command = "light MoveByFor(100, 1000)";
+    expectedTokens.clear();
+    expectedTokens.push_back(Token<>(TokenType::NAME, "light"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "100"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "1000"));
+    expectedTokens.push_back(Token<>(TokenType::MOVE_BY_FOR));
+    tokenizedCommand = tokenizer.tokenize(command);
+    parser.set_command(tokenizedCommand);
+    generatedTokens = parser.parse();
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
+    generatedTokens.clear();
+    generatedTokens = parser.parse(tokenizedCommand);
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
+    
+    command = "light MoveBy(100)";
+    expectedTokens.clear();
+    expectedTokens.push_back(Token<>(TokenType::NAME, "light"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "100"));
+    expectedTokens.push_back(Token<>(TokenType::MOVE_BY));
+    tokenizedCommand = tokenizer.tokenize(command);
+    parser.set_command(tokenizedCommand);
+    generatedTokens = parser.parse();
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
+    generatedTokens.clear();
+    generatedTokens = parser.parse(tokenizedCommand);
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
+    
+    command = "light SetToFor(0 + 100, 1000)";
+    expectedTokens.clear();
+    expectedTokens.push_back(Token<>(TokenType::NAME, "light"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "0"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "100"));
+    expectedTokens.push_back(Token<>(TokenType::MATH_ADD));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "1000"));
+    expectedTokens.push_back(Token<>(TokenType::SET_TO_FOR));
+    tokenizedCommand = tokenizer.tokenize(command);
+    parser.set_command(tokenizedCommand);
+    generatedTokens = parser.parse();
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
+    generatedTokens.clear();
+    generatedTokens = parser.parse(tokenizedCommand);
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
+    
+    command = "light SetTo(100)";
+    expectedTokens.clear();
+    expectedTokens.push_back(Token<>(TokenType::NAME, "light"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "100"));
+    expectedTokens.push_back(Token<>(TokenType::SET_TO));
+    tokenizedCommand = tokenizer.tokenize(command);
+    parser.set_command(tokenizedCommand);
+    generatedTokens = parser.parse();
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
+    generatedTokens.clear();
+    generatedTokens = parser.parse(tokenizedCommand);
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
+    
+    command = "If (answer < 100) (";
+    expectedTokens.clear();
+    expectedTokens.push_back(Token<>(TokenType::NAME, "answer"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "100"));
+    expectedTokens.push_back(Token<>(TokenType::LESS));
+    expectedTokens.push_back(Token<>(TokenType::IF));
+    tokenizedCommand = tokenizer.tokenize(command);
+    parser.set_command(tokenizedCommand);
+    generatedTokens = parser.parse();
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
+    generatedTokens.clear();
+    generatedTokens = parser.parse(tokenizedCommand);
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
+    
+    command = "Else (";
+    expectedTokens.clear();
+    expectedTokens.push_back(Token<>(TokenType::ELSE));
+    tokenizedCommand = tokenizer.tokenize(command);
+    parser.set_command(tokenizedCommand);
+    generatedTokens = parser.parse();
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
+    generatedTokens.clear();
+    generatedTokens = parser.parse(tokenizedCommand);
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
+    
+    command = "'hello!'";
+    expectedTokens.clear();
+    expectedTokens.push_back(Token<>(TokenType::STRING, "hello!"));
+    tokenizedCommand = tokenizer.tokenize(command);
+    parser.set_command(tokenizedCommand);
+    generatedTokens = parser.parse();
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
+    generatedTokens.clear();
+    generatedTokens = parser.parse(tokenizedCommand);
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
+    
+    Test::min_verbosity = prevTestVerbosity;
 }
 
 test(parser_arithmetic_expression)
 {
-    Log.notice(F("Test parser_arithmetic_expression starting\n"));
-    string command = "3 + (1 - 5)^2^3 / 4";
-    Tokenizer tokenizer(command);
-    vector<Token> tokens = tokenizer.tokenize();
-    Parser parser(tokens);
-    tokens = parser.parse();
-    //print_tokens(tokens);
-    static const vector<Token> expectedTokens = {
-        {NUM_VAL, "3"}, 
-        {NUM_VAL, "1"}, 
-        {NUM_VAL, "5"}, 
-        {MATH_SUB}, 
-        {NUM_VAL, "2"}, 
-        {NUM_VAL, "3"}, 
-        {MATH_POW}, 
-        {MATH_POW}, 
-        {NUM_VAL, "4"}, 
-        {MATH_DIV}, 
-        {MATH_ADD}, 
-    };
-    parser_check_correct_tokens(tokens, expectedTokens, command);
+    int prevTestVerbosity = Test::min_verbosity;
+    PoolString<> testName(stringPool, "parser_arithmetic_expression");
+
+    Serial.println("Test parser_arithmetic_expression starting.");
+    Deque<Token<>> expectedTokens;
+    Deque<Token<>> generatedTokens;
+    PoolString<> command;
+    Deque<Token<>> tokenizedCommand;
+
+    command = "1 + 2 / 3 ^ 4 ^ 5 - 6 % 7 + 8 * - 9";
+    expectedTokens.clear();
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "1"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "2"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "3"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "4"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "5"));
+    expectedTokens.push_back(Token<>(TokenType::MATH_POW));
+    expectedTokens.push_back(Token<>(TokenType::MATH_POW));
+    expectedTokens.push_back(Token<>(TokenType::MATH_DIV));
+    expectedTokens.push_back(Token<>(TokenType::MATH_ADD));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "6"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "7"));
+    expectedTokens.push_back(Token<>(TokenType::MATH_MOD));
+    expectedTokens.push_back(Token<>(TokenType::MATH_SUB));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "8"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "9"));
+    expectedTokens.push_back(Token<>(TokenType::UNARY_NEG));
+    expectedTokens.push_back(Token<>(TokenType::MATH_MUL));
+    expectedTokens.push_back(Token<>(TokenType::MATH_ADD));
+
+    tokenizedCommand = tokenizer.tokenize(command);
+    parser.set_command(tokenizedCommand);
+    generatedTokens = parser.parse();
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
+    generatedTokens.clear();
+    generatedTokens = parser.parse(tokenizedCommand);
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
+
+    Test::min_verbosity = prevTestVerbosity;
 }
 
-test(parser_is_number)
-{
-    Log.notice(F("Test parser_is_number starting\n"));
-    string command = "answer IsNumber(42)";
-    Tokenizer tokenizer(command);
-    vector<Token> tokens = tokenizer.tokenize();
-    Parser parser(tokens);
-    tokens = parser.parse();
-    static const vector<Token> expectedTokens = {
-        {NAME, "answer"}, 
-        {NUM_VAL, "42"}, 
-        {CREATE_NUM}, 
-    };
-    parser_check_correct_tokens(tokens, expectedTokens, command);
+void parser_check_tokens_match(Deque<Token<>> & generatedTokens, 
+                               Deque<Token<>> & expectedTokens, 
+                               char const * comment) {
+    assertEqual(generatedTokens.size(), expectedTokens.size(), comment);
+    Deque<Token<>>::Iterator genIter = generatedTokens.begin();
+    Deque<Token<>>::Iterator expIter = expectedTokens.begin();
+    int i = 0;
+    while (genIter != generatedTokens.end() && expIter != expectedTokens.end()) {
+        assertEqual(genIter->get_type(), expIter->get_type(), "i = " << i << ": " << comment);
+        assertEqual(genIter->get_value().c_str(), expIter->get_value().c_str(), "i = " << i << ": " << comment);
+        ++genIter;
+        ++expIter;
+        ++i;
+    }
 }
 
-test(parser_is_led)
-{
-    Log.notice(F("Test parser_is_led starting\n"));
-    string command = "light IsLED(13, 25)";
-    Tokenizer tokenizer(command);
-    vector<Token> tokens = tokenizer.tokenize();
-    Parser parser(tokens);
-    tokens = parser.parse();
-    static const vector<Token> expectedTokens = {
-        {NAME, "light"}, 
-        {NUM_VAL, "13"}, 
-        {NUM_VAL, "25"}, 
-        {CREATE_LED}, 
-    };
-    parser_check_correct_tokens(tokens, expectedTokens, command);   
-}
-
-test(parser_is_servo)
-{
-    Log.notice(F("Test parser_is_servo starting\n"));
-    string command = "sweeper IsServo(10, 45)";
-    Tokenizer tokenizer(command);
-    vector<Token> tokens = tokenizer.tokenize();
-    Parser parser(tokens);
-    tokens = parser.parse();
-    static const vector<Token> expectedTokens = {
-        {NAME, "sweeper"}, 
-        {NUM_VAL, "10"}, 
-        {NUM_VAL, "45"}, 
-        {CREATE_SERVO}, 
-    };
-    parser_check_correct_tokens(tokens, expectedTokens, command);   
-}
-
-test(parser_is_group)
-{
-    Log.notice(F("Test parser_is_group starting\n"));
-    string command = "blink IsGroup (";
-    Tokenizer tokenizer(command);
-    vector<Token> tokens = tokenizer.tokenize();
-    Parser parser(tokens);
-    tokens = parser.parse();
-    static const vector<Token> expectedTokens = {
-        {NAME, "blink"}, 
-        {CREATE_GROUP, ""}, 
-    };
-    parser_check_correct_tokens(tokens, expectedTokens, command);   
-}
-
-test(parser_if)
-{
-    Log.notice(F("Test parser_if starting\n"));
-    string command = "If (num % 3 = 0 & num % 5 = 0) (";
-    Tokenizer tokenizer(command);
-    vector<Token> tokens = tokenizer.tokenize();
-    Parser parser(tokens);
-    tokens = parser.parse();
-    static const vector<Token> expectedTokens = {
-        {NAME, "num"}, 
-        {NUM_VAL, "3"}, 
-        {MATH_MOD}, 
-        {NUM_VAL, "0"}, 
-        {EQUALS}, 
-        {NAME, "num"}, 
-        {NUM_VAL, "5"}, 
-        {MATH_MOD}, 
-        {NUM_VAL, "0"}, 
-        {EQUALS}, 
-        {LOGI_AND}, 
-        {IF}, 
-    };
-    parser_check_correct_tokens(tokens, expectedTokens, command);   
-}
-
-test(parser_else)
-{
-    Log.notice(F("Test parser_else starting\n"));
-    string command = "Else (";
-    Tokenizer tokenizer(command);
-    vector<Token> tokens = tokenizer.tokenize();
-    Parser parser(tokens);
-    tokens = parser.parse();
-    static const vector<Token> expectedTokens = {
-        {ELSE}, 
-    };
-    parser_check_correct_tokens(tokens, expectedTokens, command);   
-}
-
-test(parser_while)
-{
-    Log.notice(F("Test parser_while starting\n"));
-    string command = "While (val <= 20) (";
-    Tokenizer tokenizer(command);
-    vector<Token> tokens = tokenizer.tokenize();
-    Parser parser(tokens);
-    tokens = parser.parse();
-    static const vector<Token> expectedTokens = {
-        {NAME, "val"}, 
-        {NUM_VAL, "20"}, 
-        {L_EQUALS}, 
-        {WHILE}, 
-    };
-    parser_check_correct_tokens(tokens, expectedTokens, command);   
-}
-
-test(parser_move_by)
-{
-    Log.notice(F("Test parser_move_by starting\n"));
-    string command = "answer MoveBy(-10)";
-    Tokenizer tokenizer(command);
-    vector<Token> tokens = tokenizer.tokenize();
-    Parser parser(tokens);
-    tokens = parser.parse();
-    static const vector<Token> expectedTokens = {
-        {NAME, "answer"}, 
-        {NUM_VAL, "10"}, 
-        {UNARY_NEG}, 
-        {MOVE_BY}, 
-    };
-    parser_check_correct_tokens(tokens, expectedTokens, command);   
-}
-
-test(parser_set_to)
-{
-    Log.notice(F("Test parser_set_to starting\n"));
-    string command = "light SetTo(75)";
-    Tokenizer tokenizer(command);
-    vector<Token> tokens = tokenizer.tokenize();
-    Parser parser(tokens);
-    tokens = parser.parse();
-    static const vector<Token> expectedTokens = {
-        {NAME, "light"}, 
-        {NUM_VAL, "75"}, 
-        {SET_TO}, 
-    };
-    parser_check_correct_tokens(tokens, expectedTokens, command);   
-}
-
-test(parser_move_by_for)
-{
-    Log.notice(F("Test parser_move_by_for starting\n"));
-    string command = "answer MoveByFor(-10, 1)";
-    Tokenizer tokenizer(command);
-    vector<Token> tokens = tokenizer.tokenize();
-    Parser parser(tokens);
-    tokens = parser.parse();
-    static const vector<Token> expectedTokens = {
-        {NAME, "answer"}, 
-        {NUM_VAL, "10"}, 
-        {UNARY_NEG}, 
-        {NUM_VAL, "1"}, 
-        {MOVE_BY_FOR}, 
-    };
-    parser_check_correct_tokens(tokens, expectedTokens, command);   
-}
-
-test(parser_set_to_for)
-{
-    Log.notice(F("Test parser_set_to_for starting\n"));
-    string command = "light SetToFor(75, 1)";
-    Tokenizer tokenizer(command);
-    vector<Token> tokens = tokenizer.tokenize();
-    Parser parser(tokens);
-    tokens = parser.parse();
-    static const vector<Token> expectedTokens = {
-        {NAME, "light"}, 
-        {NUM_VAL, "75"}, 
-        {NUM_VAL, "1"}, 
-        {SET_TO_FOR}, 
-    };
-    parser_check_correct_tokens(tokens, expectedTokens, command);   
+void parser_print_tokens(Deque<Token<>> const & tokens) {
+    for (auto & token: tokens)
+        Serial.println(token.str().c_str());
 }
