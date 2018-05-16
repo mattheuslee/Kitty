@@ -41,6 +41,7 @@ var searchData=
   ['is_5fop_5fparen',['is_op_paren',['../classkty_1_1_token.html#a282142730ff3e67b910b61d062fe2efd',1,'kty::Token']]],
   ['is_5foperand',['is_operand',['../classkty_1_1_token.html#a6391b64ea24ab2323854df44d5478b0e',1,'kty::Token']]],
   ['is_5foperator',['is_operator',['../classkty_1_1_token.html#a8d6890ced4799c6dc974666f66ce3eac',1,'kty::Token']]],
+  ['is_5fprint',['is_print',['../classkty_1_1_token.html#a09ab78dd6abdac9ce59b644f2a8bc906',1,'kty::Token']]],
   ['is_5frun_5fgroup',['is_run_group',['../classkty_1_1_token.html#aabdad6151f2711a9108740e2fa8066a2',1,'kty::Token']]],
   ['is_5fset_5fto',['is_set_to',['../classkty_1_1_token.html#a5733b9487234e17b6bbe9002f8c52f84',1,'kty::Token']]],
   ['is_5fset_5fto_5fcommand',['is_set_to_command',['../classkty_1_1_token.html#a58d3dbb3bc5abc3bdcd3dc67471acb1f',1,'kty::Token']]],
