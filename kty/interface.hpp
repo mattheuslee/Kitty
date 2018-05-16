@@ -2,9 +2,9 @@
 
 #include <kty/stl_impl.hpp>
 #include <cctype>
-#include <string>
 
 #include <kty/containers/string.hpp>
+#include <kty/containers/stringpool.hpp>
 
 namespace kty {
 
@@ -12,19 +12,18 @@ namespace kty {
     @brief  Class that handles interactions between the user(programmer) 
             and the rest of the program.
 */
-template <typename StringPool>
+template <typename GetPoolFunc = decltype(get_stringpool), typename PoolString = PoolString<>>
 class Interface {
 
 public:
-    /** The type of pool string used in the interface */
-    typedef PoolString<StringPool> poolstring_t;
     /*!
         @brief  Constructor for the interface.
 
-        @param  stringPool
-                The string pool to use for the interface.
+        @param  getPoolFunc
+                A function that returns a pointer to a string pool when called.
     */
-    explicit Interface(StringPool & stringPool) : stringPool_(stringPool), command_(stringPool) {
+    explicit Interface(GetPoolFunc & getPoolFunc = get_stringpool) 
+        : getPoolFunc_(&getPoolFunc) {
     }
 
     /*!
@@ -79,7 +78,7 @@ public:
         @param  prefix
                 An additional string to be printed before the rest of the prompt.
     */
-    void print_prompt(poolstring_t const & prefix) {
+    void print_prompt(PoolString const & prefix) {
         if (prefix.strlen() > 0) {
             Serial.print(prefix.c_str());
         }
@@ -93,8 +92,8 @@ public:
         
         @return The command string read from the Serial interface.
     */
-    poolstring_t get_next_command() {
-        command_ = "";
+    PoolString get_next_command() {
+        PoolString command(*getPoolFunc_);
         char str[2] = " "; // To use operator += on command_
         while (true) {
             if (Serial.available()) {
@@ -104,11 +103,11 @@ public:
                 }
                 if (!isspace(c)) {
                     str[0] = c;
-                    command_ += str;
+                    command += str;
                 }
             }
         }
-        return command_;
+        return command;
     }
 
     /*!
@@ -117,13 +116,12 @@ public:
         @param  command
                 The command string to be echoed to the user.
     */
-    void echo_command(poolstring_t const & command) {
+    void echo_command(PoolString const & command) {
         Serial.println(command.c_str());
     }
 
 private:
-    StringPool & stringPool_;
-    poolstring_t command_;
+    GetPoolFunc * getPoolFunc_;
 
 };
 
