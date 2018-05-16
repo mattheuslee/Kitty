@@ -680,6 +680,28 @@ public:
         return curr->value;
     }
 
+    /*!
+        @brief  Returns a constant reference to the ith-indexed element of the deque.
+                Has undefined behaviour if the deque has less than i elements. 
+
+        @param  i
+                The index of the element to retrieve.
+
+        @return A reference to the element.
+    */
+    virtual value_t const & operator[](int const & i) const {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
+        if (i < 0 || i >= size_) {
+            Log.warning(F("%s: accessing index %d when size is %d (undefined behaviour)\n"), PRINT_FUNC, i, i, size_);
+        }
+        Node* curr = head_->next;
+        for (int j = 0; j < i; ++j) {
+            curr = curr->next;
+        }
+        Log.verbose(F("%s: returning\n"), PRINT_FUNC);
+        return curr->value;
+    }
+
 protected:
     /** Pointer to the head node of the internal linked list */
     Node* head_ = nullptr;
