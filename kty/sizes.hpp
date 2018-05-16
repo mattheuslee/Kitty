@@ -23,7 +23,7 @@ public:
     /** The number of bytes that makes up one allocator block. */
     static const int alloc_block_size = sizeof(int) * 8;
     /** The number of strings in the stringpool. */
-    static const int stringpool_size = 100;
+    static const int stringpool_size = 200;
     /** The maximum number of characters per string. */
     static const int string_length = 128;
 #endif
