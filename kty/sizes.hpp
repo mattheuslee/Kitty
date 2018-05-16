@@ -21,7 +21,7 @@ public:
     /** The number of blocks in the allocator. */
     static const int alloc_size = 200;
     /** The number of bytes that makes up one allocator block. */
-    static const int alloc_block_size = sizeof(int) * 8;
+    static const int alloc_block_size = sizeof(int) * 16;
     /** The number of strings in the stringpool. */
     static const int stringpool_size = 200;
     /** The maximum number of characters per string. */
