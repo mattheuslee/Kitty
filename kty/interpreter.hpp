@@ -284,7 +284,10 @@ public:
         else {
             // For every other command, last condition at this scope level becomes null
             lastCondition_[currScopeLevel_] = -1;
-            if (command.front().is_name()) {
+            if (command.back().is_print()) {
+                execute_print(command);
+            }
+            else if (command.front().is_name()) {
                 // Printing information
                 if (command.size() == 1) {
                     execute_print_info(command);
@@ -312,6 +315,23 @@ public:
                 execute_print_string(command);
             }
         }
+    }
+
+    /*!
+        @brief  Executes the more general print command.
+
+        @param  command
+                The command to execute
+    */
+    void execute_print(Deque<Token> const & command) {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
+        Deque<Token> tokens(command);
+        tokens.pop_back();
+        tokens = evaluate_postfix(tokens);
+        for (typename Deque<Token>::Iterator it = tokens.begin(); it != tokens.end(); ++it) {
+            Serial.print(it->get_value().c_str());
+        }
+        Serial.println("");
     }
 
     /*!
@@ -651,12 +671,10 @@ public:
                 // Instantly evaluate
                 tokenStack.push_back(Token(TokenType::NUM_VAL, int_to_str(get_token_value(token))));
             }
-            // Do nothing if function, shouldn't have more than one function 
-            // within a command, and the function should have already been
-            // extracted before calling evaluate_postfix
-            //else if (token.is_function()) {
-            //    tokenStack.push_back(token);
-            //}
+            // Everything else just goes directly to the tokenStack
+            else {
+                tokenStack.push_back(token);
+            }
         }
         return tokenStack;
     }

@@ -14,6 +14,7 @@ namespace kty {
 enum TokenType {
     CREATE_NUM = 0, CREATE_LED, CREATE_GROUP, RUN_GROUP,
     MOVE_BY_FOR, MOVE_BY, SET_TO_FOR, SET_TO,
+    PRINT,
     NAME, NUM_VAL, STRING,
     IF, ELSE, 
     OP_PAREN, CL_PAREN, COMMA,
@@ -170,6 +171,7 @@ public:
             "MOVE_BY",
             "SET_TO_FOR",
             "SET_TO",
+            "PRINT",
             "NAME",
             "NUM_VAL",
             "STRING",
@@ -218,6 +220,7 @@ public:
             0, // MOVE_BY,
             0, // SET_TO_FOR,
             0, // SET_TO,
+            0, // PRINT,
             0, // NAME,
             0, // NUM_VAL,
             0, // STRING,
@@ -266,6 +269,7 @@ public:
             1, // MOVE_BY,
             2, // SET_TO_FOR,
             1, // SET_TO,
+            0, // PRINT,
             0, // NAME,
             0, // NUM_VAL,
             0, // STRING,
@@ -391,6 +395,15 @@ public:
     */
     bool is_set_to() const {
         return type_ == TokenType::SET_TO;
+    }
+
+    /*!
+        @brief  Checks if this is a PRINT token.
+
+        @return True if this is a PRINT token, false otherwise.
+    */
+    bool is_print() const {
+        return type_ == TokenType::PRINT;
     }
     
     /*!
@@ -718,7 +731,7 @@ public:
     bool is_function() const {
         return is_create_command() || is_run_group() || 
                is_move_by_command() || is_set_to_command() ||
-               is_conditional_command();
+               is_print() || is_conditional_command();
     }
 
 private:
@@ -753,6 +766,7 @@ TokenType command_str_to_token_type(char const * str) {
         "MoveBy",
         "SetToFor",
         "SetTo",
+        "Print",
         "",
         "",
         "",
@@ -800,6 +814,7 @@ TokenType command_str_to_token_type(PoolString<> const & str) {
         "MoveBy",
         "SetToFor",
         "SetTo",
+        "Print",
         "",
         "",
         "",

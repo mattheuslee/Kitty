@@ -183,11 +183,16 @@ test(interpreter_execute_single_command)
     command = "light";
     interpreter.execute(command);
 
-    command = "'test_string'";
+    command = "'this_string_should_print'";
     interpreter.execute(command);
     
-    command = "\"test_string\"";
+    command = "\"this_string_should_print\"";
     interpreter.execute(command);
+
+    command = "num IsNumber(10)";
+    interpreter.execute(command);    
+    command = "Print(\"num is \", num, ' and num + 5 is ', (num + 5))";
+    interpreter.execute(command);    
 
     command = "non_existant_name";
     interpreter.execute(command);

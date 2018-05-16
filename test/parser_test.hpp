@@ -141,6 +141,23 @@ test(parser_parse_functions)
     generatedTokens.clear();
     generatedTokens = parser.parse(tokenizedCommand);
     parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
+
+    command = "Print(\"num is \", num, ' and num + 5 is ', (num + 5))";
+    expectedTokens.clear();
+    expectedTokens.push_back(Token<>(TokenType::STRING, "num is "));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "num"));
+    expectedTokens.push_back(Token<>(TokenType::STRING, " and num + 5 is "));
+    expectedTokens.push_back(Token<>(TokenType::NAME, "num"));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "5"));
+    expectedTokens.push_back(Token<>(TokenType::MATH_ADD));
+    expectedTokens.push_back(Token<>(TokenType::PRINT));
+    tokenizedCommand = tokenizer.tokenize(command);
+    parser.set_command(tokenizedCommand);
+    generatedTokens = parser.parse();
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
+    generatedTokens.clear();
+    generatedTokens = parser.parse(tokenizedCommand);
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
     
     command = "If (answer < 100) (";
     expectedTokens.clear();
