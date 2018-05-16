@@ -68,7 +68,8 @@ public:
     void set_command(PoolString const & command) {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         command_ = command;
-        remove_str_whitespace(command_);
+        //remove_str_whitespace(command_);
+        remove_str_multiple_whitespace(command_);
         add_missing_optional_arguments();
         tokenStartIdx_ = 0;
     }
@@ -159,6 +160,9 @@ public:
     */
     Token get_next_token() {
         Log.verbose(F("%s\n"), PRINT_FUNC);
+        while (tokenStartIdx_ < command_.strlen() && isspace(command_[tokenStartIdx_])) {
+            ++tokenStartIdx_;
+        }
         // No more tokens
         if (tokenStartIdx_ >= command_.strlen()) {
             return Token(TokenType::CMD_END, *getPoolFunc_);
@@ -362,6 +366,7 @@ public:
             "MoveBy",
             "SetToFor",
             "SetTo",
+            "Print",
             "If",
             "ElseIf",
             "Else",
