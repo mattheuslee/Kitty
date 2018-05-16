@@ -190,8 +190,11 @@ test(interpreter_execute_single_command)
     interpreter.execute(command);
 
     command = "num IsNumber(10)";
-    interpreter.execute(command);    
+    interpreter.execute(command);
     command = "Print(\"num is \", num, ' and num + 5 is ', (num + 5))";
+    interpreter.execute(command);
+
+    command = "Wait(1000)";
     interpreter.execute(command);    
 
     command = "non_existant_name";

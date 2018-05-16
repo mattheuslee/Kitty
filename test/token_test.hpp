@@ -112,6 +112,8 @@ test(token_type_as_c_str)
     assertEqual(token.type_as_c_str(), "SET_TO");
     token.set_type(TokenType::PRINT);
     assertEqual(token.type_as_c_str(), "PRINT");
+    token.set_type(TokenType::WAIT);
+    assertEqual(token.type_as_c_str(), "WAIT");
     token.set_type(TokenType::NAME);
     assertEqual(token.type_as_c_str(), "NAME");
     token.set_type(TokenType::NUM_VAL);
@@ -192,6 +194,8 @@ test(token_precedence_level)
     token.set_type(TokenType::SET_TO);
     assertEqual(token.precedence_level(), 0, token.str().c_str());
     token.set_type(TokenType::PRINT);
+    assertEqual(token.precedence_level(), 0, token.str().c_str());
+    token.set_type(TokenType::WAIT);
     assertEqual(token.precedence_level(), 0, token.str().c_str());
     token.set_type(TokenType::NAME);
     assertEqual(token.precedence_level(), 0, token.str().c_str());
@@ -274,6 +278,8 @@ test(token_num_function_arguments)
     assertEqual(token.num_function_arguments(), 1, token.str().c_str());
     token.set_type(TokenType::PRINT);
     assertEqual(token.num_function_arguments(), 0, token.str().c_str());
+    token.set_type(TokenType::WAIT);
+    assertEqual(token.num_function_arguments(), 1, token.str().c_str());
     token.set_type(TokenType::NAME);
     assertEqual(token.num_function_arguments(), 0, token.str().c_str());
     token.set_type(TokenType::NUM_VAL);
@@ -585,6 +591,9 @@ test(token_type_checkers)
     token.set_type(TokenType::PRINT);
     assertTrue(token.is_print(), token.str().c_str());
     assertTrue(token.is_function(), token.str().c_str());
+    token.set_type(TokenType::WAIT);
+    assertTrue(token.is_wait(), token.str().c_str());
+    assertTrue(token.is_function(), token.str().c_str());
     token.set_type(TokenType::NAME);
     assertTrue(token.is_name(), token.str().c_str());
     assertTrue(token.is_operand(), token.str().c_str());
@@ -727,6 +736,9 @@ test(token_command_str_to_token_type)
     str = "Print";
     assertEqual(command_str_to_token_type(str), TokenType::PRINT, str.c_str());
     assertEqual(command_str_to_token_type("Print"), TokenType::PRINT);
+    str = "Wait";
+    assertEqual(command_str_to_token_type(str), TokenType::WAIT, str.c_str());
+    assertEqual(command_str_to_token_type("Wait"), TokenType::WAIT);
     str = "If";
     assertEqual(command_str_to_token_type(str), TokenType::IF, str.c_str());
     assertEqual(command_str_to_token_type("If"), TokenType::IF);

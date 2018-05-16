@@ -367,10 +367,10 @@ public:
             "SetToFor",
             "SetTo",
             "Print",
+            "Wait",
             "If",
             "ElseIf",
             "Else",
-            "While"
         };
         return commandLookup;
     }
@@ -382,7 +382,7 @@ private:
     PoolString command_;
     int tokenStartIdx_ = 0;
 
-    const int commandLookupSize_ = 13;
+    const int commandLookupSize_ = 14;
     PoolString validPunctuation_;
 };
 

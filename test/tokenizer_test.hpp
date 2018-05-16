@@ -418,6 +418,20 @@ test(tokenizer_tokenize_functions)
     generatedTokens = tokenizer.tokenize(command);
     tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(tokenize) [" + command + "]").c_str());
 
+    command = "Wait(1000)";
+    expectedTokens.clear();
+    expectedTokens.push_back(Token<>(TokenType::WAIT));
+    expectedTokens.push_back(Token<>(TokenType::OP_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "1000"));
+    expectedTokens.push_back(Token<>(TokenType::CL_PAREN));
+    expectedTokens.push_back(Token<>(TokenType::CMD_END));
+    tokenizer.set_command(command);
+    generatedTokens = tokenizer.tokenize();
+    tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
+    generatedTokens.clear();
+    generatedTokens = tokenizer.tokenize(command);
+    tokenizer_check_tokens_match(generatedTokens, expectedTokens, (testName + "(tokenize) [" + command + "]").c_str());
+
     command = "If (answer < 100) (";
     expectedTokens.clear();
     expectedTokens.push_back(Token<>(TokenType::IF));

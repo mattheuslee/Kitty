@@ -14,7 +14,7 @@ namespace kty {
 enum TokenType {
     CREATE_NUM = 0, CREATE_LED, CREATE_GROUP, RUN_GROUP,
     MOVE_BY_FOR, MOVE_BY, SET_TO_FOR, SET_TO,
-    PRINT,
+    PRINT, WAIT,
     NAME, NUM_VAL, STRING,
     IF, ELSE, 
     OP_PAREN, CL_PAREN, COMMA,
@@ -172,6 +172,7 @@ public:
             "SET_TO_FOR",
             "SET_TO",
             "PRINT",
+            "WAIT",
             "NAME",
             "NUM_VAL",
             "STRING",
@@ -221,6 +222,7 @@ public:
             0, // SET_TO_FOR,
             0, // SET_TO,
             0, // PRINT,
+            0, // WAIT,
             0, // NAME,
             0, // NUM_VAL,
             0, // STRING,
@@ -270,6 +272,7 @@ public:
             2, // SET_TO_FOR,
             1, // SET_TO,
             0, // PRINT,
+            1, // WAIT,
             0, // NAME,
             0, // NUM_VAL,
             0, // STRING,
@@ -404,6 +407,15 @@ public:
     */
     bool is_print() const {
         return type_ == TokenType::PRINT;
+    }
+
+    /*!
+        @brief  Checks if this is a WAIT token.
+
+        @return True if this is a WAIT token, false otherwise.
+    */
+    bool is_wait() const {
+        return type_ == TokenType::WAIT;
     }
     
     /*!
@@ -731,7 +743,7 @@ public:
     bool is_function() const {
         return is_create_command() || is_run_group() || 
                is_move_by_command() || is_set_to_command() ||
-               is_print() || is_conditional_command();
+               is_print() || is_wait() || is_conditional_command();
     }
 
 private:
@@ -767,6 +779,7 @@ TokenType command_str_to_token_type(char const * str) {
         "SetToFor",
         "SetTo",
         "Print",
+        "Wait",
         "",
         "",
         "",
@@ -815,6 +828,7 @@ TokenType command_str_to_token_type(PoolString<> const & str) {
         "SetToFor",
         "SetTo",
         "Print",
+        "Wait",
         "",
         "",
         "",

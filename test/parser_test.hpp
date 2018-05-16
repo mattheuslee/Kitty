@@ -158,6 +158,18 @@ test(parser_parse_functions)
     generatedTokens.clear();
     generatedTokens = parser.parse(tokenizedCommand);
     parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
+
+    command = "Wait(1000)";
+    expectedTokens.clear();
+    expectedTokens.push_back(Token<>(TokenType::NUM_VAL, "1000"));
+    expectedTokens.push_back(Token<>(TokenType::WAIT));
+    tokenizedCommand = tokenizer.tokenize(command);
+    parser.set_command(tokenizedCommand);
+    generatedTokens = parser.parse();
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(set_command) [" + command + "]").c_str());
+    generatedTokens.clear();
+    generatedTokens = parser.parse(tokenizedCommand);
+    parser_check_tokens_match(generatedTokens, expectedTokens, (testName + "(parse) [" + command + "]").c_str());
     
     command = "If (answer < 100) (";
     expectedTokens.clear();

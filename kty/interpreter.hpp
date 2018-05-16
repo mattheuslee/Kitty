@@ -287,6 +287,9 @@ public:
             if (command.back().is_print()) {
                 execute_print(command);
             }
+            else if (command.back().is_wait()) {
+                execute_wait(command);
+            }
             else if (command.front().is_name()) {
                 // Printing information
                 if (command.size() == 1) {
@@ -332,6 +335,20 @@ public:
             Serial.print(it->get_value().c_str());
         }
         Serial.println("");
+    }
+
+    /*!
+        @brief  Executes the wait command.
+
+        @param  command
+                The command to execute
+    */
+    void execute_wait(Deque<Token> const & command) {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
+        Deque<Token> tokens(command);
+        tokens.pop_back();
+        tokens = evaluate_postfix(tokens);
+        delay(get_token_value(tokens.back()));
     }
 
     /*!
