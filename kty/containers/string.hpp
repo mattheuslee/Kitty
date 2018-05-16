@@ -558,7 +558,8 @@ public:
                 The index to insert the string into.
     */
     void insert(char const * str, int const & idx = 0) {
-        char buffer[pool_->max_str_len() + 1] = "";
+        char buffer[pool_->max_str_len() + 1];
+        memset(static_cast<void *>(const_cast<char *>(buffer)), '\0', pool_->max_str_len() + 1);
         // Copy all characters from the insert idx to the temporary buffer
         ::strcpy(buffer, c_str() + idx);
         // Insert characters
@@ -586,7 +587,8 @@ public:
             length = strlen();
         }
         int maxStrLen = pool_->max_str_len();
-        char buffer[maxStrLen] = "";
+        char buffer[maxStrLen + 1] = "";
+        memset(static_cast<void *>(const_cast<char *>(buffer)), '\0', maxStrLen + 1);
         int lenToCopy = length < maxStrLen ? length : maxStrLen;
         ::strncpy(buffer, c_str() + begin, lenToCopy);
         buffer[lenToCopy] = '\0';
