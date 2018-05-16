@@ -534,12 +534,40 @@ public:
     }
 
     /*!
+        @brief  Returns a constant reference to the front element of the deque.
+                Has undefined behaviour if the deque is empty.
+                
+        @return A reference to the element.
+    */
+    virtual value_t const & front() const {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
+        if (size() == 0) {
+            Log.warning(F("%s: size = 0 (undefined behaviour)\n"), PRINT_FUNC);
+        }
+        return head_->next->value;
+    }
+
+    /*!
         @brief  Returns a reference to the back element of the deque.
                 Has undefined behaviour if the deque is empty.
 
         @return A reference to the element.
     */
     virtual value_t & back() {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
+        if (size() == 0) {
+            Log.warning(F("%s: size = 0 (undefined behaviour)\n"), PRINT_FUNC);
+        }        
+        return head_->prev->value;
+    }
+
+    /*!
+        @brief  Returns a constant reference to the back element of the deque.
+                Has undefined behaviour if the deque is empty.
+
+        @return A reference to the element.
+    */
+    virtual value_t const & back() const {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         if (size() == 0) {
             Log.warning(F("%s: size = 0 (undefined behaviour)\n"), PRINT_FUNC);
