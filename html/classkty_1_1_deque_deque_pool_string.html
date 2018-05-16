@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>KittyInterpreter: kty::DequeDequePoolString&lt; StringPool, Alloc &gt; Class Template Reference</title>
+<title>KittyInterpreter: kty::DequeDequePoolString&lt; GetAllocFunc, GetPoolFunc, StringPool &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -67,7 +67,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classkty_1_1_deque_deque_pool_string-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">kty::DequeDequePoolString&lt; StringPool, Alloc &gt; Class Template Reference</div>  </div>
+<div class="title">kty::DequeDequePoolString&lt; GetAllocFunc, GetPoolFunc, StringPool &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -78,57 +78,55 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ac49106bcfa2129696b99df6415e38d5e"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#ac49106bcfa2129696b99df6415e38d5e">poolstring_t</a></td></tr>
-<tr class="separator:ac49106bcfa2129696b99df6415e38d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a571a1a4ac921296fd5519742e9a05d76"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#a571a1a4ac921296fd5519742e9a05d76">poolstring_t</a></td></tr>
+<tr class="separator:a571a1a4ac921296fd5519742e9a05d76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aba6162d6d48da137558aa02e8a22819d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#aba6162d6d48da137558aa02e8a22819d">DequeDequePoolString</a> (<a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &amp;stringPool, Alloc &amp;alloc)</td></tr>
-<tr class="memdesc:aba6162d6d48da137558aa02e8a22819d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the deque.  <a href="#aba6162d6d48da137558aa02e8a22819d">More...</a><br /></td></tr>
-<tr class="separator:aba6162d6d48da137558aa02e8a22819d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcbf9f7c4f71360f2b947359040136ba"><td class="memItemLeft" align="right" valign="top"><a id="afcbf9f7c4f71360f2b947359040136ba"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#afcbf9f7c4f71360f2b947359040136ba">push_front</a> ()</td></tr>
-<tr class="memdesc:afcbf9f7c4f71360f2b947359040136ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates new space at the front. <br /></td></tr>
-<tr class="separator:afcbf9f7c4f71360f2b947359040136ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7027104b5a76bc177b924d9be5e6525"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#ab7027104b5a76bc177b924d9be5e6525">size</a> ()</td></tr>
-<tr class="memdesc:ab7027104b5a76bc177b924d9be5e6525"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of deques.  <a href="#ab7027104b5a76bc177b924d9be5e6525">More...</a><br /></td></tr>
-<tr class="separator:ab7027104b5a76bc177b924d9be5e6525"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a430d7676552f673c8fb23d723c4aae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#a8a430d7676552f673c8fb23d723c4aae">size</a> (int const &amp;i)</td></tr>
-<tr class="memdesc:a8a430d7676552f673c8fb23d723c4aae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of strings in the ith deque.  <a href="#a8a430d7676552f673c8fb23d723c4aae">More...</a><br /></td></tr>
-<tr class="separator:a8a430d7676552f673c8fb23d723c4aae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5095ee94da217468ede25a884601e6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#ac49106bcfa2129696b99df6415e38d5e">poolstring_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#ac5095ee94da217468ede25a884601e6e">get_str</a> (int const &amp;i, int const &amp;j)</td></tr>
-<tr class="memdesc:ac5095ee94da217468ede25a884601e6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the jth string of the ith deque.  <a href="#ac5095ee94da217468ede25a884601e6e">More...</a><br /></td></tr>
-<tr class="separator:ac5095ee94da217468ede25a884601e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55bb5ed722cb7e6c523ea28c1e37d145"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#a55bb5ed722cb7e6c523ea28c1e37d145">get_str_idx</a> (int const &amp;i, int const &amp;j)</td></tr>
-<tr class="memdesc:a55bb5ed722cb7e6c523ea28c1e37d145"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the string pool index of the jth string of the ith deque.  <a href="#a55bb5ed722cb7e6c523ea28c1e37d145">More...</a><br /></td></tr>
-<tr class="separator:a55bb5ed722cb7e6c523ea28c1e37d145"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b9458bf2e35f5e2608e67edf9ab369b"><td class="memItemLeft" align="right" valign="top"><a id="a9b9458bf2e35f5e2608e67edf9ab369b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#a9b9458bf2e35f5e2608e67edf9ab369b">clear</a> ()</td></tr>
-<tr class="memdesc:a9b9458bf2e35f5e2608e67edf9ab369b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all deques. <br /></td></tr>
-<tr class="separator:a9b9458bf2e35f5e2608e67edf9ab369b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0a06dfbe740b74e3f33bf0c1e514136"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#aa0a06dfbe740b74e3f33bf0c1e514136">clear</a> (int const &amp;i)</td></tr>
-<tr class="memdesc:aa0a06dfbe740b74e3f33bf0c1e514136"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all strings from the ith deque.  <a href="#aa0a06dfbe740b74e3f33bf0c1e514136">More...</a><br /></td></tr>
-<tr class="separator:aa0a06dfbe740b74e3f33bf0c1e514136"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6f461aba14891303e77d3b68019c754"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#ad6f461aba14891303e77d3b68019c754">push_back</a> (int const &amp;i, <a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt; const &amp;str)</td></tr>
-<tr class="memdesc:ad6f461aba14891303e77d3b68019c754"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a string to the back of the ith deque.  <a href="#ad6f461aba14891303e77d3b68019c754">More...</a><br /></td></tr>
-<tr class="separator:ad6f461aba14891303e77d3b68019c754"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c880036a90a46ef8a4bce13608f44c7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#a4c880036a90a46ef8a4bce13608f44c7">DequeDequePoolString</a> (GetAllocFunc &amp;getAllocFunc=get_alloc, GetPoolFunc &amp;getPoolFunc=get_stringpool)</td></tr>
+<tr class="memdesc:a4c880036a90a46ef8a4bce13608f44c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the deque.  <a href="#a4c880036a90a46ef8a4bce13608f44c7">More...</a><br /></td></tr>
+<tr class="separator:a4c880036a90a46ef8a4bce13608f44c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae688c46f30ed0abf0519d7587cff68bc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#ae688c46f30ed0abf0519d7587cff68bc">push_front</a> ()</td></tr>
+<tr class="memdesc:ae688c46f30ed0abf0519d7587cff68bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates new space at the front.  <a href="#ae688c46f30ed0abf0519d7587cff68bc">More...</a><br /></td></tr>
+<tr class="separator:ae688c46f30ed0abf0519d7587cff68bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa49bfc9a0220acd6fe40526d28bac600"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#aa49bfc9a0220acd6fe40526d28bac600">size</a> () const</td></tr>
+<tr class="memdesc:aa49bfc9a0220acd6fe40526d28bac600"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of deques.  <a href="#aa49bfc9a0220acd6fe40526d28bac600">More...</a><br /></td></tr>
+<tr class="separator:aa49bfc9a0220acd6fe40526d28bac600"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1792fd4d85922655cfe1eb4cba418016"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#a1792fd4d85922655cfe1eb4cba418016">size</a> (int const &amp;i) const</td></tr>
+<tr class="memdesc:a1792fd4d85922655cfe1eb4cba418016"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the number of strings in the ith deque.  <a href="#a1792fd4d85922655cfe1eb4cba418016">More...</a><br /></td></tr>
+<tr class="separator:a1792fd4d85922655cfe1eb4cba418016"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7949a372874d22e5d3055920f6f0d493"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#a7949a372874d22e5d3055920f6f0d493">clear</a> ()</td></tr>
+<tr class="memdesc:a7949a372874d22e5d3055920f6f0d493"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all deques.  <a href="#a7949a372874d22e5d3055920f6f0d493">More...</a><br /></td></tr>
+<tr class="separator:a7949a372874d22e5d3055920f6f0d493"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d39e3a413ce5abdfc8f1670f47da02d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#a5d39e3a413ce5abdfc8f1670f47da02d">clear</a> (int const &amp;i)</td></tr>
+<tr class="memdesc:a5d39e3a413ce5abdfc8f1670f47da02d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all strings from the ith deque.  <a href="#a5d39e3a413ce5abdfc8f1670f47da02d">More...</a><br /></td></tr>
+<tr class="separator:a5d39e3a413ce5abdfc8f1670f47da02d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69137a7f7c36b7b21b208e17af7c53f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#a571a1a4ac921296fd5519742e9a05d76">poolstring_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#a69137a7f7c36b7b21b208e17af7c53f2">get_str</a> (int const &amp;i, int const &amp;j) const</td></tr>
+<tr class="memdesc:a69137a7f7c36b7b21b208e17af7c53f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the jth string of the ith deque.  <a href="#a69137a7f7c36b7b21b208e17af7c53f2">More...</a><br /></td></tr>
+<tr class="separator:a69137a7f7c36b7b21b208e17af7c53f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa506e104c16fc6e3bc7f671b6a574733"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#aa506e104c16fc6e3bc7f671b6a574733">get_str_idx</a> (int const &amp;i, int const &amp;j) const</td></tr>
+<tr class="memdesc:aa506e104c16fc6e3bc7f671b6a574733"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the string pool index of the jth string of the ith deque.  <a href="#aa506e104c16fc6e3bc7f671b6a574733">More...</a><br /></td></tr>
+<tr class="separator:aa506e104c16fc6e3bc7f671b6a574733"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e42592ed2667b2bcb500e8b3df83312"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#a1e42592ed2667b2bcb500e8b3df83312">push_back</a> (int const &amp;i, <a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt; const &amp;str)</td></tr>
+<tr class="memdesc:a1e42592ed2667b2bcb500e8b3df83312"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a string to the back of the ith deque.  <a href="#a1e42592ed2667b2bcb500e8b3df83312">More...</a><br /></td></tr>
+<tr class="separator:a1e42592ed2667b2bcb500e8b3df83312"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename StringPool, typename Alloc&gt;<br />
-class kty::DequeDequePoolString&lt; StringPool, Alloc &gt;</h3>
+<div class="textblock"><h3>template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename StringPool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;&gt;<br />
+class kty::DequeDequePoolString&lt; GetAllocFunc, GetPoolFunc, StringPool &gt;</h3>
 
 <p>Class that mimics having a <a class="el" href="classkty_1_1_deque.html" title="Double-ended queue. Provides quick insertion and deletion at both ends, but at the expense of slow ra...">Deque</a>&lt;Deque&lt;PoolString&gt;&gt;. </p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ac49106bcfa2129696b99df6415e38d5e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac49106bcfa2129696b99df6415e38d5e">&#9670;&nbsp;</a></span>poolstring_t</h2>
+<a id="a571a1a4ac921296fd5519742e9a05d76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a571a1a4ac921296fd5519742e9a05d76">&#9670;&nbsp;</a></span>poolstring_t</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename StringPool, typename Alloc&gt; </div>
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename StringPool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">typedef <a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt;<a class="el" href="classkty_1_1_string_pool.html">StringPool</a>&gt; <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a>, Alloc &gt;::<a class="el" href="classkty_1_1_deque_deque_pool_string.html#ac49106bcfa2129696b99df6415e38d5e">poolstring_t</a></td>
+          <td class="memname">typedef <a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt;<a class="el" href="classkty_1_1_string_pool.html">StringPool</a>&gt; <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::<a class="el" href="classkty_1_1_deque_deque_pool_string.html#a571a1a4ac921296fd5519742e9a05d76">poolstring_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -137,28 +135,28 @@ template&lt;typename StringPool, typename Alloc&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aba6162d6d48da137558aa02e8a22819d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba6162d6d48da137558aa02e8a22819d">&#9670;&nbsp;</a></span>DequeDequePoolString()</h2>
+<a id="a4c880036a90a46ef8a4bce13608f44c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c880036a90a46ef8a4bce13608f44c7">&#9670;&nbsp;</a></span>DequeDequePoolString()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename StringPool, typename Alloc&gt; </div>
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename StringPool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a>, Alloc &gt;::<a class="el" href="classkty_1_1_deque_deque_pool_string.html">DequeDequePoolString</a> </td>
+          <td class="memname"><a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::<a class="el" href="classkty_1_1_deque_deque_pool_string.html">DequeDequePoolString</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &amp;&#160;</td>
-          <td class="paramname"><em>stringPool</em>, </td>
+          <td class="paramtype">GetAllocFunc &amp;&#160;</td>
+          <td class="paramname"><em>getAllocFunc</em> = <code>get_alloc</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Alloc &amp;&#160;</td>
-          <td class="paramname"><em>alloc</em>&#160;</td>
+          <td class="paramtype">GetPoolFunc &amp;&#160;</td>
+          <td class="paramname"><em>getPoolFunc</em> = <code>get_stringpool</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -176,8 +174,8 @@ template&lt;typename StringPool, typename Alloc&gt; </div>
 <p>Constructor for the deque. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">stringPool</td><td>The string pool to use.</td></tr>
-    <tr><td class="paramname">alloc</td><td>The allocator to use. </td></tr>
+    <tr><td class="paramname">getAllocFunc</td><td>A function that returns an allocator pointer when called.</td></tr>
+    <tr><td class="paramname">getPoolFunc</td><td>A function that returns a pointer to a string pool when called. </td></tr>
   </table>
   </dd>
 </dl>
@@ -185,22 +183,52 @@ template&lt;typename StringPool, typename Alloc&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab7027104b5a76bc177b924d9be5e6525"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7027104b5a76bc177b924d9be5e6525">&#9670;&nbsp;</a></span>size() <span class="overload">[1/2]</span></h2>
+<a id="ae688c46f30ed0abf0519d7587cff68bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae688c46f30ed0abf0519d7587cff68bc">&#9670;&nbsp;</a></span>push_front()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename StringPool, typename Alloc&gt; </div>
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename StringPool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a>, Alloc &gt;::size </td>
+          <td class="memname">bool <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::push_front </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Allocates new space at the front. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="aa49bfc9a0220acd6fe40526d28bac600"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa49bfc9a0220acd6fe40526d28bac600">&#9670;&nbsp;</a></span>size() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename StringPool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -215,23 +243,23 @@ template&lt;typename StringPool, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="a8a430d7676552f673c8fb23d723c4aae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a430d7676552f673c8fb23d723c4aae">&#9670;&nbsp;</a></span>size() <span class="overload">[2/2]</span></h2>
+<a id="a1792fd4d85922655cfe1eb4cba418016"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1792fd4d85922655cfe1eb4cba418016">&#9670;&nbsp;</a></span>size() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename StringPool, typename Alloc&gt; </div>
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename StringPool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a>, Alloc &gt;::size </td>
+          <td class="memname">int <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::size </td>
           <td>(</td>
           <td class="paramtype">int const &amp;&#160;</td>
           <td class="paramname"><em>i</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -252,19 +280,86 @@ template&lt;typename StringPool, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="ac5095ee94da217468ede25a884601e6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5095ee94da217468ede25a884601e6e">&#9670;&nbsp;</a></span>get_str()</h2>
+<a id="a7949a372874d22e5d3055920f6f0d493"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7949a372874d22e5d3055920f6f0d493">&#9670;&nbsp;</a></span>clear() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename StringPool, typename Alloc&gt; </div>
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename StringPool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#ac49106bcfa2129696b99df6415e38d5e">poolstring_t</a> <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a>, Alloc &gt;::get_str </td>
+          <td class="memname">bool <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes all deques. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if the clear was successful, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a5d39e3a413ce5abdfc8f1670f47da02d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d39e3a413ce5abdfc8f1670f47da02d">&#9670;&nbsp;</a></span>clear() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename StringPool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::clear </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes all strings from the ith deque. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The deque index.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the clear was successful, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a69137a7f7c36b7b21b208e17af7c53f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69137a7f7c36b7b21b208e17af7c53f2">&#9670;&nbsp;</a></span>get_str()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename StringPool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classkty_1_1_deque_deque_pool_string.html#a571a1a4ac921296fd5519742e9a05d76">poolstring_t</a> <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::get_str </td>
           <td>(</td>
           <td class="paramtype">int const &amp;&#160;</td>
           <td class="paramname"><em>i</em>, </td>
@@ -278,7 +373,7 @@ template&lt;typename StringPool, typename Alloc&gt; </div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -300,19 +395,19 @@ template&lt;typename StringPool, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="a55bb5ed722cb7e6c523ea28c1e37d145"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55bb5ed722cb7e6c523ea28c1e37d145">&#9670;&nbsp;</a></span>get_str_idx()</h2>
+<a id="aa506e104c16fc6e3bc7f671b6a574733"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa506e104c16fc6e3bc7f671b6a574733">&#9670;&nbsp;</a></span>get_str_idx()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename StringPool, typename Alloc&gt; </div>
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename StringPool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a>, Alloc &gt;::get_str_idx </td>
+          <td class="memname">int <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::get_str_idx </td>
           <td>(</td>
           <td class="paramtype">int const &amp;&#160;</td>
           <td class="paramname"><em>i</em>, </td>
@@ -326,7 +421,7 @@ template&lt;typename StringPool, typename Alloc&gt; </div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -348,55 +443,19 @@ template&lt;typename StringPool, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="aa0a06dfbe740b74e3f33bf0c1e514136"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0a06dfbe740b74e3f33bf0c1e514136">&#9670;&nbsp;</a></span>clear()</h2>
+<a id="a1e42592ed2667b2bcb500e8b3df83312"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e42592ed2667b2bcb500e8b3df83312">&#9670;&nbsp;</a></span>push_back()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename StringPool, typename Alloc&gt; </div>
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename StringPool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a>, Alloc &gt;::clear </td>
-          <td>(</td>
-          <td class="paramtype">int const &amp;&#160;</td>
-          <td class="paramname"><em>i</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Removes all strings from the ith deque. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">i</td><td>The deque index. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ad6f461aba14891303e77d3b68019c754"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6f461aba14891303e77d3b68019c754">&#9670;&nbsp;</a></span>push_back()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename StringPool, typename Alloc&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; <a class="el" href="classkty_1_1_string_pool.html">StringPool</a>, Alloc &gt;::push_back </td>
+          <td class="memname">bool <a class="el" href="classkty_1_1_deque_deque_pool_string.html">kty::DequeDequePoolString</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_string_pool.html">StringPool</a> &gt;::push_back </td>
           <td>(</td>
           <td class="paramtype">int const &amp;&#160;</td>
           <td class="paramname"><em>i</em>, </td>
@@ -424,10 +483,11 @@ template&lt;typename StringPool, typename Alloc&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">i</td><td>The deque index.</td></tr>
-    <tr><td class="paramname">str</td><td>The string to push to the back of the deque. </td></tr>
+    <tr><td class="paramname">str</td><td>The string to push to the back of the deque.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>True if successful, false otherwise. </dd></dl>
 
 </div>
 </div>

@@ -1,15 +1,16 @@
 var searchData=
 [
-  ['deallocate',['deallocate',['../classkty_1_1_allocator.html#a51d1b64e7f06d9ccbfb218f9e3cc5bd1',1,'kty::Allocator']]],
+  ['dalloc',['dalloc',['../classkty_1_1_deque.html#a4b16ccf5e1d6c5cd038758ae5b1b4bc7',1,'kty::Deque::dalloc()'],['../classkty_1_1_pool_string.html#a56c1c4348bbc0d62513581429b8924e0',1,'kty::PoolString::dalloc()']]],
+  ['deallocate',['deallocate',['../classkty_1_1_allocator.html#aae4b26c6c8df87c97cb204767c006d3c',1,'kty::Allocator']]],
   ['deallocate_5fidx',['deallocate_idx',['../classkty_1_1_string_pool.html#a03689b24b0bf2528d332c08dbde0c7c7',1,'kty::StringPool']]],
-  ['dec_5fref_5fcount',['dec_ref_count',['../classkty_1_1_string_pool.html#a104b4e8a1985bb9caa1c829bff1b3f63',1,'kty::StringPool']]],
-  ['deque',['Deque',['../classkty_1_1_deque.html',1,'kty::Deque&lt; T, Alloc &gt;'],['../classkty_1_1_deque.html#ac501d653978138f8b499a7f4f5d583c5',1,'kty::Deque::Deque()']]],
-  ['deque_3c_20devicetype_2c_20alloc_20_3e',['Deque&lt; DeviceType, Alloc &gt;',['../classkty_1_1_deque.html',1,'kty']]],
-  ['deque_3c_20int_2c_20alloc_20_3e',['Deque&lt; int, Alloc &gt;',['../classkty_1_1_deque.html',1,'kty']]],
-  ['deque_3c_20poolstring_3c_20kty_3a_3astringpool_20_3e_2c_20alloc_20_3e',['Deque&lt; PoolString&lt; kty::StringPool &gt;, Alloc &gt;',['../classkty_1_1_deque.html',1,'kty']]],
-  ['deque_3c_20poolstring_3c_20stringpool_20_3e_2c_20alloc_20_3e',['Deque&lt; PoolString&lt; StringPool &gt;, Alloc &gt;',['../classkty_1_1_deque.html',1,'kty']]],
-  ['dequedequepoolstring',['DequeDequePoolString',['../classkty_1_1_deque_deque_pool_string.html',1,'kty::DequeDequePoolString&lt; StringPool, Alloc &gt;'],['../classkty_1_1_deque_deque_pool_string.html#aba6162d6d48da137558aa02e8a22819d',1,'kty::DequeDequePoolString::DequeDequePoolString()']]],
-  ['dequedequepoolstring_3c_20kty_3a_3astringpool_2c_20alloc_20_3e',['DequeDequePoolString&lt; kty::StringPool, Alloc &gt;',['../classkty_1_1_deque_deque_pool_string.html',1,'kty']]],
-  ['device_5fexists',['device_exists',['../classkty_1_1_interpreter.html#a691e51a4a50fc1d62b7a1cb6a9a30d09',1,'kty::Interpreter']]],
+  ['dec_5fref_5fcount',['dec_ref_count',['../classkty_1_1_allocator.html#ac6ec908ff626c65d35bb9b5af0bc36d9',1,'kty::Allocator::dec_ref_count()'],['../classkty_1_1_string_pool.html#af09cac34327ac5344ca1a6808a15c2de',1,'kty::StringPool::dec_ref_count()']]],
+  ['deque',['Deque',['../classkty_1_1_deque.html',1,'kty::Deque&lt; T, Alloc, GetAllocFunc &gt;'],['../classkty_1_1_deque.html#a74c4c8d9e01f2c7980ace9590bed9dbc',1,'kty::Deque::Deque(Alloc &amp;allocator)'],['../classkty_1_1_deque.html#a12e3acda3a1c2039a713ca3301e3deca',1,'kty::Deque::Deque(GetAllocFunc &amp;getAllocFunc=get_alloc)'],['../classkty_1_1_deque.html#a2e8356cf894bb281d97f9b740cc24e36',1,'kty::Deque::Deque(Deque&lt; value_t, Alloc &gt; const &amp;other)']]],
+  ['deque_3c_20devicetype_20_3e',['Deque&lt; DeviceType &gt;',['../classkty_1_1_deque.html',1,'kty']]],
+  ['deque_3c_20int_20_3e',['Deque&lt; int &gt;',['../classkty_1_1_deque.html',1,'kty']]],
+  ['deque_3c_20kty_3a_3apoolstring_20_3e',['Deque&lt; kty::PoolString &gt;',['../classkty_1_1_deque.html',1,'kty']]],
+  ['deque_3c_20kty_3a_3atoken_20_3e',['Deque&lt; kty::Token &gt;',['../classkty_1_1_deque.html',1,'kty']]],
+  ['deque_3c_20value_5ft_2c_20alloc_20_3e',['Deque&lt; value_t, Alloc &gt;',['../classkty_1_1_deque_1_1_iterator.html#a15cd58e6834e408cb9577391dfeac271',1,'kty::Deque::Iterator::Deque&lt; value_t, Alloc &gt;()'],['../classkty_1_1_deque_1_1_const_iterator.html#a15cd58e6834e408cb9577391dfeac271',1,'kty::Deque::ConstIterator::Deque&lt; value_t, Alloc &gt;()']]],
+  ['dequedequepoolstring',['DequeDequePoolString',['../classkty_1_1_deque_deque_pool_string.html',1,'kty::DequeDequePoolString&lt; GetAllocFunc, GetPoolFunc, StringPool &gt;'],['../classkty_1_1_deque_deque_pool_string.html#a4c880036a90a46ef8a4bce13608f44c7',1,'kty::DequeDequePoolString::DequeDequePoolString()']]],
+  ['device_5fexists',['device_exists',['../classkty_1_1_interpreter.html#a51da7d0d6cf71e94ebf1ade56d801ac1',1,'kty::Interpreter::device_exists()'],['../classkty_1_1_machine_state.html#a40457a65edd9860e0ebb379026beac55',1,'kty::MachineState::device_exists()']]],
   ['dump_5faddresses',['dump_addresses',['../classkty_1_1_allocator.html#ae4978f7b8b26258e292c8b21204b7425',1,'kty::Allocator::dump_addresses()'],['../classkty_1_1_string_pool.html#a1045cc3e7f62c5352149054421c9a466',1,'kty::StringPool::dump_addresses()']]]
 ];

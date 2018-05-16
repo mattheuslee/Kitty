@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>KittyInterpreter: kty::Parser Class Reference</title>
+<title>KittyInterpreter: kty::Parser&lt; GetAllocFunc, GetPoolFunc, Token, PoolString &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classkty_1_1_parser-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">kty::Parser Class Reference</div>  </div>
+<div class="title">kty::Parser&lt; GetAllocFunc, GetPoolFunc, Token, PoolString &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -77,53 +77,67 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8db524bd901ac8a2f69f80254ba59276"><td class="memItemLeft" align="right" valign="top"><a id="a8db524bd901ac8a2f69f80254ba59276"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_parser.html#a8db524bd901ac8a2f69f80254ba59276">Parser</a> ()</td></tr>
-<tr class="memdesc:a8db524bd901ac8a2f69f80254ba59276"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor for <a class="el" href="classkty_1_1_parser.html" title="Class that performs parsing on commands. ">Parser</a> object. <br /></td></tr>
-<tr class="separator:a8db524bd901ac8a2f69f80254ba59276"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5115769a63354fc79e4f604bb8251159"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_parser.html#a5115769a63354fc79e4f604bb8251159">Parser</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
-<tr class="memdesc:a5115769a63354fc79e4f604bb8251159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="classkty_1_1_parser.html" title="Class that performs parsing on commands. ">Parser</a> object.  <a href="#a5115769a63354fc79e4f604bb8251159">More...</a><br /></td></tr>
-<tr class="separator:a5115769a63354fc79e4f604bb8251159"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7558f8709dc127c7011ef67089786ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_parser.html#ad7558f8709dc127c7011ef67089786ac">set_command</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
-<tr class="memdesc:ad7558f8709dc127c7011ef67089786ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the command for the parser to parse.  <a href="#ad7558f8709dc127c7011ef67089786ac">More...</a><br /></td></tr>
-<tr class="separator:ad7558f8709dc127c7011ef67089786ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae107a96c1c1c4de46c26c934ba939a57"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_parser.html#ae107a96c1c1c4de46c26c934ba939a57">parse</a> ()</td></tr>
-<tr class="memdesc:ae107a96c1c1c4de46c26c934ba939a57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the command stored in the parser.  <a href="#ae107a96c1c1c4de46c26c934ba939a57">More...</a><br /></td></tr>
-<tr class="separator:ae107a96c1c1c4de46c26c934ba939a57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fbc0ec20cfdca52e172c7cbe48aaeee"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_parser.html#a8fbc0ec20cfdca52e172c7cbe48aaeee">parse</a> (std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
-<tr class="memdesc:a8fbc0ec20cfdca52e172c7cbe48aaeee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the given command.  <a href="#a8fbc0ec20cfdca52e172c7cbe48aaeee">More...</a><br /></td></tr>
-<tr class="separator:a8fbc0ec20cfdca52e172c7cbe48aaeee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a4a38ccf9d8531de8d43bf2eb23ce53"><td class="memItemLeft" align="right" valign="top"><a id="a7a4a38ccf9d8531de8d43bf2eb23ce53"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_parser.html#a7a4a38ccf9d8531de8d43bf2eb23ce53">preprocess</a> ()</td></tr>
-<tr class="memdesc:a7a4a38ccf9d8531de8d43bf2eb23ce53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Preprocesses the stored command to prepare for parsing. <br /></td></tr>
-<tr class="separator:a7a4a38ccf9d8531de8d43bf2eb23ce53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cd4f1fa2c983d0f51efc6d63f6d459e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_parser.html#a0cd4f1fa2c983d0f51efc6d63f6d459e">run_shunting_yard</a> ()</td></tr>
-<tr class="memdesc:a0cd4f1fa2c983d0f51efc6d63f6d459e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the shunting yard algorithm on the stored command. The algorithm converts an infix expression to a postfix expression.  <a href="#a0cd4f1fa2c983d0f51efc6d63f6d459e">More...</a><br /></td></tr>
-<tr class="separator:a0cd4f1fa2c983d0f51efc6d63f6d459e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af964a02ec5e67785c6ce083c7ac45c77"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_parser.html#af964a02ec5e67785c6ce083c7ac45c77">Parser</a> (GetAllocFunc &amp;getAllocFunc=get_alloc, GetPoolFunc &amp;getPoolFunc=get_stringpool)</td></tr>
+<tr class="memdesc:af964a02ec5e67785c6ce083c7ac45c77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="classkty_1_1_parser.html" title="Class that performs parsing on commands. ">Parser</a> object.  <a href="#af964a02ec5e67785c6ce083c7ac45c77">More...</a><br /></td></tr>
+<tr class="separator:af964a02ec5e67785c6ce083c7ac45c77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20cc5f6b020bb80d6bc9b196bea7bd1b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_parser.html#a20cc5f6b020bb80d6bc9b196bea7bd1b">Parser</a> (GetAllocFunc &amp;getAllocFunc, GetPoolFunc &amp;getPoolFunc, <a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
+<tr class="memdesc:a20cc5f6b020bb80d6bc9b196bea7bd1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for <a class="el" href="classkty_1_1_parser.html" title="Class that performs parsing on commands. ">Parser</a> object.  <a href="#a20cc5f6b020bb80d6bc9b196bea7bd1b">More...</a><br /></td></tr>
+<tr class="separator:a20cc5f6b020bb80d6bc9b196bea7bd1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00cb47d90ca25a69e0b7ade207b7be18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_parser.html#a00cb47d90ca25a69e0b7ade207b7be18">set_command</a> (<a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
+<tr class="memdesc:a00cb47d90ca25a69e0b7ade207b7be18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the command for the parser to parse.  <a href="#a00cb47d90ca25a69e0b7ade207b7be18">More...</a><br /></td></tr>
+<tr class="separator:a00cb47d90ca25a69e0b7ade207b7be18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4773edd80f2a09902b37efd977048bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_token.html">Token</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_parser.html#af4773edd80f2a09902b37efd977048bd">parse</a> ()</td></tr>
+<tr class="memdesc:af4773edd80f2a09902b37efd977048bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the command stored in the parser.  <a href="#af4773edd80f2a09902b37efd977048bd">More...</a><br /></td></tr>
+<tr class="separator:af4773edd80f2a09902b37efd977048bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f77904421016e0055ae495b18eb1c90"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_token.html">Token</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_parser.html#a2f77904421016e0055ae495b18eb1c90">parse</a> (<a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
+<tr class="memdesc:a2f77904421016e0055ae495b18eb1c90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the given command.  <a href="#a2f77904421016e0055ae495b18eb1c90">More...</a><br /></td></tr>
+<tr class="separator:a2f77904421016e0055ae495b18eb1c90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a1b0690b828a696b864b717b415863d"><td class="memItemLeft" align="right" valign="top"><a id="a1a1b0690b828a696b864b717b415863d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_parser.html#a1a1b0690b828a696b864b717b415863d">preprocess</a> ()</td></tr>
+<tr class="memdesc:a1a1b0690b828a696b864b717b415863d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Preprocesses the stored command to prepare for parsing. <br /></td></tr>
+<tr class="separator:a1a1b0690b828a696b864b717b415863d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade08ce3d934fea037b911d42a1304142"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_token.html">Token</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_parser.html#ade08ce3d934fea037b911d42a1304142">run_shunting_yard</a> ()</td></tr>
+<tr class="memdesc:ade08ce3d934fea037b911d42a1304142"><td class="mdescLeft">&#160;</td><td class="mdescRight">Runs the shunting yard algorithm on the stored command. The algorithm converts an infix expression to a postfix expression.  <a href="#ade08ce3d934fea037b911d42a1304142">More...</a><br /></td></tr>
+<tr class="separator:ade08ce3d934fea037b911d42a1304142"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class that performs parsing on commands. </p>
+<div class="textblock"><h3>template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename Token = Token&lt;&gt;, typename PoolString = PoolString&lt;&gt;&gt;<br />
+class kty::Parser&lt; GetAllocFunc, GetPoolFunc, Token, PoolString &gt;</h3>
+
+<p>Class that performs parsing on commands. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5115769a63354fc79e4f604bb8251159"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5115769a63354fc79e4f604bb8251159">&#9670;&nbsp;</a></span>Parser()</h2>
+<a id="af964a02ec5e67785c6ce083c7ac45c77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af964a02ec5e67785c6ce083c7ac45c77">&#9670;&nbsp;</a></span>Parser() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename Token = Token&lt;&gt;, typename PoolString = PoolString&lt;&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">kty::Parser::Parser </td>
+          <td class="memname"><a class="el" href="classkty_1_1_parser.html">kty::Parser</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_token.html">Token</a>, <a class="el" href="classkty_1_1_pool_string.html">PoolString</a> &gt;::<a class="el" href="classkty_1_1_parser.html">Parser</a> </td>
           <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
-          <td class="paramname"><em>command</em></td><td>)</td>
+          <td class="paramtype">GetAllocFunc &amp;&#160;</td>
+          <td class="paramname"><em>getAllocFunc</em> = <code>get_alloc</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">GetPoolFunc &amp;&#160;</td>
+          <td class="paramname"><em>getPoolFunc</em> = <code>get_stringpool</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -131,6 +145,61 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Constructor for <a class="el" href="classkty_1_1_parser.html" title="Class that performs parsing on commands. ">Parser</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">getAllocFunc</td><td>A function that returns a allocator pointer when called.</td></tr>
+    <tr><td class="paramname">getPoolFunc</td><td>A function that returns a pointer to a string pool when called. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a20cc5f6b020bb80d6bc9b196bea7bd1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20cc5f6b020bb80d6bc9b196bea7bd1b">&#9670;&nbsp;</a></span>Parser() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename Token = Token&lt;&gt;, typename PoolString = PoolString&lt;&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classkty_1_1_parser.html">kty::Parser</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_token.html">Token</a>, <a class="el" href="classkty_1_1_pool_string.html">PoolString</a> &gt;::<a class="el" href="classkty_1_1_parser.html">Parser</a> </td>
+          <td>(</td>
+          <td class="paramtype">GetAllocFunc &amp;&#160;</td>
+          <td class="paramname"><em>getAllocFunc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GetPoolFunc &amp;&#160;</td>
+          <td class="paramname"><em>getPoolFunc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>command</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor for <a class="el" href="classkty_1_1_parser.html" title="Class that performs parsing on commands. ">Parser</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">getAllocFunc</td><td>A function that returns a allocator pointer when called.</td></tr>
+    <tr><td class="paramname">getPoolFunc</td><td>A function that returns a pointer to a string pool when called.</td></tr>
     <tr><td class="paramname">command</td><td>The tokenized command to parse. </td></tr>
   </table>
   </dd>
@@ -139,19 +208,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad7558f8709dc127c7011ef67089786ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7558f8709dc127c7011ef67089786ac">&#9670;&nbsp;</a></span>set_command()</h2>
+<a id="a00cb47d90ca25a69e0b7ade207b7be18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00cb47d90ca25a69e0b7ade207b7be18">&#9670;&nbsp;</a></span>set_command()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename Token = Token&lt;&gt;, typename PoolString = PoolString&lt;&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void kty::Parser::set_command </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_parser.html">kty::Parser</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_token.html">Token</a>, <a class="el" href="classkty_1_1_pool_string.html">PoolString</a> &gt;::set_command </td>
           <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
           <td></td>
         </tr>
@@ -173,17 +244,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="ae107a96c1c1c4de46c26c934ba939a57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae107a96c1c1c4de46c26c934ba939a57">&#9670;&nbsp;</a></span>parse() <span class="overload">[1/2]</span></h2>
+<a id="af4773edd80f2a09902b37efd977048bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4773edd80f2a09902b37efd977048bd">&#9670;&nbsp;</a></span>parse() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename Token = Token&lt;&gt;, typename PoolString = PoolString&lt;&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structkty_1_1_token.html">Token</a>&gt; kty::Parser::parse </td>
+          <td class="memname"><a class="el" href="classkty_1_1_deque.html">Deque</a>&lt;<a class="el" href="classkty_1_1_token.html">Token</a>&gt; <a class="el" href="classkty_1_1_parser.html">kty::Parser</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_token.html">Token</a>, <a class="el" href="classkty_1_1_pool_string.html">PoolString</a> &gt;::parse </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -201,19 +274,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a8fbc0ec20cfdca52e172c7cbe48aaeee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8fbc0ec20cfdca52e172c7cbe48aaeee">&#9670;&nbsp;</a></span>parse() <span class="overload">[2/2]</span></h2>
+<a id="a2f77904421016e0055ae495b18eb1c90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f77904421016e0055ae495b18eb1c90">&#9670;&nbsp;</a></span>parse() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename Token = Token&lt;&gt;, typename PoolString = PoolString&lt;&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structkty_1_1_token.html">Token</a>&gt; kty::Parser::parse </td>
+          <td class="memname"><a class="el" href="classkty_1_1_deque.html">Deque</a>&lt;<a class="el" href="classkty_1_1_token.html">Token</a>&gt; <a class="el" href="classkty_1_1_parser.html">kty::Parser</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_token.html">Token</a>, <a class="el" href="classkty_1_1_pool_string.html">PoolString</a> &gt;::parse </td>
           <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="structkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
           <td class="paramname"><em>command</em></td><td>)</td>
           <td></td>
         </tr>
@@ -236,17 +311,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a0cd4f1fa2c983d0f51efc6d63f6d459e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0cd4f1fa2c983d0f51efc6d63f6d459e">&#9670;&nbsp;</a></span>run_shunting_yard()</h2>
+<a id="ade08ce3d934fea037b911d42a1304142"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade08ce3d934fea037b911d42a1304142">&#9670;&nbsp;</a></span>run_shunting_yard()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename Token = Token&lt;&gt;, typename PoolString = PoolString&lt;&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="structkty_1_1_token.html">Token</a>&gt; kty::Parser::run_shunting_yard </td>
+          <td class="memname"><a class="el" href="classkty_1_1_deque.html">Deque</a>&lt;<a class="el" href="classkty_1_1_token.html">Token</a>&gt; <a class="el" href="classkty_1_1_parser.html">kty::Parser</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_token.html">Token</a>, <a class="el" href="classkty_1_1_pool_string.html">PoolString</a> &gt;::run_shunting_yard </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>

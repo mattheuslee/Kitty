@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>KittyInterpreter: kty::Deque&lt; T, Alloc &gt;::Iterator Class Reference</title>
+<title>KittyInterpreter: kty::Deque&lt; T, Alloc, GetAllocFunc &gt;::Iterator Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,9 +64,10 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classkty_1_1_deque_1_1_iterator-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">kty::Deque&lt; T, Alloc &gt;::Iterator Class Reference</div>  </div>
+<div class="title">kty::Deque&lt; T, Alloc, GetAllocFunc &gt;::Iterator Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -77,52 +78,60 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a13497cbf9d2b58f1978f070871f6098c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#a13497cbf9d2b58f1978f070871f6098c">Iterator</a> (<a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a> *&amp;ptr)</td></tr>
-<tr class="memdesc:a13497cbf9d2b58f1978f070871f6098c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#a13497cbf9d2b58f1978f070871f6098c">More...</a><br /></td></tr>
-<tr class="separator:a13497cbf9d2b58f1978f070871f6098c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42cc7727430a91916edce5aa13e49117"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#a42cc7727430a91916edce5aa13e49117">operator--</a> ()</td></tr>
-<tr class="memdesc:a42cc7727430a91916edce5aa13e49117"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre-decrement operator.  <a href="#a42cc7727430a91916edce5aa13e49117">More...</a><br /></td></tr>
-<tr class="separator:a42cc7727430a91916edce5aa13e49117"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a875760c11224b7c6f37455a657ac4a2e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#a875760c11224b7c6f37455a657ac4a2e">operator--</a> (int)</td></tr>
-<tr class="memdesc:a875760c11224b7c6f37455a657ac4a2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post-decrement operator.  <a href="#a875760c11224b7c6f37455a657ac4a2e">More...</a><br /></td></tr>
-<tr class="separator:a875760c11224b7c6f37455a657ac4a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6d75097066a95f33fd2bbcb39517b46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#ab6d75097066a95f33fd2bbcb39517b46">operator++</a> ()</td></tr>
-<tr class="memdesc:ab6d75097066a95f33fd2bbcb39517b46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre-increment operator. Stops once it exceeds the end of the deque.  <a href="#ab6d75097066a95f33fd2bbcb39517b46">More...</a><br /></td></tr>
-<tr class="separator:ab6d75097066a95f33fd2bbcb39517b46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aceaab8be2980c1a98290e29eb63c37c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#aceaab8be2980c1a98290e29eb63c37c7">operator++</a> (int)</td></tr>
-<tr class="memdesc:aceaab8be2980c1a98290e29eb63c37c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post-increment operator. Stops once it exceeds the end of the deque.  <a href="#aceaab8be2980c1a98290e29eb63c37c7">More...</a><br /></td></tr>
-<tr class="separator:aceaab8be2980c1a98290e29eb63c37c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0e585f4b47188467cdc8bd257394c95"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#ab0e585f4b47188467cdc8bd257394c95">operator*</a> ()</td></tr>
-<tr class="memdesc:ab0e585f4b47188467cdc8bd257394c95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dereference operator.  <a href="#ab0e585f4b47188467cdc8bd257394c95">More...</a><br /></td></tr>
-<tr class="separator:ab0e585f4b47188467cdc8bd257394c95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d9cc7ce11ac1642614cceea4340db8a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#a6d9cc7ce11ac1642614cceea4340db8a">operator==</a> (<a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> const &amp;other)</td></tr>
-<tr class="memdesc:a6d9cc7ce11ac1642614cceea4340db8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality comparison operator.  <a href="#a6d9cc7ce11ac1642614cceea4340db8a">More...</a><br /></td></tr>
-<tr class="separator:a6d9cc7ce11ac1642614cceea4340db8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82da5b885bfe9055775024ca51e7e0b0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#a82da5b885bfe9055775024ca51e7e0b0">operator!=</a> (<a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> const &amp;other)</td></tr>
-<tr class="memdesc:a82da5b885bfe9055775024ca51e7e0b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-equality comparison operator.  <a href="#a82da5b885bfe9055775024ca51e7e0b0">More...</a><br /></td></tr>
-<tr class="separator:a82da5b885bfe9055775024ca51e7e0b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1803cbe74c585134acdd96a7ad669d2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#ae1803cbe74c585134acdd96a7ad669d2">Iterator</a> (<a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a> *ptr)</td></tr>
+<tr class="memdesc:ae1803cbe74c585134acdd96a7ad669d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor.  <a href="#ae1803cbe74c585134acdd96a7ad669d2">More...</a><br /></td></tr>
+<tr class="separator:ae1803cbe74c585134acdd96a7ad669d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27d6d5ef5f86a8972dd13d72ff9db415"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#a27d6d5ef5f86a8972dd13d72ff9db415">operator--</a> ()</td></tr>
+<tr class="memdesc:a27d6d5ef5f86a8972dd13d72ff9db415"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre-decrement operator.  <a href="#a27d6d5ef5f86a8972dd13d72ff9db415">More...</a><br /></td></tr>
+<tr class="separator:a27d6d5ef5f86a8972dd13d72ff9db415"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd02d4e96515706def354f967ad4e8eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#acd02d4e96515706def354f967ad4e8eb">operator--</a> (int)</td></tr>
+<tr class="memdesc:acd02d4e96515706def354f967ad4e8eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post-decrement operator.  <a href="#acd02d4e96515706def354f967ad4e8eb">More...</a><br /></td></tr>
+<tr class="separator:acd02d4e96515706def354f967ad4e8eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b8f3cbca0f23022dcf0687ee2717a4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#a5b8f3cbca0f23022dcf0687ee2717a4d">operator++</a> ()</td></tr>
+<tr class="memdesc:a5b8f3cbca0f23022dcf0687ee2717a4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pre-increment operator. Stops once it exceeds the end of the deque.  <a href="#a5b8f3cbca0f23022dcf0687ee2717a4d">More...</a><br /></td></tr>
+<tr class="separator:a5b8f3cbca0f23022dcf0687ee2717a4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8e6cac2726cdf502e50b37b4147de7b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#ad8e6cac2726cdf502e50b37b4147de7b">operator++</a> (int)</td></tr>
+<tr class="memdesc:ad8e6cac2726cdf502e50b37b4147de7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Post-increment operator. Stops once it exceeds the end of the deque.  <a href="#ad8e6cac2726cdf502e50b37b4147de7b">More...</a><br /></td></tr>
+<tr class="separator:ad8e6cac2726cdf502e50b37b4147de7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5e6168d1dad508a3d7b6b53fcc6627a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#aa5e6168d1dad508a3d7b6b53fcc6627a">operator*</a> ()</td></tr>
+<tr class="memdesc:aa5e6168d1dad508a3d7b6b53fcc6627a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dereference operator.  <a href="#aa5e6168d1dad508a3d7b6b53fcc6627a">More...</a><br /></td></tr>
+<tr class="separator:aa5e6168d1dad508a3d7b6b53fcc6627a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c850f6c34108d9892c8e3e28ff5801d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#a1c850f6c34108d9892c8e3e28ff5801d">operator-&gt;</a> ()</td></tr>
+<tr class="memdesc:a1c850f6c34108d9892c8e3e28ff5801d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arrow operator.  <a href="#a1c850f6c34108d9892c8e3e28ff5801d">More...</a><br /></td></tr>
+<tr class="separator:a1c850f6c34108d9892c8e3e28ff5801d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9fd1875769b41f489954086fcbd9430"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#ae9fd1875769b41f489954086fcbd9430">operator==</a> (<a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> const &amp;other) const</td></tr>
+<tr class="memdesc:ae9fd1875769b41f489954086fcbd9430"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality comparison operator.  <a href="#ae9fd1875769b41f489954086fcbd9430">More...</a><br /></td></tr>
+<tr class="separator:ae9fd1875769b41f489954086fcbd9430"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a667427516d8a1cac010224e7d2954f9d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#a667427516d8a1cac010224e7d2954f9d">operator!=</a> (<a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> const &amp;other) const</td></tr>
+<tr class="memdesc:a667427516d8a1cac010224e7d2954f9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-equality comparison operator.  <a href="#a667427516d8a1cac010224e7d2954f9d">More...</a><br /></td></tr>
+<tr class="separator:a667427516d8a1cac010224e7d2954f9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a15cd58e6834e408cb9577391dfeac271"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html#a15cd58e6834e408cb9577391dfeac271">Deque&lt; value_t, Alloc &gt;</a></td></tr>
+<tr class="separator:a15cd58e6834e408cb9577391dfeac271"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T, typename Alloc&gt;<br />
-class kty::Deque&lt; T, Alloc &gt;::Iterator</h3>
+<div class="textblock"><h3>template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt;<br />
+class kty::Deque&lt; T, Alloc, GetAllocFunc &gt;::Iterator</h3>
 
 <p>The iterator class for the deque. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a13497cbf9d2b58f1978f070871f6098c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13497cbf9d2b58f1978f070871f6098c">&#9670;&nbsp;</a></span>Iterator()</h2>
+<a id="ae1803cbe74c585134acdd96a7ad669d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1803cbe74c585134acdd96a7ad669d2">&#9670;&nbsp;</a></span>Iterator()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::Iterator::Iterator </td>
+          <td class="memname"><a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::Iterator::Iterator </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a> *&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a> *&#160;</td>
           <td class="paramname"><em>ptr</em></td><td>)</td>
           <td></td>
         </tr>
@@ -145,19 +154,19 @@ template&lt;typename T, typename Alloc&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a42cc7727430a91916edce5aa13e49117"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42cc7727430a91916edce5aa13e49117">&#9670;&nbsp;</a></span>operator--() <span class="overload">[1/2]</span></h2>
+<a id="a27d6d5ef5f86a8972dd13d72ff9db415"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27d6d5ef5f86a8972dd13d72ff9db415">&#9670;&nbsp;</a></span>operator--() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a>&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::Iterator::operator-- </td>
+          <td class="memname"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a>&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::Iterator::operator-- </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -175,19 +184,19 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="a875760c11224b7c6f37455a657ac4a2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a875760c11224b7c6f37455a657ac4a2e">&#9670;&nbsp;</a></span>operator--() <span class="overload">[2/2]</span></h2>
+<a id="acd02d4e96515706def354f967ad4e8eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd02d4e96515706def354f967ad4e8eb">&#9670;&nbsp;</a></span>operator--() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::Iterator::operator-- </td>
+          <td class="memname"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::Iterator::operator-- </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -206,19 +215,19 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="ab6d75097066a95f33fd2bbcb39517b46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6d75097066a95f33fd2bbcb39517b46">&#9670;&nbsp;</a></span>operator++() <span class="overload">[1/2]</span></h2>
+<a id="a5b8f3cbca0f23022dcf0687ee2717a4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b8f3cbca0f23022dcf0687ee2717a4d">&#9670;&nbsp;</a></span>operator++() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a>&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::Iterator::operator++ </td>
+          <td class="memname"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a>&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::Iterator::operator++ </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -236,19 +245,19 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="aceaab8be2980c1a98290e29eb63c37c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aceaab8be2980c1a98290e29eb63c37c7">&#9670;&nbsp;</a></span>operator++() <span class="overload">[2/2]</span></h2>
+<a id="ad8e6cac2726cdf502e50b37b4147de7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8e6cac2726cdf502e50b37b4147de7b">&#9670;&nbsp;</a></span>operator++() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::Iterator::operator++ </td>
+          <td class="memname"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::Iterator::operator++ </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -267,19 +276,19 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="ab0e585f4b47188467cdc8bd257394c95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0e585f4b47188467cdc8bd257394c95">&#9670;&nbsp;</a></span>operator*()</h2>
+<a id="aa5e6168d1dad508a3d7b6b53fcc6627a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5e6168d1dad508a3d7b6b53fcc6627a">&#9670;&nbsp;</a></span>operator*()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::Iterator::operator* </td>
+          <td class="memname"><a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a>&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::Iterator::operator* </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -297,23 +306,53 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="a6d9cc7ce11ac1642614cceea4340db8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d9cc7ce11ac1642614cceea4340db8a">&#9670;&nbsp;</a></span>operator==()</h2>
+<a id="a1c850f6c34108d9892c8e3e28ff5801d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c850f6c34108d9892c8e3e28ff5801d">&#9670;&nbsp;</a></span>operator->()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::Iterator::operator== </td>
+          <td class="memname"><a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a>* <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::Iterator::operator-&gt; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Arrow operator. </p>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the value pointed to by the iterator. </dd></dl>
+
+</div>
+</div>
+<a id="ae9fd1875769b41f489954086fcbd9430"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9fd1875769b41f489954086fcbd9430">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::Iterator::operator== </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> const &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -334,23 +373,23 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="a82da5b885bfe9055775024ca51e7e0b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82da5b885bfe9055775024ca51e7e0b0">&#9670;&nbsp;</a></span>operator!=()</h2>
+<a id="a667427516d8a1cac010224e7d2954f9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a667427516d8a1cac010224e7d2954f9d">&#9670;&nbsp;</a></span>operator!=()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::Iterator::operator!= </td>
+          <td class="memname">bool <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::Iterator::operator!= </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> const &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -368,6 +407,32 @@ template&lt;typename T, typename Alloc&gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if this and the other iterator point to different values, false otherwise. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a15cd58e6834e408cb9577391dfeac271"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15cd58e6834e408cb9577391dfeac271">&#9670;&nbsp;</a></span>Deque< value_t, Alloc ></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a>, Alloc &gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Friend class declaration such that deque can access its internal pointers </p>
 
 </div>
 </div>

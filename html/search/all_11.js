@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['value',['value',['../structkty_1_1_deque_1_1_node.html#a4d8c5421b0b696dfefe74225d25e3eb7',1,'kty::Deque::Node::value()'],['../structkty_1_1_token.html#afd50ef4089be15ed555877bc14872c22',1,'kty::Token::value()']]]
+  ['value',['value',['../structkty_1_1_deque_1_1_node.html#aafb6ee0366ba30d9b7b18e2c961675a9',1,'kty::Deque::Node']]],
+  ['value_5ft',['value_t',['../classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d',1,'kty::Deque']]],
+  ['verbose',['verbose',['../class_mock_arduino_log.html#afa75dd8b7e8fbd5ab49fc9c3de729553',1,'MockArduinoLog']]]
 ];

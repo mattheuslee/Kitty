@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>KittyInterpreter: kty::PoolString&lt; Pool &gt; Class Template Reference</title>
+<title>KittyInterpreter: kty::PoolString&lt; Pool, GetPoolFunc &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classkty_1_1_pool_string-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">kty::PoolString&lt; Pool &gt; Class Template Reference</div>  </div>
+<div class="title">kty::PoolString&lt; Pool, GetPoolFunc &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -77,114 +77,127 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1179ed35b2ad864333c00be5f67adcdd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a1179ed35b2ad864333c00be5f67adcdd">PoolString</a> (Pool &amp;pool)</td></tr>
-<tr class="memdesc:a1179ed35b2ad864333c00be5f67adcdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a pool string.  <a href="#a1179ed35b2ad864333c00be5f67adcdd">More...</a><br /></td></tr>
-<tr class="separator:a1179ed35b2ad864333c00be5f67adcdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a101d1a0175c3f194f432030072077187"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a101d1a0175c3f194f432030072077187">PoolString</a> (Pool &amp;pool, int const &amp;idx)</td></tr>
-<tr class="memdesc:a101d1a0175c3f194f432030072077187"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a pool string. Assumes the index given has already been allocated by the pool.  <a href="#a101d1a0175c3f194f432030072077187">More...</a><br /></td></tr>
-<tr class="separator:a101d1a0175c3f194f432030072077187"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e4538c4363f9b702b88f6a752a3e5c1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a0e4538c4363f9b702b88f6a752a3e5c1">PoolString</a> (Pool &amp;pool, char const *str)</td></tr>
-<tr class="memdesc:a0e4538c4363f9b702b88f6a752a3e5c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a pool string.  <a href="#a0e4538c4363f9b702b88f6a752a3e5c1">More...</a><br /></td></tr>
-<tr class="separator:a0e4538c4363f9b702b88f6a752a3e5c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34f653350b052bb506627d17009550b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a34f653350b052bb506627d17009550b1">PoolString</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> const &amp;str)</td></tr>
-<tr class="memdesc:a34f653350b052bb506627d17009550b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor for a pool string. Only copies the contents of the string and the pool used, such that both this and the other string are pointing to different memory locations.  <a href="#a34f653350b052bb506627d17009550b1">More...</a><br /></td></tr>
-<tr class="separator:a34f653350b052bb506627d17009550b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3b5e91e73a44a16bb361d8d0e77c58c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#aa3b5e91e73a44a16bb361d8d0e77c58c">operator=</a> (char const *str)</td></tr>
-<tr class="memdesc:aa3b5e91e73a44a16bb361d8d0e77c58c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies another string to this string.  <a href="#aa3b5e91e73a44a16bb361d8d0e77c58c">More...</a><br /></td></tr>
-<tr class="separator:aa3b5e91e73a44a16bb361d8d0e77c58c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7407fe2844e57ea12c3e6fb80cc4e6b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a7407fe2844e57ea12c3e6fb80cc4e6b5">operator=</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> const &amp;str)</td></tr>
-<tr class="memdesc:a7407fe2844e57ea12c3e6fb80cc4e6b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator.  <a href="#a7407fe2844e57ea12c3e6fb80cc4e6b5">More...</a><br /></td></tr>
-<tr class="separator:a7407fe2844e57ea12c3e6fb80cc4e6b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25fab0484ce1469da31116798854334a"><td class="memItemLeft" align="right" valign="top"><a id="a25fab0484ce1469da31116798854334a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a25fab0484ce1469da31116798854334a">~PoolString</a> ()</td></tr>
-<tr class="memdesc:a25fab0484ce1469da31116798854334a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for a pool string. <br /></td></tr>
-<tr class="separator:a25fab0484ce1469da31116798854334a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace544279cf3e77f29a170d41f545c15d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#ace544279cf3e77f29a170d41f545c15d">pool_idx</a> () const</td></tr>
-<tr class="memdesc:ace544279cf3e77f29a170d41f545c15d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the pool index of this string.  <a href="#ace544279cf3e77f29a170d41f545c15d">More...</a><br /></td></tr>
-<tr class="separator:ace544279cf3e77f29a170d41f545c15d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d7cb0acf9cc8d530f8b061284952a3b"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a7d7cb0acf9cc8d530f8b061284952a3b">c_str</a> () const</td></tr>
-<tr class="memdesc:a7d7cb0acf9cc8d530f8b061284952a3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string which is in "c-style". This form is suitable for passing to Arduino serial print.  <a href="#a7d7cb0acf9cc8d530f8b061284952a3b">More...</a><br /></td></tr>
-<tr class="separator:a7d7cb0acf9cc8d530f8b061284952a3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2719c1df2e2c2586f1edc88897a6a893"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a2719c1df2e2c2586f1edc88897a6a893">strcpy</a> (char const *str)</td></tr>
-<tr class="memdesc:a2719c1df2e2c2586f1edc88897a6a893"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies another string to this string.  <a href="#a2719c1df2e2c2586f1edc88897a6a893">More...</a><br /></td></tr>
-<tr class="separator:a2719c1df2e2c2586f1edc88897a6a893"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01cfabfa835b83f347ea33bfe08c70e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a01cfabfa835b83f347ea33bfe08c70e3">strcat</a> (char const *str)</td></tr>
-<tr class="memdesc:a01cfabfa835b83f347ea33bfe08c70e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenates another string to the end of this string.  <a href="#a01cfabfa835b83f347ea33bfe08c70e3">More...</a><br /></td></tr>
-<tr class="separator:a01cfabfa835b83f347ea33bfe08c70e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4a233561cf171edce8750398b60252a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#ac4a233561cf171edce8750398b60252a">strcmp</a> (char const *str) const</td></tr>
-<tr class="memdesc:ac4a233561cf171edce8750398b60252a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares another string to this string.  <a href="#ac4a233561cf171edce8750398b60252a">More...</a><br /></td></tr>
-<tr class="separator:ac4a233561cf171edce8750398b60252a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3faed79fbc17abd40167ce4d47100be"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#ae3faed79fbc17abd40167ce4d47100be">strlen</a> () const</td></tr>
-<tr class="memdesc:ae3faed79fbc17abd40167ce4d47100be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the length of the string.  <a href="#ae3faed79fbc17abd40167ce4d47100be">More...</a><br /></td></tr>
-<tr class="separator:ae3faed79fbc17abd40167ce4d47100be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a818092daeaf8e9c8a41dd947d34d3240"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a818092daeaf8e9c8a41dd947d34d3240">operator==</a> (char const *str) const</td></tr>
-<tr class="memdesc:a818092daeaf8e9c8a41dd947d34d3240"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares another string to this string for equality.  <a href="#a818092daeaf8e9c8a41dd947d34d3240">More...</a><br /></td></tr>
-<tr class="separator:a818092daeaf8e9c8a41dd947d34d3240"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63c665d958d0f8178cd776091200ce70"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a63c665d958d0f8178cd776091200ce70">operator==</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> const &amp;str) const</td></tr>
-<tr class="memdesc:a63c665d958d0f8178cd776091200ce70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares another pool string to this string for equality.  <a href="#a63c665d958d0f8178cd776091200ce70">More...</a><br /></td></tr>
-<tr class="separator:a63c665d958d0f8178cd776091200ce70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd842c82a2d6aa1ebdb884cf0715a214"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#acd842c82a2d6aa1ebdb884cf0715a214">operator+=</a> (char const *str)</td></tr>
-<tr class="memdesc:acd842c82a2d6aa1ebdb884cf0715a214"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends another string to the end of this string.  <a href="#acd842c82a2d6aa1ebdb884cf0715a214">More...</a><br /></td></tr>
-<tr class="separator:acd842c82a2d6aa1ebdb884cf0715a214"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d9afea6607962a1458a431970bd6cc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a6d9afea6607962a1458a431970bd6cc4">operator+=</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> const &amp;str)</td></tr>
-<tr class="memdesc:a6d9afea6607962a1458a431970bd6cc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends another string to the end of this string.  <a href="#a6d9afea6607962a1458a431970bd6cc4">More...</a><br /></td></tr>
-<tr class="separator:a6d9afea6607962a1458a431970bd6cc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeeb3962315425084452eccd5feaeed3b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#aeeb3962315425084452eccd5feaeed3b">PoolString</a> (Pool &amp;pool, int const &amp;idx=-1)</td></tr>
+<tr class="memdesc:aeeb3962315425084452eccd5feaeed3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a pool string.  <a href="#aeeb3962315425084452eccd5feaeed3b">More...</a><br /></td></tr>
+<tr class="separator:aeeb3962315425084452eccd5feaeed3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c8f3fa84859332b99b2eb09c7bd87d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a6c8f3fa84859332b99b2eb09c7bd87d4">PoolString</a> (Pool &amp;pool, char const *str)</td></tr>
+<tr class="memdesc:a6c8f3fa84859332b99b2eb09c7bd87d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a pool string.  <a href="#a6c8f3fa84859332b99b2eb09c7bd87d4">More...</a><br /></td></tr>
+<tr class="separator:a6c8f3fa84859332b99b2eb09c7bd87d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56cb715666b2d09ac2f5693e8059c822"><td class="memItemLeft" align="right" valign="top"><a id="a56cb715666b2d09ac2f5693e8059c822"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a56cb715666b2d09ac2f5693e8059c822">PoolString</a> ()</td></tr>
+<tr class="memdesc:a56cb715666b2d09ac2f5693e8059c822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a pool string. <br /></td></tr>
+<tr class="separator:a56cb715666b2d09ac2f5693e8059c822"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18a0ce1a868ac9af70d40e6033a5aab5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a18a0ce1a868ac9af70d40e6033a5aab5">PoolString</a> (GetPoolFunc &amp;getPoolFunc, int const &amp;idx=-1)</td></tr>
+<tr class="memdesc:a18a0ce1a868ac9af70d40e6033a5aab5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a pool string.  <a href="#a18a0ce1a868ac9af70d40e6033a5aab5">More...</a><br /></td></tr>
+<tr class="separator:a18a0ce1a868ac9af70d40e6033a5aab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefd0a1c87ba0f47cff8e53ece9940669"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#aefd0a1c87ba0f47cff8e53ece9940669">PoolString</a> (int const &amp;idx, GetPoolFunc &amp;getPoolFunc=get_stringpool)</td></tr>
+<tr class="memdesc:aefd0a1c87ba0f47cff8e53ece9940669"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a pool string.  <a href="#aefd0a1c87ba0f47cff8e53ece9940669">More...</a><br /></td></tr>
+<tr class="separator:aefd0a1c87ba0f47cff8e53ece9940669"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81c6e1ab62e7e136fc0e7385db7da12c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a81c6e1ab62e7e136fc0e7385db7da12c">PoolString</a> (GetPoolFunc &amp;getPoolFunc, char const *str)</td></tr>
+<tr class="memdesc:a81c6e1ab62e7e136fc0e7385db7da12c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a pool string.  <a href="#a81c6e1ab62e7e136fc0e7385db7da12c">More...</a><br /></td></tr>
+<tr class="separator:a81c6e1ab62e7e136fc0e7385db7da12c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0827fe0a8b33e32ded3c06d8eb1fe11e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a0827fe0a8b33e32ded3c06d8eb1fe11e">PoolString</a> (char const *str, GetPoolFunc &amp;getPoolFunc=get_stringpool)</td></tr>
+<tr class="memdesc:a0827fe0a8b33e32ded3c06d8eb1fe11e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for a pool string.  <a href="#a0827fe0a8b33e32ded3c06d8eb1fe11e">More...</a><br /></td></tr>
+<tr class="separator:a0827fe0a8b33e32ded3c06d8eb1fe11e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ca59c48c2e7c01ddb013a00d60f9f5f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a8ca59c48c2e7c01ddb013a00d60f9f5f">PoolString</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> const &amp;str)</td></tr>
+<tr class="memdesc:a8ca59c48c2e7c01ddb013a00d60f9f5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor for a pool string. Only copies the contents of the string and the pool used, such that both this and the other string are pointing to different memory locations.  <a href="#a8ca59c48c2e7c01ddb013a00d60f9f5f">More...</a><br /></td></tr>
+<tr class="separator:a8ca59c48c2e7c01ddb013a00d60f9f5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a220b1501167f852de46173cab6f5add9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a220b1501167f852de46173cab6f5add9">operator=</a> (char const *str)</td></tr>
+<tr class="memdesc:a220b1501167f852de46173cab6f5add9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies another string to this string.  <a href="#a220b1501167f852de46173cab6f5add9">More...</a><br /></td></tr>
+<tr class="separator:a220b1501167f852de46173cab6f5add9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9491eeeb6531a81621d246f0cdbe902e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a9491eeeb6531a81621d246f0cdbe902e">operator=</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> const &amp;str)</td></tr>
+<tr class="memdesc:a9491eeeb6531a81621d246f0cdbe902e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator.  <a href="#a9491eeeb6531a81621d246f0cdbe902e">More...</a><br /></td></tr>
+<tr class="separator:a9491eeeb6531a81621d246f0cdbe902e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a802b091dea7345b2cc588eb34978567b"><td class="memItemLeft" align="right" valign="top"><a id="a802b091dea7345b2cc588eb34978567b"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a802b091dea7345b2cc588eb34978567b">~PoolString</a> ()</td></tr>
+<tr class="memdesc:a802b091dea7345b2cc588eb34978567b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for a pool string. <br /></td></tr>
+<tr class="separator:a802b091dea7345b2cc588eb34978567b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a693145f801f03a4b1188e2ac0966284d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a693145f801f03a4b1188e2ac0966284d">alloc</a> ()</td></tr>
+<tr class="memdesc:a693145f801f03a4b1188e2ac0966284d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the correct allocation depending on whether a string pool object is given, or if a function to get a string pool object is given.  <a href="#a693145f801f03a4b1188e2ac0966284d">More...</a><br /></td></tr>
+<tr class="separator:a693145f801f03a4b1188e2ac0966284d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56c1c4348bbc0d62513581429b8924e0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a56c1c4348bbc0d62513581429b8924e0">dalloc</a> (int const &amp;idx)</td></tr>
+<tr class="memdesc:a56c1c4348bbc0d62513581429b8924e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the correct deallocation depending on whether a string pool object is given, or if a function to get a string pool object is given.  <a href="#a56c1c4348bbc0d62513581429b8924e0">More...</a><br /></td></tr>
+<tr class="separator:a56c1c4348bbc0d62513581429b8924e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afabcb7d2bddf32c97e56b47d828d6f5d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#afabcb7d2bddf32c97e56b47d828d6f5d">pool_idx</a> () const</td></tr>
+<tr class="memdesc:afabcb7d2bddf32c97e56b47d828d6f5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the pool index of this string.  <a href="#afabcb7d2bddf32c97e56b47d828d6f5d">More...</a><br /></td></tr>
+<tr class="separator:afabcb7d2bddf32c97e56b47d828d6f5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28ee07c839401219718b6bef3190aa9b"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a28ee07c839401219718b6bef3190aa9b">c_str</a> () const</td></tr>
+<tr class="memdesc:a28ee07c839401219718b6bef3190aa9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string which is in "c-style". This form is suitable for passing to Arduino serial print.  <a href="#a28ee07c839401219718b6bef3190aa9b">More...</a><br /></td></tr>
+<tr class="separator:a28ee07c839401219718b6bef3190aa9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79f02dbbe8431e7b33764f2d8d35c91d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a79f02dbbe8431e7b33764f2d8d35c91d">strcpy</a> (char const *str)</td></tr>
+<tr class="memdesc:a79f02dbbe8431e7b33764f2d8d35c91d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies another string to this string.  <a href="#a79f02dbbe8431e7b33764f2d8d35c91d">More...</a><br /></td></tr>
+<tr class="separator:a79f02dbbe8431e7b33764f2d8d35c91d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5516eadefc327b537ce062cb10a66ec9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a5516eadefc327b537ce062cb10a66ec9">strcat</a> (char const *str)</td></tr>
+<tr class="memdesc:a5516eadefc327b537ce062cb10a66ec9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Concatenates another string to the end of this string.  <a href="#a5516eadefc327b537ce062cb10a66ec9">More...</a><br /></td></tr>
+<tr class="separator:a5516eadefc327b537ce062cb10a66ec9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab90d00a8b29a3838100a9603c7f3cbea"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#ab90d00a8b29a3838100a9603c7f3cbea">strcmp</a> (char const *str) const</td></tr>
+<tr class="memdesc:ab90d00a8b29a3838100a9603c7f3cbea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares another string to this string.  <a href="#ab90d00a8b29a3838100a9603c7f3cbea">More...</a><br /></td></tr>
+<tr class="separator:ab90d00a8b29a3838100a9603c7f3cbea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3c6460a33249164580c7a8fe4475216"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#af3c6460a33249164580c7a8fe4475216">strlen</a> () const</td></tr>
+<tr class="memdesc:af3c6460a33249164580c7a8fe4475216"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the length of the string.  <a href="#af3c6460a33249164580c7a8fe4475216">More...</a><br /></td></tr>
+<tr class="separator:af3c6460a33249164580c7a8fe4475216"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fa1edb9f52d58854a092b62791f935b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a8fa1edb9f52d58854a092b62791f935b">operator==</a> (char const *str) const</td></tr>
+<tr class="memdesc:a8fa1edb9f52d58854a092b62791f935b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares another string to this string for equality.  <a href="#a8fa1edb9f52d58854a092b62791f935b">More...</a><br /></td></tr>
+<tr class="separator:a8fa1edb9f52d58854a092b62791f935b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15d9872d6a7187bb2f903f287b0b702b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a15d9872d6a7187bb2f903f287b0b702b">operator==</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> const &amp;str) const</td></tr>
+<tr class="memdesc:a15d9872d6a7187bb2f903f287b0b702b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compares another pool string to this string for equality.  <a href="#a15d9872d6a7187bb2f903f287b0b702b">More...</a><br /></td></tr>
+<tr class="separator:a15d9872d6a7187bb2f903f287b0b702b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60796034cf1abae065da73fffd5a9961"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a60796034cf1abae065da73fffd5a9961">operator+</a> (char const *str) const</td></tr>
+<tr class="memdesc:a60796034cf1abae065da73fffd5a9961"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends another string to the end of this string, and returns the resulting string. This string is not modified.  <a href="#a60796034cf1abae065da73fffd5a9961">More...</a><br /></td></tr>
+<tr class="separator:a60796034cf1abae065da73fffd5a9961"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a818b09b5e1ab3b09b58a6fa77cdfbc1d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a818b09b5e1ab3b09b58a6fa77cdfbc1d">operator+</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> const &amp;str) const</td></tr>
+<tr class="memdesc:a818b09b5e1ab3b09b58a6fa77cdfbc1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends another string to the end of this string, and returns the resulting string. This string is not modified.  <a href="#a818b09b5e1ab3b09b58a6fa77cdfbc1d">More...</a><br /></td></tr>
+<tr class="separator:a818b09b5e1ab3b09b58a6fa77cdfbc1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7decec5121aeb283d9fb82fa582d1184"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a7decec5121aeb283d9fb82fa582d1184">operator+=</a> (char const *str)</td></tr>
+<tr class="memdesc:a7decec5121aeb283d9fb82fa582d1184"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends another string to the end of this string.  <a href="#a7decec5121aeb283d9fb82fa582d1184">More...</a><br /></td></tr>
+<tr class="separator:a7decec5121aeb283d9fb82fa582d1184"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e0a6091c6fb980044b7eab8900f841a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a8e0a6091c6fb980044b7eab8900f841a">operator+=</a> (<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> const &amp;str)</td></tr>
+<tr class="memdesc:a8e0a6091c6fb980044b7eab8900f841a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends another string to the end of this string.  <a href="#a8e0a6091c6fb980044b7eab8900f841a">More...</a><br /></td></tr>
+<tr class="separator:a8e0a6091c6fb980044b7eab8900f841a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad69b382c1f1bce1741876a0375245616"><td class="memItemLeft" align="right" valign="top">char &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#ad69b382c1f1bce1741876a0375245616">operator[]</a> (int const &amp;i)</td></tr>
+<tr class="memdesc:ad69b382c1f1bce1741876a0375245616"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the character stored at an index.  <a href="#ad69b382c1f1bce1741876a0375245616">More...</a><br /></td></tr>
+<tr class="separator:ad69b382c1f1bce1741876a0375245616"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89d2b6f1b235d5f526a902f5e780a87d"><td class="memItemLeft" align="right" valign="top">char const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a89d2b6f1b235d5f526a902f5e780a87d">operator[]</a> (int const &amp;i) const</td></tr>
+<tr class="memdesc:a89d2b6f1b235d5f526a902f5e780a87d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the character stored at an index.  <a href="#a89d2b6f1b235d5f526a902f5e780a87d">More...</a><br /></td></tr>
+<tr class="separator:a89d2b6f1b235d5f526a902f5e780a87d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a571639398083bf06e7ea5491f221ec6d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a571639398083bf06e7ea5491f221ec6d">find</a> (char const &amp;c, int const &amp;start=0) const</td></tr>
+<tr class="memdesc:a571639398083bf06e7ea5491f221ec6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for a character within this string.  <a href="#a571639398083bf06e7ea5491f221ec6d">More...</a><br /></td></tr>
+<tr class="separator:a571639398083bf06e7ea5491f221ec6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb4148d922194521252dd0c1dd5cdcad"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#adb4148d922194521252dd0c1dd5cdcad">find</a> (char const *str, int const &amp;start=0) const</td></tr>
+<tr class="memdesc:adb4148d922194521252dd0c1dd5cdcad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for another string within this string.  <a href="#adb4148d922194521252dd0c1dd5cdcad">More...</a><br /></td></tr>
+<tr class="separator:adb4148d922194521252dd0c1dd5cdcad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8674cb33df1d42a9af99041d6321119a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a8674cb33df1d42a9af99041d6321119a">count</a> (char const &amp;c, int const &amp;start=0, int end=-1) const</td></tr>
+<tr class="memdesc:a8674cb33df1d42a9af99041d6321119a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Counts the number of occurences of a character in this string.  <a href="#a8674cb33df1d42a9af99041d6321119a">More...</a><br /></td></tr>
+<tr class="separator:a8674cb33df1d42a9af99041d6321119a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a065a812ef333799ae08e9e1dcff88d54"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a065a812ef333799ae08e9e1dcff88d54">insert</a> (char const *str, int const &amp;idx=0)</td></tr>
+<tr class="memdesc:a065a812ef333799ae08e9e1dcff88d54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a string into this string at the specified location. The string to be inserted will start from the position index given.  <a href="#a065a812ef333799ae08e9e1dcff88d54">More...</a><br /></td></tr>
+<tr class="separator:a065a812ef333799ae08e9e1dcff88d54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65edaa7b0008f0b92ec309df74a20466"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a65edaa7b0008f0b92ec309df74a20466">substr_il</a> (int const &amp;begin=0, int length=-1) const</td></tr>
+<tr class="memdesc:a65edaa7b0008f0b92ec309df74a20466"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a substring of this string. The substring is specified by its starting index and its length.  <a href="#a65edaa7b0008f0b92ec309df74a20466">More...</a><br /></td></tr>
+<tr class="separator:a65edaa7b0008f0b92ec309df74a20466"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14514c111149a3f28e65364c686ee988"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_pool_string.html#a14514c111149a3f28e65364c686ee988">substr_ii</a> (int const &amp;begin=0, int end=-1) const</td></tr>
+<tr class="memdesc:a14514c111149a3f28e65364c686ee988"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a substring of this string. The substring is specified by its starting and ending indices.  <a href="#a14514c111149a3f28e65364c686ee988">More...</a><br /></td></tr>
+<tr class="separator:a14514c111149a3f28e65364c686ee988"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class Pool&gt;<br />
-class kty::PoolString&lt; Pool &gt;</h3>
+<div class="textblock"><h3>template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt;<br />
+class kty::PoolString&lt; Pool, GetPoolFunc &gt;</h3>
 
 <p>Thin wrapper class around a poolstring_t that redirects API calls to the string pool, as well as introducing some API shortcuts. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1179ed35b2ad864333c00be5f67adcdd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1179ed35b2ad864333c00be5f67adcdd">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[1/4]</span></h2>
+<a id="aeeb3962315425084452eccd5feaeed3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeeb3962315425084452eccd5feaeed3b">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Pool&gt; </div>
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> </td>
-          <td>(</td>
-          <td class="paramtype">Pool &amp;&#160;</td>
-          <td class="paramname"><em>pool</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Constructor for a pool string. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pool</td><td>A reference to the pool which this string is using to store the actual values. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a101d1a0175c3f194f432030072077187"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a101d1a0175c3f194f432030072077187">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class Pool&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> </td>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> </td>
           <td>(</td>
           <td class="paramtype">Pool &amp;&#160;</td>
           <td class="paramname"><em>pool</em>, </td>
@@ -193,7 +206,7 @@ template&lt;class Pool&gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int const &amp;&#160;</td>
-          <td class="paramname"><em>idx</em>&#160;</td>
+          <td class="paramname"><em>idx</em> = <code>-1</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -208,30 +221,30 @@ template&lt;class Pool&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor for a pool string. Assumes the index given has already been allocated by the pool. </p>
+<p>Constructor for a pool string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">pool</td><td>A reference to the pool which this string is using to store the actual values.</td></tr>
-    <tr><td class="paramname">idx</td><td>An already allocated index in the pool for this string. </td></tr>
+    <tr><td class="paramname">idx</td><td>An already allocated index in the pool for this string. If not provided, a new one will be allocated from the pool. </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a0e4538c4363f9b702b88f6a752a3e5c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e4538c4363f9b702b88f6a752a3e5c1">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[3/4]</span></h2>
+<a id="a6c8f3fa84859332b99b2eb09c7bd87d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c8f3fa84859332b99b2eb09c7bd87d4">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Pool&gt; </div>
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> </td>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> </td>
           <td>(</td>
           <td class="paramtype">Pool &amp;&#160;</td>
           <td class="paramname"><em>pool</em>, </td>
@@ -266,21 +279,209 @@ template&lt;class Pool&gt; </div>
 
 </div>
 </div>
-<a id="a34f653350b052bb506627d17009550b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34f653350b052bb506627d17009550b1">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[4/4]</span></h2>
+<a id="a18a0ce1a868ac9af70d40e6033a5aab5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18a0ce1a868ac9af70d40e6033a5aab5">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Pool&gt; </div>
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> </td>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; Pool &gt; const &amp;&#160;</td>
+          <td class="paramtype">GetPoolFunc &amp;&#160;</td>
+          <td class="paramname"><em>getPoolFunc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>idx</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor for a pool string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">getPoolFunc</td><td>A function that returns a pointer to a string pool when called.</td></tr>
+    <tr><td class="paramname">idx</td><td>An already allocated index in the pool for this string. If not provided, a new one will be allocated from the pool. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aefd0a1c87ba0f47cff8e53ece9940669"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefd0a1c87ba0f47cff8e53ece9940669">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[4/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>idx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GetPoolFunc &amp;&#160;</td>
+          <td class="paramname"><em>getPoolFunc</em> = <code>get_stringpool</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor for a pool string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">idx</td><td>An already allocated index in the pool for this string. If not provided, a new one will be allocated from the pool.</td></tr>
+    <tr><td class="paramname">getPoolFunc</td><td>A function that returns a pointer to a string pool when called. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a81c6e1ab62e7e136fc0e7385db7da12c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81c6e1ab62e7e136fc0e7385db7da12c">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> </td>
+          <td>(</td>
+          <td class="paramtype">GetPoolFunc &amp;&#160;</td>
+          <td class="paramname"><em>getPoolFunc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char const *&#160;</td>
+          <td class="paramname"><em>str</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor for a pool string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">getPoolFunc</td><td>A function that returns a pointer to a string pool when called.</td></tr>
+    <tr><td class="paramname">str</td><td>The initial string to store. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0827fe0a8b33e32ded3c06d8eb1fe11e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0827fe0a8b33e32ded3c06d8eb1fe11e">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> </td>
+          <td>(</td>
+          <td class="paramtype">char const *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GetPoolFunc &amp;&#160;</td>
+          <td class="paramname"><em>getPoolFunc</em> = <code>get_stringpool</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor for a pool string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The initial string to store.</td></tr>
+    <tr><td class="paramname">getPoolFunc</td><td>A function that returns a pointer to a string pool when called. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8ca59c48c2e7c01ddb013a00d60f9f5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ca59c48c2e7c01ddb013a00d60f9f5f">&#9670;&nbsp;</a></span>PoolString() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::<a class="el" href="classkty_1_1_pool_string.html">PoolString</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; Pool, GetPoolFunc &gt; const &amp;&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
           <td></td>
         </tr>
@@ -303,19 +504,19 @@ template&lt;class Pool&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa3b5e91e73a44a16bb361d8d0e77c58c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3b5e91e73a44a16bb361d8d0e77c58c">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="a220b1501167f852de46173cab6f5add9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a220b1501167f852de46173cab6f5add9">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Pool&gt; </div>
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::operator= </td>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&amp; <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::operator= </td>
           <td>(</td>
           <td class="paramtype">char const *&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
@@ -332,28 +533,29 @@ template&lt;class Pool&gt; </div>
 <p>Copies another string to this string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">str</td><td>The string to copy from. </td></tr>
+    <tr><td class="paramname">str</td><td>The string to copy from.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this string, after the copying has been performed. </dd></dl>
 
 </div>
 </div>
-<a id="a7407fe2844e57ea12c3e6fb80cc4e6b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7407fe2844e57ea12c3e6fb80cc4e6b5">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+<a id="a9491eeeb6531a81621d246f0cdbe902e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9491eeeb6531a81621d246f0cdbe902e">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Pool&gt; </div>
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&amp; <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::operator= </td>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&amp; <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::operator= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; Pool &gt; const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; Pool, GetPoolFunc &gt; const &amp;&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
           <td></td>
         </tr>
@@ -376,19 +578,86 @@ template&lt;class Pool&gt; </div>
 
 </div>
 </div>
-<a id="ace544279cf3e77f29a170d41f545c15d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace544279cf3e77f29a170d41f545c15d">&#9670;&nbsp;</a></span>pool_idx()</h2>
+<a id="a693145f801f03a4b1188e2ac0966284d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a693145f801f03a4b1188e2ac0966284d">&#9670;&nbsp;</a></span>alloc()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Pool&gt; </div>
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::pool_idx </td>
+          <td class="memname">int <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::alloc </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Performs the correct allocation depending on whether a string pool object is given, or if a function to get a string pool object is given. </p>
+<dl class="section return"><dt>Returns</dt><dd>The allocated index. </dd></dl>
+
+</div>
+</div>
+<a id="a56c1c4348bbc0d62513581429b8924e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56c1c4348bbc0d62513581429b8924e0">&#9670;&nbsp;</a></span>dalloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::dalloc </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>idx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Performs the correct deallocation depending on whether a string pool object is given, or if a function to get a string pool object is given. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">idx</td><td>The index to deallocate.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the deallocation was successful, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="afabcb7d2bddf32c97e56b47d828d6f5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afabcb7d2bddf32c97e56b47d828d6f5d">&#9670;&nbsp;</a></span>pool_idx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::pool_idx </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -406,19 +675,19 @@ template&lt;class Pool&gt; </div>
 
 </div>
 </div>
-<a id="a7d7cb0acf9cc8d530f8b061284952a3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d7cb0acf9cc8d530f8b061284952a3b">&#9670;&nbsp;</a></span>c_str()</h2>
+<a id="a28ee07c839401219718b6bef3190aa9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28ee07c839401219718b6bef3190aa9b">&#9670;&nbsp;</a></span>c_str()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Pool&gt; </div>
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">char* <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::c_str </td>
+          <td class="memname">char* <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::c_str </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -436,19 +705,19 @@ template&lt;class Pool&gt; </div>
 
 </div>
 </div>
-<a id="a2719c1df2e2c2586f1edc88897a6a893"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2719c1df2e2c2586f1edc88897a6a893">&#9670;&nbsp;</a></span>strcpy()</h2>
+<a id="a79f02dbbe8431e7b33764f2d8d35c91d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79f02dbbe8431e7b33764f2d8d35c91d">&#9670;&nbsp;</a></span>strcpy()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Pool&gt; </div>
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::strcpy </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::strcpy </td>
           <td>(</td>
           <td class="paramtype">char const *&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
@@ -472,19 +741,19 @@ template&lt;class Pool&gt; </div>
 
 </div>
 </div>
-<a id="a01cfabfa835b83f347ea33bfe08c70e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01cfabfa835b83f347ea33bfe08c70e3">&#9670;&nbsp;</a></span>strcat()</h2>
+<a id="a5516eadefc327b537ce062cb10a66ec9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5516eadefc327b537ce062cb10a66ec9">&#9670;&nbsp;</a></span>strcat()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Pool&gt; </div>
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::strcat </td>
+          <td class="memname">void <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::strcat </td>
           <td>(</td>
           <td class="paramtype">char const *&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
@@ -508,19 +777,19 @@ template&lt;class Pool&gt; </div>
 
 </div>
 </div>
-<a id="ac4a233561cf171edce8750398b60252a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4a233561cf171edce8750398b60252a">&#9670;&nbsp;</a></span>strcmp()</h2>
+<a id="ab90d00a8b29a3838100a9603c7f3cbea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab90d00a8b29a3838100a9603c7f3cbea">&#9670;&nbsp;</a></span>strcmp()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Pool&gt; </div>
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::strcmp </td>
+          <td class="memname">int <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::strcmp </td>
           <td>(</td>
           <td class="paramtype">char const *&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
@@ -545,19 +814,19 @@ template&lt;class Pool&gt; </div>
 
 </div>
 </div>
-<a id="ae3faed79fbc17abd40167ce4d47100be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3faed79fbc17abd40167ce4d47100be">&#9670;&nbsp;</a></span>strlen()</h2>
+<a id="af3c6460a33249164580c7a8fe4475216"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3c6460a33249164580c7a8fe4475216">&#9670;&nbsp;</a></span>strlen()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Pool&gt; </div>
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::strlen </td>
+          <td class="memname">int <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::strlen </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -575,19 +844,19 @@ template&lt;class Pool&gt; </div>
 
 </div>
 </div>
-<a id="a818092daeaf8e9c8a41dd947d34d3240"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a818092daeaf8e9c8a41dd947d34d3240">&#9670;&nbsp;</a></span>operator==() <span class="overload">[1/2]</span></h2>
+<a id="a8fa1edb9f52d58854a092b62791f935b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fa1edb9f52d58854a092b62791f935b">&#9670;&nbsp;</a></span>operator==() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Pool&gt; </div>
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::operator== </td>
+          <td class="memname">bool <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::operator== </td>
           <td>(</td>
           <td class="paramtype">char const *&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
@@ -612,21 +881,21 @@ template&lt;class Pool&gt; </div>
 
 </div>
 </div>
-<a id="a63c665d958d0f8178cd776091200ce70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63c665d958d0f8178cd776091200ce70">&#9670;&nbsp;</a></span>operator==() <span class="overload">[2/2]</span></h2>
+<a id="a15d9872d6a7187bb2f903f287b0b702b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15d9872d6a7187bb2f903f287b0b702b">&#9670;&nbsp;</a></span>operator==() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Pool&gt; </div>
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::operator== </td>
+          <td class="memname">bool <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::operator== </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; Pool &gt; const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; Pool, GetPoolFunc &gt; const &amp;&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -649,19 +918,93 @@ template&lt;class Pool&gt; </div>
 
 </div>
 </div>
-<a id="acd842c82a2d6aa1ebdb884cf0715a214"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd842c82a2d6aa1ebdb884cf0715a214">&#9670;&nbsp;</a></span>operator+=() <span class="overload">[1/2]</span></h2>
+<a id="a60796034cf1abae065da73fffd5a9961"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60796034cf1abae065da73fffd5a9961">&#9670;&nbsp;</a></span>operator+() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Pool&gt; </div>
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::operator+= </td>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a> <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">char const *&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends another string to the end of this string, and returns the resulting string. This string is not modified. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to append onto this string.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The resulting string after appending the given string. </dd></dl>
+
+</div>
+</div>
+<a id="a818b09b5e1ab3b09b58a6fa77cdfbc1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a818b09b5e1ab3b09b58a6fa77cdfbc1d">&#9670;&nbsp;</a></span>operator+() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a> <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::operator+ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; Pool, GetPoolFunc &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Appends another string to the end of this string, and returns the resulting string. This string is not modified. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to append onto this string.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The resulting string after appending the given string. </dd></dl>
+
+</div>
+</div>
+<a id="a7decec5121aeb283d9fb82fa582d1184"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7decec5121aeb283d9fb82fa582d1184">&#9670;&nbsp;</a></span>operator+=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&amp; <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::operator+= </td>
           <td>(</td>
           <td class="paramtype">char const *&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
@@ -678,28 +1021,29 @@ template&lt;class Pool&gt; </div>
 <p>Appends another string to the end of this string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">str</td><td>The string to append onto this string. </td></tr>
+    <tr><td class="paramname">str</td><td>The string to append onto this string.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the string after appending the other string. </dd></dl>
 
 </div>
 </div>
-<a id="a6d9afea6607962a1458a431970bd6cc4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d9afea6607962a1458a431970bd6cc4">&#9670;&nbsp;</a></span>operator+=() <span class="overload">[2/2]</span></h2>
+<a id="a8e0a6091c6fb980044b7eab8900f841a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e0a6091c6fb980044b7eab8900f841a">&#9670;&nbsp;</a></span>operator+=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class Pool&gt; </div>
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool &gt;::operator+= </td>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&amp; <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::operator+= </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; Pool &gt; const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a>&lt; Pool, GetPoolFunc &gt; const &amp;&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
           <td></td>
         </tr>
@@ -714,10 +1058,379 @@ template&lt;class Pool&gt; </div>
 <p>Appends another string to the end of this string. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">str</td><td>The string to append onto this string. </td></tr>
+    <tr><td class="paramname">str</td><td>The string to append onto this string.</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the string after appending the other string. </dd></dl>
+
+</div>
+</div>
+<a id="ad69b382c1f1bce1741876a0375245616"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad69b382c1f1bce1741876a0375245616">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char&amp; <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the character stored at an index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The index.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the character stored at that index. This method has undefined behaviour if i is out of bounds. </dd></dl>
+
+</div>
+</div>
+<a id="a89d2b6f1b235d5f526a902f5e780a87d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89d2b6f1b235d5f526a902f5e780a87d">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char const&amp; <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the character stored at an index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The index.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the character stored at that index. This method has undefined behaviour if i is out of bounds. </dd></dl>
+
+</div>
+</div>
+<a id="a571639398083bf06e7ea5491f221ec6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a571639398083bf06e7ea5491f221ec6d">&#9670;&nbsp;</a></span>find() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::find </td>
+          <td>(</td>
+          <td class="paramtype">char const &amp;&#160;</td>
+          <td class="paramname"><em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>start</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Searches for a character within this string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>The character to search for.</td></tr>
+    <tr><td class="paramname">start</td><td>The index to start searching. Optional parameter, default is 0.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The index where the character can be found, or -1 if it cannot be found. </dd></dl>
+
+</div>
+</div>
+<a id="adb4148d922194521252dd0c1dd5cdcad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb4148d922194521252dd0c1dd5cdcad">&#9670;&nbsp;</a></span>find() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::find </td>
+          <td>(</td>
+          <td class="paramtype">char const *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>start</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Searches for another string within this string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to search for.</td></tr>
+    <tr><td class="paramname">start</td><td>The index to start searching. Optional parameter, default is 0.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The starting index where the string can be found, or -1 if it cannot be found. </dd></dl>
+
+</div>
+</div>
+<a id="a8674cb33df1d42a9af99041d6321119a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8674cb33df1d42a9af99041d6321119a">&#9670;&nbsp;</a></span>count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::count </td>
+          <td>(</td>
+          <td class="paramtype">char const &amp;&#160;</td>
+          <td class="paramname"><em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>start</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>end</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Counts the number of occurences of a character in this string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>The character to count.</td></tr>
+    <tr><td class="paramname">start</td><td>The index to start looking from. Default is 0 to start from the beginning.</td></tr>
+    <tr><td class="paramname">end</td><td>One past the last index to stop looking. Default is <a class="el" href="classkty_1_1_pool_string.html#af3c6460a33249164580c7a8fe4475216" title="Gets the length of the string. ">strlen()</a> to stop at the end.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of times the character appears. </dd></dl>
+
+</div>
+</div>
+<a id="a065a812ef333799ae08e9e1dcff88d54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a065a812ef333799ae08e9e1dcff88d54">&#9670;&nbsp;</a></span>insert()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::insert </td>
+          <td>(</td>
+          <td class="paramtype">char const *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>idx</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inserts a string into this string at the specified location. The string to be inserted will start from the position index given. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>The string to insert.</td></tr>
+    <tr><td class="paramname">idx</td><td>The index to insert the string into. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a65edaa7b0008f0b92ec309df74a20466"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65edaa7b0008f0b92ec309df74a20466">&#9670;&nbsp;</a></span>substr_il()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a> <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::substr_il </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>begin</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>length</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Generates a substring of this string. The substring is specified by its starting index and its length. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">begin</td><td>The starting index of the substring.</td></tr>
+    <tr><td class="paramname">length</td><td>The length of the substring.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The generated substring. </dd></dl>
+
+</div>
+</div>
+<a id="a14514c111149a3f28e65364c686ee988"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14514c111149a3f28e65364c686ee988">&#9670;&nbsp;</a></span>substr_ii()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Pool = StringPool&lt;Sizes::stringpool_size, Sizes::string_length&gt;, class GetPoolFunc = decltype(get_stringpool)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classkty_1_1_pool_string.html">PoolString</a> <a class="el" href="classkty_1_1_pool_string.html">kty::PoolString</a>&lt; Pool, GetPoolFunc &gt;::substr_ii </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>begin</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>end</em> = <code>-1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Generates a substring of this string. The substring is specified by its starting and ending indices. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">begin</td><td>The starting index of the substring.</td></tr>
+    <tr><td class="paramname">end</td><td>One past the ending index of the substring.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The generated substring. </dd></dl>
 
 </div>
 </div>

@@ -70,10 +70,10 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Class that maintains all the strings in the program. The memory pool is created on the stack to avoid heap fragmentation. Holds enough memory to allocate N strings of at most size S.  
+<p>Class that maintains all the strings in the program. The memory pool is created on the stack to avoid heap fragmentation. Holds enough memory to allocate N strings of at most length S.  
  <a href="classkty_1_1_string_pool.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="string_8hpp_source.html">string.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="stringpool_8hpp_source.html">stringpool.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -93,30 +93,30 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a1045cc3e7f62c5352149054421c9a466">dump_addresses</a> () const</td></tr>
 <tr class="memdesc:a1045cc3e7f62c5352149054421c9a466"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the addresses used by the string database. <br /></td></tr>
 <tr class="separator:a1045cc3e7f62c5352149054421c9a466"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b3a14293560daf17c1721074dbc75df"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a9b3a14293560daf17c1721074dbc75df">max_str_len</a> () const</td></tr>
+<tr class="memdesc:a9b3a14293560daf17c1721074dbc75df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum possible length for a string.  <a href="#a9b3a14293560daf17c1721074dbc75df">More...</a><br /></td></tr>
+<tr class="separator:a9b3a14293560daf17c1721074dbc75df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3253baea6a6c5210ef09e086d26bbafb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a3253baea6a6c5210ef09e086d26bbafb">owns</a> (int const &amp;idx)</td></tr>
 <tr class="memdesc:a3253baea6a6c5210ef09e086d26bbafb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if an index is owned by this pool.  <a href="#a3253baea6a6c5210ef09e086d26bbafb">More...</a><br /></td></tr>
 <tr class="separator:a3253baea6a6c5210ef09e086d26bbafb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca3d4fc1bfbf835bbdbb731b499bd8b7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#aca3d4fc1bfbf835bbdbb731b499bd8b7">available</a> () const</td></tr>
 <tr class="memdesc:aca3d4fc1bfbf835bbdbb731b499bd8b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check the number of available blocks left in the pool.  <a href="#aca3d4fc1bfbf835bbdbb731b499bd8b7">More...</a><br /></td></tr>
 <tr class="separator:aca3d4fc1bfbf835bbdbb731b499bd8b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d758b67fa289a8ebf618e31a328a764"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a1d758b67fa289a8ebf618e31a328a764">ref_count</a> (int const &amp;idx)</td></tr>
+<tr class="memdesc:a1d758b67fa289a8ebf618e31a328a764"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the reference count for an index.  <a href="#a1d758b67fa289a8ebf618e31a328a764">More...</a><br /></td></tr>
+<tr class="separator:a1d758b67fa289a8ebf618e31a328a764"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a542efa567e04cb42bc80cbf31abab73e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a542efa567e04cb42bc80cbf31abab73e">inc_ref_count</a> (int const &amp;idx)</td></tr>
+<tr class="memdesc:a542efa567e04cb42bc80cbf31abab73e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increases the reference count for an index.  <a href="#a542efa567e04cb42bc80cbf31abab73e">More...</a><br /></td></tr>
+<tr class="separator:a542efa567e04cb42bc80cbf31abab73e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af09cac34327ac5344ca1a6808a15c2de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#af09cac34327ac5344ca1a6808a15c2de">dec_ref_count</a> (int const &amp;idx)</td></tr>
+<tr class="memdesc:af09cac34327ac5344ca1a6808a15c2de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decreases the reference count for an index. If this operation decreases the reference count to 0, it is not deallocated. To ensure that a decrease to 0 deallocates the index, call <a class="el" href="classkty_1_1_string_pool.html#a03689b24b0bf2528d332c08dbde0c7c7" title="Returns a string index to the pool. ">deallocate_idx()</a>.  <a href="#af09cac34327ac5344ca1a6808a15c2de">More...</a><br /></td></tr>
+<tr class="separator:af09cac34327ac5344ca1a6808a15c2de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9c436dd5bde78771e66191c0039e2958"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a9c436dd5bde78771e66191c0039e2958">allocate_idx</a> ()</td></tr>
 <tr class="memdesc:a9c436dd5bde78771e66191c0039e2958"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the next free index for a string.  <a href="#a9c436dd5bde78771e66191c0039e2958">More...</a><br /></td></tr>
 <tr class="separator:a9c436dd5bde78771e66191c0039e2958"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26491e023ca254b419aca60d9410bce9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a26491e023ca254b419aca60d9410bce9">num_ref</a> (int const &amp;idx)</td></tr>
-<tr class="memdesc:a26491e023ca254b419aca60d9410bce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the reference count for an index.  <a href="#a26491e023ca254b419aca60d9410bce9">More...</a><br /></td></tr>
-<tr class="separator:a26491e023ca254b419aca60d9410bce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa30800188f7569eedecc683ff3a9910"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#aaa30800188f7569eedecc683ff3a9910">inc_ref_count</a> (int const &amp;idx)</td></tr>
-<tr class="memdesc:aaa30800188f7569eedecc683ff3a9910"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increases the reference count for an index.  <a href="#aaa30800188f7569eedecc683ff3a9910">More...</a><br /></td></tr>
-<tr class="separator:aaa30800188f7569eedecc683ff3a9910"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a104b4e8a1985bb9caa1c829bff1b3f63"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a104b4e8a1985bb9caa1c829bff1b3f63">dec_ref_count</a> (int const &amp;idx)</td></tr>
-<tr class="memdesc:a104b4e8a1985bb9caa1c829bff1b3f63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decreases the reference count for an index.  <a href="#a104b4e8a1985bb9caa1c829bff1b3f63">More...</a><br /></td></tr>
-<tr class="separator:a104b4e8a1985bb9caa1c829bff1b3f63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03689b24b0bf2528d332c08dbde0c7c7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a03689b24b0bf2528d332c08dbde0c7c7">deallocate_idx</a> (int const &amp;idx)</td></tr>
 <tr class="memdesc:a03689b24b0bf2528d332c08dbde0c7c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string index to the pool.  <a href="#a03689b24b0bf2528d332c08dbde0c7c7">More...</a><br /></td></tr>
 <tr class="separator:a03689b24b0bf2528d332c08dbde0c7c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b3a14293560daf17c1721074dbc75df"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a9b3a14293560daf17c1721074dbc75df">max_str_len</a> () const</td></tr>
-<tr class="memdesc:a9b3a14293560daf17c1721074dbc75df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum possible length for a string.  <a href="#a9b3a14293560daf17c1721074dbc75df">More...</a><br /></td></tr>
-<tr class="separator:a9b3a14293560daf17c1721074dbc75df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a877253b004b1608a6273f161ddce387b"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_string_pool.html#a877253b004b1608a6273f161ddce387b">c_str</a> (int const &amp;idx) const</td></tr>
 <tr class="memdesc:a877253b004b1608a6273f161ddce387b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the string at a given index.  <a href="#a877253b004b1608a6273f161ddce387b">More...</a><br /></td></tr>
 <tr class="separator:a877253b004b1608a6273f161ddce387b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -128,18 +128,48 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:aaa3e2e260d3ff406a24765ed25a4ec3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;int N, int S&gt;<br />
+<div class="textblock"><h3>template&lt;int N = Sizes::stringpool_size, int S = Sizes::string_length&gt;<br />
 class kty::StringPool&lt; N, S &gt;</h3>
 
-<p>Class that maintains all the strings in the program. The memory pool is created on the stack to avoid heap fragmentation. Holds enough memory to allocate N strings of at most size S. </p>
+<p>Class that maintains all the strings in the program. The memory pool is created on the stack to avoid heap fragmentation. Holds enough memory to allocate N strings of at most length S. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a9b3a14293560daf17c1721074dbc75df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b3a14293560daf17c1721074dbc75df">&#9670;&nbsp;</a></span>max_str_len()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int N = Sizes::stringpool_size, int S = Sizes::string_length&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::max_str_len </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the maximum possible length for a string. </p>
+<dl class="section return"><dt>Returns</dt><dd>The maximum possible string length. </dd></dl>
+
+</div>
+</div>
 <a id="a3253baea6a6c5210ef09e086d26bbafb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3253baea6a6c5210ef09e086d26bbafb">&#9670;&nbsp;</a></span>owns()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;int N, int S&gt; </div>
+template&lt;int N = Sizes::stringpool_size, int S = Sizes::string_length&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -176,7 +206,7 @@ template&lt;int N, int S&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;int N, int S&gt; </div>
+template&lt;int N = Sizes::stringpool_size, int S = Sizes::string_length&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -200,49 +230,19 @@ template&lt;int N, int S&gt; </div>
 
 </div>
 </div>
-<a id="a9c436dd5bde78771e66191c0039e2958"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c436dd5bde78771e66191c0039e2958">&#9670;&nbsp;</a></span>allocate_idx()</h2>
+<a id="a1d758b67fa289a8ebf618e31a328a764"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d758b67fa289a8ebf618e31a328a764">&#9670;&nbsp;</a></span>ref_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;int N, int S&gt; </div>
+template&lt;int N = Sizes::stringpool_size, int S = Sizes::string_length&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::allocate_idx </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Gets the next free index for a string. </p>
-<dl class="section return"><dt>Returns</dt><dd>An index into the pool if there is space, -1 otherwise. </dd></dl>
-
-</div>
-</div>
-<a id="a26491e023ca254b419aca60d9410bce9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26491e023ca254b419aca60d9410bce9">&#9670;&nbsp;</a></span>num_ref()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;int N, int S&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::num_ref </td>
+          <td class="memname">int <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::ref_count </td>
           <td>(</td>
           <td class="paramtype">int const &amp;&#160;</td>
           <td class="paramname"><em>idx</em></td><td>)</td>
@@ -267,19 +267,19 @@ template&lt;int N, int S&gt; </div>
 
 </div>
 </div>
-<a id="aaa30800188f7569eedecc683ff3a9910"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa30800188f7569eedecc683ff3a9910">&#9670;&nbsp;</a></span>inc_ref_count()</h2>
+<a id="a542efa567e04cb42bc80cbf31abab73e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a542efa567e04cb42bc80cbf31abab73e">&#9670;&nbsp;</a></span>inc_ref_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;int N, int S&gt; </div>
+template&lt;int N = Sizes::stringpool_size, int S = Sizes::string_length&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::inc_ref_count </td>
+          <td class="memname">int <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::inc_ref_count </td>
           <td>(</td>
           <td class="paramtype">int const &amp;&#160;</td>
           <td class="paramname"><em>idx</em></td><td>)</td>
@@ -300,23 +300,23 @@ template&lt;int N, int S&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the operation was successful, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The new reference count of the index. If the address is invalid, -1 is returned. </dd></dl>
 
 </div>
 </div>
-<a id="a104b4e8a1985bb9caa1c829bff1b3f63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a104b4e8a1985bb9caa1c829bff1b3f63">&#9670;&nbsp;</a></span>dec_ref_count()</h2>
+<a id="af09cac34327ac5344ca1a6808a15c2de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af09cac34327ac5344ca1a6808a15c2de">&#9670;&nbsp;</a></span>dec_ref_count()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;int N, int S&gt; </div>
+template&lt;int N = Sizes::stringpool_size, int S = Sizes::string_length&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::dec_ref_count </td>
+          <td class="memname">int <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::dec_ref_count </td>
           <td>(</td>
           <td class="paramtype">int const &amp;&#160;</td>
           <td class="paramname"><em>idx</em></td><td>)</td>
@@ -330,14 +330,44 @@ template&lt;int N, int S&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Decreases the reference count for an index. </p>
+<p>Decreases the reference count for an index. If this operation decreases the reference count to 0, it is not deallocated. To ensure that a decrease to 0 deallocates the index, call <a class="el" href="classkty_1_1_string_pool.html#a03689b24b0bf2528d332c08dbde0c7c7" title="Returns a string index to the pool. ">deallocate_idx()</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">idx</td><td>The index to decrease the reference count for.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the operation was successful, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The new reference count of the index. If the address is invalid, -1 is returned. </dd></dl>
+
+</div>
+</div>
+<a id="a9c436dd5bde78771e66191c0039e2958"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c436dd5bde78771e66191c0039e2958">&#9670;&nbsp;</a></span>allocate_idx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;int N = Sizes::stringpool_size, int S = Sizes::string_length&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::allocate_idx </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the next free index for a string. </p>
+<dl class="section return"><dt>Returns</dt><dd>An index into the pool if there is space, -1 otherwise. </dd></dl>
 
 </div>
 </div>
@@ -347,7 +377,7 @@ template&lt;int N, int S&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;int N, int S&gt; </div>
+template&lt;int N = Sizes::stringpool_size, int S = Sizes::string_length&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -378,43 +408,13 @@ template&lt;int N, int S&gt; </div>
 
 </div>
 </div>
-<a id="a9b3a14293560daf17c1721074dbc75df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b3a14293560daf17c1721074dbc75df">&#9670;&nbsp;</a></span>max_str_len()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;int N, int S&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int <a class="el" href="classkty_1_1_string_pool.html">kty::StringPool</a>&lt; N, S &gt;::max_str_len </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the maximum possible length for a string. </p>
-<dl class="section return"><dt>Returns</dt><dd>The maximum possible string length. </dd></dl>
-
-</div>
-</div>
 <a id="a877253b004b1608a6273f161ddce387b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a877253b004b1608a6273f161ddce387b">&#9670;&nbsp;</a></span>c_str()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;int N, int S&gt; </div>
+template&lt;int N = Sizes::stringpool_size, int S = Sizes::string_length&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -451,7 +451,7 @@ template&lt;int N, int S&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;int N, int S&gt; </div>
+template&lt;int N = Sizes::stringpool_size, int S = Sizes::string_length&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -505,7 +505,7 @@ template&lt;int N, int S&gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;int N, int S&gt; </div>
+template&lt;int N = Sizes::stringpool_size, int S = Sizes::string_length&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -547,7 +547,7 @@ template&lt;int N, int S&gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>kty/containers/<a class="el" href="string_8hpp_source.html">string.hpp</a></li>
+<li>kty/containers/<a class="el" href="stringpool_8hpp_source.html">stringpool.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

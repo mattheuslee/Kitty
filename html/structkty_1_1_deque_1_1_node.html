@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>KittyInterpreter: kty::Deque&lt; T, Alloc &gt;::Node Struct Reference</title>
+<title>KittyInterpreter: kty::Deque&lt; T, Alloc, GetAllocFunc &gt;::Node Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structkty_1_1_deque_1_1_node-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">kty::Deque&lt; T, Alloc &gt;::Node Struct Reference</div>  </div>
+<div class="title">kty::Deque&lt; T, Alloc, GetAllocFunc &gt;::Node Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -77,29 +77,29 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a4d8c5421b0b696dfefe74225d25e3eb7"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_deque_1_1_node.html#a4d8c5421b0b696dfefe74225d25e3eb7">value</a></td></tr>
-<tr class="separator:a4d8c5421b0b696dfefe74225d25e3eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e5bb26a4c74d825e959113be712205e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_deque_1_1_node.html#a5e5bb26a4c74d825e959113be712205e">next</a></td></tr>
-<tr class="separator:a5e5bb26a4c74d825e959113be712205e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed6fcdf15ce289fbc3b5632a2e513b75"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_deque_1_1_node.html#aed6fcdf15ce289fbc3b5632a2e513b75">prev</a></td></tr>
-<tr class="separator:aed6fcdf15ce289fbc3b5632a2e513b75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafb6ee0366ba30d9b7b18e2c961675a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_deque_1_1_node.html#aafb6ee0366ba30d9b7b18e2c961675a9">value</a></td></tr>
+<tr class="separator:aafb6ee0366ba30d9b7b18e2c961675a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93c212b203b199b347584f9f98b6a0e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_deque_1_1_node.html#a93c212b203b199b347584f9f98b6a0e9">next</a></td></tr>
+<tr class="separator:a93c212b203b199b347584f9f98b6a0e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8f5c0b8f2a01b641b1e3d478cf46bbd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structkty_1_1_deque_1_1_node.html#ab8f5c0b8f2a01b641b1e3d478cf46bbd">prev</a></td></tr>
+<tr class="separator:ab8f5c0b8f2a01b641b1e3d478cf46bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T, typename Alloc&gt;<br />
-struct kty::Deque&lt; T, Alloc &gt;::Node</h3>
+<div class="textblock"><h3>template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt;<br />
+struct kty::Deque&lt; T, Alloc, GetAllocFunc &gt;::Node</h3>
 
 <p>The node structure that makes up the deque. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a4d8c5421b0b696dfefe74225d25e3eb7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d8c5421b0b696dfefe74225d25e3eb7">&#9670;&nbsp;</a></span>value</h2>
+<a id="aafb6ee0366ba30d9b7b18e2c961675a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafb6ee0366ba30d9b7b18e2c961675a9">&#9670;&nbsp;</a></span>value</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">T <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::Node::value</td>
+          <td class="memname"><a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::Node::value</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -107,16 +107,16 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="a5e5bb26a4c74d825e959113be712205e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e5bb26a4c74d825e959113be712205e">&#9670;&nbsp;</a></span>next</h2>
+<a id="a93c212b203b199b347584f9f98b6a0e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93c212b203b199b347584f9f98b6a0e9">&#9670;&nbsp;</a></span>next</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a>* <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::Node::next</td>
+          <td class="memname"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a>* <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::Node::next</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -124,16 +124,16 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="aed6fcdf15ce289fbc3b5632a2e513b75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed6fcdf15ce289fbc3b5632a2e513b75">&#9670;&nbsp;</a></span>prev</h2>
+<a id="ab8f5c0b8f2a01b641b1e3d478cf46bbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8f5c0b8f2a01b641b1e3d478cf46bbd">&#9670;&nbsp;</a></span>prev</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a>* <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::Node::prev</td>
+          <td class="memname"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a>* <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::Node::prev</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>KittyInterpreter: kty::Deque&lt; T, Alloc &gt; Class Template Reference</title>
+<title>KittyInterpreter: kty::Deque&lt; T, Alloc, GetAllocFunc &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,11 +64,12 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classkty_1_1_deque-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">kty::Deque&lt; T, Alloc &gt; Class Template Reference</div>  </div>
+<div class="title">kty::Deque&lt; T, Alloc, GetAllocFunc &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -79,6 +80,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_const_iterator.html">ConstIterator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The constant iterator class for the deque. This behaves similarly to a regular iterator, but the values it points to cannot be changed.  <a href="classkty_1_1_deque_1_1_const_iterator.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The iterator class for the deque.  <a href="classkty_1_1_deque_1_1_iterator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -86,83 +90,148 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The node structure that makes up the deque.  <a href="structkty_1_1_deque_1_1_node.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a29c13175035597ae122421455d309f5d"><td class="memItemLeft" align="right" valign="top">typedef T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a></td></tr>
+<tr class="separator:a29c13175035597ae122421455d309f5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac501d653978138f8b499a7f4f5d583c5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#ac501d653978138f8b499a7f4f5d583c5">Deque</a> (Alloc &amp;allocator)</td></tr>
-<tr class="memdesc:ac501d653978138f8b499a7f4f5d583c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the deque.  <a href="#ac501d653978138f8b499a7f4f5d583c5">More...</a><br /></td></tr>
-<tr class="separator:ac501d653978138f8b499a7f4f5d583c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab8fd36ebf384def5eced54fd8d80e9c"><td class="memItemLeft" align="right" valign="top"><a id="aab8fd36ebf384def5eced54fd8d80e9c"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#aab8fd36ebf384def5eced54fd8d80e9c">~Deque</a> ()</td></tr>
-<tr class="memdesc:aab8fd36ebf384def5eced54fd8d80e9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for the deque. <br /></td></tr>
-<tr class="separator:aab8fd36ebf384def5eced54fd8d80e9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafba7c8b7d2d6ffd0f46cdfc11530552"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#aafba7c8b7d2d6ffd0f46cdfc11530552">size</a> () const</td></tr>
-<tr class="memdesc:aafba7c8b7d2d6ffd0f46cdfc11530552"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the deque.  <a href="#aafba7c8b7d2d6ffd0f46cdfc11530552">More...</a><br /></td></tr>
-<tr class="separator:aafba7c8b7d2d6ffd0f46cdfc11530552"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19693be3123dc635095f4a99d13be6b2"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a19693be3123dc635095f4a99d13be6b2">is_empty</a> () const</td></tr>
-<tr class="memdesc:a19693be3123dc635095f4a99d13be6b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the deque is empty, false otherwise.  <a href="#a19693be3123dc635095f4a99d13be6b2">More...</a><br /></td></tr>
-<tr class="separator:a19693be3123dc635095f4a99d13be6b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5c1d5276b0545f51b2d100494627473"><td class="memItemLeft" align="right" valign="top"><a id="ad5c1d5276b0545f51b2d100494627473"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#ad5c1d5276b0545f51b2d100494627473">clear</a> ()</td></tr>
-<tr class="memdesc:ad5c1d5276b0545f51b2d100494627473"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all elements in the deque, leaving it empty. <br /></td></tr>
-<tr class="separator:ad5c1d5276b0545f51b2d100494627473"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89e493c95028ab1a7932393e3d0fb2c6"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a89e493c95028ab1a7932393e3d0fb2c6">push_front</a> (T const &amp;value)</td></tr>
-<tr class="memdesc:a89e493c95028ab1a7932393e3d0fb2c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a value to the front of the deque.  <a href="#a89e493c95028ab1a7932393e3d0fb2c6">More...</a><br /></td></tr>
-<tr class="separator:a89e493c95028ab1a7932393e3d0fb2c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab79bd997919d3ff0fdf6ddb2e5210934"><td class="memItemLeft" align="right" valign="top"><a id="ab79bd997919d3ff0fdf6ddb2e5210934"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#ab79bd997919d3ff0fdf6ddb2e5210934">pop_front</a> ()</td></tr>
-<tr class="memdesc:ab79bd997919d3ff0fdf6ddb2e5210934"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pops value from the front of the deque. If there is no value to pop, does nothing. <br /></td></tr>
-<tr class="separator:ab79bd997919d3ff0fdf6ddb2e5210934"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1696a520b8a1d5be238853e20def8ae"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#ac1696a520b8a1d5be238853e20def8ae">push_back</a> (T const &amp;value)</td></tr>
-<tr class="memdesc:ac1696a520b8a1d5be238853e20def8ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a value to the back of the deque. This version calls the copy constructor.  <a href="#ac1696a520b8a1d5be238853e20def8ae">More...</a><br /></td></tr>
-<tr class="separator:ac1696a520b8a1d5be238853e20def8ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2e3888a13d29f501ba60b734ffcd74d"><td class="memItemLeft" align="right" valign="top"><a id="af2e3888a13d29f501ba60b734ffcd74d"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#af2e3888a13d29f501ba60b734ffcd74d">pop_back</a> ()</td></tr>
-<tr class="memdesc:af2e3888a13d29f501ba60b734ffcd74d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pops value from the back of the deque. If there is no value to pop, does nothing. <br /></td></tr>
-<tr class="separator:af2e3888a13d29f501ba60b734ffcd74d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbbbe7e010215d939ca19c8942821c8d"><td class="memItemLeft" align="right" valign="top">virtual T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#abbbbe7e010215d939ca19c8942821c8d">front</a> ()</td></tr>
-<tr class="memdesc:abbbbe7e010215d939ca19c8942821c8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the front element of the deque. Has undefined behaviour if the deque is empty.  <a href="#abbbbe7e010215d939ca19c8942821c8d">More...</a><br /></td></tr>
-<tr class="separator:abbbbe7e010215d939ca19c8942821c8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c680353f9d1fac4fff51cecbd605d81"><td class="memItemLeft" align="right" valign="top">virtual T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a9c680353f9d1fac4fff51cecbd605d81">back</a> ()</td></tr>
-<tr class="memdesc:a9c680353f9d1fac4fff51cecbd605d81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the back element of the deque. Has undefined behaviour if the deque is empty.  <a href="#a9c680353f9d1fac4fff51cecbd605d81">More...</a><br /></td></tr>
-<tr class="separator:a9c680353f9d1fac4fff51cecbd605d81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6342ca532515af650fd62e501fcef049"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a6342ca532515af650fd62e501fcef049">begin</a> ()</td></tr>
-<tr class="memdesc:a6342ca532515af650fd62e501fcef049"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the first element of the deque.  <a href="#a6342ca532515af650fd62e501fcef049">More...</a><br /></td></tr>
-<tr class="separator:a6342ca532515af650fd62e501fcef049"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0895f020b0c93d758e68f5b708a515c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#ab0895f020b0c93d758e68f5b708a515c">end</a> ()</td></tr>
-<tr class="memdesc:ab0895f020b0c93d758e68f5b708a515c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to one past the last element of the deque. Since this is a circular deque, one past the last element is the dummy head node.  <a href="#ab0895f020b0c93d758e68f5b708a515c">More...</a><br /></td></tr>
-<tr class="separator:ab0895f020b0c93d758e68f5b708a515c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c9ccab052787195352c5368497d8f5b"><td class="memItemLeft" align="right" valign="top">virtual T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a1c9ccab052787195352c5368497d8f5b">operator[]</a> (int const &amp;i)</td></tr>
-<tr class="memdesc:a1c9ccab052787195352c5368497d8f5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the ith-indexed element of the deque. Has undefined behaviour if the deque has less than i elements.  <a href="#a1c9ccab052787195352c5368497d8f5b">More...</a><br /></td></tr>
-<tr class="separator:a1c9ccab052787195352c5368497d8f5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74c4c8d9e01f2c7980ace9590bed9dbc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a74c4c8d9e01f2c7980ace9590bed9dbc">Deque</a> (Alloc &amp;allocator)</td></tr>
+<tr class="memdesc:a74c4c8d9e01f2c7980ace9590bed9dbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the deque. This constructor sets up the deque to use an allocator.  <a href="#a74c4c8d9e01f2c7980ace9590bed9dbc">More...</a><br /></td></tr>
+<tr class="separator:a74c4c8d9e01f2c7980ace9590bed9dbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12e3acda3a1c2039a713ca3301e3deca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a12e3acda3a1c2039a713ca3301e3deca">Deque</a> (GetAllocFunc &amp;getAllocFunc=get_alloc)</td></tr>
+<tr class="memdesc:a12e3acda3a1c2039a713ca3301e3deca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the deque. This constructor sets up the deque to use allocating functions.  <a href="#a12e3acda3a1c2039a713ca3301e3deca">More...</a><br /></td></tr>
+<tr class="separator:a12e3acda3a1c2039a713ca3301e3deca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e8356cf894bb281d97f9b740cc24e36"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a2e8356cf894bb281d97f9b740cc24e36">Deque</a> (<a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a>, Alloc &gt; const &amp;other)</td></tr>
+<tr class="memdesc:a2e8356cf894bb281d97f9b740cc24e36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor for the deque.  <a href="#a2e8356cf894bb281d97f9b740cc24e36">More...</a><br /></td></tr>
+<tr class="separator:a2e8356cf894bb281d97f9b740cc24e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1f443a7f774394300ebbbb0cfa9b9fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a>, Alloc &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#ad1f443a7f774394300ebbbb0cfa9b9fd">operator=</a> (<a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a>, Alloc &gt; const &amp;other)</td></tr>
+<tr class="memdesc:ad1f443a7f774394300ebbbb0cfa9b9fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator for the deque.  <a href="#ad1f443a7f774394300ebbbb0cfa9b9fd">More...</a><br /></td></tr>
+<tr class="separator:ad1f443a7f774394300ebbbb0cfa9b9fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22dea60cb073b78becdf383d58202bbf"><td class="memItemLeft" align="right" valign="top"><a id="a22dea60cb073b78becdf383d58202bbf"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a22dea60cb073b78becdf383d58202bbf">~Deque</a> ()</td></tr>
+<tr class="memdesc:a22dea60cb073b78becdf383d58202bbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor for the deque. <br /></td></tr>
+<tr class="separator:a22dea60cb073b78becdf383d58202bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd6e781c24c59b9358a348ca7d536267"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#acd6e781c24c59b9358a348ca7d536267">alloc</a> ()</td></tr>
+<tr class="memdesc:acd6e781c24c59b9358a348ca7d536267"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the correct allocation depending on whether an allocator object is given, or if a function to get an allocator object is given.  <a href="#acd6e781c24c59b9358a348ca7d536267">More...</a><br /></td></tr>
+<tr class="separator:acd6e781c24c59b9358a348ca7d536267"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b16ccf5e1d6c5cd038758ae5b1b4bc7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a4b16ccf5e1d6c5cd038758ae5b1b4bc7">dalloc</a> (<a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a> *ptr)</td></tr>
+<tr class="memdesc:a4b16ccf5e1d6c5cd038758ae5b1b4bc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the correct deallocation depending on whether an allocator object is given, or if a function to get an allocator object is given.  <a href="#a4b16ccf5e1d6c5cd038758ae5b1b4bc7">More...</a><br /></td></tr>
+<tr class="separator:a4b16ccf5e1d6c5cd038758ae5b1b4bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d734185cd1327f82c25bbf90d850100"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a2d734185cd1327f82c25bbf90d850100">size</a> () const</td></tr>
+<tr class="memdesc:a2d734185cd1327f82c25bbf90d850100"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the deque.  <a href="#a2d734185cd1327f82c25bbf90d850100">More...</a><br /></td></tr>
+<tr class="separator:a2d734185cd1327f82c25bbf90d850100"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accd3e7e4e6dcfc33296f32ca71b4a870"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#accd3e7e4e6dcfc33296f32ca71b4a870">is_empty</a> () const</td></tr>
+<tr class="memdesc:accd3e7e4e6dcfc33296f32ca71b4a870"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the deque is empty, false otherwise.  <a href="#accd3e7e4e6dcfc33296f32ca71b4a870">More...</a><br /></td></tr>
+<tr class="separator:accd3e7e4e6dcfc33296f32ca71b4a870"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea7af9a32e551e866fbddcf0607b11d7"><td class="memItemLeft" align="right" valign="top"><a id="aea7af9a32e551e866fbddcf0607b11d7"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#aea7af9a32e551e866fbddcf0607b11d7">clear</a> ()</td></tr>
+<tr class="memdesc:aea7af9a32e551e866fbddcf0607b11d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all elements in the deque, leaving it empty. <br /></td></tr>
+<tr class="separator:aea7af9a32e551e866fbddcf0607b11d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dfc02b17ec1a56d78eebbaaa1adffc9"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a2dfc02b17ec1a56d78eebbaaa1adffc9">push_front</a> (<a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> const &amp;value)</td></tr>
+<tr class="memdesc:a2dfc02b17ec1a56d78eebbaaa1adffc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a value to the front of the deque.  <a href="#a2dfc02b17ec1a56d78eebbaaa1adffc9">More...</a><br /></td></tr>
+<tr class="separator:a2dfc02b17ec1a56d78eebbaaa1adffc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33e561d8166522ccd82221cbd2bf593e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a33e561d8166522ccd82221cbd2bf593e">pop_front</a> ()</td></tr>
+<tr class="memdesc:a33e561d8166522ccd82221cbd2bf593e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pops value from the front of the deque. If there is no value to pop, does nothing.  <a href="#a33e561d8166522ccd82221cbd2bf593e">More...</a><br /></td></tr>
+<tr class="separator:a33e561d8166522ccd82221cbd2bf593e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32fb2bc7865d5d175989285cb792be8f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a32fb2bc7865d5d175989285cb792be8f">push_back</a> (<a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> const &amp;value)</td></tr>
+<tr class="memdesc:a32fb2bc7865d5d175989285cb792be8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pushes a value to the back of the deque. This version calls the copy constructor.  <a href="#a32fb2bc7865d5d175989285cb792be8f">More...</a><br /></td></tr>
+<tr class="separator:a32fb2bc7865d5d175989285cb792be8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc4c900a330e7ad347d0f5f5ab08a528"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#abc4c900a330e7ad347d0f5f5ab08a528">pop_back</a> ()</td></tr>
+<tr class="memdesc:abc4c900a330e7ad347d0f5f5ab08a528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pops value from the back of the deque. If there is no value to pop, does nothing.  <a href="#abc4c900a330e7ad347d0f5f5ab08a528">More...</a><br /></td></tr>
+<tr class="separator:abc4c900a330e7ad347d0f5f5ab08a528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec590cf0235757399ec001e46272131a"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#aec590cf0235757399ec001e46272131a">front</a> ()</td></tr>
+<tr class="memdesc:aec590cf0235757399ec001e46272131a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the front element of the deque. Has undefined behaviour if the deque is empty.  <a href="#aec590cf0235757399ec001e46272131a">More...</a><br /></td></tr>
+<tr class="separator:aec590cf0235757399ec001e46272131a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4564fcb070f82432bdcef20bf0f8fc46"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a4564fcb070f82432bdcef20bf0f8fc46">front</a> () const</td></tr>
+<tr class="memdesc:a4564fcb070f82432bdcef20bf0f8fc46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a constant reference to the front element of the deque. Has undefined behaviour if the deque is empty.  <a href="#a4564fcb070f82432bdcef20bf0f8fc46">More...</a><br /></td></tr>
+<tr class="separator:a4564fcb070f82432bdcef20bf0f8fc46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dfb8862f0647f359ee73add62a2abf3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a3dfb8862f0647f359ee73add62a2abf3">back</a> ()</td></tr>
+<tr class="memdesc:a3dfb8862f0647f359ee73add62a2abf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the back element of the deque. Has undefined behaviour if the deque is empty.  <a href="#a3dfb8862f0647f359ee73add62a2abf3">More...</a><br /></td></tr>
+<tr class="separator:a3dfb8862f0647f359ee73add62a2abf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0190f3f7f86d7ecd7f6f72cdbd296b3f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a0190f3f7f86d7ecd7f6f72cdbd296b3f">back</a> () const</td></tr>
+<tr class="memdesc:a0190f3f7f86d7ecd7f6f72cdbd296b3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a constant reference to the back element of the deque. Has undefined behaviour if the deque is empty.  <a href="#a0190f3f7f86d7ecd7f6f72cdbd296b3f">More...</a><br /></td></tr>
+<tr class="separator:a0190f3f7f86d7ecd7f6f72cdbd296b3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c32be2c41ecce908b99867a86c5c4f5"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a9c32be2c41ecce908b99867a86c5c4f5">begin</a> ()</td></tr>
+<tr class="memdesc:a9c32be2c41ecce908b99867a86c5c4f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the first element of the deque.  <a href="#a9c32be2c41ecce908b99867a86c5c4f5">More...</a><br /></td></tr>
+<tr class="separator:a9c32be2c41ecce908b99867a86c5c4f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc5559cbeeed8f182f956a4992b5c84d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque_1_1_const_iterator.html">ConstIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#afc5559cbeeed8f182f956a4992b5c84d">begin</a> () const</td></tr>
+<tr class="memdesc:afc5559cbeeed8f182f956a4992b5c84d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator to the first element of the deque.  <a href="#afc5559cbeeed8f182f956a4992b5c84d">More...</a><br /></td></tr>
+<tr class="separator:afc5559cbeeed8f182f956a4992b5c84d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d7d042eee3bf649860fa90c3f4af126"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque_1_1_const_iterator.html">ConstIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a7d7d042eee3bf649860fa90c3f4af126">cbegin</a> () const</td></tr>
+<tr class="memdesc:a7d7d042eee3bf649860fa90c3f4af126"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator to the first element of the deque.  <a href="#a7d7d042eee3bf649860fa90c3f4af126">More...</a><br /></td></tr>
+<tr class="separator:a7d7d042eee3bf649860fa90c3f4af126"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45bce45f1b0859ef568863165bcaf6ca"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a45bce45f1b0859ef568863165bcaf6ca">end</a> ()</td></tr>
+<tr class="memdesc:a45bce45f1b0859ef568863165bcaf6ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to one past the last element of the deque. Since this is a circular deque, one past the last element is the dummy head node.  <a href="#a45bce45f1b0859ef568863165bcaf6ca">More...</a><br /></td></tr>
+<tr class="separator:a45bce45f1b0859ef568863165bcaf6ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af41dfc915ad92e27f309ad992ffc38a1"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque_1_1_const_iterator.html">ConstIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#af41dfc915ad92e27f309ad992ffc38a1">end</a> () const</td></tr>
+<tr class="memdesc:af41dfc915ad92e27f309ad992ffc38a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator to one past the last element of the deque. Since this is a circular deque, one past the last element is the dummy head node.  <a href="#af41dfc915ad92e27f309ad992ffc38a1">More...</a><br /></td></tr>
+<tr class="separator:af41dfc915ad92e27f309ad992ffc38a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbe407593b5656ff9d2ec977b5560d5b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque_1_1_const_iterator.html">ConstIterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#abbe407593b5656ff9d2ec977b5560d5b">cend</a> () const</td></tr>
+<tr class="memdesc:abbe407593b5656ff9d2ec977b5560d5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const iterator to one past the last element of the deque. Since this is a circular deque, one past the last element is the dummy head node.  <a href="#abbe407593b5656ff9d2ec977b5560d5b">More...</a><br /></td></tr>
+<tr class="separator:abbe407593b5656ff9d2ec977b5560d5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa86ca236048aa4e56aaeeb62a3c9de97"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#aa86ca236048aa4e56aaeeb62a3c9de97">erase</a> (int const &amp;idx)</td></tr>
+<tr class="memdesc:aa86ca236048aa4e56aaeeb62a3c9de97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases the node at index.  <a href="#aa86ca236048aa4e56aaeeb62a3c9de97">More...</a><br /></td></tr>
+<tr class="separator:aa86ca236048aa4e56aaeeb62a3c9de97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bfefc922d7394144931bad632a94a1a"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a3bfefc922d7394144931bad632a94a1a">erase</a> (<a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> const &amp;it)</td></tr>
+<tr class="memdesc:a3bfefc922d7394144931bad632a94a1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erases the node at the iterator, and returns an iterator to the node after the one which was erased.  <a href="#a3bfefc922d7394144931bad632a94a1a">More...</a><br /></td></tr>
+<tr class="separator:a3bfefc922d7394144931bad632a94a1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3458528b15ef82c2c2e8f5d959256668"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a3458528b15ef82c2c2e8f5d959256668">operator[]</a> (int const &amp;i)</td></tr>
+<tr class="memdesc:a3458528b15ef82c2c2e8f5d959256668"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the ith-indexed element of the deque. Has undefined behaviour if the deque has less than i elements.  <a href="#a3458528b15ef82c2c2e8f5d959256668">More...</a><br /></td></tr>
+<tr class="separator:a3458528b15ef82c2c2e8f5d959256668"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8077773cbb65bc6fd8ddce8927d0ade5"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a8077773cbb65bc6fd8ddce8927d0ade5">operator[]</a> (int const &amp;i) const</td></tr>
+<tr class="memdesc:a8077773cbb65bc6fd8ddce8927d0ade5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a constant reference to the ith-indexed element of the deque. Has undefined behaviour if the deque has less than i elements.  <a href="#a8077773cbb65bc6fd8ddce8927d0ade5">More...</a><br /></td></tr>
+<tr class="separator:a8077773cbb65bc6fd8ddce8927d0ade5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:ad72f7517849a31803d311363689946d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#ad72f7517849a31803d311363689946d2">head_</a> = nullptr</td></tr>
-<tr class="separator:ad72f7517849a31803d311363689946d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6307b76c4249eeb8db41329752ef2f4a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a6307b76c4249eeb8db41329752ef2f4a">size_</a> = 0</td></tr>
-<tr class="separator:a6307b76c4249eeb8db41329752ef2f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada7a368361a3a4da4b786d578508010f"><td class="memItemLeft" align="right" valign="top">Alloc *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#ada7a368361a3a4da4b786d578508010f">allocator_</a></td></tr>
-<tr class="separator:ada7a368361a3a4da4b786d578508010f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab091bb3bc04e59ee6c854822e0828b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#aab091bb3bc04e59ee6c854822e0828b1">head_</a> = nullptr</td></tr>
+<tr class="separator:aab091bb3bc04e59ee6c854822e0828b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bd5b74c35dc61282a8fd0d392e83263"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a1bd5b74c35dc61282a8fd0d392e83263">size_</a> = 0</td></tr>
+<tr class="separator:a1bd5b74c35dc61282a8fd0d392e83263"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a077ff17d5f76d347f7245d474ac23d29"><td class="memItemLeft" align="right" valign="top">Alloc *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a077ff17d5f76d347f7245d474ac23d29">allocator_</a> = nullptr</td></tr>
+<tr class="separator:a077ff17d5f76d347f7245d474ac23d29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83062079d5e313849fda16b9afe2b818"><td class="memItemLeft" align="right" valign="top">GetAllocFunc *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_deque.html#a83062079d5e313849fda16b9afe2b818">getAllocFunc_</a> = nullptr</td></tr>
+<tr class="separator:a83062079d5e313849fda16b9afe2b818"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T, typename Alloc&gt;<br />
-class kty::Deque&lt; T, Alloc &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt;<br />
+class kty::Deque&lt; T, Alloc, GetAllocFunc &gt;</h3>
 
 <p>Double-ended queue. Provides quick insertion and deletion at both ends, but at the expense of slow random access. Implemented as a circular doubly linked list with a dummy head node. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac501d653978138f8b499a7f4f5d583c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac501d653978138f8b499a7f4f5d583c5">&#9670;&nbsp;</a></span>Deque()</h2>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a29c13175035597ae122421455d309f5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29c13175035597ae122421455d309f5d">&#9670;&nbsp;</a></span>value_t</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef T <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::<a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The type of value stored in the deque </p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a74c4c8d9e01f2c7980ace9590bed9dbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74c4c8d9e01f2c7980ace9590bed9dbc">&#9670;&nbsp;</a></span>Deque() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::<a class="el" href="classkty_1_1_deque.html">Deque</a> </td>
+          <td class="memname"><a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::<a class="el" href="classkty_1_1_deque.html">Deque</a> </td>
           <td>(</td>
           <td class="paramtype">Alloc &amp;&#160;</td>
           <td class="paramname"><em>allocator</em></td><td>)</td>
@@ -176,7 +245,7 @@ template&lt;typename T, typename Alloc&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Constructor for the deque. </p>
+<p>Constructor for the deque. This constructor sets up the deque to use an allocator. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">allocator</td><td>The allocator for the deque nodes. </td></tr>
@@ -186,20 +255,196 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="aafba7c8b7d2d6ffd0f46cdfc11530552"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafba7c8b7d2d6ffd0f46cdfc11530552">&#9670;&nbsp;</a></span>size()</h2>
+<a id="a12e3acda3a1c2039a713ca3301e3deca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12e3acda3a1c2039a713ca3301e3deca">&#9670;&nbsp;</a></span>Deque() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual int <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::size </td>
+          <td class="memname"><a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::<a class="el" href="classkty_1_1_deque.html">Deque</a> </td>
+          <td>(</td>
+          <td class="paramtype">GetAllocFunc &amp;&#160;</td>
+          <td class="paramname"><em>getAllocFunc</em> = <code>get_alloc</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Constructor for the deque. This constructor sets up the deque to use allocating functions. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">getAllocFunc</td><td>A function that returns a allocator pointer when called. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2e8356cf894bb281d97f9b740cc24e36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e8356cf894bb281d97f9b740cc24e36">&#9670;&nbsp;</a></span>Deque() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::<a class="el" href="classkty_1_1_deque.html">Deque</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a>, Alloc &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copy constructor for the deque. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The deque to copy from. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad1f443a7f774394300ebbbb0cfa9b9fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1f443a7f774394300ebbbb0cfa9b9fd">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classkty_1_1_deque.html">Deque</a>&lt;<a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a>, Alloc&gt;&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a>, Alloc &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copy assignment operator for the deque. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The deque to copy from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this deque after the copy. </dd></dl>
+
+</div>
+</div>
+<a id="acd6e781c24c59b9358a348ca7d536267"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd6e781c24c59b9358a348ca7d536267">&#9670;&nbsp;</a></span>alloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a>* <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::alloc </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Performs the correct allocation depending on whether an allocator object is given, or if a function to get an allocator object is given. </p>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the allocated node. </dd></dl>
+
+</div>
+</div>
+<a id="a4b16ccf5e1d6c5cd038758ae5b1b4bc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b16ccf5e1d6c5cd038758ae5b1b4bc7">&#9670;&nbsp;</a></span>dalloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::dalloc </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a> *&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Performs the correct deallocation depending on whether an allocator object is given, or if a function to get an allocator object is given. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ptr</td><td>The pointer to deallocate.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the deallocation was successful, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a2d734185cd1327f82c25bbf90d850100"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d734185cd1327f82c25bbf90d850100">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -217,19 +462,19 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="a19693be3123dc635095f4a99d13be6b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19693be3123dc635095f4a99d13be6b2">&#9670;&nbsp;</a></span>is_empty()</h2>
+<a id="accd3e7e4e6dcfc33296f32ca71b4a870"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accd3e7e4e6dcfc33296f32ca71b4a870">&#9670;&nbsp;</a></span>is_empty()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::is_empty </td>
+          <td class="memname">virtual bool <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::is_empty </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -247,21 +492,21 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="a89e493c95028ab1a7932393e3d0fb2c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89e493c95028ab1a7932393e3d0fb2c6">&#9670;&nbsp;</a></span>push_front()</h2>
+<a id="a2dfc02b17ec1a56d78eebbaaa1adffc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dfc02b17ec1a56d78eebbaaa1adffc9">&#9670;&nbsp;</a></span>push_front()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::push_front </td>
+          <td class="memname">virtual bool <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::push_front </td>
           <td>(</td>
-          <td class="paramtype">T const &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> const &amp;&#160;</td>
           <td class="paramname"><em>value</em></td><td>)</td>
           <td></td>
         </tr>
@@ -284,21 +529,51 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="ac1696a520b8a1d5be238853e20def8ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1696a520b8a1d5be238853e20def8ae">&#9670;&nbsp;</a></span>push_back()</h2>
+<a id="a33e561d8166522ccd82221cbd2bf593e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33e561d8166522ccd82221cbd2bf593e">&#9670;&nbsp;</a></span>pop_front()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::push_back </td>
+          <td class="memname">virtual bool <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::pop_front </td>
           <td>(</td>
-          <td class="paramtype">T const &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pops value from the front of the deque. If there is no value to pop, does nothing. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if the push was successful, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a32fb2bc7865d5d175989285cb792be8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32fb2bc7865d5d175989285cb792be8f">&#9670;&nbsp;</a></span>push_back()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::push_back </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> const &amp;&#160;</td>
           <td class="paramname"><em>value</em></td><td>)</td>
           <td></td>
         </tr>
@@ -321,19 +596,49 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="abbbbe7e010215d939ca19c8942821c8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbbbe7e010215d939ca19c8942821c8d">&#9670;&nbsp;</a></span>front()</h2>
+<a id="abc4c900a330e7ad347d0f5f5ab08a528"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc4c900a330e7ad347d0f5f5ab08a528">&#9670;&nbsp;</a></span>pop_back()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual T&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::front </td>
+          <td class="memname">virtual bool <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::pop_back </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pops value from the back of the deque. If there is no value to pop, does nothing. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if the push was successful, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="aec590cf0235757399ec001e46272131a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec590cf0235757399ec001e46272131a">&#9670;&nbsp;</a></span>front() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a>&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::front </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -351,19 +656,49 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="a9c680353f9d1fac4fff51cecbd605d81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c680353f9d1fac4fff51cecbd605d81">&#9670;&nbsp;</a></span>back()</h2>
+<a id="a4564fcb070f82432bdcef20bf0f8fc46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4564fcb070f82432bdcef20bf0f8fc46">&#9670;&nbsp;</a></span>front() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual T&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::back </td>
+          <td class="memname">virtual <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> const&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::front </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a constant reference to the front element of the deque. Has undefined behaviour if the deque is empty. </p>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the element. </dd></dl>
+
+</div>
+</div>
+<a id="a3dfb8862f0647f359ee73add62a2abf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dfb8862f0647f359ee73add62a2abf3">&#9670;&nbsp;</a></span>back() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a>&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::back </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -381,19 +716,49 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="a6342ca532515af650fd62e501fcef049"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6342ca532515af650fd62e501fcef049">&#9670;&nbsp;</a></span>begin()</h2>
+<a id="a0190f3f7f86d7ecd7f6f72cdbd296b3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0190f3f7f86d7ecd7f6f72cdbd296b3f">&#9670;&nbsp;</a></span>back() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::begin </td>
+          <td class="memname">virtual <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> const&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::back </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a constant reference to the back element of the deque. Has undefined behaviour if the deque is empty. </p>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the element. </dd></dl>
+
+</div>
+</div>
+<a id="a9c32be2c41ecce908b99867a86c5c4f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c32be2c41ecce908b99867a86c5c4f5">&#9670;&nbsp;</a></span>begin() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::begin </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -411,19 +776,79 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="ab0895f020b0c93d758e68f5b708a515c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0895f020b0c93d758e68f5b708a515c">&#9670;&nbsp;</a></span>end()</h2>
+<a id="afc5559cbeeed8f182f956a4992b5c84d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc5559cbeeed8f182f956a4992b5c84d">&#9670;&nbsp;</a></span>begin() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::end </td>
+          <td class="memname">virtual <a class="el" href="classkty_1_1_deque_1_1_const_iterator.html">ConstIterator</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::begin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a const iterator to the first element of the deque. </p>
+<dl class="section return"><dt>Returns</dt><dd>A const iterator to the first element. </dd></dl>
+
+</div>
+</div>
+<a id="a7d7d042eee3bf649860fa90c3f4af126"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d7d042eee3bf649860fa90c3f4af126">&#9670;&nbsp;</a></span>cbegin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classkty_1_1_deque_1_1_const_iterator.html">ConstIterator</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::cbegin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a const iterator to the first element of the deque. </p>
+<dl class="section return"><dt>Returns</dt><dd>A const iterator to the first element. </dd></dl>
+
+</div>
+</div>
+<a id="a45bce45f1b0859ef568863165bcaf6ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45bce45f1b0859ef568863165bcaf6ca">&#9670;&nbsp;</a></span>end() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::end </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -441,19 +866,153 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="a1c9ccab052787195352c5368497d8f5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c9ccab052787195352c5368497d8f5b">&#9670;&nbsp;</a></span>operator[]()</h2>
+<a id="af41dfc915ad92e27f309ad992ffc38a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af41dfc915ad92e27f309ad992ffc38a1">&#9670;&nbsp;</a></span>end() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual T&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::operator[] </td>
+          <td class="memname">virtual <a class="el" href="classkty_1_1_deque_1_1_const_iterator.html">ConstIterator</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::end </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a const iterator to one past the last element of the deque. Since this is a circular deque, one past the last element is the dummy head node. </p>
+<dl class="section return"><dt>Returns</dt><dd>A const iterator to one past the last element. </dd></dl>
+
+</div>
+</div>
+<a id="abbe407593b5656ff9d2ec977b5560d5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbe407593b5656ff9d2ec977b5560d5b">&#9670;&nbsp;</a></span>cend()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classkty_1_1_deque_1_1_const_iterator.html">ConstIterator</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::cend </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a const iterator to one past the last element of the deque. Since this is a circular deque, one past the last element is the dummy head node. </p>
+<dl class="section return"><dt>Returns</dt><dd>A const iterator to one past the last element. </dd></dl>
+
+</div>
+</div>
+<a id="aa86ca236048aa4e56aaeeb62a3c9de97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa86ca236048aa4e56aaeeb62a3c9de97">&#9670;&nbsp;</a></span>erase() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::erase </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>idx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Erases the node at index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">idx</td><td>The index of the node to erase.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the erase was successful, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="a3bfefc922d7394144931bad632a94a1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bfefc922d7394144931bad632a94a1a">&#9670;&nbsp;</a></span>erase() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::erase </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_deque_1_1_iterator.html">Iterator</a> const &amp;&#160;</td>
+          <td class="paramname"><em>it</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Erases the node at the iterator, and returns an iterator to the node after the one which was erased. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">it</td><td>The iterator to the node to erase. This iterator will no longer be valid after this method call.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An iterator to the node after the one which was erased. </dd></dl>
+
+</div>
+</div>
+<a id="a3458528b15ef82c2c2e8f5d959256668"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3458528b15ef82c2c2e8f5d959256668">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a>&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::operator[] </td>
           <td>(</td>
           <td class="paramtype">int const &amp;&#160;</td>
           <td class="paramname"><em>i</em></td><td>)</td>
@@ -478,20 +1037,57 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ad72f7517849a31803d311363689946d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad72f7517849a31803d311363689946d2">&#9670;&nbsp;</a></span>head_</h2>
+<a id="a8077773cbb65bc6fd8ddce8927d0ade5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8077773cbb65bc6fd8ddce8927d0ade5">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a>* <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::head_ = nullptr</td>
+          <td class="memname">virtual <a class="el" href="classkty_1_1_deque.html#a29c13175035597ae122421455d309f5d">value_t</a> const&amp; <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">int const &amp;&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a constant reference to the ith-indexed element of the deque. Has undefined behaviour if the deque has less than i elements. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The index of the element to retrieve.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the element. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aab091bb3bc04e59ee6c854822e0828b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab091bb3bc04e59ee6c854822e0828b1">&#9670;&nbsp;</a></span>head_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structkty_1_1_deque_1_1_node.html">Node</a>* <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::head_ = nullptr</td>
         </tr>
       </table>
   </td>
@@ -504,19 +1100,19 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="a6307b76c4249eeb8db41329752ef2f4a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6307b76c4249eeb8db41329752ef2f4a">&#9670;&nbsp;</a></span>size_</h2>
+<a id="a1bd5b74c35dc61282a8fd0d392e83263"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bd5b74c35dc61282a8fd0d392e83263">&#9670;&nbsp;</a></span>size_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::size_ = 0</td>
+          <td class="memname">int <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::size_ = 0</td>
         </tr>
       </table>
   </td>
@@ -529,19 +1125,19 @@ template&lt;typename T, typename Alloc&gt; </div>
 
 </div>
 </div>
-<a id="ada7a368361a3a4da4b786d578508010f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada7a368361a3a4da4b786d578508010f">&#9670;&nbsp;</a></span>allocator_</h2>
+<a id="a077ff17d5f76d347f7245d474ac23d29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a077ff17d5f76d347f7245d474ac23d29">&#9670;&nbsp;</a></span>allocator_</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T, typename Alloc&gt; </div>
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Alloc* <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc &gt;::allocator_</td>
+          <td class="memname">Alloc* <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::allocator_ = nullptr</td>
         </tr>
       </table>
   </td>
@@ -550,7 +1146,32 @@ template&lt;typename T, typename Alloc&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Reference to the allocator used to allocate new nodes </p>
+<p>Pointer to the allocator used to allocate new nodes </p>
+
+</div>
+</div>
+<a id="a83062079d5e313849fda16b9afe2b818"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83062079d5e313849fda16b9afe2b818">&#9670;&nbsp;</a></span>getAllocFunc_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T, typename Alloc = Allocator&lt;Sizes::alloc_size, Sizes::alloc_block_size&gt;, typename GetAllocFunc = decltype(get_alloc)&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">GetAllocFunc* <a class="el" href="classkty_1_1_deque.html">kty::Deque</a>&lt; T, Alloc, GetAllocFunc &gt;::getAllocFunc_ = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Pointer to the function to get the allocator </p>
 
 </div>
 </div>
