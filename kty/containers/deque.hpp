@@ -295,7 +295,7 @@ public:
         @param  other
                 The deque to copy from.
     */
-    explicit Deque(Deque<value_t, Alloc> const & other) 
+    Deque(Deque<value_t, Alloc> const & other) 
         : allocator_(other.allocator_), getAllocFunc_(other.getAllocFunc_) {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         static_assert(sizeof(Node) <= Sizes::alloc_block_size, "Size of Deque<T, Alloc>::Node can be no larger than kty::Sizes::alloc_block_size, due to fixed allocator memory block size.");
