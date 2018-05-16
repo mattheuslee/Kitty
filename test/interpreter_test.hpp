@@ -86,6 +86,16 @@ test(interpreter_execute_single_command)
     assertTrue(interpreter.number_exists(name));
     assertEqual(interpreter.get_number_value(name), 17);
 
+    command = "answer SetTo(100)";
+    interpreter.execute(command);
+    assertTrue(interpreter.number_exists(name));
+    assertEqual(interpreter.get_number_value(name), 100);
+
+    command = "answer SetToFor(10, 100)";
+    interpreter.execute(command);
+    assertTrue(interpreter.number_exists(name));
+    assertEqual(interpreter.get_number_value(name), 100);
+
     command = "answer";
     interpreter.execute(command);
 
@@ -130,6 +140,46 @@ test(interpreter_execute_single_command)
     assertEqual(interpreter.get_device_info(name, 1), 13);
     assertEqual(interpreter.get_device_info(name, 2), 0);
 
+    command = "light SetTo(0)";
+    interpreter.execute(command);
+    assertTrue(interpreter.device_exists(name));
+    assertEqual(interpreter.get_device_type(name), DeviceType::LED);
+    assertEqual(interpreter.get_device_info(name, 0), -1);
+    assertEqual(interpreter.get_device_info(name, 1), 13);
+    assertEqual(interpreter.get_device_info(name, 2), 0);
+
+    command = "light SetTo(100)";
+    interpreter.execute(command);
+    assertTrue(interpreter.device_exists(name));
+    assertEqual(interpreter.get_device_type(name), DeviceType::LED);
+    assertEqual(interpreter.get_device_info(name, 0), -1);
+    assertEqual(interpreter.get_device_info(name, 1), 13);
+    assertEqual(interpreter.get_device_info(name, 2), 100);
+
+    command = "light SetTo(-1)";
+    interpreter.execute(command);
+    assertTrue(interpreter.device_exists(name));
+    assertEqual(interpreter.get_device_type(name), DeviceType::LED);
+    assertEqual(interpreter.get_device_info(name, 0), -1);
+    assertEqual(interpreter.get_device_info(name, 1), 13);
+    assertEqual(interpreter.get_device_info(name, 2), 0);
+
+    command = "light SetTo(101)";
+    interpreter.execute(command);
+    assertTrue(interpreter.device_exists(name));
+    assertEqual(interpreter.get_device_type(name), DeviceType::LED);
+    assertEqual(interpreter.get_device_info(name, 0), -1);
+    assertEqual(interpreter.get_device_info(name, 1), 13);
+    assertEqual(interpreter.get_device_info(name, 2), 100);
+
+    command = "light SetToFor(0, 0)";
+    interpreter.execute(command);
+    assertTrue(interpreter.device_exists(name));
+    assertEqual(interpreter.get_device_type(name), DeviceType::LED);
+    assertEqual(interpreter.get_device_info(name, 0), -1);
+    assertEqual(interpreter.get_device_info(name, 1), 13);
+    assertEqual(interpreter.get_device_info(name, 2), 100);
+
     command = "light";
     interpreter.execute(command);
 
@@ -146,6 +196,12 @@ test(interpreter_execute_single_command)
     interpreter.execute(command);
 
     command = "non_existant_name MoveByFor(0, 0)";
+    interpreter.execute(command);
+
+    command = "non_existant_name SetTo(0)";
+    interpreter.execute(command);
+
+    command = "non_existant_name SetToFor(0, 0)";
     interpreter.execute(command);
 
     command = "non_existant_name RunGroup()";

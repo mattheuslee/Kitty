@@ -299,6 +299,10 @@ public:
                          command.back().is_move_by_for()) {
                     execute_move_by(command);
                 }
+                else if (command.back().is_set_to() ||
+                         command.back().is_set_to_for()) {
+                    execute_set_to(command);
+                }
                 // Running group
                 else {
                     execute_run_group(command);
@@ -432,8 +436,8 @@ public:
             return;
         }
 
+        // Evaluate arguments
         Deque<Token> result = evaluate_postfix(tokenQueue);
-
         int displacement, durationMs = 0;
         // There will be an additional argument if it is move by for
         if (moveByToken.is_move_by_for()) {
@@ -446,7 +450,6 @@ public:
         int value = get_number_value(name);
         int deviceInfo1 = get_device_info(name, 1);
         int deviceInfo2 = get_device_info(name, 2);
-
         if (number_exists(name)) {
             machineState_.set_number(name, value + displacement);
         }
@@ -466,8 +469,79 @@ public:
                 machineState_.set_device(name, DeviceType::LED, -1, deviceInfo1, brightness);
             };
         }
+        // MoveByFor command
+        if (moveByToken.is_move_by_for()) {
+            // Additional time delay
+            delay(durationMs);
+            // Then set back to original value
+            if (number_exists(name)) {
+                machineState_.set_number(name, value);
+            }
+            else {
+                switch (get_device_type(name)) {
+                case LED:
+                    analogWrite(deviceInfo1, deviceInfo2 * 2.55);
+                    machineState_.set_device(name, DeviceType::LED, -1, deviceInfo1, deviceInfo2);
+                };
+            }
+        }
+    }
 
-        if (command.back().is_move_by_for()) {
+    /*!
+        @brief  Executes the set to or set to for commands.
+
+        @param  command
+                The command to execute.
+    */
+    void execute_set_to(Deque<Token> const & command) {
+        Log.verbose(F("%s\n"), PRINT_FUNC);
+        Deque<Token> tokenQueue(command);
+        Token setToToken = tokenQueue.back();
+        tokenQueue.pop_back();
+        PoolString name(tokenQueue.front().get_value());
+        tokenQueue.pop_front();
+        // Nothing to set
+        if (!number_exists(name) && !device_exists(name)) {
+            Serial.print(F("Error: "));
+            Serial.print(name.c_str());
+            Serial.println(F(" does not exist"));
+            return;
+        }
+        // Evaluate arguments
+        Deque<Token> result = evaluate_postfix(tokenQueue);
+        int newValue, durationMs = 0;
+        // There will be an additional argument if it is set to for
+        if (setToToken.is_set_to_for()) {
+            durationMs = get_token_value(result.back());
+            result.pop_back();
+        }
+        newValue = get_token_value(result.back());
+
+        // Execute set
+        int value = get_number_value(name);
+        int deviceInfo1 = get_device_info(name, 1);
+        int deviceInfo2 = get_device_info(name, 2);
+        if (number_exists(name)) {
+            machineState_.set_number(name, newValue);
+        }
+        else {
+            switch (get_device_type(name)) {
+            case LED:
+                int brightness = newValue;
+                if (brightness > 100) {
+                    Log.notice(F("%s: LED brightness over 100%, maximum is 100%\n"), PRINT_FUNC);
+                    brightness = 100;
+                }
+                else if (brightness < 0) {
+                    Log.notice(F("%s: LED brightness below 0%, minimum is 0%\n"), PRINT_FUNC);
+                    brightness = 0;
+                }
+                analogWrite(deviceInfo1, brightness * 2.55);
+                machineState_.set_device(name, DeviceType::LED, -1, deviceInfo1, brightness);
+            };
+        }
+        // SetToFor command
+        if (setToToken.is_set_to_for()) {
             // Additional time delay
             delay(durationMs);
             // Then set back to original value
