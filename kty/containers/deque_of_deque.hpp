@@ -52,7 +52,7 @@ public:
 
         @return The number of deques.
     */
-    int size() {
+    int size() const {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         return strings_.size();
     }
@@ -66,7 +66,7 @@ public:
         @return The number of strings in the ith deque.
                 Returns -1 if i is invalid.
     */
-    int size(int const & i) {
+    int size(int const & i) const {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         if (i < 0 || i >= size()) {
             Log.warning(F("%s: accessing index i = %d when size is %d\n"), PRINT_FUNC, i, size());
@@ -129,7 +129,7 @@ public:
                 This string is a copy of the string stored in the deque.
                 An empty sting is returned if i or j are invalid.
     */
-    poolstring_t get_str(int const & i, int const & j) {
+    poolstring_t get_str(int const & i, int const & j) const {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         poolstring_t str(*getPoolFunc_);
         if (i < 0 || i >= size()) {
@@ -158,7 +158,7 @@ public:
         @return The string pool index.
                 -1 is returned if i or j are invalid.
     */
-    int get_str_idx(int const & i, int const & j) {
+    int get_str_idx(int const & i, int const & j) const {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         if (i < 0 || i >= size()) {
             Log.warning(F("%s: accessing index i = %d when size is %d\n"), PRINT_FUNC, i, size());

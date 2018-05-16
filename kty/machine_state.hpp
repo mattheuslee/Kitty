@@ -63,9 +63,9 @@ public:
         
         @return True if the number exists, false otherwise.
     */
-    bool number_exists(PoolString const & name) {
+    bool number_exists(PoolString const & name) const {
         Log.verbose(F("%s\n"), PRINT_FUNC);
-        for (typename Deque<PoolString>::Iterator it = numberNames_.begin(); it != numberNames_.end(); ++it) {
+        for (typename Deque<PoolString>::ConstIterator it = numberNames_.cbegin(); it != numberNames_.cend(); ++it) {
             if (*it == name) {
                  return true;
             }
@@ -82,11 +82,11 @@ public:
         @return The number value, if it exists.
                 Otherwise 0 is returned.
     */
-    int get_number_value(PoolString const & name) {
+    int get_number_value(PoolString const & name) const {
         Log.verbose(F("%s\n"), PRINT_FUNC);
-        typename Deque<PoolString>::Iterator nameIter = numberNames_.begin();
-        typename Deque<int>::Iterator valueIter = numberValues_.begin();
-        for ( ; nameIter != numberNames_.end() && valueIter != numberValues_.end(); ++nameIter, ++valueIter) {
+        typename Deque<PoolString>::ConstIterator nameIter = numberNames_.cbegin();
+        typename Deque<int>::ConstIterator valueIter = numberValues_.cbegin();
+        for ( ; nameIter != numberNames_.cend() && valueIter != numberValues_.cend(); ++nameIter, ++valueIter) {
             if (*nameIter == name) {
                 return *valueIter;
             }
@@ -129,9 +129,9 @@ public:
         
         @return True if the device exists, false otherwise.
     */
-    bool device_exists(PoolString const & name) {
+    bool device_exists(PoolString const & name) const {
         Log.verbose(F("%s\n"), PRINT_FUNC);
-        for (typename Deque<PoolString>::Iterator it = deviceNames_.begin(); it != deviceNames_.end(); ++it) {
+        for (typename Deque<PoolString>::ConstIterator it = deviceNames_.cbegin(); it != deviceNames_.cend(); ++it) {
             if (*it == name) {
                  return true;
             }
@@ -148,11 +148,11 @@ public:
         @return The device type, if it exists.
                 Otherwise the unknown device type is returned.
     */
-    DeviceType get_device_type(PoolString const & name) {
+    DeviceType get_device_type(PoolString const & name) const {
         Log.verbose(F("%s\n"), PRINT_FUNC);
-        typename Deque<PoolString>::Iterator nameIter = deviceNames_.begin();
-        typename Deque<DeviceType>::Iterator typeIter = deviceTypes_.begin();
-        for ( ; nameIter != deviceNames_.end() && typeIter != deviceTypes_.end(); ++nameIter, ++typeIter) {
+        typename Deque<PoolString>::ConstIterator nameIter = deviceNames_.cbegin();
+        typename Deque<DeviceType>::ConstIterator typeIter = deviceTypes_.cbegin();
+        for ( ; nameIter != deviceNames_.cend() && typeIter != deviceTypes_.cend(); ++nameIter, ++typeIter) {
             if (*nameIter == name) {
                 return *typeIter;
             }
@@ -172,16 +172,16 @@ public:
         @return The device info, if it exists.
                 Otherwise -1 is returned.
     */
-    int get_device_info(PoolString const & name, int const & idx) {
+    int get_device_info(PoolString const & name, int const & idx) const {
         Log.verbose(F("%s\n"), PRINT_FUNC);
-        typename Deque<PoolString>::Iterator nameIter = deviceNames_.begin();
-        typename Deque<int>::Iterator info0Iter = deviceInfo_0_.begin();
-        typename Deque<int>::Iterator info1Iter = deviceInfo_1_.begin();
-        typename Deque<int>::Iterator info2Iter = deviceInfo_2_.begin();
-        for ( ; nameIter != deviceNames_.end() && 
-                info0Iter != deviceInfo_0_.end() &&
-                info1Iter != deviceInfo_1_.end() &&
-                info2Iter != deviceInfo_2_.end(); ++nameIter, ++info0Iter,  ++info1Iter, ++info2Iter) {
+        typename Deque<PoolString>::ConstIterator nameIter = deviceNames_.cbegin();
+        typename Deque<int>::ConstIterator info0Iter = deviceInfo_0_.cbegin();
+        typename Deque<int>::ConstIterator info1Iter = deviceInfo_1_.cbegin();
+        typename Deque<int>::ConstIterator info2Iter = deviceInfo_2_.cbegin();
+        for ( ; nameIter != deviceNames_.cend() && 
+                info0Iter != deviceInfo_0_.cend() &&
+                info1Iter != deviceInfo_1_.cend() &&
+                info2Iter != deviceInfo_2_.cend(); ++nameIter, ++info0Iter,  ++info1Iter, ++info2Iter) {
             if (*nameIter == name) {
                 switch (idx) {
                 case 0:
@@ -254,9 +254,9 @@ public:
         
         @return True if the group exists, false otherwise.
     */
-    bool group_exists(PoolString const & name) {
+    bool group_exists(PoolString const & name) const {
         Log.verbose(F("%s\n"), PRINT_FUNC);
-        for (typename Deque<PoolString>::Iterator it = groupNames_.begin(); it != groupNames_.end(); ++it) {
+        for (typename Deque<PoolString>::ConstIterator it = groupNames_.cbegin(); it != groupNames_.cend(); ++it) {
             if (*it == name) {
                  return true;
             }
@@ -273,10 +273,10 @@ public:
         @return The commands within the group.
                 If the group does not exist, an empty deque is returned.
     */
-    Deque<PoolString> get_group_commands(PoolString const & name) {
+    Deque<PoolString> get_group_commands(PoolString const & name) const {
         Deque<PoolString> commands;
         int i = 0;
-        for (typename Deque<PoolString>::Iterator it = groupNames_.begin(); it != groupNames_.end(); ++it, ++i) {
+        for (typename Deque<PoolString>::ConstIterator it = groupNames_.cbegin(); it != groupNames_.cend(); ++it, ++i) {
             if (*it == name) {
                 for (int j = 0; j < groupCommands_.size(i); ++j) {
                     commands.push_back(groupCommands_.get_str(i, j));
