@@ -587,7 +587,7 @@ public:
             length = strlen();
         }
         int maxStrLen = pool_->max_str_len();
-        char buffer[maxStrLen + 1] = "";
+        char buffer[maxStrLen + 1];
         memset(static_cast<void *>(const_cast<char *>(buffer)), '\0', maxStrLen + 1);
         int lenToCopy = length < maxStrLen ? length : maxStrLen;
         ::strncpy(buffer, c_str() + begin, lenToCopy);
