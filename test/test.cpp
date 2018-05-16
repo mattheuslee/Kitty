@@ -32,10 +32,10 @@ StringPool<>        stringPool;
 GetAllocInit<>      getAllocInit(alloc);
 GetStringPoolInit<> getStringPoolInit(stringPool);
 
-Interpreter<>  interpreter;
-MachineState<> machineState;
-Parser<>       parser;
-Tokenizer<>    tokenizer;
+Interpreter<>       interpreter;
+MachineState<>      machineState;
+Parser<>            parser;
+Tokenizer<>         tokenizer;
 
 #include <test/allocator_test.hpp>
 #include <test/deque_test.hpp>
