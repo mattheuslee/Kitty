@@ -21,5 +21,6 @@ var searchData=
   ['execute_5frun_5fgroup',['execute_run_group',['../classkty_1_1_interpreter.html#a2f73ad0aac32baa146cd63aaf0ae7261',1,'kty::Interpreter']]],
   ['execute_5fset_5fto',['execute_set_to',['../classkty_1_1_interpreter.html#ae03e70b4bf3614bc627c137c1268e0b9',1,'kty::Interpreter']]],
   ['execute_5fsingle_5fcommand',['execute_single_command',['../classkty_1_1_interpreter.html#aa304ae4eb81a250dac554b86aa26ed51',1,'kty::Interpreter']]],
+  ['execute_5fwait',['execute_wait',['../classkty_1_1_interpreter.html#a273b483357be858880ed06edffbb16ba',1,'kty::Interpreter']]],
   ['exit_5fscope',['exit_scope',['../classkty_1_1_interpreter.html#a761881b429d5e952db1543d2cfa9493e',1,'kty::Interpreter']]]
 ];

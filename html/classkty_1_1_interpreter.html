@@ -124,6 +124,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a7860c6fe6780359858aa5cd4e08cb785"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a7860c6fe6780359858aa5cd4e08cb785">execute_print</a> (<a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
 <tr class="memdesc:a7860c6fe6780359858aa5cd4e08cb785"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the more general print command.  <a href="#a7860c6fe6780359858aa5cd4e08cb785">More...</a><br /></td></tr>
 <tr class="separator:a7860c6fe6780359858aa5cd4e08cb785"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a273b483357be858880ed06edffbb16ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#a273b483357be858880ed06edffbb16ba">execute_wait</a> (<a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
+<tr class="memdesc:a273b483357be858880ed06edffbb16ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the wait command.  <a href="#a273b483357be858880ed06edffbb16ba">More...</a><br /></td></tr>
+<tr class="separator:a273b483357be858880ed06edffbb16ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1fe1e5025137dfa46eaa37018067518"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classkty_1_1_interpreter.html#ab1fe1e5025137dfa46eaa37018067518">execute_print_info</a> (<a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_token.html">Token</a> &gt; const &amp;command)</td></tr>
 <tr class="memdesc:ab1fe1e5025137dfa46eaa37018067518"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the print information command.  <a href="#ab1fe1e5025137dfa46eaa37018067518">More...</a><br /></td></tr>
 <tr class="separator:ab1fe1e5025137dfa46eaa37018067518"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -697,6 +700,42 @@ template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = 
 </div><div class="memdoc">
 
 <p>Executes the more general print command. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>The command to execute </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a273b483357be858880ed06edffbb16ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a273b483357be858880ed06edffbb16ba">&#9670;&nbsp;</a></span>execute_wait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = decltype(get_stringpool), typename PoolString = PoolString&lt;&gt;, typename Token = Token&lt;&gt;&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classkty_1_1_interpreter.html">kty::Interpreter</a>&lt; GetAllocFunc, GetPoolFunc, <a class="el" href="classkty_1_1_pool_string.html">PoolString</a>, <a class="el" href="classkty_1_1_token.html">Token</a> &gt;::execute_wait </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classkty_1_1_deque.html">Deque</a>&lt; <a class="el" href="classkty_1_1_token.html">Token</a> &gt; const &amp;&#160;</td>
+          <td class="paramname"><em>command</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Executes the wait command. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">command</td><td>The command to execute </td></tr>

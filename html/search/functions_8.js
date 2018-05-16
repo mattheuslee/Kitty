@@ -50,5 +50,6 @@ var searchData=
   ['is_5funary_5fneg',['is_unary_neg',['../classkty_1_1_token.html#a78102af69ddeb3896a0e1f9f04e684bb',1,'kty::Token']]],
   ['is_5funary_5foperator',['is_unary_operator',['../classkty_1_1_token.html#a39f7e7483e9cddd0436b30bb38de8b98',1,'kty::Token']]],
   ['is_5funknown_5ftoken',['is_unknown_token',['../classkty_1_1_token.html#a7295d1d28fbd8e5d127f8347d8b279e8',1,'kty::Token']]],
+  ['is_5fwait',['is_wait',['../classkty_1_1_token.html#a350ccb8a766ff23557ff0157094de72e',1,'kty::Token']]],
   ['iterator',['Iterator',['../classkty_1_1_deque_1_1_iterator.html#ae1803cbe74c585134acdd96a7ad669d2',1,'kty::Deque::Iterator']]]
 ];
