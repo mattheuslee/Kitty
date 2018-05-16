@@ -2,7 +2,7 @@ Release Notes
 =============
 
 ----------------------------------
-Kitty - version 0.2.0 (xx xx 2018)
+Kitty - version 0.2.0 (16 May 2018)
 ----------------------------------
 
 ### Kitty new API release with basic commands
