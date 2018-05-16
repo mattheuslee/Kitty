@@ -4,32 +4,6 @@
 */
 #if !defined(ARDUINO)
 
-#include <iostream>
-#include <string>
-
-#include <stdlib.h>
-#include <sys/time.h>
-#include <time.h>
-#include "ArduinoUnit.h"
-#include "ArduinoUnitMock.h"
-
-CppIOStream Serial;
-
-#include <kitty.hpp>
-#include <test/mock_arduino.hpp>
-#include <test/mock_arduino_log.hpp>
-MockArduinoLog Log(false,  // Log trace
-                   false,  // Log notice
-                   true); // Log warning
-
-#include <kty/containers/allocator.hpp>
-#include <kty/containers/string.hpp>
-#include <kty/interpreter.hpp>
-#include <kty/sizes.hpp>
-
-using namespace std;
-using namespace kty;
-
 /*!
     Fill in commands here.
 */
@@ -50,14 +24,42 @@ char COMMANDS[] = R"(
     end IsNumber(11)
     testRunGroup()
 )";
-    
-Allocator<1000, Sizes::alloc_size>                 alloc;
-StringPool<500, Sizes::string_length>              stringPool;
-string                                             strCommand;
-PoolString<decltype(stringPool)>                   command(stringPool);
-PoolString<decltype(stringPool)>                   prefix(stringPool);
 
-Interpreter<decltype(alloc), decltype(stringPool)> interpreter(alloc, stringPool);
+#include <iostream>
+#include <string>
+
+#include <stdlib.h>
+#include <sys/time.h>
+#include <time.h>
+#include "ArduinoUnit.h"
+#include "ArduinoUnitMock.h"
+
+CppIOStream Serial;
+
+#include <kitty.hpp>
+#include <test/mock_arduino.hpp>
+#include <test/mock_arduino_log.hpp>
+MockArduinoLog Log;
+
+#include <kty/containers/allocator.hpp>
+#include <kty/containers/string.hpp>
+#include <kty/containers/stringpool.hpp>
+
+#include <kty/interpreter.hpp>
+
+using namespace std;
+using namespace kty;
+    
+Allocator<>         alloc;
+StringPool<>        stringPool;
+GetAllocInit<>      getAllocInit(alloc);
+GetStringPoolInit<> getStringPoolInit(stringPool);
+
+Interpreter<>       interpreter;
+
+string              strCommand;
+PoolString<>        command;
+PoolString<>        prefix;
 
 /*! 
     @brief  Reads characters from the buffer until it has a full command, 
