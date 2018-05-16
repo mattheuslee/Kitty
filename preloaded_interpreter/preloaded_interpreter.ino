@@ -11,6 +11,7 @@
 #include <kty/containers/deque.hpp>
 #include <kty/containers/deque_of_deque.hpp>
 #include <kty/containers/string.hpp>
+#include <kty/containers/stringpool.hpp>
 #include <kty/interface.hpp>
 #include <kty/interpreter.hpp>
 #include <kty/sizes.hpp>
@@ -52,13 +53,16 @@ num_times IsNumber(10)
 loop_nums RunGroup(num_times)
 )";
 
-Allocator<200, Sizes::alloc_size>                  alloc;
-StringPool<75, Sizes::string_length>               stringPool;
-PoolString<decltype(stringPool)>                   command(stringPool);
-PoolString<decltype(stringPool)>                   prefix(stringPool);
+Allocator<>         alloc;
+StringPool<>        stringPool;
+GetAllocInit<>      getAllocInit(alloc);
+GetStringPoolInit<> getStringPoolInit(stringPool);
 
-Interface<decltype(stringPool)>                    interface(stringPool);
-Interpreter<decltype(alloc), decltype(stringPool)> interpreter(alloc, stringPool);
+Interface<>         interface;
+Interpreter<>       interpreter;
+
+PoolString<>        command;
+PoolString<>        prefix;
 
 /*! 
     @brief  Reads characters from the buffer until it has a full command, 

@@ -3,6 +3,7 @@
 
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/string.hpp>
+#include <kty/containers/stringpool.hpp>
 #include <kty/interface.hpp>
 #include <kty/interpreter.hpp>
 #include <kty/sizes.hpp>
@@ -10,13 +11,16 @@
 using namespace std;
 using namespace kty;
 
-Allocator<200, Sizes::alloc_size>                  alloc;
-StringPool<75, Sizes::string_length>               stringPool;
-PoolString<decltype(stringPool)>                   command(stringPool);
-PoolString<decltype(stringPool)>                   prefix(stringPool);
+Allocator<>         alloc;
+StringPool<>        stringPool;
+GetAllocInit<>      getAllocInit(alloc);
+GetStringPoolInit<> getStringPoolInit(stringPool);
 
-Interface<decltype(stringPool)>                    interface(stringPool);
-Interpreter<decltype(alloc), decltype(stringPool)> interpreter(alloc, stringPool);
+Interface<>         interface;
+Interpreter<>       interpreter;
+
+PoolString<>        command;
+PoolString<>        prefix;
 
 void setup() {
     interface.print_welcome();
