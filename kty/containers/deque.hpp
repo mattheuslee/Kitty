@@ -46,7 +46,7 @@ public:
             @param  ptr
                     The pointer to store in the iterator.
         */
-        Iterator(Node * ptr)
+        explicit Iterator(Node * ptr)
             : ptr_(ptr) {
         }
 
@@ -159,7 +159,7 @@ public:
             @param  ptr
                     The pointer to store in the iterator.
         */
-        ConstIterator(Node const * ptr)
+        explicit ConstIterator(Node const * ptr)
             : ptr_(const_cast<Node *>(ptr)) {
         }
 
@@ -279,7 +279,7 @@ public:
         @param  getAllocFunc
                 A function that returns a allocator pointer when called.
     */
-    Deque(GetAllocFunc & getAllocFunc = get_alloc) 
+    explicit Deque(GetAllocFunc & getAllocFunc = get_alloc) 
         : getAllocFunc_(&getAllocFunc) {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         static_assert(sizeof(Node) <= Sizes::alloc_block_size, "Size of Deque<T, Alloc>::Node can be no larger than kty::Sizes::alloc_block_size, due to fixed allocator memory block size.");
@@ -295,7 +295,7 @@ public:
         @param  other
                 The deque to copy from.
     */
-    Deque(Deque<value_t, Alloc> const & other) 
+    explicit Deque(Deque<value_t, Alloc> const & other) 
         : allocator_(other.allocator_), getAllocFunc_(other.getAllocFunc_) {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         static_assert(sizeof(Node) <= Sizes::alloc_block_size, "Size of Deque<T, Alloc>::Node can be no larger than kty::Sizes::alloc_block_size, due to fixed allocator memory block size.");
@@ -356,11 +356,11 @@ public:
         Log.verbose(F("%s\n"), PRINT_FUNC);
         if (allocator_ != nullptr) {
             Log.verbose(F("%s: allocator\n"), PRINT_FUNC);
-            return (Node *)(allocator_->allocate());
+            return static_cast<Node *>(allocator_->allocate());
         }
         else {
             Log.verbose(F("%s: getAllocFunc\n"), PRINT_FUNC);
-            return (Node *)((*getAllocFunc_)(nullptr)->allocate());
+            return static_cast<Node *>((*getAllocFunc_)(nullptr)->allocate());
         }
     }
 

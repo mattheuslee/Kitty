@@ -277,7 +277,7 @@ public:
         @param  alloc
                 The allocator to setup get_alloc with.
     */
-    GetAllocInit(Alloc & alloc) {
+    explicit GetAllocInit(Alloc & alloc) {
         get_alloc(&alloc);
     }
 

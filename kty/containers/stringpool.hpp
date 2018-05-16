@@ -302,7 +302,7 @@ public:
         @param  stringPool
                 The string pool to setup get_stringpool with.
     */
-    GetStringPoolInit(StringPool & stringPool) {
+    explicit GetStringPoolInit(StringPool & stringPool) {
         get_stringpool(&stringPool);
     }
 

@@ -38,7 +38,7 @@ public:
         @param  getPoolFunc
                 A function that returns a pointer to a string pool when called.
     */
-    Token(GetPoolFunc & getPoolFunc = get_stringpool)
+    explicit Token(GetPoolFunc & getPoolFunc = get_stringpool)
         : value_(getPoolFunc) {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         type_ = TokenType::UNKNOWN_TOKEN;
@@ -197,7 +197,6 @@ public:
             "CMD_END",
             "UNKNOWN_TOKEN",
         };
-        static const int numTypes = sizeof(lookup) / sizeof(lookup[0]);
         Log.verbose(F("%s: %s\n"), PRINT_FUNC, lookup[static_cast<int>(type_)]);
         return lookup[static_cast<int>(type_)];
     }

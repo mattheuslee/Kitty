@@ -79,11 +79,10 @@ PoolString<>        prefix;
 */
 int get_next_command(char const * buffer, int const & startIdx, PoolString<decltype(stringPool)> & command) {
     command = "";
-    char c;
     char str_[2] = " "; // To use operator += on command
     int i = startIdx;
     for (i = startIdx; ; ++i) {
-        c = *(buffer + i);
+        char c = *(buffer + i);
         if (c == '\n') { // Finished reading one line
             ++i;
             break;
