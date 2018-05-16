@@ -245,7 +245,6 @@ public:
             0, // CMD_END,
             0, // UNKNOWN_TOKEN,
         };
-        static const int numTypes = sizeof(lookup) / sizeof(lookup[0]);
         Log.verbose(F("%s: %d\n"), PRINT_FUNC, lookup[static_cast<int>(type_)]);
         return lookup[static_cast<int>(type_)];
     }
@@ -294,7 +293,6 @@ public:
             0, // CMD_END,
             0, // UNKNOWN_TOKEN,
         };
-        static const int numTypes = sizeof(lookup) / sizeof(lookup[0]);
         Log.verbose(F("%s: %d\n"), PRINT_FUNC, lookup[static_cast<int>(type_)]);
         return lookup[static_cast<int>(type_)];
     }
