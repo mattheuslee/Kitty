@@ -1,9 +1,0 @@
-Release Notes - Kitty - version 0.1.0 (26 August 2017)
-
-## Initial Kitty release with basic functions  
-
-Features available:  
-* Flexible variables
-* Creation of groups
-* Different ways to run groups
-* Exiting out of current running group
