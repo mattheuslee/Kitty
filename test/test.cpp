@@ -5,62 +5,73 @@
 #include <time.h>
 #include "ArduinoUnit.h"
 #include "ArduinoUnitMock.h"
-
 CppIOStream Serial;
 
 #include <kitty.hpp>
 #include <test/mock_arduino.hpp>
 #include <test/mock_arduino_log.hpp>
-MockArduinoLog Log(false,  // Log trace
-                   true,  // Log notice
-                   false); // Log warning
+MockArduinoLog Log;
 
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/deque.hpp>
 #include <kty/containers/deque_of_deque.hpp>
 #include <kty/containers/string.hpp>
-#include <kty/sizes.hpp>
-#include <kty/string_utils.hpp>
+#include <kty/containers/stringpool.hpp>
+
 #include <kty/interpreter.hpp>
+#include <kty/machine_state.hpp>
 #include <kty/parser.hpp>
+#include <kty/string_utils.hpp>
+#include <kty/token.hpp>
 #include <kty/tokenizer.hpp>
 
 using namespace kty;
 
-Allocator<200, Sizes::alloc_size>                  alloc;
-StringPool<100, Sizes::string_length>              stringPool;
+Allocator<>         alloc;
+StringPool<>        stringPool;
+GetAllocInit<>      getAllocInit(alloc);
+GetStringPoolInit<> getStringPoolInit(stringPool);
 
-Interpreter<decltype(alloc), decltype(stringPool)> interpreter(alloc, stringPool);
-Parser                                             parser;
-Tokenizer                                          tokenizer;
+Interpreter<>  interpreter;
+MachineState<> machineState;
+Parser<>       parser;
+Tokenizer<>    tokenizer;
 
 #include <test/allocator_test.hpp>
 #include <test/deque_test.hpp>
 #include <test/deque_of_deque_test.hpp>
 #include <test/string_test.hpp>
-#include <test/string_utils_test.hpp>
-#include <test/parser_test.hpp>
-#include <test/tokenizer_test.hpp>
+#include <test/stringpool_test.hpp>
+
 #include <test/interpreter_test.hpp>
+#include <test/machine_state_test.hpp>
+#include <test/parser_test.hpp>
+#include <test/string_utils_test.hpp>
+#include <test/token_test.hpp>
+#include <test/tokenizer_test.hpp>
 
 int main(void) {
     Test::min_verbosity = TEST_VERBOSITY_TESTS_SUMMARY;
     //Test::min_verbosity = TEST_VERBOSITY_ALL;
 
+    Log.to_log_verbose(false);
+    Log.to_log_trace(false);
+    Log.to_log_notice(false);
+    Log.to_log_warning(false);
+    Log.to_log_error(false);
+
     Test::exclude("*");
     Test::include("allocator*");
     Test::include("deque*");
-    Test::include("deque_of_deque*");
-    Test::include("string_stringpool*");
-    Test::include("string_poolstring*");
-    Test::include("string_deque_of_poolstring*");
-    Test::include("string_utils_str_to_int*");
-    Test::include("string_utils_int_to_str*");
-    Test::include("string_utils_remove_str_whitespace*");
-    Test::include("parser*");
-    Test::include("tokenizer*");
-    Test::include("interpreter*");
+    Test::include("string*");
 
+    Test::include("interpreter*");
+    Test::include("machine_state*");
+    Test::include("parser*");
+    Test::include("token*");
+    Test::include("tokenizer*");
+
+    Serial.println(F("Starting tests"));
     while (Test::remaining() > 0) {
         Test::run();
     }
