@@ -76,6 +76,15 @@ hello!
 hello!
 ```
 
+We can also combine the two into the more complex `Print` command. The `Print` command allows us to construct a sentence to print out of smaller parts, which can be words or values taken from numbers or LEDs.  
+To print the sentence "The value of answer is \<value\>", where \<value\> is the current number stored in `answer`:  
+```
+>>> answer IsNumber(42)
+>>> Print('The value of answer is ', answer)
+The value of answer is 42
+```
+Notice how we can just use `answer` in the command and it automatically replaces it with its value.
+
 ## Modification  
 For numbers and LEDs, there are two commands that we can use to modify them:  
 * `MoveBy`
@@ -126,18 +135,15 @@ To increase the brightness of an LED called `light` by 50% for 1 second, and the
 
 To set the angle of a servo called `sweeper` to 135 degrees for 1 second, and then back to its original angle after that:
 > `>>> sweeper SetToFor(135, 1s)`
+-->
 
 ## Time Delays
 The `Wait` command allows for time delays.  
-To cause the program to wait for 2 seconds before continuing:  
-> `>>> Wait(2s)`  
+To wait for 2 seconds (2000 milliseconds) before continuing:  
+> `>>> Wait(2000)`  
 
-To cause a program to wait for 0.25 seconds before continuing:
-> `>>> Wait(0.25s)`  
-
-To cause a program to wait for 250 milliseconds(0.25 seconds) before continuing:
-> `>>> Wait(250ms)`  
--->
+To wait for 0.25 seconds (250 milliseconds) before continuing:
+> `>>> Wait(250)`  
 
 ## Command Groups  
 Sometimes we don't want to keep typing the same commands throughout our program. Command groups allow us to group multiple commands together under a single group name.   
