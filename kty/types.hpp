@@ -1,23 +1,17 @@
 #pragma once
 
-/** Only include if not using Arduino */
-#if !defined(ARDUINO)
-#include <typeinfo>
-#endif
-
 #if defined(ARDUINO)
-/** No type string representation for Arduino */
+
 #define TYPE_STR(x) ""
 #define PRINT_FUNC ""
+
+#define intptr_t unsigned int
+
 #else
-/** String representation of type */
+
+#include <typeinfo>
 #define TYPE_STR(x) typeid(x).name()
 #define PRINT_FUNC __PRETTY_FUNCTION__
-#endif
-
-#if defined(ARDUINO)
-/** No specific int pointer type */
-#define intptr_t unsigned int
-#else
 #include <cstdint>
+
 #endif
