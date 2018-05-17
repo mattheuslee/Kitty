@@ -8,6 +8,7 @@ var searchData=
   ['deque_3c_20devicetype_20_3e',['Deque&lt; DeviceType &gt;',['../classkty_1_1_deque.html',1,'kty']]],
   ['deque_3c_20int_20_3e',['Deque&lt; int &gt;',['../classkty_1_1_deque.html',1,'kty']]],
   ['deque_3c_20kty_3a_3apoolstring_20_3e',['Deque&lt; kty::PoolString &gt;',['../classkty_1_1_deque.html',1,'kty']]],
+  ['deque_3c_20kty_3a_3apoolstring_3c_20kty_3a_3astringpool_20_3e_20_3e',['Deque&lt; kty::PoolString&lt; kty::StringPool &gt; &gt;',['../classkty_1_1_deque.html',1,'kty']]],
   ['deque_3c_20kty_3a_3atoken_20_3e',['Deque&lt; kty::Token &gt;',['../classkty_1_1_deque.html',1,'kty']]],
   ['deque_3c_20value_5ft_2c_20alloc_20_3e',['Deque&lt; value_t, Alloc &gt;',['../classkty_1_1_deque_1_1_iterator.html#a15cd58e6834e408cb9577391dfeac271',1,'kty::Deque::Iterator::Deque&lt; value_t, Alloc &gt;()'],['../classkty_1_1_deque_1_1_const_iterator.html#a15cd58e6834e408cb9577391dfeac271',1,'kty::Deque::ConstIterator::Deque&lt; value_t, Alloc &gt;()']]],
   ['dequedequepoolstring',['DequeDequePoolString',['../classkty_1_1_deque_deque_pool_string.html',1,'kty::DequeDequePoolString&lt; GetAllocFunc, GetPoolFunc, StringPool &gt;'],['../classkty_1_1_deque_deque_pool_string.html#a4c880036a90a46ef8a4bce13608f44c7',1,'kty::DequeDequePoolString::DequeDequePoolString()']]],
