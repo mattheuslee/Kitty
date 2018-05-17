@@ -83,7 +83,7 @@ To print the sentence "The value of answer is \<value\>", where \<value\> is the
 >>> Print('The value of answer is ', answer)
 The value of answer is 42
 ```
-Notice how we can just use `answer` in the command and it automatically replaces it with its value.
+Notice how we can just use `answer` in the command and it automatically replaces it with its value. Numbers put into the `Print` command are replaced with their number value, and LEDs put into the `print` command are replaced with their brightness percentage.
 
 ## Modification  
 For numbers and LEDs, there are two commands that we can use to modify them:  
@@ -117,33 +117,40 @@ To increase the brightness of an LED called `light` by 50% for 1 second(1000 mil
 
 Note that since the amount of time to wait is in milliseconds, you can have wait times that are less than 1 second, like half a second(500 milliseconds).
 
-<!--
 __`SetTo`__  
 The `SetTo` command executes a movement to an absolute value.  
 To set a number value called `answer` to 101:  
-> `>>> answer SetTo(101)`
+```
+>>> answer SetTo(101)
+```
 
 To set the brightness of an LED called `light` to 75%:
-> `>>> light SetTo(75)`
-
-To set the angle of a servo called `sweeper` to 45 degrees:
-> `>>> sweeper SetTo(45)`
+```
+>>> light SetTo(75)
+```
 
 There are also versions of `MoveBy` and `SetTo` that only last for a specific amount of time, called `MoveByFor` and `SetToFor`.  
-To increase the brightness of an LED called `light` by 50% for 1 second, and then back to its original brightness after that:  
-> `>>> light MoveByFor(50, 1s)`
+To increase the brightness of an LED called `light` by 50% for 1 second (1000 milliseconds), and then back to its original brightness after that:  
+```
+>>> light MoveByFor(50, 1000)
+```
 
-To set the angle of a servo called `sweeper` to 135 degrees for 1 second, and then back to its original angle after that:
-> `>>> sweeper SetToFor(135, 1s)`
--->
+To set the brightness of an LED called `light` to 100% for 1 second (1000 milliseconds), and then back to its original brightness after that:  
+```
+>>> light SetToFor(100, 1000)
+```
 
 ## Time Delays
 The `Wait` command allows for time delays.  
 To wait for 2 seconds (2000 milliseconds) before continuing:  
-> `>>> Wait(2000)`  
+```
+>>> Wait(2000)
+```
 
 To wait for 0.25 seconds (250 milliseconds) before continuing:
-> `>>> Wait(250)`  
+```
+>>> Wait(250)
+```
 
 ## Command Groups  
 Sometimes we don't want to keep typing the same commands throughout our program. Command groups allow us to group multiple commands together under a single group name.   
