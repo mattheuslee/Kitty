@@ -10,17 +10,16 @@ check_div IsGroup (
 )
 
 check_prime IsGroup (
-    num
     can_div IsNumber(0)
     div IsNumber(2)
     If (div < num) (
         check_div RunGroup(num / 2)
     )
     If (can_div) (
-        'Not prime'
+        Print(num, ' is not prime')
     )
     Else (
-        'Prime'
+        Print(num, ' is prime')
     )
 )
 
@@ -75,7 +74,7 @@ PoolString<>        prefix;
 
     @return The index to start reading from for the next command.
 */
-int get_next_command(char const * buffer, int const & startIdx, PoolString<decltype(stringPool)>  & command) {
+int get_next_command(char const * buffer, int const & startIdx, PoolString<> & command) {
     command = "";
     char c;
     char str_[2] = " "; // To use operator += on command
@@ -86,10 +85,8 @@ int get_next_command(char const * buffer, int const & startIdx, PoolString<declt
             ++i;
             break;
         }
-        if (!isspace(c)) { // Add to current command
-            str_[0] = c;
-            command += str_;
-        }
+        str_[0] = c;
+        command += str_;
     }
     return i;
 }

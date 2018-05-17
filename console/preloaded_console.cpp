@@ -8,21 +8,36 @@
     Fill in commands here.
 */
 char COMMANDS[] = R"(
-    test IsGroup (
-        If (num % 2 = 0) (
-            num
-        )
-        Else (
-            'odd'
-        )
-        If (num < end) (
-            num MoveBy(1)
-            test RunGroup()
-        )
+check_div IsGroup (
+    If (num % div = 0) (
+        can_div IsNumber(1)
     )
-    numIsNumber(0)
-    end IsNumber(11)
-    testRunGroup()
+    div MoveBy(1)
+)
+
+check_prime IsGroup (
+    can_div IsNumber(0)
+    div IsNumber(2)
+    If (div < num) (
+        check_div RunGroup(num / 2)
+    )
+    If (can_div) (
+        Print(num, ' is not prime')
+    )
+    Else (
+        Print(num, ' is prime')
+    )
+)
+
+loop_nums IsGroup (
+    check_prime RunGroup()
+    num MoveBy(1)
+)
+
+num IsNumber(1)
+num_times IsNumber(10)
+
+loop_nums RunGroup(num_times)
 )";
 
 #include <iostream>
@@ -86,10 +101,8 @@ int get_next_command(char const * buffer, int const & startIdx, PoolString<declt
             ++i;
             break;
         }
-        if (!isspace(c)) { // Add to current command
-            str_[0] = c;
-            command += str_;
-        }
+        str_[0] = c;
+        command += str_;
     }
     return i;
 }

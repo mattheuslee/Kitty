@@ -6,17 +6,16 @@ check_div IsGroup (
 )
 
 check_prime IsGroup (
-    num
     can_div IsNumber(0)
     div IsNumber(2)
     If (div < num) (
         check_div RunGroup(num / 2)
     )
     If (can_div) (
-        'Not prime'
+        Print(num, ' is not prime')
     )
     Else (
-        'Prime'
+        Print(num, ' is prime')
     )
 )
 
