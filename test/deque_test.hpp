@@ -43,11 +43,11 @@ test(deque_front) {
     assertFalse(deque.pop_front());
 
     const Deque<int> deque2;
-    assertEqual(deque.front(), 0);
-    assertEqual(deque.back(), 0);
-    assertEqual(deque[-1], 0);
-    assertEqual(deque[0], 0);
-    assertEqual(deque[1], 0);
+    assertEqual(deque2.front(), 0);
+    assertEqual(deque2.back(), 0);
+    assertEqual(deque2[-1], 0);
+    assertEqual(deque2[0], 0);
+    assertEqual(deque2[1], 0);
 
     Test::min_verbosity = prevTestVerbosity;
 }
