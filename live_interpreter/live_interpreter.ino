@@ -6,9 +6,7 @@
 #include <kty/containers/stringpool.hpp>
 #include <kty/interface.hpp>
 #include <kty/interpreter.hpp>
-#include <kty/sizes.hpp>
 
-using namespace std;
 using namespace kty;
 
 Allocator<>         alloc;

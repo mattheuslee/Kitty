@@ -1,8 +1,5 @@
 #pragma once
 
-#include <kty/stl_impl.hpp>
-#include <cctype>
-
 #include <kty/containers/string.hpp>
 #include <kty/containers/stringpool.hpp>
 

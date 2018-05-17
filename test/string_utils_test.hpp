@@ -1,12 +1,8 @@
 #pragma once
 
-#include <kty/stl_impl.hpp>
-#include <string>
-
 #include <kty/containers/string.hpp>
 #include <kty/string_utils.hpp>
 
-using namespace std;
 using namespace kty;
 
 test(string_utils_str_to_int)

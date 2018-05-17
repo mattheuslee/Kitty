@@ -1,9 +1,4 @@
 #pragma once
-#include <iostream>
-using namespace std;
-
-#include <kty/stl_impl.hpp>
-#include <cstring>
 
 #include <kty/sizes.hpp>
 #include <kty/types.hpp>

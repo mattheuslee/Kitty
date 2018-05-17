@@ -16,7 +16,7 @@ before_install:
    - pip install --user cpp-coveralls
 
 install:
-   - arduino --install-library "ArduinoSTL","ArduinoUnit","ArduinoLog"
+   - arduino --install-library "ArduinoUnit","ArduinoLog"
 
 script:
    - build_platform mega2560

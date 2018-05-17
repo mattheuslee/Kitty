@@ -24,7 +24,6 @@ MockArduinoLog Log;
 #include <kty/containers/string.hpp>
 #include <kty/containers/stringpool.hpp>
 #include <kty/interpreter.hpp>
-#include <kty/sizes.hpp>
 
 using namespace std;
 using namespace kty;

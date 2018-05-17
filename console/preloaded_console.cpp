@@ -44,7 +44,6 @@ MockArduinoLog Log;
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/string.hpp>
 #include <kty/containers/stringpool.hpp>
-
 #include <kty/interpreter.hpp>
 
 using namespace std;

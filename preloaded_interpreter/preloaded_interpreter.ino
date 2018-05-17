@@ -37,23 +37,15 @@ loop_nums RunGroup(num_times)
 
 #include <avr/pgmspace.h>
 
-#include <kitty.hpp>
-#include <kty/stl_impl.hpp>
-#include <cctype>
-#include <string>
-#include <vector>
 #include <ArduinoLog.h>
 
+#include <kitty.hpp>
 #include <kty/containers/allocator.hpp>
-#include <kty/containers/deque.hpp>
-#include <kty/containers/deque_of_deque.hpp>
 #include <kty/containers/string.hpp>
 #include <kty/containers/stringpool.hpp>
 #include <kty/interface.hpp>
 #include <kty/interpreter.hpp>
-#include <kty/sizes.hpp>
 
-using namespace std;
 using namespace kty;
 
 Allocator<>         alloc;

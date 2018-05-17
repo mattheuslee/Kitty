@@ -24,6 +24,7 @@ MockArduinoLog Log;
 #include <kty/string_utils.hpp>
 #include <kty/token.hpp>
 #include <kty/tokenizer.hpp>
+#include <kty/utils.hpp>
 
 using namespace kty;
 
@@ -49,6 +50,7 @@ Tokenizer<>         tokenizer;
 #include <test/string_utils_test.hpp>
 #include <test/token_test.hpp>
 #include <test/tokenizer_test.hpp>
+#include <test/utils_test.hpp>
 
 int main(void) {
     Test::min_verbosity = TEST_VERBOSITY_TESTS_SUMMARY;
@@ -70,6 +72,7 @@ int main(void) {
     Test::include("parser*");
     Test::include("token*");
     Test::include("tokenizer*");
+    Test::include("utils*");
 
     Serial.println(F("Starting tests"));
     while (Test::remaining() > 0) {

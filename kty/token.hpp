@@ -1,8 +1,5 @@
 #pragma once
 
-#include <kty/stl_impl.hpp>
-#include <cstring>
-
 #include <kty/containers/string.hpp>
 #include <kty/containers/stringpool.hpp>
 #include <kty/types.hpp>
@@ -788,7 +785,7 @@ TokenType command_str_to_token_type(char const * str) {
     };
     static const int numTypes = sizeof(lookup) / sizeof(lookup[0]);
     for (int i = 0; i < numTypes; ++i) {
-        if (std::strcmp(str, lookup[i]) == 0) {
+        if (::strcmp(str, lookup[i]) == 0) {
             Log.verbose(F("%s: %d\n"), PRINT_FUNC, static_cast<TokenType>(i));
             tokenType = static_cast<TokenType>(i);
         }

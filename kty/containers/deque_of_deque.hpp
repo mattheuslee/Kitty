@@ -1,7 +1,5 @@
 #pragma once
 
-#include <kty/stl_impl.hpp> 
-
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/deque.hpp>
 #include <kty/containers/string.hpp>
@@ -17,9 +15,6 @@ template <typename GetAllocFunc = decltype(get_alloc), typename GetPoolFunc = de
 class DequeDequePoolString {
 
 public:
-    /** The type of pool string used in the deque */
-    typedef PoolString<StringPool> poolstring_t;
-
     /*!
         @brief  Constructor for the deque.
 
@@ -42,7 +37,7 @@ public:
     bool push_front() {
         Log.verbose(F("%s\n"), PRINT_FUNC);
         bool result;
-        result = strings_.push_front(poolstring_t(*getPoolFunc_));
+        result = strings_.push_front(PoolString<StringPool>(*getPoolFunc_));
         result = sizes_.push_front(0) && result;
         return result;
     }
@@ -129,9 +124,9 @@ public:
                 This string is a copy of the string stored in the deque.
                 An empty sting is returned if i or j are invalid.
     */
-    poolstring_t get_str(int const & i, int const & j) const {
+    PoolString<StringPool> get_str(int const & i, int const & j) const {
         Log.verbose(F("%s\n"), PRINT_FUNC);
-        poolstring_t str(*getPoolFunc_);
+        PoolString<StringPool> str(*getPoolFunc_);
         if (i < 0 || i >= size()) {
             Log.warning(F("%s: accessing index i = %d when size is %d\n"), PRINT_FUNC, i, size());
             return str;
@@ -204,7 +199,7 @@ private:
     GetAllocFunc * getAllocFunc_ = nullptr;
     GetPoolFunc * getPoolFunc_ = nullptr;
 
-    Deque<poolstring_t> strings_;
+    Deque<PoolString<StringPool>> strings_;
     Deque<int>          sizes_;
     
 };

@@ -33,7 +33,6 @@ Arduino models tested:
 Kitty will only work on an Arduino Mega as it requires a high amount of sketch and flash memory.  
 
 Additional Arduino libraries required:  
-* [ArduinoSTL](https://github.com/mike-matera/ArduinoSTL)
 * [ArduinoUnit](https://github.com/mmurdoch/arduinounit) for unit tests
 * [ArduinoLog](https://github.com/thijse/Arduino-Log) for logging
 

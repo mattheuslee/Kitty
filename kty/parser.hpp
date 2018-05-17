@@ -1,9 +1,5 @@
 #pragma once
 
-#include <kty/stl_impl.hpp>
-#include <stack>
-#include <vector>
-
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/deque.hpp>
 #include <kty/containers/string.hpp>
