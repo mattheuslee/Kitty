@@ -310,6 +310,14 @@ answer: number storing 0
 
 The commands in an `Else` are only run if the `Else` comes immediately after the closing `)` line of an `If` command, and that the condition for that `If` command was false.
 
+## Comments
+We can add comments to the end of a command. These comments are just notes or explanations, and are removed from the command before execution. Comments begin with a `;` (semicolon), and go on until the end of the line:
+
+```
+>>> 'Hello' ; print hello
+Hello
+```
+
 __Basic Programs__   
 This program prints out `num`, for values 1 to 10.  
 ```
