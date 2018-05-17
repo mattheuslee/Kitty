@@ -57,23 +57,6 @@ bool isspace(char const & c) {
 }
 
 /*!
-    @brief  Gets the length of a string.
-
-    @param  str
-            The string to get the length of.
-    
-    @return The length of the string.
-*/
-/*int strlen(char const * str) {
-    if (str == nullptr) {
-        return 0;
-    }
-    int i = 0;
-    for ( ; str[i] != '\0'; ++i);
-    return i;
-}*/
-
-/*!
     @brief  Copies one string to another.
 
     @param  destination
@@ -152,7 +135,7 @@ char * strcat(char * destination, char const * source) {
     @return A value reflecting the relationship between the two strings.
 */
 int strcmp(char const * str1, char const * str2) {
-    for (int i = 0; str1[i] != '\0' || str2 != '\0'; ++i) {
+    for (int i = 0; str1[i] != '\0' || str2[i] != '\0'; ++i) {
         if (str1[i] != str2[i]) {
             return str1[i] - str2[i];
         }
