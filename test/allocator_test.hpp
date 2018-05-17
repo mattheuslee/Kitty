@@ -1,12 +1,8 @@
 #pragma once
 
-#include <kty/stl_impl.hpp>
-#include <vector>
-
 #include <kty/containers/deque.hpp>
 #include <kty/containers/allocator.hpp>
 
-using namespace std;
 using namespace kty;
 
 test(allocator_constructor)

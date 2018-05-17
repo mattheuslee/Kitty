@@ -1,13 +1,10 @@
 #pragma once
 
-#include <kty/stl_impl.hpp>
-
 #include <kty/containers/string.hpp>
 #include <kty/interpreter.hpp>
 #include <kty/parser.hpp>
 #include <kty/tokenizer.hpp>
 
-using namespace std;
 using namespace kty;
 
 test(interpreter_constructor)
