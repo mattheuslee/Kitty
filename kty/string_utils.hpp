@@ -276,17 +276,19 @@ void remove_str_multiple_whitespace(PoolString & str) {
     int len = str.strlen();
     int i = 0;
     while (i < len) {
-        str_[0] = str[i];
-        temp += str_;
         if (isspace(str[i])) {
+            // Replace all types of whitespace with ' '
+            str_[0] = ' ';
             // Skip forward until non-whitespace
             while (i < len && isspace(str[i])) {
                 ++i;
             }
         }
         else {
+            str_[0] = str[i];
             ++i;
         }
+        temp += str_;
     }
     str = temp;
 }
