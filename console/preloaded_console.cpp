@@ -59,6 +59,7 @@ MockArduinoLog Log;
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/string.hpp>
 #include <kty/containers/stringpool.hpp>
+#include <kty/analyzer.hpp>
 #include <kty/interpreter.hpp>
 
 using namespace std;
@@ -69,8 +70,10 @@ StringPool<>        stringPool;
 GetAllocInit<>      getAllocInit(alloc);
 GetStringPoolInit<> getStringPoolInit(stringPool);
 
+Analyzer<>          analyzer;
 Interpreter<>       interpreter;
 
+AnalysisResult      analysisResult;
 string              strCommand;
 PoolString<>        command;
 PoolString<>        prefix;
@@ -108,6 +111,10 @@ int get_next_command(char const * buffer, int const & startIdx, PoolString<declt
 }
 
 int main(void) {
+    Log.to_log_notice(true);
+    Log.to_log_warning(true);
+    Log.to_log_error(true);
+
     alloc.dump_addresses();
     stringPool.dump_addresses();
 
@@ -115,8 +122,11 @@ int main(void) {
     while (COMMANDS[startIdx] != '\0') {
         prefix = interpreter.get_prompt_prefix();
         startIdx = get_next_command(COMMANDS, startIdx, command);
-        cout << prefix.c_str() << ">>> " << command.c_str() << endl;
-        interpreter.execute(command);
+        analysisResult = analyzer.analyze(command);
+        if (analysisResult != AnalysisResult::ERROR) {
+            cout << prefix.c_str() << ">>> " << command.c_str() << endl;
+            interpreter.execute(command);
+        }
     }
 
     while (1) {
@@ -124,7 +134,10 @@ int main(void) {
         cout << prefix.c_str() << ">>> ";
         getline(cin, strCommand);
         command = strCommand.c_str();
-        interpreter.execute(command);
+        analysisResult = analyzer.analyze(command);
+        if (analysisResult != AnalysisResult::ERROR) {
+            interpreter.execute(command);
+        }
     }
 
     return 0;

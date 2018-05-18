@@ -18,6 +18,7 @@ MockArduinoLog Log;
 #include <kty/containers/string.hpp>
 #include <kty/containers/stringpool.hpp>
 
+#include <kty/analyzer.hpp>
 #include <kty/interpreter.hpp>
 #include <kty/machine_state.hpp>
 #include <kty/parser.hpp>
@@ -33,6 +34,7 @@ StringPool<>        stringPool;
 GetAllocInit<>      getAllocInit(alloc);
 GetStringPoolInit<> getStringPoolInit(stringPool);
 
+Analyzer<>          analyzer;
 Interpreter<>       interpreter;
 MachineState<>      machineState;
 Parser<>            parser;
@@ -44,6 +46,7 @@ Tokenizer<>         tokenizer;
 #include <test/string_test.hpp>
 #include <test/stringpool_test.hpp>
 
+#include <test/analyzer_test.hpp>
 #include <test/interpreter_test.hpp>
 #include <test/machine_state_test.hpp>
 #include <test/parser_test.hpp>
@@ -67,6 +70,7 @@ int main(void) {
     Test::include("deque*");
     Test::include("string*");
 
+    Test::include("analyzer*");
     Test::include("interpreter*");
     Test::include("machine_state*");
     Test::include("parser*");

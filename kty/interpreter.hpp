@@ -1,9 +1,5 @@
 #pragma once
 
-#if defined(ARDUINO)
-#include <Servo.h>
-#endif
-
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/deque.hpp>
 #include <kty/containers/deque_of_deque.hpp>

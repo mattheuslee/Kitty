@@ -42,6 +42,7 @@ loop_nums RunGroup(num_times)
 #include <kty/containers/allocator.hpp>
 #include <kty/containers/string.hpp>
 #include <kty/containers/stringpool.hpp>
+#include <kty/analyzer.hpp>
 #include <kty/interface.hpp>
 #include <kty/interpreter.hpp>
 
@@ -52,9 +53,11 @@ StringPool<>        stringPool;
 GetAllocInit<>      getAllocInit(alloc);
 GetStringPoolInit<> getStringPoolInit(stringPool);
 
+Analyzer<>          analyzer;
 Interface<>         interface;
 Interpreter<>       interpreter;
 
+AnalysisResult      analysisResult;
 PoolString<>        command;
 PoolString<>        prefix;
 
@@ -114,6 +117,9 @@ void loop() {
     interface.print_prompt(prefix);
     command = interface.get_next_command();
     interface.echo_command(command);
-    interpreter.execute(command);
+    analysisResult = analyzer.analyze(command);
+    if (analysisResult != AnalysisResult::ERROR) {
+        interpreter.execute(command);
+    }
     prefix = interpreter.get_prompt_prefix();
 }
