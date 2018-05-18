@@ -8,7 +8,7 @@ var searchData=
   ['pop_5ffront',['pop_front',['../classkty_1_1_deque.html#a33e561d8166522ccd82221cbd2bf593e',1,'kty::Deque']]],
   ['power',['power',['../classkty_1_1_interpreter.html#a30b9a0adf12b64faaa01b9ed766def6f',1,'kty::Interpreter']]],
   ['precedence_5flevel',['precedence_level',['../classkty_1_1_token.html#a1dc5796f214fc7f2efdddf1b08c4c2bd',1,'kty::Token']]],
-  ['preprocess',['preprocess',['../classkty_1_1_parser.html#a1a1b0690b828a696b864b717b415863d',1,'kty::Parser']]],
+  ['preprocess',['preprocess',['../classkty_1_1_analyzer.html#a665ea0875aa149e69cb1897b303838c2',1,'kty::Analyzer::preprocess()'],['../classkty_1_1_parser.html#a1a1b0690b828a696b864b717b415863d',1,'kty::Parser::preprocess()']]],
   ['prev',['prev',['../structkty_1_1_deque_1_1_node.html#ab8f5c0b8f2a01b641b1e3d478cf46bbd',1,'kty::Deque::Node']]],
   ['print_5fprompt',['print_prompt',['../classkty_1_1_interface.html#a8ed9dea6bc1e224419a074d7771eeb3d',1,'kty::Interface::print_prompt()'],['../classkty_1_1_interface.html#aee058e6d3295aec110dec33807989f50',1,'kty::Interface::print_prompt(PoolString const &amp;prefix)']]],
   ['print_5fwelcome',['print_welcome',['../classkty_1_1_interface.html#ac6aaa4c2d718b31cd6d84ce4e772adcc',1,'kty::Interface']]],

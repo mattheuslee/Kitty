@@ -8,5 +8,7 @@ var searchData=
   ['allocate',['allocate',['../classkty_1_1_allocator.html#a1dd1b76519b259088bfe5e71e28d7454',1,'kty::Allocator']]],
   ['allocate_5fidx',['allocate_idx',['../classkty_1_1_string_pool.html#a9c436dd5bde78771e66191c0039e2958',1,'kty::StringPool']]],
   ['allocator',['Allocator',['../classkty_1_1_allocator.html#a8b8894f220a810e53c73fa8519f34961',1,'kty::Allocator']]],
+  ['analyze',['analyze',['../classkty_1_1_analyzer.html#a86da629051e0630528cc72fe25ea2e4f',1,'kty::Analyzer']]],
+  ['analyzer',['Analyzer',['../classkty_1_1_analyzer.html#a9c971b5f031f8b022fdc35d32e990ce4',1,'kty::Analyzer']]],
   ['available',['available',['../classkty_1_1_allocator.html#ad96e96bf0293452b8541980945cedbb0',1,'kty::Allocator::available()'],['../classkty_1_1_string_pool.html#aca3d4fc1bfbf835bbdbb731b499bd8b7',1,'kty::StringPool::available()']]]
 ];

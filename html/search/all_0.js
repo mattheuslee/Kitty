@@ -12,5 +12,7 @@ var searchData=
   ['allocator',['Allocator',['../classkty_1_1_allocator.html',1,'kty::Allocator&lt; N, B &gt;'],['../classkty_1_1_allocator.html#a8b8894f220a810e53c73fa8519f34961',1,'kty::Allocator::Allocator()']]],
   ['allocator_3c_20sizes_3a_3aalloc_5fsize_2c_20sizes_3a_3aalloc_5fblock_5fsize_20_3e',['Allocator&lt; Sizes::alloc_size, Sizes::alloc_block_size &gt;',['../classkty_1_1_allocator.html',1,'kty']]],
   ['allocator_5f',['allocator_',['../classkty_1_1_deque.html#a077ff17d5f76d347f7245d474ac23d29',1,'kty::Deque']]],
+  ['analyze',['analyze',['../classkty_1_1_analyzer.html#a86da629051e0630528cc72fe25ea2e4f',1,'kty::Analyzer']]],
+  ['analyzer',['Analyzer',['../classkty_1_1_analyzer.html',1,'kty::Analyzer&lt; GetAllocFunc, GetPoolFunc, PoolString &gt;'],['../classkty_1_1_analyzer.html#a9c971b5f031f8b022fdc35d32e990ce4',1,'kty::Analyzer::Analyzer()']]],
   ['available',['available',['../classkty_1_1_allocator.html#ad96e96bf0293452b8541980945cedbb0',1,'kty::Allocator::available()'],['../classkty_1_1_string_pool.html#aca3d4fc1bfbf835bbdbb731b499bd8b7',1,'kty::StringPool::available()']]]
 ];

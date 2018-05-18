@@ -3,6 +3,7 @@ var searchData=
   ['c_5fstr',['c_str',['../classkty_1_1_pool_string.html#a28ee07c839401219718b6bef3190aa9b',1,'kty::PoolString::c_str()'],['../classkty_1_1_string_pool.html#a877253b004b1608a6273f161ddce387b',1,'kty::StringPool::c_str()']]],
   ['cbegin',['cbegin',['../classkty_1_1_deque.html#a7d7d042eee3bf649860fa90c3f4af126',1,'kty::Deque']]],
   ['cend',['cend',['../classkty_1_1_deque.html#abbe407593b5656ff9d2ec977b5560d5b',1,'kty::Deque']]],
+  ['check_5fbracket_5fmatching',['check_bracket_matching',['../classkty_1_1_analyzer.html#a8fb54560563415e4fca92bda6c05b944',1,'kty::Analyzer']]],
   ['clear',['clear',['../classkty_1_1_deque.html#aea7af9a32e551e866fbddcf0607b11d7',1,'kty::Deque::clear()'],['../classkty_1_1_deque_deque_pool_string.html#a7949a372874d22e5d3055920f6f0d493',1,'kty::DequeDequePoolString::clear()'],['../classkty_1_1_deque_deque_pool_string.html#a5d39e3a413ce5abdfc8f1670f47da02d',1,'kty::DequeDequePoolString::clear(int const &amp;i)']]],
   ['close_5felse',['close_else',['../classkty_1_1_interpreter.html#a497e750e6ecba5649ac53e9e3acefc1f',1,'kty::Interpreter']]],
   ['close_5fgroup',['close_group',['../classkty_1_1_interpreter.html#a98820a4aba8eb057429593d5732a4a64',1,'kty::Interpreter']]],
